@@ -1,0 +1,108 @@
+<!-- 
+/** 
+ * [SIMINOV FRAMEWORK]
+ * Copyright [2013] [Siminov Software Solution|support@siminov.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **/
+
+-->
+
+<!-- Design of ApplicationDescriptor.si.xml -->
+ 
+<?xml version="1.0" encoding="UTF-8"?>
+
+<core>
+    
+	<!-- General Application Description Properties -->
+	
+		<!-- Mandatory Field -->
+	<property name="name">application_name</property>	
+	
+		<!-- Optional Field -->
+	<property name="description">application_description</property>
+	
+		<!-- Mandatory Field (Default is 0.0) -->
+	<property name="version">application_version</property>
+
+
+	
+	<!-- Siminov Framework Performance Properties -->
+	
+		<!-- Optional Field (Default is true)-->
+	<property name="load_initially">true/false</property>
+
+
+	
+	<!-- Database Descriptors Used By Application (zero-to-many) -->	
+		<!-- Optional Field's -->
+	<database-descriptors>
+		<database-descriptor>full_path_of_database_descriptor_file</database-descriptor>
+	</database-descriptors>
+		
+
+	
+	<!-- Event Handlers Implemented By Application (zero-to-many) -->
+	
+		<!-- Optional Field's -->
+	<event-handlers>
+		<event-handler>full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)</event-handler>
+	</event-handlers>
+
+</core>
+
+
+
+
+<!-- 
+
+ApplicationDescriptor.si.xml is the one who connects application to SIMINOV. It contains properties which defines the behaviour of application.
+
+Application Descriptor Elements: 
+	
+	i. General Properties About Application.
+		
+		-> name* : Name of application. It is mandatory field. If any resources created by application then it will be under folder named on it.
+		
+		-> description: Description of application. It is optional field.
+
+		-> version: Version of application. It is mandatory field. Default is 0.0.
+		
+
+		
+	ii. Framework Performance Properties.
+	
+		-> load_initially: true/false: ORM(Object Relational Mapping) to be done at start of application or at the time of need. 
+							It is optional field. By default its false, means mapping is done when its required. 
+							
+		
+		
+	iii. Database Descriptor Paths Used In Application 
+			- Path of all database descriptor's used in application.
+			- Every database descriptor have its own database object.
+
+
+	
+	iv. Event Handlers Implemented By Application.
+		- SIMINOV FRAMEWORK provides two type of event handlers
+	
+			-> ISiminovEvents: It contains events associated with life cycle of SIMINOV.
+				such as (coreInitialized, firstTimeSiminovInitialized, coreStoped).
+	
+		
+			-> IDatabaseEvents: It contains events associated with database operations.
+				such as (databaseCreated, databaseDroped, tableCreated, tableDroped, indexCreated).
+
+		- Application can have implementation of this two event listeners.
+
+-->

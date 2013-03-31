@@ -1,0 +1,212 @@
+<!-- 
+/** 
+ * [SIMINOV FRAMEWORK]
+ * Copyright [2013] [Siminov Software Solution|support@siminov.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **/
+
+-->
+
+<!-- Design Of DatabaseMappingDescriptor.si.xml -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database-mapping>
+
+    <!-- General Properties Of Table And Class -->
+    
+	    <!-- TABLE_NAME: Mandatory Field -->
+	    <!-- CLASS_NAME: Mandatory Field -->
+	<table table_name="name_of_table" class_name="mapped_pojo_class_name">
+		
+	    <!-- Column Properties Required Under This Table -->
+	    
+		<!-- Optional Field -->
+		
+			<!-- VARIABLE_NAME: Mandatory Field -->
+			<!-- COLUMN_NAME: Mandatory Field -->
+		<column variable_name="class_variable_name" column_name="column_name_of_table">
+		    
+			    <!-- Mandatory Field -->
+			<property name="type">TEXT/INTEGER/LONG/BLOG/FLOAT</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="primary_key">true/false</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="not_null">true/false</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="unique">true/false</property>
+			
+				<!-- Optional Field -->
+			<property name="check">condition_to_be_checked (Eg: variable_name 'condition' value; variable_name > 0)</property>
+			
+				<!-- Optional Field -->
+			<property name="default">default_value_of_column (Eg: 0.1)</property>
+		
+		</column>		
+
+		
+		
+		<!-- Index Properties -->
+				
+		<!-- Optional Field -->
+			<!-- NAME: Mandatory Field -->
+			<!-- UNIQUE: Optional Field (Default is false) -->
+		<index name="name_of_index" unique="true/false">
+			<column>column_name_needs_to_add</column>
+		</index>
+		
+		
+		
+		<!-- Map Relationship Properties -->
+				
+		<!-- Optional Field's -->	
+		<relationships>
+		    
+			    <!-- REFER: Mandatory Field -->
+			    <!-- REFER_TO: Mandatory Field -->
+			<one-to-one refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
+					
+					<!-- Optional Field (Default is false) -->
+				<property name="load">true/false</property>
+			</one-to-one>		
+			
+				<!-- REFER: Mandatory Field -->
+			    <!-- REFER_TO: Mandatory Field -->
+			<one-to-many refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
+					
+					<!-- Optional Field (Default is false) -->
+				<property name="load">true/false</property>
+			</one-to-many>		
+
+				<!-- REFER: Mandatory Field -->
+			    <!-- REFER_TO: Mandatory Field -->
+			<many-to-one refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
+					
+					<!-- Optional Field (Default is false) -->
+				<property name="load">true/false</property>
+			</many-to-one>		
+
+				<!-- REFER: Mandatory Field -->
+			    <!-- REFER_TO: Mandatory Field -->
+			<many-to-many refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
+					
+					<!-- Optional Field (Default is false) -->
+				<property name="load">true/false</property>
+			</many-to-many>		
+									
+		</relationships>
+
+	</table>
+
+</database-mapping>
+
+
+
+<!-- 
+
+DatabaseMapping.si.xml is the one who does the ORM (Object Relationship Modelling).
+
+	i. TABLE TAG: This tag defines the relationship between database table and its mapped POJO class name.
+	
+		-> table_name*: Name of table. It is mandatory field. 
+		
+		-> class_name*: Name of POJO class name which is to be mapped to table name. It is mandatory field.
+		
+		
+		
+	ii. COLUMN TAG: This tag defines the relationship between database table column and its mapped POJO class variable name.
+	
+		-> column_name*: Name of database table column name which it defines.
+		
+		-> variable_name*: Name of mapped POJO class variable name.
+		
+		
+		PROPERTIES OF COLUMN TAG
+		
+			-> type*: TEXT/INTEGER/LONG/BLOG/FLOAT. Database table column type. It is mandatory field.
+			
+			-> primary_key: TRUE/FALSE. It defines whether the field is primary key to table or not. It is optional field. Default value is false.
+			
+			-> not_null: TRUE/FALSE. It defines whether the field can be empty or not. It is optional field. Default value is false.
+			
+			-> unique: TRUE/FALSE. It defines whether the field should be unique or not. It is optional field. Default value is false.
+			
+			-> default: It define the default value of that column in table. It is optional field.
+			
+			-> check: It define the condition needs to be satisfied for column value. It is optinal field.
+		
+		
+		
+	iii. INDEX TAG: This tag defines the index's needed by table.
+	
+		-> name*: Name of the index.
+		
+		-> unique: TRUE/FALSE. It defines whether index needs to be unique or not. (A unique index guarantees that the index key contains no duplicate values and therefore every row in the table is in some way unique.)
+				Default value is false.
+				
+		COLUMN'S TAG
+			
+			-> column: Name of column's included in index.
+			
+		
+			
+	iv. RELATIONSHIPS TAG: It defines relationship between object.
+			- Relationship can be of four types:
+			
+			1. ONE-TO-ONE: <one-to-one> In a one-to-one relationship, each row in one database table is linked to 1 and only 1 other row in another table. 
+					Example:
+						Relationship between Table A and Table B, each row in Table A is linked to another row in Table B. 
+						The number of rows in Table A must equal the number of rows in Table B.
+					
+			
+			2. ONE-TO-MANY: <one-to-many> In a one-to-many relationship, each row in the related to table can be related to many rows in the relating table. 
+					This effectively save storage as the related record does not need to be stored multiple times in the relating table.
+					
+					Example:
+						All the customers belonging to a business is stored in a customer table while all the customer invoices are stored in an invoice table. 
+						Each customer can have many invoices but each invoice can only be generated for a single customer.	
+			
+			
+			3. MANY-TO-ONE: <many-to-one> In a many-to-one relationship one entity (typically a column or set of columns) contains values that refer to another entity 
+					(a column or set of columns) that has unique values.
+			
+					Example:
+						In a geography schema having tables Region, State, and City, there are many states that are in a given region, but no states are in two regions.
+					
+			
+			4. MANY-TO-MANY: <many-to-many> In a many-to-many relationship, one or more rows in a table can be related to 0, 1 or many rows in another table. 
+					A mapping table is required in order to implement such a relationship.
+	
+					Example:
+						All the customers belonging to a bank is stored in a customer table while all the bank's products are stored in a product table. 
+						Each customer can have many products and each product can be assigned to many customers.
+						
+	
+			-> refer*: Name of variable which needs to be mapped. It is mandatory field.
+			
+			-> refer_to*: Class name of mapped variable. It is mandatory field.
+			
+			-> on_update: cascade/restrict/no_action/set_null/set_default. It defines action needs to be done, when update occur.
+		
+			-> on_delete: cascade/restrict/no_action/set_null/set_default. It defines action needs to be done, when delete occur.
+
+
+			RELATIONSHIP TAG PROPERTIES: 
+			
+				-> load: TRUE/FALSE, It defines whether it need to be load or not.
+						
+-->
