@@ -1,4 +1,5 @@
 /** 
+
  * [SIMINOV FRAMEWORK]
  * Copyright [2013] [Siminov Software Solution|support@siminov.com]
  *
@@ -1601,7 +1602,8 @@ Example:
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formFetchQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, limit)));
+		String query = queryBuilder.formFetchQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, limit);
+		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query));
 			
 		/*
 		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
@@ -3804,8 +3806,8 @@ Example:
 			try {
 				object = ClassUtils.createAndInflateObject(databaseMappingDescriptor.getClassName(), data);
 			} catch(SiminovException siminovException) {
-				Log.loge(Database.class.getName(), "parseData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(Database.class.getName(), "parseData", siminovException.getMessage());
+				Log.loge(Database.class.getName(), "parseAndInflateData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				throw new DatabaseException(Database.class.getName(), "parseAndInflateData", siminovException.getMessage());
 			} 
 			
 			tuples.add(object);
@@ -3957,8 +3959,8 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(Database.class.getName(), "populateRelationships", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(Database.class.getName(), "populateRelationships", siminovException.getMessage());
+				Log.loge(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				throw new DatabaseException(Database.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
@@ -3978,8 +3980,8 @@ Example:
 						columnNames.add(column.getColumnName());
 						columnValues.add(ClassUtils.getValue(referedObject, column.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.loge(Database.class.getName(), "populateRelationships", "SiminovException caught while get method values through reflection, CLASS-NAME: " + referedObject.getClass().getName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(Database.class.getName(), "populateRelationships", siminovException.getMessage());
+						Log.loge(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + referedObject.getClass().getName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(Database.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 					} 
 				}
 			}
@@ -4002,8 +4004,8 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(Database.class.getName(), "saveOrUpdate", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(Database.class.getName(), "saveOrUpdate", siminovException.getMessage());
+				Log.loge(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				throw new DatabaseException(Database.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
@@ -4023,8 +4025,8 @@ Example:
 					try {
 						columnValue = ClassUtils.getValue(referedObject, column.getGetterMethodName());
 					} catch(SiminovException siminovException) {
-						Log.loge(Database.class.getName(), "saveOrUpdate", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(Database.class.getName(), "saveOrUpdate", siminovException.getMessage());
+						Log.loge(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(Database.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 					} 
 
 					
@@ -4040,10 +4042,9 @@ Example:
 	}
 	
 	private static void processManyToOneRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
-
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		
 		Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+
 		while(manyToOneRelationships.hasNext()) {
 			Relationship manyToOneRelationship = manyToOneRelationships.next();
 			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
@@ -4060,12 +4061,33 @@ Example:
 
 			
 			processManyToOneRelationship(referedObject, data);
-			
-			Iterator<Column> columns = referedDatabaseMappingDescriptor.getColumns();
-			while(columns.hasNext()) {
-				Column column = columns.next();
+
+			if(manyToOneRelationship.isLoad()) {
+
+				StringBuilder whereClause = new StringBuilder();
+
+				Iterator<String> foreignKeys = getPrimaryKeys(referedDatabaseMappingDescriptor);
+				while(foreignKeys.hasNext()) {
+					String foreignKey = foreignKeys.next();
+					Column column = referedDatabaseMappingDescriptor.getColumnBasedOnColumnName(foreignKey);
+					Object columnValue = data.get(column.getColumnName());
+
+					if(whereClause.length() <= 0) {
+						whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
+					} else {
+						whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+					}
+				}
 				
-				if(column.isPrimaryKey()) {
+				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null);
+				referedObject = fetchedObjects[0];
+				
+			} else {
+				Iterator<String> foreignKeys = getPrimaryKeys(referedDatabaseMappingDescriptor);
+				while(foreignKeys.hasNext()) {
+					String foreignKey = foreignKeys.next();
+					Column column = referedDatabaseMappingDescriptor.getColumnBasedOnColumnName(foreignKey);
+
 					Object columnValue = data.get(column.getColumnName());
 					if(columnValue == null) {
 						continue;
@@ -4074,18 +4096,18 @@ Example:
 					try {
 						ClassUtils.invokeMethod(referedObject, column.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
 					} catch(SiminovException siminovException) {
-						Log.loge(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
+						Log.loge(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
 					}
-					
 				}
 			}
 			
+
 			try {
 				ClassUtils.invokeMethod(object, manyToOneRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
 			} catch(SiminovException siminovException) {
-				Log.loge(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.loge(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				throw new DatabaseException(Database.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 			}
 		}
 
@@ -4107,8 +4129,8 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(Database.class.getName(), "populateRelationships", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(Database.class.getName(), "populateRelationships", siminovException.getMessage());
+				Log.loge(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				throw new DatabaseException(Database.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
@@ -4128,8 +4150,8 @@ Example:
 						columnNames.add(column.getColumnName());
 						columnValues.add(ClassUtils.getValue(object, column.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.loge(Database.class.getName(), "populateRelationships", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(Database.class.getName(), "populateRelationships", siminovException.getMessage());
+						Log.loge(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(Database.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 					} 
 				}
 			}
@@ -4152,8 +4174,8 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(Database.class.getName(), "saveOrUpdate", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(Database.class.getName(), "saveOrUpdate", siminovException.getMessage());
+				Log.loge(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				throw new DatabaseException(Database.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
@@ -4173,8 +4195,8 @@ Example:
 					try {
 						columnValue = ClassUtils.getValue(referedObject, column.getGetterMethodName());
 					} catch(SiminovException siminovException) {
-						Log.loge(Database.class.getName(), "saveOrUpdate", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(Database.class.getName(), "saveOrUpdate", siminovException.getMessage());
+						Log.loge(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(Database.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 					} 
 
 					
@@ -4191,10 +4213,9 @@ Example:
 	}
 	
 	private static void processManyToManyRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
-
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		
 		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
 			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
@@ -4212,11 +4233,32 @@ Example:
 			
 			processManyToManyRelationship(referedObject, data);
 			
-			Iterator<Column> columns = referedDatabaseMappingDescriptor.getColumns();
-			while(columns.hasNext()) {
-				Column column = columns.next();
+			if(manyToManyRelationship.isLoad()) {
+
+				StringBuilder whereClause = new StringBuilder();
+
+				Iterator<String> foreignKeys = getPrimaryKeys(referedDatabaseMappingDescriptor);
+				while(foreignKeys.hasNext()) {
+					String foreignKey = foreignKeys.next();
+					Column column = referedDatabaseMappingDescriptor.getColumnBasedOnColumnName(foreignKey);
+					Object columnValue = data.get(column.getColumnName());
+
+					if(whereClause.length() <= 0) {
+						whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
+					} else {
+						whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+					}
+				}
 				
-				if(column.isPrimaryKey()) {
+				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null);
+				referedObject = fetchedObjects[0];
+
+			} else {
+				Iterator<String> primaryKeys = getPrimaryKeys(referedDatabaseMappingDescriptor);
+				while(primaryKeys.hasNext()) {
+					String foreignKey = primaryKeys.next();
+					Column column = referedDatabaseMappingDescriptor.getColumnBasedOnColumnName(foreignKey);
+
 					Object columnValue = data.get(column.getColumnName());
 					if(columnValue == null) {
 						continue;
@@ -4225,18 +4267,18 @@ Example:
 					try {
 						ClassUtils.invokeMethod(referedObject, column.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
 					} catch(SiminovException siminovException) {
-						Log.loge(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
+						Log.loge(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
 					}
-					
 				}
 			}
+
 			
 			try {
 				ClassUtils.invokeMethod(object, manyToManyRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
 			} catch(SiminovException siminovException) {
-				Log.loge(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(Database.class.getName(), "handleRelationships", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.loge(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				throw new DatabaseException(Database.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 			}
 		}
 	}
