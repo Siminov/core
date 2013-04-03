@@ -18,11 +18,14 @@
 package siminov.orm.model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import siminov.orm.Constants;
 
 
 /**
@@ -55,11 +58,10 @@ Example:
 	</p>
  *
  */
-public class LibraryDescriptor {
+public class LibraryDescriptor implements Constants {
 
-	private String name = null;
-	private String description = null;
-
+	private Map<String, String> properties = new HashMap<String, String> ();
+	
 	private Collection<String> databaseMappingPaths = new ConcurrentLinkedQueue<String> ();
 	
 	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
@@ -71,7 +73,7 @@ public class LibraryDescriptor {
 	 * @return
 	 */
 	public String getName() {
-		return this.name;
+		return this.properties.get(LIBRARY_DESCRIPTOR_NAME);
 	}
 	
 	/**
@@ -79,25 +81,45 @@ public class LibraryDescriptor {
 	 * @param name
 	 */
 	public void setName(final String name) {
-		this.name = name;
+		this.properties.put(LIBRARY_DESCRIPTOR_NAME, name);
 	}
 	
 	/**
 	 * Get descriptor as per defined in LibraryDescriptor.si.xml
 	 * @return
 	 */
-	public String getDescriptor() {
-		return this.description;
+	public String getDescription() {
+		return this.properties.get(LIBRARY_DESCRIPTOR_DESCRIPTION);
 	}
 	
 	/**
 	 * Set description as per defined in LibraryDescritor.core.xml
-	 * @param descriptor
+	 * @param description
 	 */
-	public void setDescriptor(final String descriptor) {
-		this.description = descriptor;
+	public void setDescription(final String description) {
+		this.properties.put(LIBRARY_DESCRIPTOR_DESCRIPTION, description);
 	}
 	
+
+	public Iterator<String> getProperties() {
+		return this.properties.keySet().iterator();
+	}
+	
+	public String getProperty(String name) {
+		return this.properties.get(name);
+	}
+
+	public boolean containProperty(String name) {
+		return this.properties.containsKey(name);
+	}
+	
+	public void addProperty(String name, String value) {
+		this.properties.put(name, value);
+	}
+	
+	public void removeProperty(String name) {
+		this.properties.remove(name);
+	}
 
 	/**
 	 * Check whether database mapping object exists or not, based on table name.

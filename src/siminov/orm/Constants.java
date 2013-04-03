@@ -96,11 +96,6 @@ public interface Constants {
 	public String DATABASE_DESCRIPTOR_PROPERTY = "property";
 
 	/**
-	 * DatabaseDescriptor.si.xml name TAG.
-	 */
-	public String DATABASE_DESCRIPTOR_NAME = "name";
-
-	/**
 	 * DatabaseDescriptor.si.xml description TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_DESCRIPTION = "description";
@@ -147,11 +142,7 @@ public interface Constants {
 	 */
 	public String DATABASE_DESCRIPTOR_LIBRARY = "library";
 
-	public String DATABASE_DESCRIPTOR_ATTRIBUTES = "attributes";
-	
-	public String DATABASE_DESCRIPTOR_ATTRIBUTE = "attribute";
-	
-	public String DATABASE_DESCRIPTOR_ATTRIBUTE_NAME = "name";
+	public String DATABASE_DESCRIPTOR_PROPERTY_NAME = "name";
 	
 	// LibraryDescriptor Constants.
 

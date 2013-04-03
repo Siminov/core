@@ -19,10 +19,13 @@ package siminov.orm.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
+
+import siminov.orm.Constants;
 
 
 /**
@@ -75,7 +78,7 @@ Example:
 	</p>
  *
  */
-public class DatabaseMappingDescriptor {
+public class DatabaseMappingDescriptor implements Constants {
 
 	private String tableName = null;
 	private String className = null;
@@ -87,11 +90,6 @@ public class DatabaseMappingDescriptor {
 
 	private Map<String, Relationship> relationshipsBasedOnRefer = new LinkedHashMap<String, Relationship>(); 
 	private Map<String, Relationship> relationshipsBasedOnReferTo = new LinkedHashMap<String, Relationship>();
-	
-	private final String ONE_TO_ONE = "one-to-one";
-	private final String ONE_TO_MANY = "one-to-many";
-	private final String MANY_TO_ONE = "many-to-one";
-	private final String MANY_TO_MANY = "many-to-many";
 	
 	
 	/**
@@ -309,7 +307,7 @@ public class DatabaseMappingDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(ONE_TO_ONE)) {
+			if(relationship.getRelationshipType().equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
 				oneToOneRelationships.add(relationship);
 			}
 		}
@@ -330,7 +328,7 @@ public class DatabaseMappingDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(ONE_TO_MANY)) {
+			if(relationship.getRelationshipType().equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
 				oneToManyRelationships.add(relationship);
 			}
 		}
@@ -351,7 +349,7 @@ public class DatabaseMappingDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(MANY_TO_ONE)) {
+			if(relationship.getRelationshipType().equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_ONE)) {
 				manyToOneRelationships.add(relationship);
 			}
 		}
@@ -372,7 +370,7 @@ public class DatabaseMappingDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(MANY_TO_MANY)) {
+			if(relationship.getRelationshipType().equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
 				manyToManyRelationships.add(relationship);
 			}
 		}
@@ -422,14 +420,9 @@ Example:
 		private String getterMethodName = null;
 		private String setterMethodName = null;
 
-		private String type = null;
-		private String defaultValue = null;
-		private String check = null;
+		private Map<String, String> properties = new HashMap<String, String> ();
 		
-		private boolean primaryKey;
-		private boolean isUnique;
-		private boolean isNotNull;
-
+		
 		/**
 		 * Get variable name.
 		 * @return
@@ -467,7 +460,7 @@ Example:
 		 * @return Type of column.
 		 */
 		public String getType() {
-			return this.type;
+			return this.properties.get(DATABASE_MAPPING_DESCRIPTOR_TYPE);
 		}
 		
 		/**
@@ -475,7 +468,7 @@ Example:
 		 * @param type Type of column.
 		 */
 		public void setType(final String type) {
-			this.type = type;
+			this.properties.put(DATABASE_MAPPING_DESCRIPTOR_TYPE, type);
 		}
 		
 		/**
@@ -515,7 +508,7 @@ Example:
 		 * @return Default value of column.
 		 */
 		public String getDefaultValue() {
-			return this.defaultValue;
+			return this.properties.get(DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE);
 		}
 		
 		/**
@@ -523,7 +516,7 @@ Example:
 		 * @param defaultValue Default value of column.
 		 */
 		public void setDefaultValue(final String defaultValue) {
-			this.defaultValue = defaultValue;
+			this.properties.put(DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE, defaultValue);
 		}
 		
 		/**
@@ -531,7 +524,7 @@ Example:
 		 * @return Check constraint of column.
 		 */
 		public String getCheck() {
-			return this.check;
+			return this.properties.get(DATABASE_MAPPING_DESCRIPTOR_CHECK);
 		}
 		
 		/**
@@ -539,7 +532,7 @@ Example:
 		 * @param check Check constraint.
 		 */
 		public void setCheck(final String check) {
-			this.check = check;
+			this.properties.put(DATABASE_MAPPING_DESCRIPTOR_CHECK, check);
 		}
 		
 		/**
@@ -547,7 +540,12 @@ Example:
 		 * @return TRUE: If column is primary key, FALSE: If column is not primary key.
 		 */
 		public boolean isPrimaryKey() {
-			return this.primaryKey;
+			String primaryKey = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY);
+			if(primaryKey != null && primaryKey.length() > 0 && primaryKey.equalsIgnoreCase("true")) {
+				return true;
+			}
+			
+			return false;
 		}
 		
 		/**
@@ -555,7 +553,7 @@ Example:
 		 * @param primaryKey TRUE: If column is primary key, FALSE: If column is not primary key.
 		 */
 		public void setPrimaryKey(final boolean primaryKey) {
-			this.primaryKey = primaryKey;
+			this.properties.put(DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY, Boolean.toString(primaryKey));
 		}
 		
 		/**
@@ -563,7 +561,12 @@ Example:
 		 * @return TRUE: If column is unique, FALSE: If column is not unique.
 		 */
 		public boolean isUnique() {
-			return this.isUnique;
+			String unique = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_UNIQUE);
+			if(unique != null && unique.length() > 0 && unique.equalsIgnoreCase("true")) {
+				return true;
+			}
+			
+			return false;
 		}
 		
 		/**
@@ -571,7 +574,7 @@ Example:
 		 * @param isUnique TRUE: If column is unique, FALSE: If column is not unique
 		 */
 		public void setUnique(final boolean isUnique) {
-			this.isUnique = isUnique;
+			this.properties.put(DATABASE_MAPPING_DESCRIPTOR_UNIQUE, Boolean.toString(isUnique));
 		}
 		
 		/**
@@ -579,7 +582,12 @@ Example:
 		 * @return TRUE: If column value can be null, FALSE: If column value can not be null.
 		 */
 		public boolean isNotNull() {
-			return this.isNotNull;
+			String notNull = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_NOT_NULL);
+			if(notNull != null && notNull.length() > 0 && notNull.equalsIgnoreCase("true")) {
+				return true;
+			}
+			
+			return false;
 		}
 		
 		/**
@@ -587,8 +595,29 @@ Example:
 		 * @param isNotNull TRUE: If column value can be null, FALSE: If column value can not be null.
 		 */
 		public void setNotNull(final boolean isNotNull) {
-			this.isNotNull = isNotNull;
+			this.properties.put(DATABASE_MAPPING_DESCRIPTOR_NOT_NULL, Boolean.toString(isNotNull));
 		}
+		
+		public Iterator<String> getProperties() {
+			return this.properties.keySet().iterator();
+		}
+		
+		public String getProperty(String name) {
+			return this.properties.get(name);
+		}
+
+		public boolean containProperty(String name) {
+			return this.properties.containsKey(name);
+		}
+		
+		public void addProperty(String name, String value) {
+			this.properties.put(name, value);
+		}
+		
+		public void removeProperty(String name) {
+			this.properties.remove(name);
+		}
+		
 	}
 
 	
@@ -697,8 +726,8 @@ Example:
 		private String getterReferMethodName = null;
 		private String setterReferMethodName = null;
 		
-		private boolean load = false;
-
+		private Map<String, String> properties = new HashMap<String, String> ();
+		
 		private DatabaseMappingDescriptor referedDatabaseMappingDescriptor = null;
 		
 		/**
@@ -818,7 +847,12 @@ Example:
 		 * @return TRUE: If load property value is set to true; FALSE: If load property value is set to false.
 		 */
 		public boolean isLoad() {
-			return this.load;
+			String load = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD);
+			if(load != null && load.length() > 0 && load.equalsIgnoreCase("true")) {
+				return true;
+			}
+			
+			return false;
 		}
 		
 		/**
@@ -826,8 +860,29 @@ Example:
 		 * @param load TRUE: If load property value is true; FALSE: If load property value is false.
 		 */
 		public void setLoad(boolean load) {
-			this.load = load;
+			this.properties.put(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD, Boolean.toString(load));
 		}
+		
+		public Iterator<String> getProperties() {
+			return this.properties.keySet().iterator();
+		}
+		
+		public String getProperty(String name) {
+			return this.properties.get(name);
+		}
+
+		public boolean containProperty(String name) {
+			return this.properties.containsKey(name);
+		}
+		
+		public void addProperty(String name, String value) {
+			this.properties.put(name, value);
+		}
+		
+		public void removeProperty(String name) {
+			this.properties.remove(name);
+		}
+
 		
 		/**
 		 * Get database mapping descriptor object.

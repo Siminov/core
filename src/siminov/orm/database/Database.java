@@ -1804,10 +1804,12 @@ Example: Make Liquor Object
 		 */
 		String query = queryBuilder.formSaveBindQuery(tableName, columnNames.iterator());
 		
+		
 		/*
 		 * 4. Pass query to executeBindQuery method for insertion.
 		 */
 		database.executeBindQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query, columnValues.iterator());
+		
 		
 		/*
 		 * 5. Check for relationship's if any, IF EXISTS: process it, ELSE: return all objects.
@@ -4103,6 +4105,12 @@ Example:
 			}
 			
 
+			if(referedObject == null) {
+				Log.loge(Database.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				throw new DatabaseException(Database.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+			}
+
+			
 			try {
 				ClassUtils.invokeMethod(object, manyToOneRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
 			} catch(SiminovException siminovException) {
@@ -4273,6 +4281,10 @@ Example:
 				}
 			}
 
+			if(referedObject == null) {
+				Log.loge(Database.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				throw new DatabaseException(Database.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+			}
 			
 			try {
 				ClassUtils.invokeMethod(object, manyToManyRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});

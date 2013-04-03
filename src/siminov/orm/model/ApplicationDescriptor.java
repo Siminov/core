@@ -18,10 +18,13 @@
 package siminov.orm.model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import siminov.orm.Constants;
 
 
 /**
@@ -58,15 +61,10 @@ Example:
 	</p>
  *
  */
-public class ApplicationDescriptor {
+public class ApplicationDescriptor implements Constants {
 
-	private String name = null;
-	private String description = null;
-
-	private double version;
-
-	private boolean loadInitially;
-
+	private Map<String, String> properties = new HashMap<String, String> ();
+	
 	private Collection<String> databaseDescriptorPaths = new ConcurrentLinkedQueue<String> ();
 	private Map<String, DatabaseDescriptor> databaseDescriptorsBasedOnName = new ConcurrentHashMap<String, DatabaseDescriptor>();
 	private Map<String, DatabaseDescriptor> databaseDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseDescriptor>();
@@ -78,7 +76,7 @@ public class ApplicationDescriptor {
 	 * @return Application Descriptor Name.
 	 */
 	public String getName() {
-		return this.name;
+		return this.properties.get(APPLICATION_DESCRIPTOR_NAME);
 	}
 
 	/**
@@ -86,7 +84,7 @@ public class ApplicationDescriptor {
 	 * @param name Name of Application Descriptor.
 	 */
 	public void setName(final String name) {
-		this.name = name;
+		this.properties.put(APPLICATION_DESCRIPTOR_NAME, name);
 	}
 	
 	/**
@@ -94,7 +92,7 @@ public class ApplicationDescriptor {
 	 * @return Description of application.
 	 */
 	public String getDescription() {
-		return this.description;
+		return this.properties.get(APPLICATION_DESCRIPTOR_DESCRIPTION);
 	}
 	
 	/**
@@ -102,7 +100,7 @@ public class ApplicationDescriptor {
 	 * @param description Description of application.
 	 */
 	public void setDescription(final String description) {
-		this.description = description;
+		this.properties.put(APPLICATION_DESCRIPTOR_DESCRIPTION, description);
 	}
 	
 	/**
@@ -110,7 +108,12 @@ public class ApplicationDescriptor {
 	 * @return Version of application.
 	 */
 	public double getVersion() {
-		return this.version;
+		String version = this.properties.get(APPLICATION_DESCRIPTOR_VERSION);
+		if(version == null || version.length() <= 0) {
+			return 0.0;
+		}
+		
+		return Double.valueOf(version);
 	}
 	
 	/**
@@ -118,8 +121,51 @@ public class ApplicationDescriptor {
 	 * @param version Version of application.
 	 */
 	public void setVersion(final double version) {
-		this.version = version;
+		this.properties.put(APPLICATION_DESCRIPTOR_VERSION, Double.toString(version));
 	}
+
+	/**
+	 * It defines the behavior of SIMINOV. (Should core load all database mapping at initialization or on demand).
+	 * @return TRUE: If load initially is set to true, FALSE: If load initially is set to false.
+	 */
+	public boolean isLoadInitially() {
+		String isLoadInitially = this.properties.get(APPLICATION_DESCRIPTOR_LOAD_INITIALLY);
+		if(isLoadInitially != null && isLoadInitially.length() > 0 && isLoadInitially.equalsIgnoreCase("true")) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Set load initially to true or false.
+	 * @param initialLoad (true/false) defined by ApplicationDescriptor.si.xml file.
+	 */
+	public void setLoadInitially(final boolean initialLoad) {
+		this.properties.put(APPLICATION_DESCRIPTOR_LOAD_INITIALLY, Boolean.toString(initialLoad));
+	}
+	
+
+	public Iterator<String> getProperties() {
+		return this.properties.keySet().iterator();
+	}
+	
+	public String getProperty(String name) {
+		return this.properties.get(name);
+	}
+
+	public boolean containProperty(String name) {
+		return this.properties.containsKey(name);
+	}
+	
+	public void addProperty(String name, String value) {
+		this.properties.put(name, value);
+	}
+	
+	public void removeProperty(String name) {
+		this.properties.remove(name);
+	}
+	
 	
 	/**
 	 * Check whether database needed by application or not.
@@ -259,22 +305,6 @@ public class ApplicationDescriptor {
 	 */
 	public void removeDatabaseDescriptor(final DatabaseDescriptor databaseDescriptor) {
 		removeDatabaseDescriptorBasedOnName(databaseDescriptor.getDatabaseName());
-	}
-	
-	/**
-	 * It defines the behaviour of SIMINOV. (Should core load all database mapping at initialization or on demand).
-	 * @return TRUE: If load initially is set to true, FALSE: If load initially is set to false.
-	 */
-	public boolean isLoadInitially() {
-		return this.loadInitially;
-	}
-	
-	/**
-	 * Set load initially to true or false.
-	 * @param initialLoad (true/false) defined by ApplicationDescriptor.si.xml file.
-	 */
-	public void setLoadInitially(final boolean initialLoad) {
-		this.loadInitially = initialLoad;
 	}
 	
 	/**

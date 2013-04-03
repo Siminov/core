@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import siminov.orm.Constants;
+
 /**
  * Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.si.xml file by application.
 	<p>
@@ -73,17 +75,9 @@ Example:
 		</pre>
 	</p>
 */
-public class DatabaseDescriptor {
+public class DatabaseDescriptor implements Constants {
 	
-	private String databaseName = null;
-
-	private String type = null;
-	private String description = null;
-
-	private boolean isLockingRequired;
-	private boolean isExternalStorageEnable;
-
-	private Map<String, String> attributes = new HashMap<String, String> ();
+	private Map<String, String> properties = new HashMap<String, String> ();
 	
 	private Collection<String> databaseMappingPaths = new ConcurrentLinkedQueue<String> ();
 	private Collection<String> libraryPaths = new ConcurrentLinkedQueue<String> ();
@@ -100,7 +94,7 @@ public class DatabaseDescriptor {
 	 * @return Database Descriptor Name.
 	 */
 	public String getDatabaseName() {
-		return this.databaseName;
+		return this.properties.get(DATABASE_DESCRIPTOR_DATABASE_NAME);
 	}
 	
 	/**
@@ -108,15 +102,15 @@ public class DatabaseDescriptor {
 	 * @param databaseName Database Descriptor Name.
 	 */
 	public void setDatabaseName(final String databaseName) {
-		this.databaseName = databaseName;
+		this.properties.put(DATABASE_DESCRIPTOR_DATABASE_NAME, databaseName);
 	}
 	
 	public String getType() {
-		return this.type;
+		return this.properties.get(DATABASE_DESCRIPTOR_TYPE);
 	}
 	
 	public void setType(String type) {
-		this.type = type;
+		this.properties.put(DATABASE_DESCRIPTOR_TYPE, type);
 	}
 	
 	/**
@@ -124,7 +118,7 @@ public class DatabaseDescriptor {
 	 * @return Description defined in DatabaseDescriptor.si.xml file.
 	 */
 	public String getDescription() {
-		return this.description;
+		return this.properties.get(DATABASE_DESCRIPTOR_TYPE);
 	}
 	
 	/**
@@ -132,7 +126,7 @@ public class DatabaseDescriptor {
 	 * @param description Description defined in DatabaseDescriptor.si.xml file.
 	 */
 	public void setDescription(final String description) {
-		this.description = description;
+		this.properties.put(DATABASE_DESCRIPTOR_DESCRIPTION, description);
 	}
 	
 	
@@ -141,7 +135,12 @@ public class DatabaseDescriptor {
 	 * @return TRUE: If external_storage defined as true in DatabaseDescriptor.si.xml file, FALSE: If external_storage defined as false in DatabaseDescritor.xml file.
 	 */
 	public boolean isExternalStorageEnable() {
-		return this.isExternalStorageEnable;
+		String externalStorage = this.properties.get(DATABASE_DESCRIPTOR_EXTERNAL_STORAGE);
+		if(externalStorage != null && externalStorage.length() > 0 && externalStorage.equalsIgnoreCase("true")) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -149,7 +148,7 @@ public class DatabaseDescriptor {
 	 * @param isExternalStorageEnable (true/false) External Storage Enable Or Not.
 	 */
 	public void setExternalStorageEnable(final boolean isExternalStorageEnable) {
-		this.isExternalStorageEnable = isExternalStorageEnable;
+		this.properties.put(DATABASE_DESCRIPTOR_EXTERNAL_STORAGE, Boolean.toString(isExternalStorageEnable));
 	}
 	
 	/**
@@ -157,7 +156,12 @@ public class DatabaseDescriptor {
 	 * @return TRUE: If locking is required as per defined in DatabaseDescriptor.si.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.si.xml file.
 	 */
 	public boolean isLockingRequired() {
-		return this.isLockingRequired;
+		String isLockingRequired = this.properties.get(DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED);
+		if(isLockingRequired != null && isLockingRequired.length() > 0 && isLockingRequired.equalsIgnoreCase("true")) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -165,21 +169,30 @@ public class DatabaseDescriptor {
 	 * @param isLockingRequired (true/false) database locking as per defined in DatabaseDescriptor.si.xml file.
 	 */
 	public void setLockingRequired(final boolean isLockingRequired) {
-		this.isLockingRequired = isLockingRequired;
+		this.properties.put(DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED, Boolean.toString(isLockingRequired));
 	}
 	
-	public String getAttribute(String attributeName) {
-		return this.attributes.get(attributeName);
+	
+	public Iterator<String> getProperties() {
+		return this.properties.keySet().iterator();
 	}
 	
-	public boolean containAttribute(String attributeName) {
-		return this.attributes.containsKey(attributeName);
+	public String getProperty(String name) {
+		return this.properties.get(name);
+	}
+
+	public boolean containProperty(String name) {
+		return this.properties.containsKey(name);
 	}
 	
-	public void addAttribute(String attributeName, String attributeValue) {
-		this.attributes.put(attributeName, attributeValue);
+	public void addProperty(String name, String value) {
+		this.properties.put(name, value);
 	}
 	
+	public void removeProperty(String name) {
+		this.properties.remove(name);
+	}
+
 	
 	/**
 	 * Check whether database mapping object exists or not, based on table name.

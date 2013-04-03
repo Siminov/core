@@ -72,9 +72,8 @@ public class LibraryDescriptorParser extends SiminovSAXDefaultHandler implements
 	private Resources resources = Resources.getInstance();
 
 	private String tempValue = null;
-		
-	private boolean isName;
-	private boolean isDescription;
+	private String propertyName = null;
+	
 	
 	public LibraryDescriptorParser(final String libraryName) throws SiminovException {
 
@@ -135,23 +134,12 @@ public class LibraryDescriptorParser extends SiminovSAXDefaultHandler implements
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
 		if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_PROPERTY)) {
-			if(isName) {
-				libraryDescriptor.setName(tempValue);
-				isName = false;
-			} else if(isDescription) {
-				libraryDescriptor.setDescriptor(tempValue);
-				isDescription = false;
- 			} 
+			libraryDescriptor.addProperty(propertyName, tempValue);
 		} 
 	}
 	
 	private void initializeProperty(final Attributes attributes) {
-		String name = attributes.getValue(LIBRARY_DESCRIPTOR_NAME);
-		if(name.equalsIgnoreCase(LIBRARY_DESCRIPTOR_NAME)) {
-			isName = true;
-		} else if(name.equalsIgnoreCase(LIBRARY_DESCRIPTOR_DESCRIPTION)) {
-			isDescription = true;
-		} 
+		propertyName = attributes.getValue(LIBRARY_DESCRIPTOR_NAME);
 	}
 	
 	private void initializeMapping(final Attributes attributes) {

@@ -86,14 +86,7 @@ public class DatabaseDescriptorParser extends SiminovSAXDefaultHandler implement
 	private Resources resources = Resources.getInstance();
 
 	private String tempValue = null;
-	private String attributeName =  null;
-	
-	private boolean isDatabaseName;
-	private boolean isType;
-	private boolean isDescription;
-	private boolean isLockingRequired;
-	private boolean isExternalStorage;
-	
+	private String propertyName = null;
 
 	public DatabaseDescriptorParser(final String databaseDescriptorPath) throws SiminovException {
 		
@@ -140,8 +133,6 @@ public class DatabaseDescriptorParser extends SiminovSAXDefaultHandler implement
 			databaseDescriptor = new DatabaseDescriptor();
 		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
 			initializeProperty(attributes);
-		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_ATTRIBUTE)) {
-			attributeName = attributes.getValue(DATABASE_DESCRIPTOR_ATTRIBUTE_NAME);
 		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING)) {
 			databaseDescriptor.addDatabaseMappingPath(attributes.getValue(DATABASE_DESCRIPTOR_PATH));
 		} 
@@ -159,60 +150,14 @@ public class DatabaseDescriptorParser extends SiminovSAXDefaultHandler implement
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
-			if(isDatabaseName) {
-				isDatabaseName = false;
-				databaseDescriptor.setDatabaseName(tempValue);
-			} else if(isType) {
-				isType = false;
-				databaseDescriptor.setType(tempValue);
-			} else if(isDescription) {
-				isDescription = false;
-				databaseDescriptor.setDescription(tempValue);
-			} else if(isLockingRequired) {
-				isLockingRequired = false;
-
-				if(tempValue == null || tempValue.length() <= 0) {
-					databaseDescriptor.setLockingRequired(false);
-				} else if(tempValue.equalsIgnoreCase("true")) {
-					databaseDescriptor.setLockingRequired(true);
-				} else {
-					databaseDescriptor.setLockingRequired(false);
-				}
-			} else if(isExternalStorage) {
-				isExternalStorage = false;
-				
-				if(tempValue == null || tempValue.length() <= 0) {
-					return;
-				}
-				
-				if(tempValue.equalsIgnoreCase("true")) {
-					databaseDescriptor.setExternalStorageEnable(true);
-				} else {
-					databaseDescriptor.setExternalStorageEnable(false);
-				}
-			}
-		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_ATTRIBUTE)) {
-			databaseDescriptor.addAttribute(attributeName, tempValue);
-			attributeName = null;
+			databaseDescriptor.addProperty(propertyName, tempValue);
 		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_LIBRARY)) {
 			databaseDescriptor.addLibraryPath(tempValue);
 		} 
 	}
 	
 	private void initializeProperty(final Attributes attributes) {
-		String name = attributes.getValue(DATABASE_DESCRIPTOR_NAME);
-		
-		if(name.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_NAME)) {
-			isDatabaseName = true;
-		} else if(name.equalsIgnoreCase(DATABASE_DESCRIPTOR_TYPE)) {
-			isType = true;
-		} else if(name.equalsIgnoreCase(DATABASE_DESCRIPTOR_DESCRIPTION)) {
-			isDescription = true;
-		} else if(name.equalsIgnoreCase(DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED)) {
-			isLockingRequired = true;
-		} else if(name.equalsIgnoreCase(DATABASE_DESCRIPTOR_EXTERNAL_STORAGE)) {
-			isExternalStorage = true;
-		} 
+		propertyName = attributes.getValue(DATABASE_DESCRIPTOR_PROPERTY_NAME);
 	}
 	
 	private void doValidation() throws DeploymentException {

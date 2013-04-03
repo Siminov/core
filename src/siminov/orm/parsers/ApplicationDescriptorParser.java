@@ -76,11 +76,7 @@ public class ApplicationDescriptorParser extends SiminovSAXDefaultHandler implem
 	private Resources resources = Resources.getInstance();
 
 	private String tempValue = null;
-
-	private boolean isName;
-	private boolean isDescription;
-	private boolean isVersion;
-	private boolean isLoadInitially;
+	private String propertyName = null;
 	
 	public ApplicationDescriptorParser() throws SiminovException, DeploymentException {
 		
@@ -135,30 +131,7 @@ public class ApplicationDescriptorParser extends SiminovSAXDefaultHandler implem
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_PROPERTY)) {
-			if(isDescription) {
-				applicationDescriptor.setDescription(tempValue);
-				isDescription = false;
-			} else if(isVersion) {
-				isVersion = false;
-				
-				if(tempValue == null || tempValue.length() <= 0) {
-					return;
-				}
-				
-				applicationDescriptor.setVersion(Double.parseDouble(tempValue));
- 			} else if(isName) {
- 				isName = false;
- 				
- 				applicationDescriptor.setName(tempValue);
- 			} else if(isLoadInitially) {
- 				isLoadInitially = false;
- 				
- 				if((tempValue != null && tempValue.length() > 0) && tempValue.equalsIgnoreCase("true")) {
-					applicationDescriptor.setLoadInitially(true);
-				} else {
-					applicationDescriptor.setLoadInitially(false);
-				}
- 			}
+			applicationDescriptor.addProperty(propertyName, tempValue);
 		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_DATABASE_DESCRIPTOR)) {
 			applicationDescriptor.addDatabaseDescriptorPath(tempValue);
 		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_EVENT_HANDLER)) {
@@ -172,17 +145,7 @@ public class ApplicationDescriptorParser extends SiminovSAXDefaultHandler implem
 	}
 	
 	private void initializeProperty(final Attributes attributes) {
-		
-		String name = attributes.getValue(APPLICATION_DESCRIPTOR_NAME);
-		if(name.equalsIgnoreCase(APPLICATION_DESCRIPTOR_DESCRIPTION)) {
-			isDescription = true;
-		} else if(name.equalsIgnoreCase(APPLICATION_DESCRIPTOR_VERSION)) {
-			isVersion = true;
-		} else if(name.equalsIgnoreCase(APPLICATION_DESCRIPTOR_NAME)) {
-			isName = true;
-		} else if(name.equalsIgnoreCase(APPLICATION_DESCRIPTOR_LOAD_INITIALLY)) {
-			isLoadInitially = true;
-		}
+		propertyName = attributes.getValue(APPLICATION_DESCRIPTOR_NAME);
 	}
 	
 	private void doValidation() throws DeploymentException {

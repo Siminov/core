@@ -87,6 +87,8 @@ Example:
 public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler implements Constants {
 
 	private String tempValue = null;
+	private String propertyName = null;
+	
 	private String databaseMappingName = null;
 
 	private Resources resources = Resources.getInstance();
@@ -96,15 +98,11 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 	private DatabaseMappingDescriptor.Column currentColumn = null;
 	private DatabaseMappingDescriptor.Index currentIndex = null;
 	private DatabaseMappingDescriptor.Relationship currectRelationship = null;
+
+	private boolean isColumn = false;
+	private boolean isIndex = false;
+	private boolean isRelationship = false;
 	
-	private boolean isType;
-	private boolean isPrimaryKey;
-	private boolean isUnique;
-	private boolean isNotNull;
-	private boolean isDefaultValue;
-	private boolean isCheck;
-	private boolean isIndexCloumn;
-	private boolean isRelationshipLoad;
 	
 	public DatabaseMappingDescriptorParser(final String databaseMappingName) throws SiminovException {
 		this.databaseMappingName = databaseMappingName;
@@ -190,13 +188,15 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_TABLE)) {
 			initializeTable(attributes);
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_COLUMN)) {
-			if(!isIndexCloumn) {
+			if(!isIndex) {
 				initializeColumn(attributes);
 			}
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_PROPERTY)) {
 			initializeProperty(attributes);
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_INDEX)) {
 			initalizeIndex(attributes);
+		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS)) {
+			isRelationship = true;
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
 			currectRelationship = new DatabaseMappingDescriptor.Relationship();
 			currectRelationship.setRelationshipType(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE);
@@ -240,9 +240,10 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 			}
 			
 			databaseMapping.addColumn(currentColumn);
+			isColumn = false;
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_INDEX)) {
 			databaseMapping.addIndex(currentIndex);
-			isIndexCloumn = false;
+			isIndex = false;
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
 			processRelationship();
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
@@ -251,6 +252,8 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 			processRelationship();
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
 			processRelationship();
+		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS)) {
+			isRelationship = false;
 		}
 
 	}
@@ -279,42 +282,20 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 		
 		currentColumn = new DatabaseMappingDescriptor.Column();
 		
-		isType = false;
-		isPrimaryKey = false;
-		isUnique = false;
-		isNotNull = false;
-		isDefaultValue = false;
-		isCheck = false;
-		
 		currentColumn.setVariableName(variableName);
 		currentColumn.setColumnName(columnName);
 		currentColumn.setGetterMethodName(getterMethodName);
 		currentColumn.setSetterMethodName(setterMethodName);
+
+		isColumn = true;
+
 	}
 	
 	private void initializeProperty(final Attributes attributes) {
-		String name = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_NAME);
-		
-		if(name.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_TYPE)) {
-			isType = true;
-		} else if(name.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY)) {
-			isPrimaryKey = true;
-		} else if(name.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_UNIQUE)) {
-			isUnique = true;
-		} else if(name.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_NOT_NULL)) {
-			isNotNull = true;
-		} else if(name.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE)) {
-			isDefaultValue = true;
-		} else if(name.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_CHECK)) {
-			isCheck = true;
-		} else if(name.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD)) {
-			isRelationshipLoad = true;
-		}
+		propertyName = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_NAME);
 	}
 	
 	private void initalizeIndex(final Attributes attributes) {
-		isIndexCloumn = true;
-		
 		String name = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_NAME);
 		String unique = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_UNIQUE);
 		
@@ -322,21 +303,16 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 		
 		currentIndex.setName(name);
 		
-		if(unique == null || unique.length() <= 0) {
-			currentIndex.setUnique(false);
-			return;
-		} 
-		
-		if(unique.equalsIgnoreCase("true")) {
+		if(unique != null && unique.length() > 0 && unique.equalsIgnoreCase("true")) {
 			currentIndex.setUnique(true);
 		} else {
 			currentIndex.setUnique(false);
 		}
+
+		isIndex = true;
 	}
 	
 	private void initializeRelationship(final Attributes attributes) {
-		isRelationshipLoad = true;
-		
 		String refer = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER);
 		String referTo = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER_TO);
 		
@@ -356,94 +332,15 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 		
 		currectRelationship.setOnUpdate(onUpdate);
 		currectRelationship.setOnDelete(onDelete);
+		
 	}
 	
 	private void processProperty() {
-		if(isType) {
-			
-			if(currentColumn != null) {
-				currentColumn.setType(tempValue);
-			} 
-			
-			isType = false;
-		} else if(isPrimaryKey) {
-			isPrimaryKey = false;
-			
-			if(tempValue == null || tempValue.length() <= 0) {
-				if(currentColumn != null) {
-					currentColumn.setPrimaryKey(false);
-				} 
-				
-				return;
-			}
-			
-			if(currentColumn != null) {
-				
-				if(tempValue.equalsIgnoreCase("true")) {
-					currentColumn.setPrimaryKey(true);
-				} else {
-					currentColumn.setPrimaryKey(false);
-				}
-			}
-			
-		} else if(isUnique) {
-			isUnique = false;
-
-			if(tempValue == null || tempValue.length() <= 0) {
-				if(currentColumn != null) {
-					currentColumn.setUnique(false);
-				}
-				
-				return;
-			}
-			
-			if(currentColumn != null) {
-				
-				if(tempValue.equalsIgnoreCase("true")) {
-					currentColumn.setUnique(true);
-				} else {
-					currentColumn.setUnique(false);
-				}
-			}
-		} else if(isNotNull) {
-			isNotNull = false;
-
-			if(tempValue == null || tempValue.length() <= 0) {
-				if(currentColumn != null) {
-					currentColumn.setNotNull(false);
-				}
-				
-				return;
-			}
-			
-			if(currentColumn != null) {
-				
-				if(tempValue.equalsIgnoreCase("true")) {
-					currentColumn.setNotNull(true);
-				} else {
-					currentColumn.setNotNull(false);
-				}
-			}
-		} else if(isDefaultValue) {
-			isDefaultValue = false;
-
-			if(currentColumn != null) {
-				currentColumn.setDefaultValue(tempValue);
-			}
-		} else if(isCheck) {
-			isCheck = false;
-
-			if(currentColumn != null) {
-				currentColumn.setCheck(tempValue);
-			}
-		} else if(isRelationshipLoad) {
-			isRelationshipLoad = false;
-			
-			if(currectRelationship != null) {
-				if(tempValue != null && tempValue.length() > 0 && tempValue.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD_TRUE)) {
-					currectRelationship.setLoad(true);
-				}
-			}
+		
+		if(isRelationship) {
+			currectRelationship.addProperty(propertyName, tempValue);
+		} else if(isColumn) {
+			currentColumn.addProperty(propertyName, tempValue);
 		}
 	}
 	
@@ -484,7 +381,7 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 			}
 			
 			/*
-			 * Validate Cloumn Name filed.
+			 * Validate Column Name filed.
 			 */
 			String columnName = column.getColumnName();
 			if(columnName == null || columnName.length() <= 0) {
