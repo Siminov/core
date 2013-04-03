@@ -29,7 +29,7 @@
 	    <!-- Mandatory Field -->
 	<property name="database_name">name_of_database_file</property>
 
-		<!-- Optional Field -->
+		<!-- Optional Field (Default is sqlite)-->
 	<property name="type">type_of_database</property>
 		
 		<!-- Optional Field -->
@@ -42,17 +42,10 @@
 	<property name="external_storage">true/false</property>
 		
 
-	
-	<!-- Attributes Are Used To Pass Additional Parameters To Database -->
-		<!-- Optional Field -->
-	<attributes>
-	    <attribute name="name_of_attribute">value_of_attribute</attribute>
-	</attributes>
-				
-	
+
 	<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
 	
-	<!-- Optional Field -->
+		<!-- Optional Field -->
 	<database-mappings>
 		<database-mapping path="full_path_of_database_mapping_descriptor_file" />
 	</database-mappings>
@@ -61,7 +54,7 @@
 
 	<!-- Libraries Needed Under This Database Descriptor -->
 	
-	<!-- Optional Field -->
+		<!-- Optional Field -->
 	<libraries>
 		<library>full_path_of_library_descriptor_file</library>
 	</libraries>
@@ -80,21 +73,18 @@ Type Of Properties:
 	i. General Database Descriptor Properties.
 		
 		-> database_name*: Name of database. It is mandatory field. If database file is created will be on name of it.
+	
+		-> type: It defines the type of database. It is optional field. Default is sqlite. 
 		
 		-> description: Description of database. It is optional field.
 		
 		-> is_locking_required: Control whether or not the database is made thread-safe by using locks around critical sections. This is pretty expensive, so if you know that your DB will only be used by a multi threads then you should set this to true. The default is false.
 							It is optional field. 
 
-		-> database_implementer: Full name of a class which provides implementation for IDatabase interfaces. It is optional field. Default core framework handles this.
-		
-		-> password: Used for security purpose. It is optional field. Siminov does not provide any security for database. If you want your database data needs to encrypted, then you can include SQLCipher implementation provided by core framework in your application. For more detail see SQLCipher Encryption section of this developer guide.
-		
 		-> external_storage: It specifies whether database resources needs to be saved on external storage or not (SDCard). It is optinal field. Default value is false.
 
-
 	
-	ii. Database Mapping Descriptor Paths Needed Under This Database Descriptor.  
+	iii. Database Mapping Descriptor Paths Needed Under This Database Descriptor.  
 		
 		- Provide full database mapping descriptor file path if you have used xml format to define ORM.
 
@@ -102,7 +92,7 @@ Type Of Properties:
 		
 		
 	
-	iii. Library Descriptor Paths Needed Under This Database Descriptor.
+	iv. Library Descriptor Paths Needed Under This Database Descriptor.
 	
 		- Provide full package name under which LibraryDescriptor.si.xml file is placed.
 		
