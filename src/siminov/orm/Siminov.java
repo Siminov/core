@@ -23,7 +23,7 @@ import java.util.Iterator;
 import siminov.orm.database.Database;
 import siminov.orm.database.DatabaseBundle;
 import siminov.orm.database.DatabaseUtils;
-import siminov.orm.database.IDatabase;
+import siminov.orm.database.impl.IDatabase;
 import siminov.orm.events.ISiminovEvents;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.exception.SiminovException;

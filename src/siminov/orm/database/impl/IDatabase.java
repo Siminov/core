@@ -15,7 +15,7 @@
  * limitations under the License.
  **/
 
-package siminov.orm.database;
+package siminov.orm.database.impl;
 
 import java.util.Iterator;
 import java.util.Map;

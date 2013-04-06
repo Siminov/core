@@ -136,11 +136,14 @@ public class DatabaseDescriptor implements Constants {
 	 */
 	public boolean isExternalStorageEnable() {
 		String externalStorage = this.properties.get(DATABASE_DESCRIPTOR_EXTERNAL_STORAGE);
-		if(externalStorage != null && externalStorage.length() > 0 && externalStorage.equalsIgnoreCase("true")) {
+		if(externalStorage == null || externalStorage.length() <= 0) {
 			return false;
+		} else if(externalStorage != null && externalStorage.length() > 0 && externalStorage.equalsIgnoreCase("true")) {
+			return true;
 		}
+
 		
-		return true;
+		return false;
 	}
 	
 	/**
@@ -157,7 +160,9 @@ public class DatabaseDescriptor implements Constants {
 	 */
 	public boolean isLockingRequired() {
 		String isLockingRequired = this.properties.get(DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED);
-		if(isLockingRequired != null && isLockingRequired.length() > 0 && isLockingRequired.equalsIgnoreCase("true")) {
+		if(isLockingRequired == null || isLockingRequired.length() <= 0) {
+			return false;
+		} else if(isLockingRequired != null && isLockingRequired.length() > 0 && isLockingRequired.equalsIgnoreCase("true")) {
 			return true;
 		}
 		

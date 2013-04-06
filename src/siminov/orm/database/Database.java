@@ -30,6 +30,9 @@ import java.util.Set;
 
 import siminov.orm.Constants;
 import siminov.orm.Siminov;
+import siminov.orm.database.impl.IDataTypeHandler;
+import siminov.orm.database.impl.IDatabase;
+import siminov.orm.database.impl.IQueryBuilder;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
@@ -42,7 +45,6 @@ import siminov.orm.model.DatabaseMappingDescriptor.Index;
 import siminov.orm.model.DatabaseMappingDescriptor.Relationship;
 import siminov.orm.resource.Resources;
 import siminov.orm.utils.ClassUtils;
-import siminov.orm.utils.EmptyIterator;
 
 
 /**
@@ -1212,294 +1214,11 @@ Example:
 		}
 	}
 	
-	/**
-	 	Returns all tuples from mapped table for invoked class object.
-	 
-	 	<pre>
-	 	
-Example:
-	
-	{@code
-	
-	Liquor[] liquors = null;
-	try {
-		liquors = new Liquor().fetch();
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	 		
-	} 			
-	 			
-	 	</pre>
-	 
-	 	@return All tuples.
-	 	@throws DatabaseException If no mapped table found for invoked class object.
-	 */
-	public Object[] fetch() throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		return fetch(null, new EmptyIterator<String> ());
+	public ISelect select() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 	
-	/**
-	 	Returns all tuples based on where clause from mapped table for invoked class object.
-	 
-	 	<pre>
-	
-	Example:
-	
-	{@code
-	
-	String whereClause = Liquor.LIQUOR_BRAND + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	
-	Liquor[] liquors = null;
-	try {
-		liquors = new Liquor().fetch(whereClause);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	 		
-	} 			
-	 	</pre>
-	 
-	
-	 	@param whereClause A filter declaring which rows to return, formatted as an SQL WHERE clause (excluding the WHERE itself). Passing null will return all rows for the given table.
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
-	 	@throws DatabaseException If any error occur while getting tuples from a single table.
-	 */
-	public Object[] fetch(final String whereClause) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		return fetch(whereClause, new EmptyIterator<String> ());
-	}
-
-
-	/**
-	 	Returns selected column values for all tuples from mapped table for invoked class object.
-	 
-	 	<pre>
-
-Example:
- 
- 	{@code
- 
-	String[] columnNames = { Liquor.LIQUOR_TYPE };
- 			
-	Liquor[] liquors = null;
-	try {
-		liquors = new Liquor().fetch(columnNames);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	 		
-	} 			
-	 	</pre>
-	 
-	 	@param columnNames A list of which columns to return. Passing null will return all columns, which is discouraged to prevent reading data from storage that isn't going to be used. 
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
-	 	@throws DatabaseException If any error occur while getting tuples from a single table.
-	 */
-	public Object[] fetch(final Iterator<String> columnNames) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		return fetch(null, columnNames);
-	}
-	
-	/**
-	 	Returns selected column values of selected tuples based on where clause from mapped table for invoked class object.
-	 
-	 	<pre>
-
-Example:
-	
-	{@code
-	
-	String[] columnNames = { Liquor.LIQUOR_TYPE };
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	
-	Liquor[] liquors = null;
-	try {
-		liquors = new Beer().fetch(columnNames, whereClause);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	} 			
-	 	</pre>
-	 
-	 	@param whereClause A filter declaring which rows to return, formatted as an SQL WHERE clause (excluding the WHERE itself). Passing null will return all rows for the given table.
-	 	@param columnNames A list of which columns to return. Passing null will return all columns, which is discouraged to prevent reading data from storage that isn't going to be used. 
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
-	 	@throws DatabaseException If any error occur while getting tuples from a single table.
-	 */
-	public Object[] fetch(final String whereClause, final Iterator<String> columnNames) throws DatabaseException {		
-		Siminov.validateSiminov();
-		
-		return fetch(whereClause, columnNames, new EmptyIterator<String> ());
-	}
-
-	
-	/**
-	 	Returns selected column values of all tuples based on where clause across multiple records and group the results by one or more columns from mapped table for invoked class object.
-	 	
-	 	<pre>
-
-Example:
-	
-	{@code
-	
-	String[] columnNames = { Liquor.LIQUOR_TYPE };
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	String[] groupBy = { Liquor.LIQUOR_TYPE };
-	
-	Liquor[] liquors = null;
-	try {
-		liquors = new Liquor().fetch(columnNames, whereClause, groupBy);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	 		
-	} 			
-	 	</pre>
-	 	
-	 
-	 	@param whereClause A filter declaring which rows to return, formatted as an SQL WHERE clause (excluding the WHERE itself). Passing null will return all rows for the given table.
-	 	@param columnNames A list of which columns to return. Passing null will return all columns, which is discouraged to prevent reading data from storage that isn't going to be used. 
-	 	@param groupByString A filter declaring how to group rows, formatted as an SQL GROUP BY clause (excluding the GROUP BY itself). Passing null will cause the rows to not be grouped.
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
-	 	@throws DatabaseException If any error occur while getting tuples from a single table.
-	 */
-	public Object[] fetch(final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		return fetch(whereClause, columnNames, groupBy, null);
-	}
-
-	/**
-	 	Returns selected column values of all tuples based on where clause across multiple records and group the results by one or more columns, and can use having clause in combination with group by, for mapped table for invoked class object.
-	 	
-	 	<pre>
-
-Example:
-	
-	{@code
-	
-	String[] columnNames = { Liquor.LIQUOR_TYPE };
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	String[] groupBy = { Liquor.LIQUOR_TYPE };
-	String having = SUM(Liquor.COLUMN_NAME_WHICH_CONTAINS_NUMBRIC_VALUE) > 1000;
-	
-	Liquor[] liquors = null;
-	try {
-		liquors = new Liquor().fetch(columnNames, whereClause, groupBy, having);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	}
-
-	 	</pre>
-	 
-	 	@param whereClause A filter declaring which rows to return, formatted as an SQL WHERE clause (excluding the WHERE itself). Passing null will return all rows for the given table.
-	 	@param columnNames A list of which columns to return. Passing null will return all columns, which is discouraged to prevent reading data from storage that isn't going to be used. 
-	 	@param groupByString A filter declaring how to group rows, formatted as an SQL GROUP BY clause (excluding the GROUP BY itself). Passing null will cause the rows to not be grouped.
-	 	@param having A filter declare which row groups to include in the cursor, if row grouping is being used, formatted as an SQL HAVING clause (excluding the HAVING itself). Passing null will cause all row groups to be included, and is required when row grouping is not being used.
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
-	 	@throws DatabaseException If any error occur while getting tuples from a single table.
-	 */
-	public Object[] fetch(final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		return fetch(whereClause, columnNames, groupBy, having, new EmptyIterator<String> ());
-	}
-	
-	
-	/**
-	 	Returns A result set with the rows being sorted by the values of one or more column values of all tuples based on where clause across multiple records and group the results by one or more columns, and can use having clause in combination with group by, for mapped table for invoked class object.
-	 	
-	 	<pre>
-
-Example:
-	
-	{@code
-	
-	String[] columnNames = { Liquor.LIQUOR_TYPE };
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	String[] groupBy = { Liquor.LIQUOR_TYPE };
-	String having = SUM(Liquor.COLUMN_NAME_WHICH_CONTAINS_NUMBRIC_VALUE) > 1000;
-	String[] orderBy = { Liquor.LIQUOR_TYPE };
-	
-	Liquor[] liquors = null;
-	try {
-		liquors = new Liquor().fetch(columnNames, whereClause, groupBy, having, orderBy);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	}
-	 			
-	 	</pre>
-	 	
-	 	@param whereClause A filter declaring which rows to return, formatted as an SQL WHERE clause (excluding the WHERE itself). Passing null will return all rows for the given table.
-	 	@param columnNames A list of which columns to return. Passing null will return all columns, which is discouraged to prevent reading data from storage that isn't going to be used. 
-	 	@param groupByString A filter declaring how to group rows, formatted as an SQL GROUP BY clause (excluding the GROUP BY itself). Passing null will cause the rows to not be grouped.
-	 	@param having A filter declare which row groups to include in the cursor, if row grouping is being used, formatted as an SQL HAVING clause (excluding the HAVING itself). Passing null will cause all row groups to be included, and is required when row grouping is not being used.
-	 	@param orderByString How to order the rows, formatted as an SQL ORDER BY clause (excluding the ORDER BY itself). Passing null will use the default sort order, which may be unordered.
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
-	 	@throws DatabaseException If any error occur while getting tuples from a single table.
-	 */
-	public Object[] fetch(final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		return fetch(whereClause, columnNames, groupBy, having, orderBy, null);
-	}
-
-	
-	
-	/**
-	 	Returns A limited result set with the rows being sorted by the values of one or more column values of all tuples based on where clause across multiple records and group the results by one or more columns, and can use having clause in combination with group by, for mapped table for invoked class object.
-	 	
-	 	<pre>
-
-Example:
-	
-	{@code
-	
-	String[] columnNames = { Liquor.LIQUOR_TYPE };
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	String[] groupBy = { Liquor.LIQUOR_TYPE };
-	String having = SUM(Liquor.COLUMN_NAME_WHICH_CONTAINS_NUMBRIC_VALUE) > 1000;
-	String[] orderBy = { Liquor.LIQUOR_TYPE };
-	String limit = "10";
-	
-	Liquor[] liquors = null;
-	try {
-		liquors = new Liquor().fetch(columnNames, whereClause, groupBy, having, orderBy, limit);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	}
-	 			
-	 	</pre>
-	 	
-	 
-	 	@param whereClause A filter declaring which rows to return, formatted as an SQL WHERE clause (excluding the WHERE itself). Passing null will return all rows for the given table.
-	 	@param columnNames A list of which columns to return. Passing null will return all columns, which is discouraged to prevent reading data from storage that isn't going to be used. 
-	 	@param groupByString A filter declaring how to group rows, formatted as an SQL GROUP BY clause (excluding the GROUP BY itself). Passing null will cause the rows to not be grouped.
-	 	@param having A filter declare which row groups to include in the cursor, if row grouping is being used, formatted as an SQL HAVING clause (excluding the HAVING itself). Passing null will cause all row groups to be included, and is required when row grouping is not being used.
-	 	@param orderByString How to order the rows, formatted as an SQL ORDER BY clause (excluding the ORDER BY itself). Passing null will use the default sort order, which may be unordered.
-	 	@param limit Limits the number of rows returned by the query, formatted as LIMIT clause. Passing null denotes no LIMIT clause.
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
-	 	@throws DatabaseException If any error occur while getting tuples from a single table.
-	 */
-	public Object[] fetch(final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String limit) throws DatabaseException {
-
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return fetch(databaseMappingDescriptor, whereClause, columnNames, groupBy, having, orderBy, limit);
-	}
-	
-	private static Object[] fetch(DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String limit) throws DatabaseException {
+	static Object[] select(DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1519,14 +1238,14 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(Database.class.getName(), "fetch", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "fetch", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formFetchQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, limit));
+		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit));
 		Collection<Map<String, Object>> datasBundle = new LinkedList<Map<String,Object>>();
 		while(datas.hasNext()) {
 			datasBundle.add(datas.next());
@@ -1559,8 +1278,8 @@ Example:
 		try {
 			classObject = Class.forName(databaseMappingDescriptor.getClassName());
 		} catch(Exception exception) {
-			Log.loge(Database.class.getName(), "fetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DatabaseException(Database.class.getName(), "fetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DatabaseException(Database.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
 		Object returnType = Array.newInstance(classObject, tuplesCollection.size());
@@ -1575,7 +1294,7 @@ Example:
 		return returnTypes;
 	}
 
-	private static Object[] lazyFetch(DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String limit) throws DatabaseException {
+	static Object[] lazyFetch(DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1602,7 +1321,7 @@ Example:
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		String query = queryBuilder.formFetchQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, limit);
+		String query = queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit);
 		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query));
 			
 		/*
@@ -1660,7 +1379,7 @@ Example:
 	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
 	 	@throws DatabaseException If any error occur while getting tuples from a single table.
 	 */
-	public Object[] fetchManual(final String query) throws DatabaseException {
+	public Object[] select(final String query) throws DatabaseException {
 		Siminov.validateSiminov();
 		
 		/*
@@ -1746,7 +1465,7 @@ Example: Make Liquor Object
 		save(this);
 	}
 
-	private static void save(final Object object) throws DatabaseException {
+	static void save(final Object object) throws DatabaseException {
 		/*
 		 * 1. Get mapped database mapping object for object parameter class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, by parsing each fields.
@@ -1922,7 +1641,7 @@ Example: Make Beer Object
 		update(this);
 	}
 
-	private static void update(final Object object) throws DatabaseException {
+	static void update(final Object object) throws DatabaseException {
 		/*
 		 * 1. Get mapped database mapping object for object parameter class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, All, Primary Keys, by parsing each fields.
@@ -2120,7 +1839,7 @@ Example: Make Beer Object
 		saveOrUpdate(this);
 	}
 
-	private static void saveOrUpdate(final Object object) throws DatabaseException {
+	static void saveOrUpdate(final Object object) throws DatabaseException {
 		/*
 		 * 1. Get mapped database mapping object for object class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, All, Primary Keys, by parsing each fields.
@@ -2193,7 +1912,7 @@ Example: Make Beer Object
 		}
 	}
 	
-	private static void delete(final Object object) throws DatabaseException {
+	static void delete(final Object object) throws DatabaseException {
 		if(object == null) {
 			Log.logd(Database.class.getName(), "delete", "Invalid Object Found.");
 			return;
@@ -2202,7 +1921,7 @@ Example: Make Beer Object
 		delete(object, null);
 	}
 	
-	private static void delete(final Object object, final String whereClause) throws DatabaseException {
+	static void delete(final Object object, final String whereClause) throws DatabaseException {
 		/*
 		 * 1. Get mapped database mapping object for object parameter class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, All, Primary Keys, by parsing each fields.
@@ -2479,7 +2198,7 @@ Example:
 		
 	}
 
-	private static final int count(final DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause) throws DatabaseException {
+	static final int count(final DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2550,7 +2269,7 @@ Example:
 	}
 
 	
-	private static final int avg(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
+	static final int avg(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2621,7 +2340,7 @@ Example:
 
 	}
 
-	private static final int sum(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
+	static final int sum(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2692,7 +2411,7 @@ Example:
 	}
 
 	
-	private static final int total(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
+	static final int total(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2793,7 +2512,7 @@ Example:
 	
 	}
 
-	private static final int min(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String groupBy) throws DatabaseException {
+	static final int min(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String groupBy) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2895,7 +2614,7 @@ Example:
 
 	}
 
-	private static final int max(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String groupBy) throws DatabaseException {
+	static final int max(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String groupBy) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -3028,7 +2747,7 @@ Example:
 	}
 
 	
-	private static final String groupConcat(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String whereClause, final String delimiter) throws DatabaseException {
+	static final String groupConcat(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String whereClause, final String delimiter) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -3116,7 +2835,7 @@ Example:
 		return getDatabaseMappingDescriptor(getClass().getName());
 	}
 
-	private static DatabaseMappingDescriptor getDatabaseMappingDescriptor(String className) throws DatabaseException {
+	static DatabaseMappingDescriptor getDatabaseMappingDescriptor(String className) throws DatabaseException {
 		try {
 			return Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(className);
 		} catch(SiminovException siminovException) {
@@ -3156,7 +2875,7 @@ Example:
 	}
 	
 	
-	private static String getTableName(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static String getTableName(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		return databaseMappingDescriptor.getTableName();
 	}
 	
@@ -3189,7 +2908,7 @@ Example:
 		return getColumnNames(databaseMappingDescriptor);
 	}
 	
-	private static Iterator<String> getColumnNames(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static Iterator<String> getColumnNames(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		Iterator<DatabaseMappingDescriptor.Column> columns = databaseMappingDescriptor.getColumns();
 
 		Collection<String> columnNames = new ArrayList<String>();
@@ -3242,7 +2961,7 @@ Example:
 	}
 	
 	
-	private static Map<String, Object> getColumnValues(final Object object, DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static Map<String, Object> getColumnValues(final Object object, DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		Map<String, Object> columnNameAndItsValues = new HashMap<String, Object>();
 
 		Iterator<DatabaseMappingDescriptor.Column> columns = databaseMappingDescriptor.getColumns();
@@ -3370,7 +3089,7 @@ Example:
 		return getColumnTypes(databaseMappingDescriptor);
 	}
 
-	private static Map<String, String> getColumnTypes(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static Map<String, String> getColumnTypes(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		
 		Map<String, String> columnTypes = new HashMap<String, String> ();
 		Iterator<DatabaseMappingDescriptor.Column> columns = databaseMappingDescriptor.getColumns();
@@ -3454,7 +3173,7 @@ Example:
 		return getPrimaryKeys(databaseMapping);
 	}
 	
-	private static Iterator<String> getPrimaryKeys(final DatabaseMappingDescriptor databaseMapping) throws DatabaseException {
+	static Iterator<String> getPrimaryKeys(final DatabaseMappingDescriptor databaseMapping) throws DatabaseException {
 		Iterator<Column> columns = databaseMapping.getColumns();
 		Collection<String> primaryKeys = new ArrayList<String>();
 
@@ -3467,47 +3186,6 @@ Example:
 			}
 		}
 
-		/*
-		 * Add ONE-TO-MANY And MANY-TO-MANY Relationship Columns.
-		 */
-		Iterator<Relationship> oneToManyRelationships = databaseMapping.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRelationships = databaseMapping.getManyToManyRelationships();
-		
-		while(oneToManyRelationships.hasNext()) {
-			Relationship oneToManyRelationship = oneToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-
-			
-			Iterator<Column> parentColumns = referedDatabaseMappingDescriptor.getColumns();
-			while(parentColumns.hasNext()) {
-				Column column = parentColumns.next();
-				
-				boolean isPrimary = column.isPrimaryKey();
-				if(isPrimary) {
-					primaryKeys.add(column.getColumnName());
-				}
-			}
-		}
-		
-		while(manyToManyRelationships.hasNext()) {
-			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor parentDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-			
-			Iterator<Column> parentColumns = parentDatabaseMappingDescriptor.getColumns();
-			while(parentColumns.hasNext()) {
-				Column column = parentColumns.next();
-				
-				boolean isPrimary = column.isPrimaryKey();
-				if(isPrimary) {
-					primaryKeys.add(column.getColumnName());
-				}
-			}
-		}
-		
 		return primaryKeys.iterator();
 	}
 	
@@ -3541,7 +3219,7 @@ Example:
 		return getMandatoryFields(databaseMappingDescriptor);
 	}
 	
-	private static Iterator<String> getMandatoryFields(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static Iterator<String> getMandatoryFields(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		
 		Iterator<Column> columns = databaseMappingDescriptor.getColumns();
 		Collection<String> isMandatoryFieldsVector = new ArrayList<String>();
@@ -3632,7 +3310,7 @@ Example:
 		return getUniqueFields(databaseMappingDescriptor);
 	}
 
-	private static Iterator<String> getUniqueFields(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static Iterator<String> getUniqueFields(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		
 		Iterator<Column> columns = databaseMappingDescriptor.getColumns();
 		Collection<String> isUniqueFieldsVector = new ArrayList<String>();
@@ -3737,7 +3415,7 @@ Example:
 		return foreignKeys.iterator();
 	}
 
-	private static Collection<Column> getForeignKeys(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static Collection<Column> getForeignKeys(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		Iterator<Relationship> oneToManyRealtionships = databaseMappingDescriptor.getManyToOneRelationships();
 		Iterator<Relationship> manyToManyRealtionships = databaseMappingDescriptor.getManyToManyRelationships();
 		
@@ -3783,7 +3461,7 @@ Example:
 	/**
  		Iterates the provided cursor, and returns tuples in form of actual objects.
 	 */
-	private static Iterator<Object> parseAndInflateData(final DatabaseMappingDescriptor databaseMappingDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
+	static Iterator<Object> parseAndInflateData(final DatabaseMappingDescriptor databaseMappingDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
 		Siminov.validateSiminov();
 
 		Collection<Object> tuples = new LinkedList<Object>();
@@ -3818,7 +3496,7 @@ Example:
 		return tuples.iterator();
 	}
 
-	private static void processOneToOneRelationship(final Object object) throws DatabaseException {
+	static void processOneToOneRelationship(final Object object) throws DatabaseException {
 
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<DatabaseMappingDescriptor.Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
@@ -3861,7 +3539,7 @@ Example:
 			}
 
 			
-			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null);
+			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
 			Object[] referedObjects = (Object[]) referedObject;
 
 			if(referedObjects == null || referedObjects.length <= 0) {
@@ -3882,7 +3560,7 @@ Example:
 		}
 	}
 
-	private static void processOneToManyRelationship(final Object object) throws DatabaseException {
+	static void processOneToManyRelationship(final Object object) throws DatabaseException {
 
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<DatabaseMappingDescriptor.Relationship> oneToManyRelationships = databaseMappingDescriptor.getOneToManyRelationships();
@@ -3925,7 +3603,7 @@ Example:
 			}
 
 			
-			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null);
+			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
 			Object[] referedObjects = (Object[]) referedObject;
 
 			Collection<Object> referedCollection = new ArrayList<Object>();
@@ -3945,7 +3623,7 @@ Example:
 		
 	}
 	
-	private static void processManyToOneRelationship(final Object object, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
+	static void processManyToOneRelationship(final Object object, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
 		
@@ -3990,7 +3668,7 @@ Example:
 		}
 	}
 	
-	private static void processManyToOneRelationship(final Object object, final StringBuilder whereClause) throws DatabaseException {
+	static void processManyToOneRelationship(final Object object, final StringBuilder whereClause) throws DatabaseException {
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
 
@@ -4043,7 +3721,7 @@ Example:
 
 	}
 	
-	private static void processManyToOneRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
+	static void processManyToOneRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
 
@@ -4081,7 +3759,7 @@ Example:
 					}
 				}
 				
-				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null);
+				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
 				referedObject = fetchedObjects[0];
 				
 			} else {
@@ -4121,7 +3799,7 @@ Example:
 
 	}
 
-	private static void processManyToManyRelationship(final Object object, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
+	static void processManyToManyRelationship(final Object object, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
 		
@@ -4166,7 +3844,7 @@ Example:
 		}
 	}
 	
-	private static void processManyToManyRelationship(final Object object, final StringBuilder whereClause) throws DatabaseException {
+	static void processManyToManyRelationship(final Object object, final StringBuilder whereClause) throws DatabaseException {
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
 		
@@ -4220,7 +3898,7 @@ Example:
 		
 	}
 	
-	private static void processManyToManyRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
+	static void processManyToManyRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
 
@@ -4258,7 +3936,7 @@ Example:
 					}
 				}
 				
-				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null);
+				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
 				referedObject = fetchedObjects[0];
 
 			} else {

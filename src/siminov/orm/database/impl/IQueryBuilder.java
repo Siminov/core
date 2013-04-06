@@ -1,4 +1,4 @@
-package siminov.orm.database;
+package siminov.orm.database.impl;
 
 import java.util.Iterator;
 
@@ -61,7 +61,7 @@ public interface IQueryBuilder {
 	 * @param limit Limit of data fetched from table.
 	 * @return Generated Query.
 	 */
-	public String formFetchQuery(final String tableName, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String limit);
+	public String formSelectQuery(final String tableName, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit);
 
 	/**
 	 * Build query to save data in table.

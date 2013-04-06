@@ -19,6 +19,10 @@ package siminov.orm.database;
 
 import java.util.Hashtable;
 
+import siminov.orm.database.impl.IDataTypeHandler;
+import siminov.orm.database.impl.IDatabase;
+import siminov.orm.database.impl.IQueryBuilder;
+import siminov.orm.database.impl.ISyntaxProvider;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.utils.ClassUtils;
@@ -37,7 +41,8 @@ public class DatabaseFactory {
 	private String DATABASE_CLASS_NAME = "Database";
 	private String DATABASE_QUERY_BUILDER = "QueryBuilder";
 	private String DATABASE_DATA_TYPE_HANDLER = "DataTypeHandler";
-
+	private String DATABASE_SYNTAX_PROVIDER = "SyntaxProvider";
+	
 	
 	private DatabaseFactory() {
 		
@@ -80,11 +85,13 @@ public class DatabaseFactory {
 		IDatabase database = (IDatabase) ClassUtils.createClassInstance(packageName + "." + DATABASE_CLASS_NAME);
 		IQueryBuilder queryBuilder = (IQueryBuilder) ClassUtils.createClassInstance(packageName + "." + DATABASE_QUERY_BUILDER);
 		IDataTypeHandler dataTypeHandler = (IDataTypeHandler) ClassUtils.createClassInstance(packageName + "." + DATABASE_DATA_TYPE_HANDLER);
+		ISyntaxProvider syntaxProvider = (ISyntaxProvider) ClassUtils.createClassInstance(packageName + "." + DATABASE_SYNTAX_PROVIDER);
 		
 		DatabaseBundle databaseBundle = new DatabaseBundle();
 		databaseBundle.setDatabase(database);
 		databaseBundle.setQueryBuilder(queryBuilder);
 		databaseBundle.setDataTypeHandler(dataTypeHandler);
+		databaseBundle.setSyntaxProvider(syntaxProvider);
 		
 		return databaseBundle;
 		

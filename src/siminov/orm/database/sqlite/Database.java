@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import siminov.orm.database.DatabaseUtils;
-import siminov.orm.database.IDatabase;
+import siminov.orm.database.impl.IDatabase;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;

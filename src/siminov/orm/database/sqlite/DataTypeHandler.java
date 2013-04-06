@@ -17,15 +17,15 @@
 
 package siminov.orm.database.sqlite;
 
-import siminov.orm.database.IDataTypeHandler;
+import siminov.orm.database.impl.IDataTypeHandler;
 
 public class DataTypeHandler implements IDataTypeHandler {
 
-	private String SQLITE_DATA_TYPE_INTEGER = "INTEGER";
-	private String SQLITE_DATA_TYPE_TEXT = "TEXT";
-	private String SQLITE_DATA_TYPE_REAL = "REAL";
-	private String SQLITE_DATA_TYPE_NONE = "NONE";
-	private String SQLITE_DATA_TYPE_NUMERIC = "NUMERIC";
+	private static final String SQLITE_DATA_TYPE_INTEGER = "INTEGER";
+	private static final String SQLITE_DATA_TYPE_TEXT = "TEXT";
+	private static final String SQLITE_DATA_TYPE_REAL = "REAL";
+	private static final String SQLITE_DATA_TYPE_NONE = "NONE";
+	private static final String SQLITE_DATA_TYPE_NUMERIC = "NUMERIC";
 
 	
 	public String convert(String dataType) {

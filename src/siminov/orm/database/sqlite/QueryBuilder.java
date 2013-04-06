@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 import siminov.orm.Constants;
-import siminov.orm.database.IQueryBuilder;
+import siminov.orm.database.impl.IQueryBuilder;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.exception.SiminovException;
@@ -218,7 +218,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param limit Limit of tuples needed.
 	 * @return Generated query.
 	 */
-	public String formFetchQuery(final String tableName, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String limit) {
+	public String formSelectQuery(final String tableName, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) {
 
 		StringBuilder groupBysBuilder = new StringBuilder();
 		
@@ -250,10 +250,10 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 			}
 		}
 
-		return formFetchQuery(false, tableName, whereClause, columnNames, groupBysBuilder.toString(), having, orderBysBuilder.toString(), limit);
+		return formFetchQuery(false, tableName, whereClause, columnNames, groupBysBuilder.toString(), having, orderBysBuilder.toString(), whichOrderBy, limit);
 	}
 	
-	private String formFetchQuery(final boolean distinct, final String table, final String whereClause, final Iterator<String> columnsNames, final String groupBys, final String having, final String orderBys, final String limit) {
+	private String formFetchQuery(final boolean distinct, final String table, final String whereClause, final Iterator<String> columnsNames, final String groupBys, final String having, final String orderBys, final String whichOrderBy, final String limit) {
         if (TextUtils.isEmpty(groupBys) && !TextUtils.isEmpty(having)) {
             throw new IllegalArgumentException(
                     "HAVING clauses are only permitted when using a groupBy clause");
@@ -286,7 +286,13 @@ public class QueryBuilder implements Constants, IQueryBuilder {
         appendClause(query, " WHERE ", whereClause);
         appendClause(query, " GROUP BY ", groupBys);
         appendClause(query, " HAVING ", having);
-        appendClause(query, " ORDER BY ", orderBys);
+        
+        if(whichOrderBy != null && whichOrderBy.length() > 0) {
+            appendClause(query, " ORDER BY ", orderBys + " " + whichOrderBy);
+        } else {
+            appendClause(query, " ORDER BY ", orderBys);        	
+        }
+
         appendClause(query, " LIMIT ", limit);
 
         return query.toString();

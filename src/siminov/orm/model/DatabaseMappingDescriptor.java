@@ -541,7 +541,9 @@ Example:
 		 */
 		public boolean isPrimaryKey() {
 			String primaryKey = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY);
-			if(primaryKey != null && primaryKey.length() > 0 && primaryKey.equalsIgnoreCase("true")) {
+			if(primaryKey == null || primaryKey.length() <= 0) {
+				return false;
+			} else if(primaryKey != null && primaryKey.length() > 0 && primaryKey.equalsIgnoreCase("true")) {
 				return true;
 			}
 			
@@ -562,7 +564,9 @@ Example:
 		 */
 		public boolean isUnique() {
 			String unique = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_UNIQUE);
-			if(unique != null && unique.length() > 0 && unique.equalsIgnoreCase("true")) {
+			if(unique == null || unique.length() <= 0) {
+				return false;
+			} else if(unique != null && unique.length() > 0 && unique.equalsIgnoreCase("true")) {
 				return true;
 			}
 			
@@ -583,7 +587,9 @@ Example:
 		 */
 		public boolean isNotNull() {
 			String notNull = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_NOT_NULL);
-			if(notNull != null && notNull.length() > 0 && notNull.equalsIgnoreCase("true")) {
+			if(notNull == null || notNull.length() <= 0) {
+				return false;
+			} else if(notNull != null && notNull.length() > 0 && notNull.equalsIgnoreCase("true")) {
 				return true;
 			}
 			
@@ -848,7 +854,9 @@ Example:
 		 */
 		public boolean isLoad() {
 			String load = this.properties.get(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD);
-			if(load != null && load.length() > 0 && load.equalsIgnoreCase("true")) {
+			if(load == null || load.length() <= 0) {
+				return false;
+			} else if(load != null && load.length() > 0 && load.equalsIgnoreCase("true")) {
 				return true;
 			}
 			

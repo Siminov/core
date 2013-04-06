@@ -130,7 +130,9 @@ public class ApplicationDescriptor implements Constants {
 	 */
 	public boolean isLoadInitially() {
 		String isLoadInitially = this.properties.get(APPLICATION_DESCRIPTOR_LOAD_INITIALLY);
-		if(isLoadInitially != null && isLoadInitially.length() > 0 && isLoadInitially.equalsIgnoreCase("true")) {
+		if(isLoadInitially == null || isLoadInitially.length() <= 0) {
+			return true;
+		} else if(isLoadInitially != null && isLoadInitially.length() > 0 && isLoadInitially.equalsIgnoreCase("true")) {
 			return true;
 		}
 		
