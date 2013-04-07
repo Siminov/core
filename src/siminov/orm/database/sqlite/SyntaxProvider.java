@@ -1,6 +1,6 @@
 package siminov.orm.database.sqlite;
 
-import siminov.orm.database.impl.ISyntaxProvider;
+import siminov.orm.database.design.ISyntaxProvider;
 
 public class SyntaxProvider implements ISyntaxProvider {
 

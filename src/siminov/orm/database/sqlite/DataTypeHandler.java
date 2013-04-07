@@ -17,7 +17,7 @@
 
 package siminov.orm.database.sqlite;
 
-import siminov.orm.database.impl.IDataTypeHandler;
+import siminov.orm.database.design.IDataTypeHandler;
 
 public class DataTypeHandler implements IDataTypeHandler {
 

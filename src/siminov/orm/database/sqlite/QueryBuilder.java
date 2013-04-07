@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 import siminov.orm.Constants;
-import siminov.orm.database.impl.IQueryBuilder;
+import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.exception.SiminovException;
@@ -218,7 +218,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param limit Limit of tuples needed.
 	 * @return Generated query.
 	 */
-	public String formSelectQuery(final String tableName, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) {
+	public String formSelectQuery(final String tableName, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) {
 
 		StringBuilder groupBysBuilder = new StringBuilder();
 		
@@ -250,10 +250,10 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 			}
 		}
 
-		return formFetchQuery(false, tableName, whereClause, columnNames, groupBysBuilder.toString(), having, orderBysBuilder.toString(), whichOrderBy, limit);
+		return formSelectQuery(tableName, distinct, whereClause, columnNames, groupBysBuilder.toString(), having, orderBysBuilder.toString(), whichOrderBy, limit);
 	}
 	
-	private String formFetchQuery(final boolean distinct, final String table, final String whereClause, final Iterator<String> columnsNames, final String groupBys, final String having, final String orderBys, final String whichOrderBy, final String limit) {
+	private String formSelectQuery(final String table, final boolean distinct, final String whereClause, final Iterator<String> columnsNames, final String groupBys, final String having, final String orderBys, final String whichOrderBy, final String limit) {
         if (TextUtils.isEmpty(groupBys) && !TextUtils.isEmpty(having)) {
             throw new IllegalArgumentException(
                     "HAVING clauses are only permitted when using a groupBy clause");
@@ -269,16 +269,14 @@ public class QueryBuilder implements Constants, IQueryBuilder {
         query.append("SELECT ");
         if(distinct) {
             query.append("DISTINCT ");
+        } else {
+        	query.append("* ");
         }
         
         if(columnsNames != null) {
             if (columnsNames.hasNext()) {
                 appendColumns(query, columnsNames);
-            } else {
-                query.append("* ");
             }
-        } else {
-        	query.append("* ");	
         }
         
         query.append("FROM ");
@@ -421,14 +419,40 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param whereClause Condition on which count needed.
 	 * @return Generated query.
 	 */
-	public String formCountQuery(final String tableName, final String whereClause) {
+	public String formCountQuery(final String tableName, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having) {
 		
 		StringBuilder query = new StringBuilder();
-			query.append("SELECT COUNT(*) FROM " + tableName);
-			
+			if(column != null && column.length() > 0) {
+				if(distinct) {
+					query.append("SELECT COUNT(DISTINCT " + column + " ) FROM " + tableName);					
+				} else {
+					query.append("SELECT COUNT(" + column + ") FROM " + tableName);
+				}
+			} else {
+				query.append("SELECT COUNT(*) FROM " + tableName);
+			}
+		
 			if(whereClause != null && whereClause.length() > 0) {
 				query.append(" " + " WHERE " + whereClause);
 			}
+
+			StringBuilder groupBysBuilder = new StringBuilder();
+			
+			int index = 0;
+			if(groupBys != null) {
+				while(groupBys.hasNext()) {
+					if(index == 0) {
+						groupBysBuilder.append(groupBys.next());
+					} else {
+						groupBysBuilder.append(", " + groupBys.next());
+					}
+					
+					index++;
+				}
+			}
+
+	        appendClause(query, " GROUP BY ", groupBysBuilder.toString());
+	        appendClause(query, " HAVING ", having);
 			
 		return query.toString();
 	}
@@ -441,14 +465,112 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param columnName Column name of which average needed.
 	 * @return Generated query.
 	 */
-	public String formAvgQuery(final String tableName, final String columnName) {
-		
+	public String formAvgQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+
 		StringBuilder query = new StringBuilder();
-			query.append("SELECT AVG(" + columnName + ")" + " FROM " + tableName);
+			query.append("SELECT AVG(" + column + ")" + " FROM " + tableName);
+			
+			if(whereClause != null && whereClause.length() > 0) {
+				query.append(" " + " WHERE " + whereClause);
+			}
+
+			StringBuilder groupBysBuilder = new StringBuilder();
+			
+			int index = 0;
+			if(groupBys != null) {
+				while(groupBys.hasNext()) {
+					if(index == 0) {
+						groupBysBuilder.append(groupBys.next());
+					} else {
+						groupBysBuilder.append(", " + groupBys.next());
+					}
+					
+					index++;
+				}
+			}
+
+	        appendClause(query, " GROUP BY ", groupBysBuilder.toString());
+	        appendClause(query, " HAVING ", having);
 			
 		return query.toString();
 	}
 	
+	/**
+	 * It generates query to get sum of column values.
+	 * 
+	 * @param tableName Name of table.
+	 * @param columnName Column name of which sum needed.
+	 * @return Generated query.
+	 */
+	public String formSumQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+		
+		StringBuilder query = new StringBuilder();
+			query.append("SELECT SUM(" + column + ")" + " FROM " + tableName);
+			
+			
+			if(whereClause != null && whereClause.length() > 0) {
+				query.append(" " + " WHERE " + whereClause);
+			}
+
+			StringBuilder groupBysBuilder = new StringBuilder();
+			
+			int index = 0;
+			if(groupBys != null) {
+				while(groupBys.hasNext()) {
+					if(index == 0) {
+						groupBysBuilder.append(groupBys.next());
+					} else {
+						groupBysBuilder.append(", " + groupBys.next());
+					}
+					
+					index++;
+				}
+			}
+
+	        appendClause(query, " GROUP BY ", groupBysBuilder.toString());
+	        appendClause(query, " HAVING ", having);
+			
+		return query.toString();
+	}
+	
+
+	/**
+	 * It generates query to get total of a column.
+	 * 
+	 * @param tableName Name of table.
+	 * @param columnName Column name of which total needed.
+	 * @return Generated query.
+	 */
+	public String formTotalQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+		
+		StringBuilder query = new StringBuilder();
+			query.append("SELECT TOTAL(" + column + ")" + " FROM " + tableName);
+			
+			
+			if(whereClause != null && whereClause.length() > 0) {
+				query.append(" " + " WHERE " + whereClause);
+			}
+
+			StringBuilder groupBysBuilder = new StringBuilder();
+			
+			int index = 0;
+			if(groupBys != null) {
+				while(groupBys.hasNext()) {
+					if(index == 0) {
+						groupBysBuilder.append(groupBys.next());
+					} else {
+						groupBysBuilder.append(", " + groupBys.next());
+					}
+					
+					index++;
+				}
+			}
+
+	        appendClause(query, " GROUP BY ", groupBysBuilder.toString());
+	        appendClause(query, " HAVING ", having);
+			
+		return query.toString();
+	}
 
 	/**
 	 * It generates query to get maximum value of column based on group.
@@ -458,14 +580,33 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param groupBy Group by clause.
 	 * @return Generated query.
 	 */
-	public String formMaxQuery(final String tableName, final String columnName, final String groupBy) {
+	public String formMaxQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
 		
 		StringBuilder query = new StringBuilder();
-			query.append("SELECT MAX(" + columnName + ")" + " FROM " + tableName);
+			query.append("SELECT MAX(" + column + ")" + " FROM " + tableName);
 			
-			if(groupBy != null && groupBy.length() > 0) {
-				query.append(" GROUP BY " + groupBy);
-			} 
+			
+			if(whereClause != null && whereClause.length() > 0) {
+				query.append(" " + " WHERE " + whereClause);
+			}
+
+			StringBuilder groupBysBuilder = new StringBuilder();
+			
+			int index = 0;
+			if(groupBys != null) {
+				while(groupBys.hasNext()) {
+					if(index == 0) {
+						groupBysBuilder.append(groupBys.next());
+					} else {
+						groupBysBuilder.append(", " + groupBys.next());
+					}
+					
+					index++;
+				}
+			}
+
+	        appendClause(query, " GROUP BY ", groupBysBuilder.toString());
+	        appendClause(query, " HAVING ", having);
 			
 		return query.toString();
 	}
@@ -479,14 +620,33 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param groupBy Group by clause.
 	 * @return Generated query.
 	 */
-	public String formMinQuery(final String tableName, final String columnName, final String groupBy) {
+	public String formMinQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
 		
 		StringBuilder query = new StringBuilder();
-			query.append("SELECT MIN(" + columnName + ")" + " FROM " + tableName);
+			query.append("SELECT MIN(" + column + ")" + " FROM " + tableName);
 			
-			if(groupBy != null && groupBy.length() > 0) {
-				query.append(" GROUP BY " + groupBy);
-			} 
+			
+			if(whereClause != null && whereClause.length() > 0) {
+				query.append(" " + " WHERE " + whereClause);
+			}
+
+			StringBuilder groupBysBuilder = new StringBuilder();
+			
+			int index = 0;
+			if(groupBys != null) {
+				while(groupBys.hasNext()) {
+					if(index == 0) {
+						groupBysBuilder.append(groupBys.next());
+					} else {
+						groupBysBuilder.append(", " + groupBys.next());
+					}
+					
+					index++;
+				}
+			}
+
+	        appendClause(query, " GROUP BY ", groupBysBuilder.toString());
+	        appendClause(query, " HAVING ", having);
 			
 		return query.toString();
 	}
@@ -501,53 +661,41 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param whereClause Condition on which group concat needed.
 	 * @return Generated query.
 	 */
-	public String formGroupConcatQuery(final String tableName, final String columnName, final String delimiter, final String whereClause) {
+	public String formGroupConcatQuery(final String tableName, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having) {
 		
 		StringBuilder query = new StringBuilder();
 			if(delimiter == null || delimiter.length() <= 0) {
-				query.append("SELECT GROUP_CONCAT(" + columnName + ")" + " FROM " + tableName);
+				query.append("SELECT GROUP_CONCAT(" + column + ")" + " FROM " + tableName);
 			} else {
-				query.append("SELECT GROUP_CONCAT(" + columnName + ", " + delimiter + ")" + " FROM " + tableName);
+				query.append("SELECT GROUP_CONCAT(" + column + ", " + delimiter + ")" + " FROM " + tableName);
 			}
 		
 			if(whereClause != null && whereClause.length() > 0) {
 				query.append(" WHERE " + whereClause);
 			} 
 			
-		return query.toString();
-	}
-
-
-	/**
-	 * It generates query to get sum of column values.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which sum needed.
-	 * @return Generated query.
-	 */
-	public String formSumQuery(final String tableName, final String columnName) {
-		
-		StringBuilder query = new StringBuilder();
-			query.append("SELECT SUM(" + columnName + ")" + " FROM " + tableName);
+			StringBuilder groupBysBuilder = new StringBuilder();
 			
-		return query.toString();
-	}
-	
+			int index = 0;
+			if(groupBys != null) {
+				while(groupBys.hasNext()) {
+					if(index == 0) {
+						groupBysBuilder.append(groupBys.next());
+					} else {
+						groupBysBuilder.append(", " + groupBys.next());
+					}
+					
+					index++;
+				}
+			}
 
-	/**
-	 * It generates query to get total of a column.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which total needed.
-	 * @return Generated query.
-	 */
-	public String formTotalQuery(final String tableName, final String columnName) {
-		
-		StringBuilder query = new StringBuilder();
-			query.append("SELECT TOTAL(" + columnName + ")" + " FROM " + tableName);
-			
+	        appendClause(query, " GROUP BY ", groupBysBuilder.toString());
+	        appendClause(query, " HAVING ", having);
+
 		return query.toString();
 	}
+
+
 	
 	/*
 	 * Make Trigger On Update Cascade Query.
