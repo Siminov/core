@@ -1,6 +1,15 @@
 package siminov.orm.database;
 
-public class Clause {
+import siminov.orm.database.impl.IAverageClause;
+import siminov.orm.database.impl.ICountClause;
+import siminov.orm.database.impl.IFetchClause;
+import siminov.orm.database.impl.IGroupConcatClause;
+import siminov.orm.database.impl.IMaxClause;
+import siminov.orm.database.impl.IMinClause;
+import siminov.orm.database.impl.ISumClause;
+import siminov.orm.database.impl.ITotalClause;
+
+public class Clause implements IFetchClause, ICountClause, ISumClause, ITotalClause, IAverageClause, IMaxClause, IMinClause, IGroupConcatClause {
 
 	String EQUAL_TO = "=";
 	String NOT_EQUAL_TO = "!=";

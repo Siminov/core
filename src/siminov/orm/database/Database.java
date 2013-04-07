@@ -1,6 +1,6 @@
 /** 
 
- * [SIMINOV FRAMEWORK]
+o * [SIMINOV FRAMEWORK]
  * Copyright [2013] [Siminov Software Solution|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,9 +30,17 @@ import java.util.Set;
 
 import siminov.orm.Constants;
 import siminov.orm.Siminov;
-import siminov.orm.database.impl.IDataTypeHandler;
-import siminov.orm.database.impl.IDatabase;
-import siminov.orm.database.impl.IQueryBuilder;
+import siminov.orm.database.design.IDataTypeHandler;
+import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IQueryBuilder;
+import siminov.orm.database.impl.IAverage;
+import siminov.orm.database.impl.ICount;
+import siminov.orm.database.impl.IFetch;
+import siminov.orm.database.impl.IGroupConcat;
+import siminov.orm.database.impl.IMax;
+import siminov.orm.database.impl.IMin;
+import siminov.orm.database.impl.ISum;
+import siminov.orm.database.impl.ITotal;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
@@ -1214,11 +1222,11 @@ Example:
 		}
 	}
 	
-	public ISelect select() throws DatabaseException {
+	public IFetch select() throws DatabaseException {
 		return new Select(getDatabaseMappingDescriptor());
 	}
 	
-	static Object[] select(DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
+	static Object[] select(DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1245,7 +1253,7 @@ Example:
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit));
+		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), distinct, whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit));
 		Collection<Map<String, Object>> datasBundle = new LinkedList<Map<String,Object>>();
 		while(datas.hasNext()) {
 			datasBundle.add(datas.next());
@@ -1294,7 +1302,7 @@ Example:
 		return returnTypes;
 	}
 
-	static Object[] lazyFetch(DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
+	static Object[] lazyFetch(DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1321,7 +1329,7 @@ Example:
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		String query = queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit);
+		String query = queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), distinct, whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit);
 		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query));
 			
 		/*
@@ -1904,7 +1912,7 @@ Example: Make Beer Object
 		/*
 		 * 4. IF EXISTS: call update method, ELSE: call save method.
 		 */
-		int count = count(databaseMappingDescriptor, whereClause.toString());
+		int count = count(databaseMappingDescriptor, null, false, whereClause.toString(), null, null);
 		if(count <= 0) {
 			save(object);
 		} else {
@@ -2158,47 +2166,11 @@ Example:
  	@return No of tuples present in a single table.
  	@throws DatabaseException If any error occur while find count.
  */
-	public int count() throws DatabaseException {
-		
-		Siminov.validateSiminov();
-		
-		return count(null);
+	public ICount count() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 	
-	/**
-	 	Returns the number of rows based on where clause provided.
-	 	
-		<pre>
-
-Example:
-	{@code
-
-	int count = 0;
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	
-	try {
-		count = new Liquor().count(whereClause);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	}
-
-	    </pre>
-	 
-	 	@param whereClause Condition based on count needs to be find.
-	 	@return No of tuples present in a single table.
-	 	@throws DatabaseException If any error occur while finding count.
-	 */
-	public int count(final String whereClause) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return count(databaseMappingDescriptor, whereClause);
-		
-	}
-
-	static final int count(final DatabaseMappingDescriptor databaseMappingDescriptor, final String whereClause) throws DatabaseException {
+	static final int count(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2211,7 +2183,7 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formCountQuery(databaseMappingDescriptor.getTableName(), whereClause);
+		String query = queryBuilder.formCountQuery(databaseMappingDescriptor.getTableName(), column, distinct, whereClause, groupBys, having);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2260,16 +2232,12 @@ Example:
 	 	@return Average of tuples present in a single table.
 	 	@throws DatabaseException If any error occur while finding average.
 	 */
-	public int avg(final String columnName) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return avg(databaseMappingDescriptor, columnName);
-		
+	public IAverage avg() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 
 	
-	static final int avg(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
+	static final int avg(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2278,11 +2246,11 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(Database.class.getName(), "avg(" + columnName + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "avg(" + columnName + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formAvgQuery(databaseMappingDescriptor.getTableName(), columnName);
+		String query = queryBuilder.formAvgQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2332,15 +2300,11 @@ Example:
 	 	@return Sum of tuples present in a single table.
 	 	@throws DatabaseException If any error occur while finding sum.
 	 */
-	public int sum(final String columnName) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return sum(databaseMappingDescriptor, columnName);
-
+	public ISum sum() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 
-	static final int sum(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
+	static final int sum(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2349,11 +2313,11 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(Database.class.getName(), "sum(" + columnName + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "sum(" + columnName + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formSumQuery(databaseMappingDescriptor.getTableName(), columnName);
+		String query = queryBuilder.formSumQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2402,16 +2366,12 @@ Example:
 	 	@return Total of tuples present in a single table.
 	 	@throws DatabaseException If any error occur while finding total.
 	 */
-	public int total(final String columnName) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return total(databaseMappingDescriptor, columnName);
-		
+	public ITotal total() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 
 	
-	static final int total(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName) throws DatabaseException {
+	static final int total(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2420,11 +2380,11 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(Database.class.getName(), "total(" + columnName + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "total(" + columnName + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formTotalQuery(databaseMappingDescriptor.getTableName(), columnName);
+		String query = queryBuilder.formTotalQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2474,45 +2434,11 @@ Example:
 	 	@return Minimum of tuples present in a single table.
 	 	@throws DatabaseException If any error occur while finding minimum.
 	 */
-	public int min(final String columnName) throws DatabaseException {
-		return min(columnName, null);
+	public IMin min() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 	
-	/**
-	 	Returns the minimum based on column name provided.
-	 	
-		<pre>
-
-Example:
-	{@code
-	
-	int minimum = 0;
-	String groupBy = Liquor.GROUP_BY_COLUMN_NAME;
-	
-	try {
-		minimum = new Liquor().max(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE, gropuBy);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	}
-
-	    </pre>
-	 
-	 	@param columnName Column name based on minimum needs to be find.
-	 	@param gropuBy Column names.
-	 	@return Minimum of tuples present in a single table.
-	 	@throws DatabaseException If any error occur while finding minimum.
-	 */
-	public int min(final String columnName, final String groupBy) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return min(databaseMappingDescriptor, columnName, groupBy);
-	
-	}
-
-	static final int min(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String groupBy) throws DatabaseException {
+	static final int min(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2521,11 +2447,11 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(Database.class.getName(), "min(" + columnName + ", " + groupBy + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "min(" + columnName + ", " + groupBy + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formMinQuery(databaseMappingDescriptor.getTableName(), columnName, groupBy);
+		String query = queryBuilder.formMinQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2551,70 +2477,11 @@ Example:
 		
 	}
 	
-	
-	/**
-	 	Returns the maximum based on column name provided.
-	 	
-		<pre>
-
-Example:
-	{@code
-	
-	int maximum = 0;
-	
-	try {
-		maximum = new Liquor().min(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE);
-	} catch(DatabaseException de) {
-		//Log it.
+	public IMax max() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 	
-	}
-
-	    </pre>
-	 
-	 	@param columnName Column name based on maximum needs to be find.
-	 	@return Maximum of tuples present in a single table.
-	 	@throws DatabaseException If any error occur while finding maximum.
-	 */
-	public int max(final String columnName) throws DatabaseException {
-		return max(columnName, null);
-	}
-	
-	/**
-	 	Returns the maximum based on column name provided.
-	 	
-		<pre>
-
-Example:
-	{@code
-	
-	int maximum = 0;
-	String groupBy = Liquor.GROUP_BY_COLUMN_NAME;
-	
-	try {
-		maximum = new Liquor().max(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE, gropuBy);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	}
-
-	    </pre>
-	 
-	 	@param columnName Column name based on maximum needs to be find.
-	 	@param gropuBy Column names.
-	 	@return Maximum of tuples present in a single table.
-	 	@throws DatabaseException If any error occur while finding maximum.
-	 */
-	public int max(final String columnName, final String groupBy) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return max(databaseMappingDescriptor, columnName, groupBy);
-
-	}
-
-	static final int max(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String groupBy) throws DatabaseException {
+	static final int max(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2623,11 +2490,11 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(Database.class.getName(), "max(" + columnName + ", " + groupBy + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "max(" + columnName + ", " + groupBy + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formMaxQuery(databaseMappingDescriptor.getTableName(), columnName, groupBy);
+		String query = queryBuilder.formMaxQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2676,78 +2543,11 @@ Example:
 	 	@return Group concat of tuples present in a single table.
 	 	@throws DatabaseException If any error occur while finding group concat.
 	 */
-	public String groupConcat(final String columnName) throws DatabaseException {
-		return groupConcat(columnName, null);
+	public IGroupConcat groupConcat() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor());
 	}
 
-	/**
-	 	Returns the group concat based on column name and where clause provided.
-	 	
-		<pre>
-	  		
-Example:
-	{@code
-	
-	int groupConcat = 0;
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	
-	try {
-		groupConcat = new Liquor().total(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE, whereClause);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	
-	}
-
-	    </pre>
-	 
-	 	@param columnName Column name based on total needs to be group concat.
-	 	@param whereClause Condition on which group concat to be find.
-	 	@return Group concat of tuples present in a single table.
-	 	@throws DatabaseException If any error occur while finding group concat.
-	 */
-	public String groupConcat(final String columnName, final String whereClause) throws DatabaseException {
-		return groupConcat(columnName, whereClause, null);
-	}
-	
-	/**
-	 	Returns the group concat based on column name and where clause provided.
-	 	
-		<pre>
-	  		
-Example:
-	{@code
-	
-	int groupConcat = 0;
-	
-	String delimiter = ",";
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-	
-	try {
-		groupConcat = new Liquor().total(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE, delimiter, whereClause);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	    
-	}    
-	    </pre>
-	 
-	 	@param columnName Column name based on total needs to be group concat.
-	 	@param delimiter Value of delimiter.
-	 	@param whereClause Condition on which group concat to be find.
-	 	@return Group concat of tuples present in a single table.
-	 	@throws DatabaseException If any error occur while finding group concat.
-	 */
-	public String groupConcat(final String columnName, final String whereClause, final String delimiter) throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor();
-		return groupConcat(databaseMappingDescriptor, columnName, whereClause, delimiter);
-		
-	}
-
-	
-	static final String groupConcat(final DatabaseMappingDescriptor databaseMappingDescriptor, final String columnName, final String whereClause, final String delimiter) throws DatabaseException {
+	static final String groupConcat(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.validateSiminov();
 		
@@ -2756,11 +2556,11 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(Database.class.getName(), "groupConcat(" + columnName + ", " + delimiter + ", " + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "groupConcat(" + columnName + ", " + delimiter + ", " + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.loge(Database.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formGroupConcatQuery(databaseMappingDescriptor.getTableName(), columnName, delimiter, whereClause);
+		String query = queryBuilder.formGroupConcatQuery(databaseMappingDescriptor.getTableName(), column, delimiter, whereClause, groupBys, having);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -3539,7 +3339,7 @@ Example:
 			}
 
 			
-			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
+			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 			Object[] referedObjects = (Object[]) referedObject;
 
 			if(referedObjects == null || referedObjects.length <= 0) {
@@ -3603,7 +3403,7 @@ Example:
 			}
 
 			
-			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
+			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 			Object[] referedObjects = (Object[]) referedObject;
 
 			Collection<Object> referedCollection = new ArrayList<Object>();
@@ -3759,7 +3559,7 @@ Example:
 					}
 				}
 				
-				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
+				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 				referedObject = fetchedObjects[0];
 				
 			} else {
@@ -3936,7 +3736,7 @@ Example:
 					}
 				}
 				
-				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, whereClause.toString(), null, null, null, null, null, null);
+				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 				referedObject = fetchedObjects[0];
 
 			} else {

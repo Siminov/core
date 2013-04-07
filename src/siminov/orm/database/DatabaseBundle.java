@@ -1,9 +1,9 @@
 package siminov.orm.database;
 
-import siminov.orm.database.impl.IDataTypeHandler;
-import siminov.orm.database.impl.IDatabase;
-import siminov.orm.database.impl.IQueryBuilder;
-import siminov.orm.database.impl.ISyntaxProvider;
+import siminov.orm.database.design.IDataTypeHandler;
+import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IQueryBuilder;
+import siminov.orm.database.design.ISyntaxProvider;
 
 public class DatabaseBundle {
 

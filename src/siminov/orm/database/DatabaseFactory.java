@@ -19,10 +19,10 @@ package siminov.orm.database;
 
 import java.util.Hashtable;
 
-import siminov.orm.database.impl.IDataTypeHandler;
-import siminov.orm.database.impl.IDatabase;
-import siminov.orm.database.impl.IQueryBuilder;
-import siminov.orm.database.impl.ISyntaxProvider;
+import siminov.orm.database.design.IDataTypeHandler;
+import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IQueryBuilder;
+import siminov.orm.database.design.ISyntaxProvider;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.utils.ClassUtils;
