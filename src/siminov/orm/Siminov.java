@@ -23,12 +23,12 @@ import java.util.Iterator;
 import siminov.orm.database.Database;
 import siminov.orm.database.DatabaseBundle;
 import siminov.orm.database.DatabaseUtils;
-import siminov.orm.database.impl.IDatabase;
-import siminov.orm.events.ISiminovEvents;
+import siminov.orm.database.design.IDatabase;
 import siminov.orm.events.IDatabaseEvents;
-import siminov.orm.exception.SiminovException;
+import siminov.orm.events.ISiminovEvents;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
+import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
@@ -38,7 +38,6 @@ import siminov.orm.parsers.DatabaseDescriptorParser;
 import siminov.orm.parsers.DatabaseMappingDescriptorParser;
 import siminov.orm.parsers.LibraryDescriptorParser;
 import siminov.orm.resource.Resources;
-
 import android.content.Context;
 
 
