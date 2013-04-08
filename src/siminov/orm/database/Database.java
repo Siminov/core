@@ -1222,11 +1222,32 @@ Example:
 		}
 	}
 	
+	
+	/**
+	 * Fetch tuples from table.
+
+	<pre>
+
+Example:
+	{@code
+
+	LiquorBrand[] liquorBrands =  new LiquorBrand().select()
+					.where(LiquorBrand.LIQUOR_TYPE).equalTo(liquorType)
+					.and(LiquorBrand.COUNTRY).equalTo("USA")
+					.fetch();
+	
+	}
+	</pre>
+
+
+	 * @return IFetch to provide extra information based on which tuples will be fetched from table.
+	 * @throws DatabaseException if any error occur while fetching tuples from table.
+	 */
 	public IFetch select() throws DatabaseException {
 		return new Select(getDatabaseMappingDescriptor());
 	}
 	
-	static Object[] select(DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
+	static Object[] select(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1302,7 +1323,7 @@ Example:
 		return returnTypes;
 	}
 
-	static Object[] lazyFetch(DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
+	static Object[] lazyFetch(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1375,7 +1396,7 @@ Example:
 	
 	Liquor[] liquors = null;
 	try {
-		liquors = new Liquor().fetch(query);
+		liquors = new Liquor().select(query);
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -1384,7 +1405,7 @@ Example:
 	 	</pre>
 	
 	 	@param query Manual query on which tuples need to be fetched.
-	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
+	 	@return Array Of Objects.
 	 	@throws DatabaseException If any error occur while getting tuples from a single table.
 	 */
 	public Object[] select(final String query) throws DatabaseException {
@@ -2144,7 +2165,7 @@ Example:
 	}
 
 	/**
- 	Returns the number of rows based on where clause provided.
+ 	Returns the number of rows based on information provided.
  	
 	<pre>
 
@@ -2154,7 +2175,10 @@ Example:
 	int count = 0;
 	
 	try {
-		count = new Liquor().count();
+		count = new Liquor().count().
+					.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+					.execute();
+		
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -2163,7 +2187,7 @@ Example:
     
     </pre>
  
- 	@return No of tuples present in a single table.
+ 	@return ICount to provide extra information based on which count will be calculated.
  	@throws DatabaseException If any error occur while find count.
  */
 	public ICount count() throws DatabaseException {
@@ -2220,7 +2244,11 @@ Example:
 	int average = 0;
 	
 	try {
-		average = new Liquor().avg(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE);
+		average = new Liquor().avg()
+					.column(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE)
+					.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+					.execute();
+
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -2228,8 +2256,7 @@ Example:
 	}
 	    </pre>
 	 
-	 	@param columnName Column name based on which average needs to find.
-	 	@return Average of tuples present in a single table.
+	 	@return IAverage to provide extra information based on which average will be calculated.
 	 	@throws DatabaseException If any error occur while finding average.
 	 */
 	public IAverage avg() throws DatabaseException {
@@ -2288,7 +2315,11 @@ Example:
 	int sum = 0;
 	
 	try {
-		sum = new Liquor().sum(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE);
+		sum = new Liquor().sum()
+					.column(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE)
+					.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+					.execute();
+
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -2296,8 +2327,7 @@ Example:
 	}			
 	    </pre>
 	 
-	 	@param columnName Column name based on sum needs to be find.
-	 	@return Sum of tuples present in a single table.
+	 	@return ISum to provide extra information based on which sum will be calculated.
 	 	@throws DatabaseException If any error occur while finding sum.
 	 */
 	public ISum sum() throws DatabaseException {
@@ -2354,7 +2384,11 @@ Example:
 	int total = 0;
 	
 	try {
-		total = new Liquor().total(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE);
+		total = new Liquor().total()
+					.column(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE)
+					.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+					.execute();
+		
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -2362,8 +2396,7 @@ Example:
 	}    
 	    </pre>
 	 
-	 	@param columnName Column name based on total needs to be find.
-	 	@return Total of tuples present in a single table.
+	 	@return ITotal to provide extra information based on which total will be calculated.
 	 	@throws DatabaseException If any error occur while finding total.
 	 */
 	public ITotal total() throws DatabaseException {
@@ -2421,7 +2454,11 @@ Example:
 	int minimum = 0;
 	
 	try {
-		minimum = new Liquor().min(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE);
+		minimum = new Liquor().min()
+					.column(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE)
+					.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+					.execute();
+		
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -2430,8 +2467,7 @@ Example:
 	    
 	    </pre>
 	 
-	 	@param columnName Column name based on minimum needs to be find.
-	 	@return Minimum of tuples present in a single table.
+	 	@return IMin to provide extra information based on which minimum will be calculated.
 	 	@throws DatabaseException If any error occur while finding minimum.
 	 */
 	public IMin min() throws DatabaseException {
@@ -2477,6 +2513,33 @@ Example:
 		
 	}
 	
+	/**
+	 	Returns the minimum based on column name provided.
+	 	
+		<pre>
+	
+	Example:
+	{@code
+	
+	int maximum = 0;
+	
+	try {
+		maximum = new Liquor().max()
+					.column(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE)
+					.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+					.execute();
+		
+	} catch(DatabaseException de) {
+		//Log it.
+	}
+	
+	}
+	    
+	    </pre>
+	 
+	 	@return IMax to provide extra information based on which maximum will be calculated.
+	 	@throws DatabaseException If any error occur while finding minimum.
+	 */
 	public IMax max() throws DatabaseException {
 		return new Select(getDatabaseMappingDescriptor());
 	}
@@ -2531,7 +2594,11 @@ Example:
 	int groupConcat = 0;
 	
 	try {
-		groupConcat = new Liquor().total(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE);
+		groupConcat = new Liquor().groupConcat()
+						.column(Liquor.COLUMN_NAME_WHICH_CONTAIN_NUMBRIC_VALUE)
+						.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+						.execute();
+						
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -2539,8 +2606,7 @@ Example:
 	}
 	    </pre>
 	 
-	 	@param columnName Column name based on total needs to be group concat.
-	 	@return Group concat of tuples present in a single table.
+	 	@return IGroupConcat to provide extra information based on which group concat will be calculated.
 	 	@throws DatabaseException If any error occur while finding group concat.
 	 */
 	public IGroupConcat groupConcat() throws DatabaseException {

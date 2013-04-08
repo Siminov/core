@@ -6,7 +6,6 @@ import siminov.orm.model.DatabaseMappingDescriptor;
 
 /**
  * Exposes API's to build database queries.
- *
  */
 public interface IQueryBuilder {
 

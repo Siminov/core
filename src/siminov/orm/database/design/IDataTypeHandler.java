@@ -2,7 +2,6 @@ package siminov.orm.database.design;
 
 /**
  * Exposes convert API which is responsible to provide column data type based on java variable data type.
- *
  */
 public interface IDataTypeHandler {
 
