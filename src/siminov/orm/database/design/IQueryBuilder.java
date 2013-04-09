@@ -52,6 +52,7 @@ public interface IQueryBuilder {
 	/**
 	 * Build query to fetch data from table.
 	 * @param tableName Name of table.
+	 * @param distinct Distinct TRUE/FALSE.
 	 * @param whereClause Where clause based on which data will be fetched from table.
 	 * @param columnNames Name of columns.
 	 * @param groupBys Group by value.
@@ -90,7 +91,11 @@ public interface IQueryBuilder {
 	/**
 	 * Build query to get count of tuples.
 	 * @param tableName Name of table.
+	 * @param column Name of column.
+	 * @param distinct Distinct TRUE/FALSE.
 	 * @param whereClause Where clause based on which count will be decided.
+	 * @param groupBys Group By Column Names.
+	 * @param having Having clause for group by.
 	 * @return Generated Query.
 	 */
 	public String formCountQuery(final String tableName, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having);
@@ -98,7 +103,10 @@ public interface IQueryBuilder {
 	/**
 	 * Build query to get average of tuples.
 	 * @param tableName Name of table.
-	 * @param columnName Name of column of which average needs to be find.
+	 * @param column Name of column of which average needs to be find.
+	 * @param whereClause Where clause based on which average will be decided.
+	 * @param groupBys Group By Column Names.
+	 * @param having Having clause for group by.
 	 * @return Generated Query.
 	 */
 	public String formAvgQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
@@ -106,7 +114,9 @@ public interface IQueryBuilder {
 	/**
 	 * Build query to get sum of tuples.
 	 * @param tableName Name of table.
-	 * @param columnName Name of column.
+	 * @param column Name of column.
+	 * @param groupBys Group By Column Names.
+	 * @param having Having clause for group by.
 	 * @return Generated Query.
 	 */
 	public String formSumQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
@@ -114,7 +124,9 @@ public interface IQueryBuilder {
 	/**
 	 * Build query to get total of tuples.
 	 * @param tableName Name of table.
-	 * @param columnName Name of column.
+	 * @param column Name of column.
+	 * @param groupBys Group By Column Names.
+	 * @param having Having clause for group by.
 	 * @return Generated Query.
 	 */
 	public String formTotalQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
@@ -124,6 +136,7 @@ public interface IQueryBuilder {
 	 * @param tableName Name of table.
 	 * @param columnName Name of column of which maximum value needs to be found.
 	 * @param groupBy Group by clause.
+	 * @param having Having clause for group by.
 	 * @return Generated Query.
 	 */
 	public String formMaxQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
@@ -133,6 +146,7 @@ public interface IQueryBuilder {
 	 * @param tableName Name of table.
 	 * @param columnName Name of column.
 	 * @param groupBy Group by clause.
+	 * @param having Having clause for group by.
 	 * @return Generated Query.
 	 */
 	public String formMinQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
@@ -143,6 +157,8 @@ public interface IQueryBuilder {
 	 * @param columnName Name of column.
 	 * @param delimiter Delimiter of group concat.
 	 * @param whereClause Where clause for group concat.s
+	 * @param groupBy Group by clause.
+	 * @param having Having clause for group by.
 	 * @return Generated Query.
 	 */
 	public String formGroupConcatQuery(final String tableName, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having);

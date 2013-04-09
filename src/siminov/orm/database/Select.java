@@ -2,7 +2,6 @@ package siminov.orm.database;
 
 import java.util.Arrays;
 
-import siminov.orm.database.design.ISyntaxProvider;
 import siminov.orm.database.impl.IAverage;
 import siminov.orm.database.impl.ICount;
 import siminov.orm.database.impl.IFetch;
@@ -56,22 +55,7 @@ public class Select implements IFetch, ICount, ISum, ITotal, IAverage, IMax, IMi
 	
 	public Clause where(String column) {
 		
-		ISyntaxProvider syntaxProvider = this.databaseBundle.getSyntaxProvider();
-		
-		
 		where = new Clause(this);
-		where.EQUAL_TO = syntaxProvider.equalTo();
-		where.NOT_EQUAL_TO = syntaxProvider.notEqualTo();
-		where.GREATER_THAN = syntaxProvider.greaterThan();
-		where.GREATER_THAN_EQUAL = syntaxProvider.greaterThanEqual();
-		where.LESS_THAN = syntaxProvider.lessThan();
-		where.LESS_THAN_EQUAL = syntaxProvider.lessThanEqual();
-		where.BETWEEN = syntaxProvider.between();
-		where.LIKE = syntaxProvider.like();
-		where.IN = syntaxProvider.in();
-		where.AND = syntaxProvider.and();
-		where.OR = syntaxProvider.or();
-		
 		where.addCol(column);
 		
 		return where;
@@ -100,18 +84,14 @@ public class Select implements IFetch, ICount, ISum, ITotal, IAverage, IMax, IMi
 	
 	public Select ascendingOrderBy(String...columns) {
 		this.orderBy = columns;
-		
-		ISyntaxProvider syntaxProvider = this.databaseBundle.getSyntaxProvider();
-		this.whichOrderBy = syntaxProvider.ascendingOrderBy();
+		this.whichOrderBy = Clause.ASC_ORDER_BY;
 
 		return this;
 	}
 	
 	public Select descendingOrderBy(String...columns) {
 		this.orderBy = columns;
-
-		ISyntaxProvider syntaxProvider = this.databaseBundle.getSyntaxProvider();
-		this.whichOrderBy = syntaxProvider.descendingOrderBy();
+		this.whichOrderBy = Clause.DESC_ORDER_BY;
 
 		return this;
 	}
@@ -127,22 +107,8 @@ public class Select implements IFetch, ICount, ISum, ITotal, IAverage, IMax, IMi
 	}
 
 	public Clause having(String column) {
-		ISyntaxProvider syntaxProvider = this.databaseBundle.getSyntaxProvider();
-		
 		
 		having = new Clause(this);
-		having.EQUAL_TO = syntaxProvider.equalTo();
-		having.NOT_EQUAL_TO = syntaxProvider.notEqualTo();
-		having.GREATER_THAN = syntaxProvider.greaterThan();
-		having.GREATER_THAN_EQUAL = syntaxProvider.greaterThanEqual();
-		having.LESS_THAN = syntaxProvider.lessThan();
-		having.LESS_THAN_EQUAL = syntaxProvider.lessThanEqual();
-		having.BETWEEN = syntaxProvider.between();
-		having.LIKE = syntaxProvider.like();
-		having.IN = syntaxProvider.in();
-		having.AND = syntaxProvider.and();
-		having.OR = syntaxProvider.or();
-		
 		having.addCol(column);
 		
 		return having;

@@ -3,14 +3,12 @@ package siminov.orm.database;
 import siminov.orm.database.design.IDataTypeHandler;
 import siminov.orm.database.design.IDatabase;
 import siminov.orm.database.design.IQueryBuilder;
-import siminov.orm.database.design.ISyntaxProvider;
 
 public class DatabaseBundle {
 
 	private IDatabase database = null;
 	private IQueryBuilder queryBuilder = null;
 	private IDataTypeHandler dataTypeHandler = null;
-	private ISyntaxProvider syntaxProvider = null;
 	
 	public IDatabase getDatabase() {
 		return this.database;
@@ -34,14 +32,6 @@ public class DatabaseBundle {
 	
 	public void setDataTypeHandler(IDataTypeHandler dataTypeHandler) {
 		this.dataTypeHandler = dataTypeHandler;
-	}
-	
-	public ISyntaxProvider getSyntaxProvider() {
-		return this.syntaxProvider;
-	}
-	
-	public void setSyntaxProvider(ISyntaxProvider syntaxProvider) {
-		this.syntaxProvider = syntaxProvider;
 	}
 	
 }

@@ -1231,9 +1231,9 @@ Example:
 Example:
 	{@code
 
-	LiquorBrand[] liquorBrands =  new LiquorBrand().select()
-					.where(LiquorBrand.LIQUOR_TYPE).equalTo(liquorType)
-					.and(LiquorBrand.COUNTRY).equalTo("USA")
+	Liquor[] liquor =  new Liquor().select()
+					.where(Liquor.LIQUOR_TYPE).equalTo("RUM")
+					.and(Liquor.ALCHOL_CONTENT).equalTo("90%")
 					.fetch();
 	
 	}
@@ -2165,7 +2165,7 @@ Example:
 	}
 
 	/**
- 	Returns the number of rows based on information provided.
+ 	Returns the count of rows based on information provided.
  	
 	<pre>
 

@@ -11,18 +11,21 @@ import siminov.orm.database.impl.ITotalClause;
 
 public class Clause implements IFetchClause, ICountClause, ISumClause, ITotalClause, IAverageClause, IMaxClause, IMinClause, IGroupConcatClause {
 
-	String EQUAL_TO = "=";
-	String NOT_EQUAL_TO = "!=";
-	String GREATER_THAN = ">";
-	String GREATER_THAN_EQUAL = ">=";
-	String LESS_THAN = "<";
-	String LESS_THAN_EQUAL = "<=";
-	String BETWEEN = "BETWEEN";
-	String LIKE = "LIKE";
-	String IN = "IN";
-	String AND = "AND";
-	String OR = "OR";
-
+	static final String EQUAL_TO = "=";
+	static final String NOT_EQUAL_TO = "!=";
+	static final String GREATER_THAN = ">";
+	static final String GREATER_THAN_EQUAL = ">=";
+	static final String LESS_THAN = "<";
+	static final String LESS_THAN_EQUAL = "<=";
+	static final String BETWEEN = "BETWEEN";
+	static final String LIKE = "LIKE";
+	static final String IN = "IN";
+	static final String AND = "AND";
+	static final String OR = "OR";
+	
+	static final String ASC_ORDER_BY = "ASC";
+	static final String DESC_ORDER_BY = "DESC"; 
+	
 	private StringBuilder where = new StringBuilder();
 	
 	private Select select = null;
