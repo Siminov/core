@@ -84,7 +84,7 @@ LICENSE
 -------
 
  
- [SIMINOV FRAMEWORK]
+<b> SIMINOV FRAMEWORK </b>
  <p>
  Copyright [2013] [Siminov Software Solution|support@siminov.com]
  
