@@ -2,14 +2,14 @@ package siminov.orm.database;
 
 import siminov.orm.database.impl.IAverageClause;
 import siminov.orm.database.impl.ICountClause;
-import siminov.orm.database.impl.IFetchClause;
+import siminov.orm.database.impl.ISelectClause;
 import siminov.orm.database.impl.IGroupConcatClause;
 import siminov.orm.database.impl.IMaxClause;
 import siminov.orm.database.impl.IMinClause;
 import siminov.orm.database.impl.ISumClause;
 import siminov.orm.database.impl.ITotalClause;
 
-public class Clause implements IFetchClause, ICountClause, ISumClause, ITotalClause, IAverageClause, IMaxClause, IMinClause, IGroupConcatClause {
+public class Clause implements ISelectClause, ICountClause, ISumClause, ITotalClause, IAverageClause, IMaxClause, IMinClause, IGroupConcatClause {
 
 	static final String EQUAL_TO = "=";
 	static final String NOT_EQUAL_TO = "!=";

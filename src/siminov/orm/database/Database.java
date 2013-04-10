@@ -35,7 +35,7 @@ import siminov.orm.database.design.IDatabase;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.database.impl.IAverage;
 import siminov.orm.database.impl.ICount;
-import siminov.orm.database.impl.IFetch;
+import siminov.orm.database.impl.ISelect;
 import siminov.orm.database.impl.IGroupConcat;
 import siminov.orm.database.impl.IMax;
 import siminov.orm.database.impl.IMin;
@@ -1240,10 +1240,10 @@ Example:
 	</pre>
 
 
-	 * @return IFetch to provide extra information based on which tuples will be fetched from table.
+	 * @return ISelect to provide extra information based on which tuples will be fetched from table.
 	 * @throws DatabaseException if any error occur while fetching tuples from table.
 	 */
-	public IFetch select() throws DatabaseException {
+	public ISelect select() throws DatabaseException {
 		return new Select(getDatabaseMappingDescriptor());
 	}
 	

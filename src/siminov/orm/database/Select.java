@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import siminov.orm.database.impl.IAverage;
 import siminov.orm.database.impl.ICount;
-import siminov.orm.database.impl.IFetch;
+import siminov.orm.database.impl.ISelect;
 import siminov.orm.database.impl.IGroupConcat;
 import siminov.orm.database.impl.IMax;
 import siminov.orm.database.impl.IMin;
@@ -14,7 +14,7 @@ import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.resource.Resources;
 
-public class Select implements IFetch, ICount, ISum, ITotal, IAverage, IMax, IMin, IGroupConcat {
+public class Select implements ISelect, ICount, ISum, ITotal, IAverage, IMax, IMin, IGroupConcat {
 
 	private DatabaseMappingDescriptor databaseMappingDescriptor = null;
 	private DatabaseBundle databaseBundle = null;
