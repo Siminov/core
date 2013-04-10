@@ -2011,7 +2011,9 @@ Example: Make Beer Object
 			processManyToOneRelationship(object, where);
 			processManyToManyRelationship(object, where);
 			
-		} 
+		} else {
+			where.append(whereClause);
+		}
 		
 		/*
 		 * 4. Using QueryBuilder form update bind query.
@@ -2021,77 +2023,6 @@ Example: Make Beer Object
 		 * 5. Pass query to executeBindQuery method for deletion.
 		 */
 		database.executeQuery(getDatabaseDescriptor(databaseMapping.getClassName()), databaseMapping, query);
-		
-		/*
-		 * 6. Check for relationship's if any, IF EXISTS: process it, ELSE: return.
-		 */
-		Iterator<DatabaseMappingDescriptor.Relationship> relationships = databaseMapping.getRelationships();
-		while(relationships.hasNext()) {
-			DatabaseMappingDescriptor.Relationship relationship = relationships.next();
-			
-			boolean isLoad = relationship.isLoad();
-			if(!isLoad) {
-				continue;
-			}
-			
-			String relationshipType = relationship.getRelationshipType();
-			if(relationshipType == null || relationshipType.length() <= 0) {
-				continue;
-			}
-			
-			if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
-				Object value = null;
-				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
-				} catch(SiminovException siminovException) {
-					Log.loge(Database.class.getName(), "delete", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMapping.getClassName() + ", " + siminovException.getMessage());
-					throw new DatabaseException(Database.class.getName(), "delete", siminovException.getMessage());
-				} 
-
-				
-				if(value == null) {
-					continue;
-				}
-
-				delete(value);
-			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
-				Object value = null;
-				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
-				} catch(SiminovException siminovException) {
-					Log.loge(Database.class.getName(), "delete", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMapping.getClassName() + ", " + siminovException.getMessage());
-					throw new DatabaseException(Database.class.getName(), "delete", siminovException.getMessage());
-				} 
-
-				
-				if(value == null) {
-					continue;
-				}
-				
-				@SuppressWarnings("unchecked")
-				Collection<Object> objects = (Collection<Object>) object;
-				Iterator<Object> objectsIterator = objects.iterator();
-				
-				while(objectsIterator.hasNext()) {
-					delete(objectsIterator.next());
-				}
-			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
-				Object value = null;
-				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
-				} catch(SiminovException siminovException) {
-					Log.loge(Database.class.getName(), "delete", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMapping.getClassName() + ", " + siminovException.getMessage());
-					throw new DatabaseException(Database.class.getName(), "delete", siminovException.getMessage());
-				} 
-
-				
-				if(value == null) {
-					continue;
-				}
-
-				//Dont do anything.
-			}
-		}
 	}
 	
 	/**
