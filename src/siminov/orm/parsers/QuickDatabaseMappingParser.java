@@ -48,7 +48,7 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 	
 	private Context context = null;
 	
-	private DatabaseMappingDescriptor databaseMapping = null;
+	private DatabaseMappingDescriptor databaseMappingDescriptor = null;
 	
 	private boolean doesMatch = false;
 	
@@ -71,8 +71,8 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 			throw new SiminovException(getClass().getName(), "process", "Invalid Application Context found.");
 		}
 
-		databaseMapping = new AnnotationParser().parseClass(this.finalDatabaseMappingBasedOnClassName);
-		if(databaseMapping != null) {
+		databaseMappingDescriptor = new AnnotationParser().parseClass(this.finalDatabaseMappingBasedOnClassName);
+		if(databaseMappingDescriptor != null) {
 			
 			Iterator<DatabaseDescriptor> databaseDescriptors = Resources.getInstance().getDatabaseDescriptors();
 			while(databaseDescriptors.hasNext()) {
@@ -80,9 +80,9 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 				Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
 				
 				while(databaseMappingPaths.hasNext()) {
-					String databaseMappingPath = databaseMappingPaths.next();
-					if(this.finalDatabaseMappingBasedOnClassName.equalsIgnoreCase(databaseMappingPath)) {
-						databaseDescriptor.addDatabaseMapping(this.finalDatabaseMappingBasedOnClassName, databaseMapping);
+					String databaseMappingDescriptorPath = databaseMappingPaths.next();
+					if(this.finalDatabaseMappingBasedOnClassName.equalsIgnoreCase(databaseMappingDescriptorPath)) {
+						databaseDescriptor.addDatabaseMapping(this.finalDatabaseMappingBasedOnClassName, databaseMappingDescriptor);
 						Resources.getInstance().synchronizeDatabases();
 						
 						return;
@@ -97,7 +97,7 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 	        		while(libraryDatabaseMappingPaths.hasNext()) {
 	        			String libraryDatabaseMappingPath = libraryDatabaseMappingPaths.next();
 	        			if(libraryDatabaseMappingPath.equalsIgnoreCase(this.finalDatabaseMappingBasedOnClassName)) {
-	        				libraryDescriptor.addDatabaseMapping(libraryDatabaseMappingPath, databaseMapping);
+	        				libraryDescriptor.addDatabaseMapping(libraryDatabaseMappingPath, databaseMappingDescriptor);
 	    					Resources.getInstance().synchronizeDatabases();
 
 	    					return;
@@ -123,25 +123,25 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			Iterator<String> databaseMappings = databaseDescriptor.getDatabaseMappingPaths();
+			Iterator<String> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappingPaths();
 					
-			while(databaseMappings.hasNext()) {
-				String databaseMappingPath = databaseMappings.next();
+			while(databaseMappingDescriptors.hasNext()) {
+				String databaseMappingDescriptorPath = databaseMappingDescriptors.next();
 				
-				InputStream applicationDescriptorStream = null;
+				InputStream databaseMappingDescriptorStream = null;
 				
 				try {
-					applicationDescriptorStream = context.getAssets().open(databaseMappingPath);
+					databaseMappingDescriptorStream = context.getAssets().open(databaseMappingDescriptorPath);
 				} catch(IOException ioException) {
-					Log.loge(getClass().getName(), "process", "IOException caught while getting input stream of DATABASE-MAPPING: " + databaseMappingPath + ", " + ioException.getMessage());
-					throw new SiminovException(getClass().getName(), "process", "IOException caught while getting input stream of application descriptor: " + databaseMappingPath + ", " + ioException.getMessage());
+					Log.loge(getClass().getName(), "process", "IOException caught while getting input stream of DATABASE-MAPPING: " + databaseMappingDescriptorPath + ", " + ioException.getMessage());
+					throw new SiminovException(getClass().getName(), "process", "IOException caught while getting input stream of application descriptor: " + databaseMappingDescriptorPath + ", " + ioException.getMessage());
 				}
 				
 				try {
-					parseMessage(applicationDescriptorStream);
+					parseMessage(databaseMappingDescriptorStream);
 				} catch(Exception exception) {
-					Log.loge(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseMappingPath + ", " + exception.getMessage());
-					throw new SiminovException(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseMappingPath + ", " + exception.getMessage());
+					Log.loge(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseMappingDescriptorPath + ", " + exception.getMessage());
+					throw new SiminovException(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseMappingDescriptorPath + ", " + exception.getMessage());
 				}
 				
 				if(doesMatch) {
@@ -149,14 +149,14 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 					DatabaseMappingDescriptorParser databaseMappingParser = null;
 					
 					try {
-						databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingPath);
+						databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingDescriptorPath);
 					} catch(SiminovException siminovException) {
-						Log.loge(getClass().getName(), "process", "SiminovException caught while parsing database mapping, NAME: " + databaseMappingPath + ", " + siminovException.getMessage());
-						throw new SiminovException(getClass().getName(), "process", "NAME: " + databaseMappingPath + ", " + siminovException.getMessage());
+						Log.loge(getClass().getName(), "process", "SiminovException caught while parsing database mapping, NAME: " + databaseMappingDescriptorPath + ", " + siminovException.getMessage());
+						throw new SiminovException(getClass().getName(), "process", "NAME: " + databaseMappingDescriptorPath + ", " + siminovException.getMessage());
 					}
 					
-					this.databaseMapping = databaseMappingParser.getDatabaseMapping();
-					databaseDescriptor.addDatabaseMapping(databaseMappingPath, databaseMapping);
+					this.databaseMappingDescriptor = databaseMappingParser.getDatabaseMapping();
+					databaseDescriptor.addDatabaseMapping(databaseMappingDescriptorPath, databaseMappingDescriptor);
 					Resources.getInstance().synchronizeDatabases();
 					
 					return;
@@ -195,8 +195,8 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 							throw new SiminovException(getClass().getName(), "process", "NAME: " + libraryDatabaseMapping + ", " + siminovException.getMessage());
 						}
 						
-						databaseMapping = databaseMappingParser.getDatabaseMapping();
-						libraryDescriptor.addDatabaseMapping(libraryDatabaseMapping, databaseMapping);
+						databaseMappingDescriptor = databaseMappingParser.getDatabaseMapping();
+						libraryDescriptor.addDatabaseMapping(libraryDatabaseMapping, databaseMappingDescriptor);
 						Resources.getInstance().synchronizeDatabases();
 						
 						return;
@@ -239,6 +239,6 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 	 * @return Database Mapping Object.
 	 */
 	public DatabaseMappingDescriptor getDatabaseMapping() {
-		return this.databaseMapping;
+		return this.databaseMappingDescriptor;
 	}
 }
