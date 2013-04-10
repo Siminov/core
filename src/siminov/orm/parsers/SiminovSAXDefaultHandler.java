@@ -79,7 +79,7 @@ public class SiminovSAXDefaultHandler extends DefaultHandler {
 			Log.loge(getClass().getName(), "parserMessage", "IOException caught while parsing input stream, " + ioException.getMessage());
 			throw new SiminovException(getClass().getName(), "parseMessage", "IOException caught while parsing input stream, " + ioException.getMessage());
 		} catch(PrematureEndOfParseException prematureEndOfParseException) {
-			Log.loge(getClass().getName(), "parserMessage", "PrematureEndOfParseException caught while parsing input stream, " + prematureEndOfParseException.getMessage());
+			Log.logi(getClass().getName(), "parserMessage", "PrematureEndOfParseException caught while parsing input stream, " + prematureEndOfParseException.getMessage());
 		} catch(SAXException saxException) {
 			Log.loge(getClass().getName(), "parserMessage", "SAXException caught while parsing input stream, " + saxException.getMessage());
 			throw new SiminovException(getClass().getName(), "parserMessage", "SAXException caught while parsing input stream, " + saxException.getMessage());
