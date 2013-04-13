@@ -61,7 +61,7 @@ Example:
 	</p>
  *
  */
-public class ApplicationDescriptor implements Constants {
+public class ApplicationDescriptor {
 
 	private Map<String, String> properties = new HashMap<String, String> ();
 	
@@ -76,7 +76,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @return Application Descriptor Name.
 	 */
 	public String getName() {
-		return this.properties.get(APPLICATION_DESCRIPTOR_NAME);
+		return this.properties.get(Constants.APPLICATION_DESCRIPTOR_NAME);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @param name Name of Application Descriptor.
 	 */
 	public void setName(final String name) {
-		this.properties.put(APPLICATION_DESCRIPTOR_NAME, name);
+		this.properties.put(Constants.APPLICATION_DESCRIPTOR_NAME, name);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @return Description of application.
 	 */
 	public String getDescription() {
-		return this.properties.get(APPLICATION_DESCRIPTOR_DESCRIPTION);
+		return this.properties.get(Constants.APPLICATION_DESCRIPTOR_DESCRIPTION);
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @param description Description of application.
 	 */
 	public void setDescription(final String description) {
-		this.properties.put(APPLICATION_DESCRIPTOR_DESCRIPTION, description);
+		this.properties.put(Constants.APPLICATION_DESCRIPTOR_DESCRIPTION, description);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @return Version of application.
 	 */
 	public double getVersion() {
-		String version = this.properties.get(APPLICATION_DESCRIPTOR_VERSION);
+		String version = this.properties.get(Constants.APPLICATION_DESCRIPTOR_VERSION);
 		if(version == null || version.length() <= 0) {
 			return 0.0;
 		}
@@ -121,7 +121,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @param version Version of application.
 	 */
 	public void setVersion(final double version) {
-		this.properties.put(APPLICATION_DESCRIPTOR_VERSION, Double.toString(version));
+		this.properties.put(Constants.APPLICATION_DESCRIPTOR_VERSION, Double.toString(version));
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @return TRUE: If load initially is set to true, FALSE: If load initially is set to false.
 	 */
 	public boolean isLoadInitially() {
-		String isLoadInitially = this.properties.get(APPLICATION_DESCRIPTOR_LOAD_INITIALLY);
+		String isLoadInitially = this.properties.get(Constants.APPLICATION_DESCRIPTOR_LOAD_INITIALLY);
 		if(isLoadInitially == null || isLoadInitially.length() <= 0) {
 			return true;
 		} else if(isLoadInitially != null && isLoadInitially.length() > 0 && isLoadInitially.equalsIgnoreCase("true")) {
@@ -144,7 +144,7 @@ public class ApplicationDescriptor implements Constants {
 	 * @param initialLoad (true/false) defined by ApplicationDescriptor.si.xml file.
 	 */
 	public void setLoadInitially(final boolean initialLoad) {
-		this.properties.put(APPLICATION_DESCRIPTOR_LOAD_INITIALLY, Boolean.toString(initialLoad));
+		this.properties.put(Constants.APPLICATION_DESCRIPTOR_LOAD_INITIALLY, Boolean.toString(initialLoad));
 	}
 	
 

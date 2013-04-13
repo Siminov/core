@@ -75,7 +75,7 @@ Example:
 		</pre>
 	</p>
 */
-public class DatabaseDescriptor implements Constants {
+public class DatabaseDescriptor {
 	
 	private Map<String, String> properties = new HashMap<String, String> ();
 	
@@ -94,7 +94,7 @@ public class DatabaseDescriptor implements Constants {
 	 * @return Database Descriptor Name.
 	 */
 	public String getDatabaseName() {
-		return this.properties.get(DATABASE_DESCRIPTOR_DATABASE_NAME);
+		return this.properties.get(Constants.DATABASE_DESCRIPTOR_DATABASE_NAME);
 	}
 	
 	/**
@@ -102,15 +102,15 @@ public class DatabaseDescriptor implements Constants {
 	 * @param databaseName Database Descriptor Name.
 	 */
 	public void setDatabaseName(final String databaseName) {
-		this.properties.put(DATABASE_DESCRIPTOR_DATABASE_NAME, databaseName);
+		this.properties.put(Constants.DATABASE_DESCRIPTOR_DATABASE_NAME, databaseName);
 	}
 	
 	public String getType() {
-		return this.properties.get(DATABASE_DESCRIPTOR_TYPE);
+		return this.properties.get(Constants.DATABASE_DESCRIPTOR_TYPE);
 	}
 	
 	public void setType(String type) {
-		this.properties.put(DATABASE_DESCRIPTOR_TYPE, type);
+		this.properties.put(Constants.DATABASE_DESCRIPTOR_TYPE, type);
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class DatabaseDescriptor implements Constants {
 	 * @return Description defined in DatabaseDescriptor.si.xml file.
 	 */
 	public String getDescription() {
-		return this.properties.get(DATABASE_DESCRIPTOR_TYPE);
+		return this.properties.get(Constants.DATABASE_DESCRIPTOR_TYPE);
 	}
 	
 	/**
@@ -126,7 +126,7 @@ public class DatabaseDescriptor implements Constants {
 	 * @param description Description defined in DatabaseDescriptor.si.xml file.
 	 */
 	public void setDescription(final String description) {
-		this.properties.put(DATABASE_DESCRIPTOR_DESCRIPTION, description);
+		this.properties.put(Constants.DATABASE_DESCRIPTOR_DESCRIPTION, description);
 	}
 	
 	
@@ -135,7 +135,7 @@ public class DatabaseDescriptor implements Constants {
 	 * @return TRUE: If external_storage defined as true in DatabaseDescriptor.si.xml file, FALSE: If external_storage defined as false in DatabaseDescritor.xml file.
 	 */
 	public boolean isExternalStorageEnable() {
-		String externalStorage = this.properties.get(DATABASE_DESCRIPTOR_EXTERNAL_STORAGE);
+		String externalStorage = this.properties.get(Constants.DATABASE_DESCRIPTOR_EXTERNAL_STORAGE);
 		if(externalStorage == null || externalStorage.length() <= 0) {
 			return false;
 		} else if(externalStorage != null && externalStorage.length() > 0 && externalStorage.equalsIgnoreCase("true")) {
@@ -151,7 +151,7 @@ public class DatabaseDescriptor implements Constants {
 	 * @param isExternalStorageEnable (true/false) External Storage Enable Or Not.
 	 */
 	public void setExternalStorageEnable(final boolean isExternalStorageEnable) {
-		this.properties.put(DATABASE_DESCRIPTOR_EXTERNAL_STORAGE, Boolean.toString(isExternalStorageEnable));
+		this.properties.put(Constants.DATABASE_DESCRIPTOR_EXTERNAL_STORAGE, Boolean.toString(isExternalStorageEnable));
 	}
 	
 	/**
@@ -159,7 +159,7 @@ public class DatabaseDescriptor implements Constants {
 	 * @return TRUE: If locking is required as per defined in DatabaseDescriptor.si.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.si.xml file.
 	 */
 	public boolean isLockingRequired() {
-		String isLockingRequired = this.properties.get(DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED);
+		String isLockingRequired = this.properties.get(Constants.DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED);
 		if(isLockingRequired == null || isLockingRequired.length() <= 0) {
 			return false;
 		} else if(isLockingRequired != null && isLockingRequired.length() > 0 && isLockingRequired.equalsIgnoreCase("true")) {
@@ -174,7 +174,7 @@ public class DatabaseDescriptor implements Constants {
 	 * @param isLockingRequired (true/false) database locking as per defined in DatabaseDescriptor.si.xml file.
 	 */
 	public void setLockingRequired(final boolean isLockingRequired) {
-		this.properties.put(DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED, Boolean.toString(isLockingRequired));
+		this.properties.put(Constants.DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED, Boolean.toString(isLockingRequired));
 	}
 	
 	

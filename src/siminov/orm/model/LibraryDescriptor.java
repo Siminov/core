@@ -58,7 +58,7 @@ Example:
 	</p>
  *
  */
-public class LibraryDescriptor implements Constants {
+public class LibraryDescriptor {
 
 	private Map<String, String> properties = new HashMap<String, String> ();
 	
@@ -73,7 +73,7 @@ public class LibraryDescriptor implements Constants {
 	 * @return
 	 */
 	public String getName() {
-		return this.properties.get(LIBRARY_DESCRIPTOR_NAME);
+		return this.properties.get(Constants.LIBRARY_DESCRIPTOR_NAME);
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class LibraryDescriptor implements Constants {
 	 * @param name
 	 */
 	public void setName(final String name) {
-		this.properties.put(LIBRARY_DESCRIPTOR_NAME, name);
+		this.properties.put(Constants.LIBRARY_DESCRIPTOR_NAME, name);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class LibraryDescriptor implements Constants {
 	 * @return
 	 */
 	public String getDescription() {
-		return this.properties.get(LIBRARY_DESCRIPTOR_DESCRIPTION);
+		return this.properties.get(Constants.LIBRARY_DESCRIPTOR_DESCRIPTION);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class LibraryDescriptor implements Constants {
 	 * @param description
 	 */
 	public void setDescription(final String description) {
-		this.properties.put(LIBRARY_DESCRIPTOR_DESCRIPTION, description);
+		this.properties.put(Constants.LIBRARY_DESCRIPTOR_DESCRIPTION, description);
 	}
 	
 
