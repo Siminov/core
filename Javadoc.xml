@@ -4,7 +4,7 @@
     	<javadoc access="public" destdir="docs"    bootclasspath="C:/Program Files (x86)/Android/android-sdk/platforms/android-7/android.jar"
     		  windowtitle="Siminov Framework"    doctitle="Siminov Framework"    header="Produced by Siminov Software Solution" 		footer="Apache License 2.0"	      bottom="Copyright 2013"
     		  stylesheetfile="doclet.assets/siminov-javadocsstylesheet.css" 		classpath="." 		sourcepath="src:gen"
-    		  packagenames="siminov.orm, siminov.orm.annotation, siminov.orm.database, siminov.orm.database.sqlite, siminov.orm.events, siminov.orm.exception, siminov.orm.log, siminov.orm.model, siminov.orm.parsers, siminov.orm.utils" 
+    		  packagenames="siminov.orm, siminov.orm.annotation, siminov.orm.database, siminov.orm.database.sqlite, siminov.orm.events, siminov.orm.exception, siminov.orm.log, siminov.orm.model, siminov.orm.parsers, siminov.orm.utils, siminov.orm.database.impl, siminov.orm.database.design" 
     		  additionalparam="-author  -version  -sourceclasspath  bin/classes"
     		  >
     		
