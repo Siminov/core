@@ -26,6 +26,9 @@ import siminov.orm.exception.DatabaseException;
  */
 public interface IMax {
 
+	public String INTERFACE_NAME = IMax.class.getName();
+
+	
 	/**
 	 * Column name of which condition will be specified.
 	 * @param column Name of column.

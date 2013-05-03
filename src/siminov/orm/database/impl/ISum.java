@@ -28,6 +28,9 @@ import siminov.orm.exception.DatabaseException;
 public interface ISum {
 
 	
+	public String INTERFACE_NAME = ISum.class.getName();
+
+	
 	/**
 	 * Column name of which condition will be specified.
 	 * @param column Name of column.

@@ -25,6 +25,8 @@ import siminov.orm.exception.DatabaseException;
  */
 public interface ICount {
 
+	public String INTERFACE_NAME = ICount.class.getName();
+
 	/**
 	 * Used to specify DISTINCT condition.
 	 * @return ICount Interface.

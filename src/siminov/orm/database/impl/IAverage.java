@@ -27,6 +27,8 @@ import siminov.orm.exception.DatabaseException;
  */
 public interface IAverage {
 
+	public String INTERFACE_NAME = IAverage.class.getName();
+	
 	/**
 	 * Column name of which condition will be specified.
 	 * @param column Name of column.

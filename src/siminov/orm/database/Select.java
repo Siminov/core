@@ -21,20 +21,22 @@ import java.util.Arrays;
 
 import siminov.orm.database.impl.IAverage;
 import siminov.orm.database.impl.ICount;
-import siminov.orm.database.impl.ISelect;
+import siminov.orm.database.impl.IDelete;
 import siminov.orm.database.impl.IGroupConcat;
 import siminov.orm.database.impl.IMax;
 import siminov.orm.database.impl.IMin;
+import siminov.orm.database.impl.ISelect;
 import siminov.orm.database.impl.ISum;
 import siminov.orm.database.impl.ITotal;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.resource.Resources;
 
-public class Select implements ISelect, ICount, ISum, ITotal, IAverage, IMax, IMin, IGroupConcat {
+public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, IMax, IMin, IGroupConcat {
 
 	private DatabaseMappingDescriptor databaseMappingDescriptor = null;
-	private DatabaseBundle databaseBundle = null;
+	private String interfaceName = null;
+	private Object referObject = null;
+	
 	
 	private String column = null;
 	private String[] columns = new String[] {};
@@ -60,10 +62,17 @@ public class Select implements ISelect, ICount, ISum, ITotal, IAverage, IMax, IM
 		
 	}
 	
-	public Select(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	public Select(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName) throws DatabaseException {
 		this.databaseMappingDescriptor = databaseMappingDescriptor;
-		this.databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		this.interfaceName = interfaceName;
 	}
+
+	public Select(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName, final Object referObject) throws DatabaseException {
+		this.databaseMappingDescriptor = databaseMappingDescriptor;
+		this.interfaceName = interfaceName;
+		this.referObject = referObject;
+	}
+	
 
 	public Select distinct() {
 		this.distinct = true;
@@ -184,22 +193,23 @@ public class Select implements ISelect, ICount, ISum, ITotal, IAverage, IMax, IM
 		}
 
 		
-		
-		if(this instanceof ICount) {
+		if(interfaceName.equalsIgnoreCase(IDelete.INTERFACE_NAME)) {
+			Database.delete(referObject, where);
+		} else if(interfaceName.equalsIgnoreCase(ICount.INTERFACE_NAME)) {
 			return Database.count(databaseMappingDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(this instanceof IAverage) {
+		} else if(interfaceName.equalsIgnoreCase(IAverage.INTERFACE_NAME)) {
 			return Database.avg(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(this instanceof ISum) {
+		} else if(interfaceName.equalsIgnoreCase(ISum.INTERFACE_NAME)) {
 			return Database.sum(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(this instanceof ITotal) {
+		} else if(interfaceName.equalsIgnoreCase(ITotal.INTERFACE_NAME)) {
 			return Database.total(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(this instanceof IMax) {
+		} else if(interfaceName.equalsIgnoreCase(IMax.INTERFACE_NAME)) {
 			return Database.max(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(this instanceof IMin) {
+		} else if(interfaceName.equalsIgnoreCase(IMin.INTERFACE_NAME)) {
 			return Database.min(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(this instanceof IGroupConcat) {
+		} else if(interfaceName.equalsIgnoreCase(IGroupConcat.INTERFACE_NAME)) {
 			return Database.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
-		}
+		} 
 
 		return null;
 	}

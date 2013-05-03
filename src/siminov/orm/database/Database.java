@@ -35,10 +35,11 @@ import siminov.orm.database.design.IDatabase;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.database.impl.IAverage;
 import siminov.orm.database.impl.ICount;
-import siminov.orm.database.impl.ISelect;
+import siminov.orm.database.impl.IDelete;
 import siminov.orm.database.impl.IGroupConcat;
 import siminov.orm.database.impl.IMax;
 import siminov.orm.database.impl.IMin;
+import siminov.orm.database.impl.ISelect;
 import siminov.orm.database.impl.ISum;
 import siminov.orm.database.impl.ITotal;
 import siminov.orm.events.IDatabaseEvents;
@@ -1244,7 +1245,7 @@ Example:
 	 * @throws DatabaseException if any error occur while fetching tuples from table.
 	 */
 	public ISelect select() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), ISelect.INTERFACE_NAME);
 	}
 	
 	static Object[] select(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
@@ -1941,15 +1942,7 @@ Example: Make Beer Object
 		}
 	}
 	
-	static void delete(final Object object) throws DatabaseException {
-		if(object == null) {
-			Log.logd(Database.class.getName(), "delete", "Invalid Object Found.");
-			return;
-		}
 
-		delete(object, null);
-	}
-	
 	static void delete(final Object object, final String whereClause) throws DatabaseException {
 		/*
 		 * 1. Get mapped database mapping object for object parameter class name.
@@ -2061,39 +2054,10 @@ Example:
 	 
 	   	@throws DatabaseException If any error occurs while saving tuples in database.
 	 */
-	public void delete() throws DatabaseException {
-		Siminov.validateSiminov();
-		
-		delete(this);
+	public IDelete delete() throws DatabaseException {
+		return new Select(getDatabaseMappingDescriptor(), IDelete.INTERFACE_NAME, this);
 	}
 
-	/**
-		It deletes one or more records from any single table in a relational database, based on where clause provided.
-	
-	   	<pre>
-
-Example:
-	{@code
-
-	String whereClause = Liquor.LIQUOR_TYPE + "='" + Liquor.LIQUOR_TYPE_BEER + "'";
-  
-	try {
-		new Liquor().delete(whereClause);
-	} catch(DatabaseException de) {
-		//Log it.
-	}
-	    
-	}    
-	    </pre>
-	 
-	 	@param whereClause Condition based on tuples needs to be delete.
-	   	@throws DatabaseException If any error occurs while saving tuples in database.
-	 */
-	public void delete(final String whereClause) throws DatabaseException {
-		Siminov.validateSiminov();
-
-		delete(this, whereClause);
-	}
 
 	/**
  	Returns the count of rows based on information provided.
@@ -2122,7 +2086,7 @@ Example:
  	@throws DatabaseException If any error occur while find count.
  */
 	public ICount count() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), ICount.INTERFACE_NAME);
 	}
 	
 	static final int count(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2191,7 +2155,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding average.
 	 */
 	public IAverage avg() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), IAverage.INTERFACE_NAME);
 	}
 
 	
@@ -2262,7 +2226,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding sum.
 	 */
 	public ISum sum() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), ISum.INTERFACE_NAME);
 	}
 
 	static final int sum(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2331,7 +2295,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding total.
 	 */
 	public ITotal total() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), ITotal.INTERFACE_NAME);
 	}
 
 	
@@ -2402,7 +2366,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding minimum.
 	 */
 	public IMin min() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), IMin.INTERFACE_NAME);
 	}
 	
 	static final int min(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2472,7 +2436,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding minimum.
 	 */
 	public IMax max() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), IMax.INTERFACE_NAME);
 	}
 	
 	static final int max(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2541,7 +2505,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding group concat.
 	 */
 	public IGroupConcat groupConcat() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor());
+		return new Select(getDatabaseMappingDescriptor(), IGroupConcat.INTERFACE_NAME);
 	}
 
 	static final String groupConcat(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having) throws DatabaseException {

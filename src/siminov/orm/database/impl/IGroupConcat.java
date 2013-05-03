@@ -26,6 +26,9 @@ import siminov.orm.exception.DatabaseException;
  */
 public interface IGroupConcat {
 
+	public String INTERFACE_NAME = IGroupConcat.class.getName();
+
+	
 	/**
 	 * Used to specify separator if Y is omitted.
 	 * @param delimiter Delimiter.

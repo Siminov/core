@@ -22,6 +22,9 @@ package siminov.orm.database.impl;
  */
 public interface IMinClause {
 
+	public String INTERFACE_NAME = IMinClause.class.getName();
+
+	
 	/**
 	 * Used to specify EQUAL TO (=) condition.
 	 * @param value Value for which EQUAL TO (=) condition will be applied.
