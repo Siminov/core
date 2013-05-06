@@ -324,5 +324,9 @@ public class ApplicationDescriptor {
 	public void addEvent(final String event) {
 		this.events.add(event);
 	}
+
+	public void removeEvent(final String event) {
+		this.events.remove(event);
+	}
 	
 }
