@@ -1,0 +1,9 @@
+1. Added new api to remove event from ApplicationDescriptor class object.
+
+public class ApplicationDescriptor() {
+
+	public void removeEvent(final String event) {
+		
+	}
+	
+}
