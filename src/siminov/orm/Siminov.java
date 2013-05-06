@@ -60,6 +60,9 @@ public class Siminov {
 	private static boolean initialized = false;
 	
 	private static boolean firstTimeProcessed = false;
+
+	private static Resources resources = Resources.getInstance();
+	
 	
 	/**
 	 * It is used to check whether SIMINOV FRAMEWORK is active or not.
@@ -139,7 +142,6 @@ public class Siminov {
 			throw new DeploymentException(Siminov.class.getName(), "initialize", "Invalid Context Found.");
 		}
 		
-		Resources resources = Resources.getInstance();
 		resources.setApplicationContext(context);
 
 		parseApplicationDescriptor();
@@ -161,7 +163,7 @@ public class Siminov {
 			throw new DeploymentException(Siminov.class.getName(), "initialize", "Invalid ApplicationContext Found.");
 		}
 		
-		Resources resources = Resources.getInstance();
+		resources.setApplicationContext(context);
 		resources.setApplicationDescriptor(applicationDescriptor);
 		if(!resources.getApplicationDescriptor().isDatabaseNeeded()) {
 			return;
@@ -200,7 +202,6 @@ public class Siminov {
 	public static void shutdown() throws SiminovException {
 		validateSiminov();
 		
-		Resources resources = Resources.getInstance();
 		Iterator<DatabaseDescriptor> databaseDescriptors = resources.getDatabaseDescriptors();
 
 		boolean failed = false;
@@ -230,7 +231,6 @@ public class Siminov {
 	}
 	
 	private static void process() {
-		Resources resources = Resources.getInstance();
 		ApplicationDescriptor applicationDescriptor = Resources.getInstance().getApplicationDescriptor();
 		
 		Iterator<String> databaseDescriptorPaths = applicationDescriptor.getDatabaseDescriptorPaths();
@@ -283,13 +283,12 @@ public class Siminov {
 			throw new DeploymentException(Siminov.class.getName(), "parseApplicationDescriptor", "Invalid Application Descriptor Found.");
 		}
 		
-		Resources.getInstance().setApplicationDescriptor(applicationDescriptor);
+		resources.setApplicationDescriptor(applicationDescriptor);
 	}
 	
 	private static void parseDatabaseDescriptor(final String databaseDescriptorPath) {
 		validateSiminov();
 		
-		Resources resources = Resources.getInstance();
 		DatabaseDescriptorParser databaseDescriptorParser = null;
 		
 		try {
@@ -339,8 +338,6 @@ public class Siminov {
 	private static void parseDatabaseMappings(final DatabaseDescriptor databaseDescriptor) {
 		validateSiminov();
 
-		Resources resources = Resources.getInstance();
-		
 		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
 		if(!applicationDescriptor.isDatabaseNeeded()) {
 			return;
@@ -394,8 +391,6 @@ public class Siminov {
 	}
 	
 	private static void processDatabase(final DatabaseDescriptor databaseDescriptor, final boolean loaded) {
-		Resources resources = Resources.getInstance();
-		
 		String databasePath = new DatabaseUtils().getDatabasePath(databaseDescriptor);
 		DatabaseBundle databaseBundle = null;
 		
