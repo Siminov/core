@@ -17,6 +17,7 @@
 
 package siminov.orm.utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -155,6 +156,11 @@ public class ClassUtils {
 
 		try {
 			return method.invoke(classObject, parameters);
+		} catch(InvocationTargetException invocationTargetException) {
+			Log.loge(ClassUtils.class.getName(), "invokeMethod", "InvocationTargetException caught while getting return value from method, METHOD-NAME: " + method.getName() + ", " + invocationTargetException.getMessage());
+
+			Throwable throwable = invocationTargetException.getTargetException();
+			throw new SiminovException(throwable.getClass().getName(), "", throwable.getMessage());
 		} catch(Exception exception) {
 			Log.loge(ClassUtils.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + method.getName() + ", " + exception.getMessage());
 			throw new SiminovException(ClassUtils.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + method.getName() + ", " + exception.getMessage());
