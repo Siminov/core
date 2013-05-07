@@ -7,3 +7,6 @@ public class ApplicationDescriptor() {
 	}
 	
 }
+
+
+2. Added InvocationTargetException caught to ClassUtils.invokeMethod() to throw actual exception details.
