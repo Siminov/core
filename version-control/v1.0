@@ -10,3 +10,6 @@ public class ApplicationDescriptor() {
 
 
 2. Added InvocationTargetException caught to ClassUtils.invokeMethod() to throw actual exception details.
+
+3. Added New API's getDatabaseDescriptorNameBasedOnClassName and getDatabaseDescriptorNameBasedOnTableName in Resources Class to get database descriptor name based on database mapping descriptor class name or table name.
+

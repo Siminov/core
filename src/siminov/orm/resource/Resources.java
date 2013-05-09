@@ -269,6 +269,40 @@ Example: DatabaseDescriptor.xml
 		return null;
 	}
 
+	
+	public String getDatabaseDescriptorNameBasedOnClassName(final String className) {
+		Siminov.validateSiminov();
+		
+		if(this.applicationDescriptor == null) {
+			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+		}
+
+		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
+		while(databaseDescriptors.hasNext()) {
+			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnClassName(className);
+
+			if(containsDatabaseMappingInDatabaseDescriptor) {
+				return databaseDescriptor.getDatabaseName();
+			}
+				
+			if(!databaseDescriptor.isLibrariesNeeded()) {
+				continue;
+			}
+				
+			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
+			while(libraries.hasNext()) {
+				LibraryDescriptor libraryDescriptor = libraries.next();
+				if(libraryDescriptor.containsDatabaseMappingBasedOnClassName(className)) {
+					return databaseDescriptor.getDatabaseName();
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	
 	/**
 	 * Get Database Descriptor based on table name provided.
 	 * 
@@ -308,6 +342,37 @@ Example: DatabaseDescriptor.xml
 	}
 
 	
+	public String getDatabaseDescriptorNameBasedOnTableName(final String tableName) {
+		Siminov.validateSiminov();
+		
+		if(this.applicationDescriptor == null) {
+			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+		}
+
+		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
+		while(databaseDescriptors.hasNext()) {
+			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnTableName(tableName);
+
+			if(containsDatabaseMappingInDatabaseDescriptor) {
+				return databaseDescriptor.getDatabaseName();
+			}
+				
+			if(!databaseDescriptor.isLibrariesNeeded()) {
+				continue;
+			}
+				
+			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
+			while(libraries.hasNext()) {
+				LibraryDescriptor libraryDescriptor = libraries.next();
+				if(libraryDescriptor.containsDatabaseMappingBasedOnTableName(tableName)) {
+					return databaseDescriptor.getDatabaseName();
+				}
+			}
+		}
+		
+		return null;
+	}
 
 	/**
 	 * Get Database Mapping based on POJO class name provided.
