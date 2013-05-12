@@ -13,3 +13,32 @@ public class ApplicationDescriptor() {
 
 3. Added New API's getDatabaseDescriptorNameBasedOnClassName and getDatabaseDescriptorNameBasedOnTableName in Resources Class to get database descriptor name based on database mapping descriptor class name or table name.
 
+4. Removed Siminov Validation Check from Database creation APIs.
+	- createDatabase
+	- createTables
+	- createTable
+	- createIndex
+
+5. Removed Siminov Validation from Resources APIs.
+
+	
+6. Removed initialize(Context, ApplicationDescriptor) Siminov Class API.
+
+7. Removed Siminov Validation from DatabaseUtils Class.
+	- internalMemoryDatabasePath
+	- sdcardMemoryDatabasePath
+	
+8. Removed Siminov Validation from ClassUtils Class.
+	- getValues
+	- getValue
+	- invokeMethod
+
+	
+9. Added Resources.getInstance() static variable to Database Class instead of calling Resources.getInstance() API in every Database API.
+
+10. Code Optimized in Siminov class, and introduced new protected APIs
+	- processApplicationDescriptor
+	- processDatabaseDescriptors
+	- processLibraries
+	- processDatabaseMappingDescriptors
+	- processDatabase		
