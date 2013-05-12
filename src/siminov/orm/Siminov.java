@@ -56,12 +56,12 @@ import android.content.Context;
  */
 public class Siminov {
 
-	private static boolean isActive = true;
-	private static boolean initialized = false;
+	protected static boolean isActive = false;
 	
-	private static boolean firstTimeProcessed = false;
+	protected static boolean firstTimeProcessed = false;
+	protected static boolean processedDatabaseMappingDescriptors = false;
 
-	private static Resources resources = Resources.getInstance();
+	protected static Resources ormResources = Resources.getInstance();
 	
 	
 	/**
@@ -131,58 +131,32 @@ public class Siminov {
 	 */
 	public static void initialize(final Context context) {
 		
-		if(initialized) {
+		if(isActive) {
 			return;
 		}
 		
 		if(context == null) {
-			isActive = false;
-			
 			Log.logd(Siminov.class.getName(), "initialize", "Invalid Context Found.");
 			throw new DeploymentException(Siminov.class.getName(), "initialize", "Invalid Context Found.");
 		}
 		
-		resources.setApplicationContext(context);
-
-		parseApplicationDescriptor();
-
-		initialize(resources.getApplicationContext(), resources.getApplicationDescriptor());
-	}
-
-	public static final void initialize(final Context context, final ApplicationDescriptor applicationDescriptor) {
-
-		if(initialized) {
-			return;
-		}
-
-		if(applicationDescriptor == null) {
-			Log.loge(Siminov.class.getName(), "initialize", "Invalid ApplicationDescriptor Found.");
-			throw new DeploymentException(Siminov.class.getName(), "initialize", "Invalid ApplicationDescriptor Found.");
-		} else if(context == null) {
-			Log.loge(Siminov.class.getName(), "initialize", "Invalid ApplicationContext Found.");
-			throw new DeploymentException(Siminov.class.getName(), "initialize", "Invalid ApplicationContext Found.");
-		}
-		
-		resources.setApplicationContext(context);
-		resources.setApplicationDescriptor(applicationDescriptor);
-		if(!resources.getApplicationDescriptor().isDatabaseNeeded()) {
-			return;
-		}
+		ormResources.setApplicationContext(context);
 
 		process();
 		
-		
-		initialized = true;
+		isActive = true;
 
-		ISiminovEvents coreEventHandler = resources.getSiminovEventHandler();
-		if(resources.getSiminovEventHandler() != null) {
+		ISiminovEvents coreEventHandler = ormResources.getSiminovEventHandler();
+		if(ormResources.getSiminovEventHandler() != null) {
 			if(firstTimeProcessed) {
 				coreEventHandler.firstTimeSiminovInitialized();
 			} else {
 				coreEventHandler.siminovInitialized();
 			}
 		} 
+		
 	}
+
 
 	/**
 	 * It is used to stop all service started by SIMINOV.
@@ -202,12 +176,12 @@ public class Siminov {
 	public static void shutdown() throws SiminovException {
 		validateSiminov();
 		
-		Iterator<DatabaseDescriptor> databaseDescriptors = resources.getDatabaseDescriptors();
+		Iterator<DatabaseDescriptor> databaseDescriptors = ormResources.getDatabaseDescriptors();
 
 		boolean failed = false;
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
+			DatabaseBundle databaseBundle = ormResources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
 			IDatabase database = databaseBundle.getDatabase();
 			
 			try {
@@ -224,315 +198,298 @@ public class Siminov {
 			throw new SiminovException(Siminov.class.getName(), "shutdown", "DatabaseException caught while closing database.");			
 		}
 		
-		ISiminovEvents coreEventHandler = resources.getSiminovEventHandler();
-		if(resources.getSiminovEventHandler() != null) {
+		ISiminovEvents coreEventHandler = ormResources.getSiminovEventHandler();
+		if(ormResources.getSiminovEventHandler() != null) {
 			coreEventHandler.siminovStopped();
 		}
 	}
 	
+	
 	private static void process() {
-		ApplicationDescriptor applicationDescriptor = Resources.getInstance().getApplicationDescriptor();
 		
-		Iterator<String> databaseDescriptorPaths = applicationDescriptor.getDatabaseDescriptorPaths();
-		while(databaseDescriptorPaths.hasNext()) {
-			parseDatabaseDescriptor(databaseDescriptorPaths.next());
-		}
+		processApplicationDescriptor();
+		processDatabaseDescriptors();
+		processLibraries();
+		processDatabaseMappingDescriptors();
 
-		boolean loaded = false;
-		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
-		if(resources.getApplicationDescriptor().isLoadInitially()) {
-			databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
-			while(databaseDescriptors.hasNext()) {
-				parseDatabaseMappings(databaseDescriptors.next());
-			}
-			
-			loaded = true;
-		}
-
-		databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
-		while(databaseDescriptors.hasNext()) {
-			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			processDatabase(databaseDescriptor, loaded);
-		}
+		processDatabase();
+		
 	}
 	
-	private static void parseApplicationDescriptor() {
-		validateSiminov();
-		
+	
+	protected static void processApplicationDescriptor() {
 		ApplicationDescriptorParser applicationDescriptorParser = null;
 		
 		try {
 			applicationDescriptorParser = new ApplicationDescriptorParser();
 		} catch(SiminovException siminovException) {
-			isActive = false;
-			
-			Log.logd(Siminov.class.getName(), "parseApplicationDescriptor", "SiminovException caught while doing application descriptor parser, " + siminovException.getMessage());
-			throw new DeploymentException(Siminov.class.getName(), "parseApplicationDescriptor", siminovException.getMessage());
+			Log.logd(Siminov.class.getName(), "processApplicationDescriptor", "SiminovException caught while doing application descriptor parser, " + siminovException.getMessage());
+			throw new DeploymentException(Siminov.class.getName(), "processApplicationDescriptor", siminovException.getMessage());
 		} catch(DeploymentException deploymentException) {
-			isActive = false;
-			
-			Log.logd(Siminov.class.getName(), "parseApplicationDescriptor", "DeploymentException caught while doing application descriptor parser, " + deploymentException.getMessage());
-			throw new DeploymentException(Siminov.class.getName(), "parseApplicationDescriptor", deploymentException.getMessage());
+			Log.logd(Siminov.class.getName(), "processApplicationDescriptor", "DeploymentException caught while doing application descriptor parser, " + deploymentException.getMessage());
+			throw new DeploymentException(Siminov.class.getName(), "processApplicationDescriptor", deploymentException.getMessage());
 		}
 		
 		ApplicationDescriptor applicationDescriptor = applicationDescriptorParser.getApplicationDescriptor();
 		if(applicationDescriptor == null) {
-			isActive = false;
-			
-			Log.logd(Siminov.class.getName(), "parseApplicationDescriptor", "Invalid Application Descriptor Found.");
-			throw new DeploymentException(Siminov.class.getName(), "parseApplicationDescriptor", "Invalid Application Descriptor Found.");
+			Log.logd(Siminov.class.getName(), "processApplicationDescriptor", "Invalid Application Descriptor Found.");
+			throw new DeploymentException(Siminov.class.getName(), "processApplicationDescriptor", "Invalid Application Descriptor Found.");
 		}
 		
-		resources.setApplicationDescriptor(applicationDescriptor);
+		ormResources.setApplicationDescriptor(applicationDescriptor);
 	}
 	
-	private static void parseDatabaseDescriptor(final String databaseDescriptorPath) {
-		validateSiminov();
-		
-		DatabaseDescriptorParser databaseDescriptorParser = null;
-		
-		try {
-			databaseDescriptorParser = new DatabaseDescriptorParser(databaseDescriptorPath);
-		} catch(SiminovException siminovException) {
-			isActive = false;
-			
-			Log.loge(Siminov.class.getName(), "parseDatabaseDescriptor", "SiminovException caught while parsing database descriptor, DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + siminovException.getMessage());
-			throw new DeploymentException(Siminov.class.getName(), "parseDatabaseDescriptor", siminovException.getMessage());
-		}
-		
-		DatabaseDescriptor databaseDescriptor = databaseDescriptorParser.getDatabaseDescriptor();
-		if(databaseDescriptor == null) {
-			Log.loge(Siminov.class.getName(), "parseDatabaseDescriptor", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
-			throw new DeploymentException(Siminov.class.getName(), "parseDatabaseDescriptor", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
-		}
-
-		resources.getApplicationDescriptor().addDatabaseDescriptor(databaseDescriptorPath, databaseDescriptor);
-		parseLibraries(databaseDescriptor);
-	}
 	
-	private static void parseLibraries(final DatabaseDescriptor databaseDescriptor) {
-		validateSiminov();
-
-		Iterator<String> libraries = databaseDescriptor.getLibraryPaths();
-		while(libraries.hasNext()) {
-			String libraryName = libraries.next();
+	protected static void processDatabaseDescriptors() {
+		Iterator<String> databaseDescriptorPaths = ormResources.getApplicationDescriptor().getDatabaseDescriptorPaths();
+		while(databaseDescriptorPaths.hasNext()) {
+			String databaseDescriptorPath = databaseDescriptorPaths.next();
 			
-			/*
-			 * Parse LibraryDescriptor.
-			 */
-			LibraryDescriptorParser libraryDescriptorParser = null;
+			DatabaseDescriptorParser databaseDescriptorParser = null;
 			
 			try {
-				libraryDescriptorParser = new LibraryDescriptorParser(libraryName);
-			} catch(SiminovException ce) {
-				isActive = false;
-				
-				Log.loge(Siminov.class.getName(), "parseLibraries", "SiminovException caught while parsing library descriptor, LIBRARY-NAME: " + libraryName + ", " + ce.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "parseLibraries", ce.getMessage());
+				databaseDescriptorParser = new DatabaseDescriptorParser(databaseDescriptorPath);
+			} catch(SiminovException siminovException) {
+				Log.loge(Siminov.class.getName(), "processDatabaseDescriptors", "SiminovException caught while parsing database descriptor, DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + siminovException.getMessage());
+				throw new DeploymentException(Siminov.class.getName(), "processDatabaseDescriptors", siminovException.getMessage());
 			}
 			
-			databaseDescriptor.addLibrary(libraryName, libraryDescriptorParser.getLibraryDescriptor());
+			DatabaseDescriptor databaseDescriptor = databaseDescriptorParser.getDatabaseDescriptor();
+			if(databaseDescriptor == null) {
+				Log.loge(Siminov.class.getName(), "processDatabaseDescriptors", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
+				throw new DeploymentException(Siminov.class.getName(), "processDatabaseDescriptors", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
+			}
+
+			ormResources.getApplicationDescriptor().addDatabaseDescriptor(databaseDescriptorPath, databaseDescriptor);
+			
 		}
+		
+	}
+	
+	
+	protected static void processLibraries() {
+		
+		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
+		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
+
+		while(databaseDescriptors.hasNext()) {
+			
+			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
+			
+			Iterator<String> libraries = databaseDescriptor.getLibraryPaths();
+			while(libraries.hasNext()) {
+				String libraryName = libraries.next();
+				
+				/*
+				 * Parse LibraryDescriptor.
+				 */
+				LibraryDescriptorParser libraryDescriptorParser = null;
+				
+				try {
+					libraryDescriptorParser = new LibraryDescriptorParser(libraryName);
+				} catch(SiminovException ce) {
+					Log.loge(Siminov.class.getName(), "processLibraries", "SiminovException caught while parsing library descriptor, LIBRARY-NAME: " + libraryName + ", " + ce.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processLibraries", ce.getMessage());
+				}
+				
+				databaseDescriptor.addLibrary(libraryName, libraryDescriptorParser.getLibraryDescriptor());
+			}
+		}
+		
 	}
 
-	private static void parseDatabaseMappings(final DatabaseDescriptor databaseDescriptor) {
-		validateSiminov();
-
-		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
-		if(!applicationDescriptor.isDatabaseNeeded()) {
+	
+	protected static void processDatabaseMappingDescriptors() {
+		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
+		if(!applicationDescriptor.isLoadInitially()) {
 			return;
 		}
 		
-		Iterator<String> libraries = databaseDescriptor.getLibraryPaths();
-		while(libraries.hasNext()) {
-			String libraryPath = libraries.next();
-			LibraryDescriptor libraryDescriptor = databaseDescriptor.getLibraryDescriptorBasedOnPath(libraryPath);
+		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
+		while(databaseDescriptors.hasNext()) {
 			
-			parseDatabaseMappings(libraryPath, libraryDescriptor);
-		}
-
-		Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
-		while(databaseMappingPaths.hasNext()) {
-			String databaseMappingPath = databaseMappingPaths.next();
-			DatabaseMappingDescriptorParser databaseMappingParser = null;
+			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
 			
-			try {
-				databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingPath);
-			} catch(SiminovException ce) {
-				isActive = false;
+			Iterator<String> libraries = databaseDescriptor.getLibraryPaths();
+			while(libraries.hasNext()) {
+				String libraryPath = libraries.next();
+				LibraryDescriptor libraryDescriptor = databaseDescriptor.getLibraryDescriptorBasedOnPath(libraryPath);
 				
-				Log.loge(Siminov.class.getName(), "parseDatabaseMappings", "SiminovException caught while parsing database mapping, DATABASE-MAPPING: " + databaseMappingPath + ", " + ce.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "parseDatabaseMappings", "NAME: " + databaseMappingPath + ", " + ce.getMessage());
-			}
-			
-			databaseDescriptor.addDatabaseMapping(databaseMappingPath, databaseMappingParser.getDatabaseMapping());
-		}
-	}
-	
-	private static void parseDatabaseMappings(final String libraryName, final LibraryDescriptor libraryDescriptor) {
-		validateSiminov();
-		
-		Iterator<String> libraryDatabaseMappingPaths = libraryDescriptor.getDatabaseMappingPaths();
-		while(libraryDatabaseMappingPaths.hasNext()) {
-			String libraryDatabaseMappingPath = libraryDatabaseMappingPaths.next();
-			DatabaseMappingDescriptorParser databaseMappingParser = null;
-			
-			try {
-				databaseMappingParser = new DatabaseMappingDescriptorParser(libraryName, libraryDatabaseMappingPath);
-			} catch(SiminovException ce) {
-				isActive = false;
-				
-				Log.loge(Siminov.class.getName(), "parseDatabaseMappings", "SiminovException caught while parsing database mapping, LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "parseDatabaseMappings", "LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
-			}
-			
-			libraryDescriptor.addDatabaseMapping(libraryDatabaseMappingPath, databaseMappingParser.getDatabaseMapping());
-		}
-	}
-	
-	private static void processDatabase(final DatabaseDescriptor databaseDescriptor, final boolean loaded) {
-		String databasePath = new DatabaseUtils().getDatabasePath(databaseDescriptor);
-		DatabaseBundle databaseBundle = null;
-		
-		try {
-			databaseBundle = Database.createDatabase(databaseDescriptor);
-		} catch(DatabaseException databaseException) {
-			isActive = false;
-			
-			Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while getting database instance from database factory, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + databaseException.getMessage());
-			throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-		}
-
-		IDatabase database = databaseBundle.getDatabase();
-		
-		/*
-		 * If Database exists then open and return.
-		 * If Database does not exists create the database.
-		 */
-		
-		String databaseName = databaseDescriptor.getDatabaseName();
-		if(!databaseName.endsWith(".db")) {
-			databaseName = databaseName + ".db";
-		}
-
-		
-		File file = new File(databasePath + databaseName);
-		if(file.exists()) {
-			try {
-				database.openOrCreate(databaseDescriptor);					
-				resources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
-			} catch(DatabaseException databaseException) {
-				isActive = false;
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while opening database, " + databaseException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-			}
-			
-			try {
-				// Enable foreign key constraints
-		        database.executeQuery(databaseDescriptor, null, Constants.SQLITE_DATABASE_QUERY_TO_ENABLE_FOREIGN_KEYS_MAPPING);
-			} catch(DatabaseException databaseException) {
-				isActive = false;
-				
-				new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-			}
-
-			try {
-		        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
-			} catch(DatabaseException databaseException) {
-				isActive = false;
-				
-				new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-			}
-
-		} else {
-			
-			firstTimeProcessed = true;
-			
-			if(!loaded) {
-				parseDatabaseMappings(databaseDescriptor);
-			}
-			
-			file = new File(databasePath);
-			try {
-				file.mkdirs();
-			} catch(Exception exception) {
-				isActive = false;
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
-			}
-			
-			try {
-				database.openOrCreate(databaseDescriptor);			
-				resources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
-			} catch(DatabaseException databaseException) {
-				isActive = false;
-				
-				new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating database, " + databaseException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-			}
-			
-			try {
-				// Enable foreign key constraints
-		        database.executeQuery(databaseDescriptor, null, Constants.SQLITE_DATABASE_QUERY_TO_ENABLE_FOREIGN_KEYS_MAPPING);
-			} catch(DatabaseException databaseException) {
-				isActive = false;
-				
-				new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-			}
-
-			try {
-		        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
-			} catch(DatabaseException databaseException) {
-				isActive = false;
-				
-				new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-			}
-
-			Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.orderedLibraryDescriptors();
-			while(libraryDescriptors.hasNext()) {
-				try {
-					Database.createTables(libraryDescriptors.next().orderedDatabaseMappings());			
-				} catch(DatabaseException databaseException) {
-					isActive = false;
+				Iterator<String> libraryDatabaseMappingPaths = libraryDescriptor.getDatabaseMappingPaths();
+				while(libraryDatabaseMappingPaths.hasNext()) {
+					String libraryDatabaseMappingPath = libraryDatabaseMappingPaths.next();
+					DatabaseMappingDescriptorParser databaseMappingParser = null;
 					
-					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+					try {
+						databaseMappingParser = new DatabaseMappingDescriptorParser(libraryPath, libraryDatabaseMappingPath);
+					} catch(SiminovException ce) {
+						Log.loge(Siminov.class.getName(), "processDatabaseMappingDescriptors", "SiminovException caught while parsing database mapping, LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
+						throw new DeploymentException(Siminov.class.getName(), "processDatabaseMappingDescriptors", "LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
+					}
 					
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating tables for library, " + databaseException.getMessage());
-					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+					libraryDescriptor.addDatabaseMapping(libraryDatabaseMappingPath, databaseMappingParser.getDatabaseMapping());
 				}
 			}
 
-			try {
-				Database.createTables(databaseDescriptor.orderedDatabaseMappings());			
-			} catch(DatabaseException databaseException) {
-				isActive = false;
-				
-				new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
-				
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating tables, " + databaseException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-			}
 			
-			IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
-			if(databaseEventHandler != null) {
-				databaseEventHandler.databaseCreated(databaseDescriptor);
+			Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
+			while(databaseMappingPaths.hasNext()) {
+				String databaseMappingPath = databaseMappingPaths.next();
+				DatabaseMappingDescriptorParser databaseMappingParser = null;
+				
+				try {
+					databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingPath);
+				} catch(SiminovException ce) {
+					Log.loge(Siminov.class.getName(), "processDatabaseMappingDescriptors", "SiminovException caught while parsing database mapping, DATABASE-MAPPING: " + databaseMappingPath + ", " + ce.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabaseMappingDescriptors", "NAME: " + databaseMappingPath + ", " + ce.getMessage());
+				}
+				
+				databaseDescriptor.addDatabaseMapping(databaseMappingPath, databaseMappingParser.getDatabaseMapping());
 			}
 		}
+		
+		processedDatabaseMappingDescriptors = true;
+		
+	}
+
+	
+	protected static void processDatabase() {
+		
+		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
+		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
+				
+		while(databaseDescriptors.hasNext()) {
+			
+			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
+			
+			String databasePath = new DatabaseUtils().getDatabasePath(databaseDescriptor);
+			DatabaseBundle databaseBundle = null;
+			
+			try {
+				databaseBundle = Database.createDatabase(databaseDescriptor);
+			} catch(DatabaseException databaseException) {
+				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while getting database instance from database factory, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + databaseException.getMessage());
+				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+			}
+
+			IDatabase database = databaseBundle.getDatabase();
+			
+			/*
+			 * If Database exists then open and return.
+			 * If Database does not exists create the database.
+			 */
+			
+			String databaseName = databaseDescriptor.getDatabaseName();
+			if(!databaseName.endsWith(".db")) {
+				databaseName = databaseName + ".db";
+			}
+
+			
+			File file = new File(databasePath + databaseName);
+			if(file.exists()) {
+				try {
+					database.openOrCreate(databaseDescriptor);					
+					ormResources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
+				} catch(DatabaseException databaseException) {
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while opening database, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
+				
+				try {
+					// Enable foreign key constraints
+			        database.executeQuery(databaseDescriptor, null, Constants.SQLITE_DATABASE_QUERY_TO_ENABLE_FOREIGN_KEYS_MAPPING);
+				} catch(DatabaseException databaseException) {
+					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+					
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
+
+				try {
+			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
+				} catch(DatabaseException databaseException) {
+					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+					
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
+
+			} else {
+				
+				firstTimeProcessed = true;
+				
+				if(!processedDatabaseMappingDescriptors) {
+					processDatabaseMappingDescriptors();
+				}
+				
+				file = new File(databasePath);
+				try {
+					file.mkdirs();
+				} catch(Exception exception) {
+					Log.loge(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
+				}
+				
+				try {
+					database.openOrCreate(databaseDescriptor);			
+					ormResources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
+				} catch(DatabaseException databaseException) {
+					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+					
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating database, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
+				
+				
+				IDatabaseEvents databaseEventHandler = ormResources.getDatabaseEventHandler();
+				if(databaseEventHandler != null) {
+					databaseEventHandler.databaseCreated(databaseDescriptor);
+				}
+
+				
+				try {
+					// Enable foreign key constraints
+			        database.executeQuery(databaseDescriptor, null, Constants.SQLITE_DATABASE_QUERY_TO_ENABLE_FOREIGN_KEYS_MAPPING);
+				} catch(DatabaseException databaseException) {
+					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+					
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
+
+				try {
+			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
+				} catch(DatabaseException databaseException) {
+					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+					
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
+
+				Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.orderedLibraryDescriptors();
+				while(libraryDescriptors.hasNext()) {
+					try {
+						Database.createTables(libraryDescriptors.next().orderedDatabaseMappings());			
+					} catch(DatabaseException databaseException) {
+						new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+						
+						Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating tables for library, " + databaseException.getMessage());
+						throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+					}
+				}
+
+				try {
+					Database.createTables(databaseDescriptor.orderedDatabaseMappings());			
+				} catch(DatabaseException databaseException) {
+					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
+					
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating tables, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
+				
+			}
+			
+		}
+		
 	}
 }
