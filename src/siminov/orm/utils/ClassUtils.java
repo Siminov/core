@@ -99,7 +99,6 @@ public class ClassUtils {
 	 * @throws DatabaseException If any exception occur while getting column values.
 	 */
 	public static Iterator<Object> getValues(final Object classObject, final Iterator<String> methodNames) throws SiminovException {
-		Siminov.validateSiminov();
 		
 		Collection<Object> columnValues = new ArrayList<Object>();
 		while(methodNames.hasNext()) {
@@ -125,7 +124,6 @@ public class ClassUtils {
 	 * @throws DatabaseException If any exception occur while getting column value.
 	 */
 	public static Object getValue(final Object classObject, final String methodName) throws SiminovException {
-		Siminov.validateSiminov();
 		
 		Method method = (Method) createMethodObject(classObject.getClass().getName(), methodName);
 		try {
@@ -145,14 +143,12 @@ public class ClassUtils {
 	 * @throws DatabaseException If any exception occur while invoking method.
 	 */
 	public static Object invokeMethod(final Object classObject, final String methodName, final Class<?>[] parameterTypes,final Object[] parameters) throws SiminovException {
-		Siminov.validateSiminov();
 
 		Method method = (Method) createMethodObject(classObject.getClass().getName(), methodName, parameterTypes);
 		return invokeMethod(classObject, method, parameters);
 	}
 
 	public static Object invokeMethod(final Object classObject, final Method method, final Object...parameters) throws SiminovException {
-		Siminov.validateSiminov();
 
 		try {
 			return method.invoke(classObject, parameters);
