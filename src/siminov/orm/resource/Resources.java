@@ -86,8 +86,6 @@ public class Resources {
 	 * @return Application Context (android.content.Context).
 	 */
 	public Context getApplicationContext() {
-		Siminov.validateSiminov();
-		
 		return this.applicationContext;
 	}
 	
@@ -96,8 +94,6 @@ public class Resources {
 	 * @param context Application Context (android.content.Context).
 	 */
 	public void setApplicationContext(final Context context) {
-		Siminov.validateSiminov();
-		
 		this.applicationContext = context;
 	}
 	
@@ -106,8 +102,6 @@ public class Resources {
 	 * @return Application Descriptor.
 	 */
 	public ApplicationDescriptor getApplicationDescriptor() {
-		Siminov.validateSiminov();
-		
 		return this.applicationDescriptor;
 	}
 	
@@ -116,8 +110,6 @@ public class Resources {
 	 * @param applicationDescriptor Application Descriptor object.
 	 */
 	public void setApplicationDescriptor(final ApplicationDescriptor applicationDescriptor) {
-		Siminov.validateSiminov();
-		
 		this.applicationDescriptor = applicationDescriptor;
 	}
 	
@@ -142,8 +134,6 @@ Example: ApplicationDescriptor.xml
 	 * @return Iterator which contains all database descriptor paths provided.
 	 */
 	public Iterator<String> getDatabaseDescriptorPaths() {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorsPaths", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
 		}
@@ -175,8 +165,6 @@ Example: ApplicationDescriptor.xml
 	 * @return
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnPath(final String databaseDescriptorPath) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnPath", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
 		}
@@ -208,8 +196,6 @@ Example: DatabaseDescriptor.xml
 	 * @return
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnName(final String databaseDescriptorName) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
 		}
@@ -222,8 +208,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Iterator which contains all Database Descriptors.
 	 */
 	public Iterator<DatabaseDescriptor> getDatabaseDescriptors() {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptors", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -238,8 +222,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Database Descriptor object in respect to POJO class name.
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnClassName(final String className) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -271,8 +253,6 @@ Example: DatabaseDescriptor.xml
 
 	
 	public String getDatabaseDescriptorNameBasedOnClassName(final String className) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -310,8 +290,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Database Descriptor object in respect to table name.
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnTableName(final String tableName) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -343,8 +321,6 @@ Example: DatabaseDescriptor.xml
 
 	
 	public String getDatabaseDescriptorNameBasedOnTableName(final String tableName) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -381,8 +357,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Database Mapping object in respect to POJO class name.
 	 */
 	public DatabaseMappingDescriptor getDatabaseMappingDescriptorBasedOnClassName(final String className) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseMappingBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -420,8 +394,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Database Descriptor object in respect to table name.
 	 */
 	public DatabaseMappingDescriptor getDatabaseMappingDescriptorBasedOnTableName(final String tableName) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseMappingBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -453,8 +425,6 @@ Example: DatabaseDescriptor.xml
 
 	
 	public Iterator<DatabaseMappingDescriptor> getDatabaseMappingDescriptors() {
-		Siminov.validateSiminov();
-		
 		Collection<DatabaseMappingDescriptor> databaseMappingDescriptors = new LinkedList<DatabaseMappingDescriptor>();
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 	
@@ -525,8 +495,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Iterator which contains all library paths defined in all Database Descriptor file's.
 	 */
 	public Iterator<String> getLibraryPaths() {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getLibraryPaths", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -555,8 +523,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Iterator which contains all library paths based on Database Descriptor.
 	 */
 	public Iterator<String> getLibraryPathsBasedOnDatabaseDescriptorName(final String databaseDescriptorName) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getLibraryPathsBasedOnDatabaseDescriptorName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -575,8 +541,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Iterator which contains all library descriptor objects defined in all Database Descriptor's.
 	 */
 	public Iterator<LibraryDescriptor> getLibraries() {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getLibraries", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -606,8 +570,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Iterator which contains all Library Descriptor objects based on Database Descriptor name.
 	 */
 	public Iterator<LibraryDescriptor> getLibrariesBasedOnDatabaseDescriptorName(final String databaseDescriptorName) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getLibrariesBasedOnDatabaseDescriptorName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -630,8 +592,6 @@ Example: DatabaseDescriptor.xml
 	 * @return
 	 */
 	public Iterator<DatabaseMappingDescriptor> getLibraryDatabaseMappingDescriptorsBasedOnLibraryDescriptorPath(final String libraryPath) {
-		Siminov.validateSiminov();
-		
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getLibraryDatabaseMappingsBasedOnLibraryDescriptorPath", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
@@ -655,8 +615,6 @@ Example: DatabaseDescriptor.xml
 	 * @return IDatabase object.
 	 */
 	public DatabaseBundle getDatabaseBundleBasedOnDatabaseDescriptorName(final String databaseName) {
-		Siminov.validateSiminov();
-		
 		return this.databaseBundleBasedOnDatabaseDescriptorName.get(databaseName);
 	}
 
@@ -666,8 +624,6 @@ Example: DatabaseDescriptor.xml
 	 * @return IDatabase object.
 	 */
 	public DatabaseBundle getDatabaseBundleBasedOnDatabaseMappingDescriptorPojoClass(final Class<?> classObject) {
-		Siminov.validateSiminov();
-
 		return this.databaseBundleBasedOnDatabaseMappingClassName.get(classObject.getName());
 	}
 	
@@ -677,8 +633,6 @@ Example: DatabaseDescriptor.xml
 	 * @return IDatabase object.
 	 */
 	public DatabaseBundle getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(final String databaseMappingClassName) {
-		Siminov.validateSiminov();
-
 		return this.databaseBundleBasedOnDatabaseMappingClassName.get(databaseMappingClassName);
 	}
 	
@@ -688,8 +642,6 @@ Example: DatabaseDescriptor.xml
 	 * @return IDatabase object.
 	 */
 	public DatabaseBundle getDatabaseBundleBasedOnDatabaseMappingDescriptorTableName(final String databaseMappingTableName) {
-		Siminov.validateSiminov();
-
 		return this.databaseBundleBasedOnDatabaseMappingTableName.get(databaseMappingTableName);
 	}
 
@@ -698,8 +650,6 @@ Example: DatabaseDescriptor.xml
 	 * @return Iterator which contains all IDatabase objects.
 	 */
 	public Iterator<DatabaseBundle> getDatabaseBundles() {
-		Siminov.validateSiminov();
-		
 		return this.databaseBundleBasedOnDatabaseDescriptorName.values().iterator();
 	}
 	
@@ -709,7 +659,6 @@ Example: DatabaseDescriptor.xml
 	 * @param database IDatabase object.
 	 */
 	public void addDatabaseBundle(final String databaseDescriptorName, final DatabaseBundle databaseBundle) {
-		Siminov.validateSiminov();
 		
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptorBasedOnName(databaseDescriptorName);
 		if(databaseDescriptor == null) {
@@ -780,8 +729,6 @@ Example: DatabaseDescriptor.xml
 	 * It is used when SIMINOV is in lazy load mode.
 	 */
 	public void synchronizeDatabases() {
-		Siminov.validateSiminov();
-
 		Iterator<String> databaseNames = this.databaseBundleBasedOnDatabaseDescriptorName.keySet().iterator();
 		while(databaseNames.hasNext()) {
 			String databaseName = databaseNames.next();
