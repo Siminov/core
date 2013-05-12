@@ -20,11 +20,9 @@ package siminov.orm.database;
 import java.io.File;
 
 import siminov.orm.Constants;
-import siminov.orm.Siminov;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.resource.Resources;
-
 import android.content.Context;
 import android.os.Environment;
 
@@ -49,8 +47,6 @@ public class DatabaseUtils {
 	 * @return
 	 */
 	public String internalMemoryDatabasePath(final DatabaseDescriptor databaseDescriptor) {
-		Siminov.validateSiminov();
-
 		Resources resources = Resources.getInstance();
 		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
 		Context context = resources.getApplicationContext();
@@ -67,8 +63,6 @@ public class DatabaseUtils {
 	 * @return
 	 */
 	public String sdcardMemoryDatabasePath(final DatabaseDescriptor databaseDescriptor) {
-		Siminov.validateSiminov();
-		
 		File externalStorage = Environment.getExternalStorageDirectory();
 		String externalStoragePath = externalStorage.getAbsolutePath();
 		
