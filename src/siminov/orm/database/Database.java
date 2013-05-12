@@ -47,6 +47,7 @@ import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
+import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor.Column;
@@ -62,6 +63,9 @@ import siminov.orm.utils.ClassUtils;
  */
 public abstract class Database implements Constants {
 
+	private static Resources resources = Resources.getInstance();
+	
+	
 	/**
 	 * It is used to create instance of IDatabase implementation.
 	 * @param databaseDescriptor
@@ -367,11 +371,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	 * @throws DatabaseException If not able to create table in SQLite.
 	 */
 	public static void createTables(final Iterator<DatabaseMappingDescriptor> databaseMappings) throws DatabaseException {
-		/*
-		 * 1. Validate whether SIMINOV is ACTIVE or not.
-		 * 2. Iterate through each database mappings.
-		 */
-		Siminov.validateSiminov();
 
 		while(databaseMappings.hasNext()) {
 			createTable(databaseMappings.next());
@@ -480,7 +479,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	 * @throws DatabaseException If not able to create table in SQLite.
 	 */
 	public static void createTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
-		Siminov.validateSiminov();
 
 		/*
 		 * 1. Get IDatabase with respect to current database mapping class name.
@@ -503,7 +501,9 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		 * 
 		 */
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
+		
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		IDataTypeHandler dataTypeHandler = databaseBundle.getDataTypeHandler();
@@ -670,7 +670,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 			createIndex(databaseMappingDescriptor, indexes.next());
 		}
 
-		Resources resources = Resources.getInstance();
 		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
 			databaseEventHandler.tableCreated(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor);
@@ -708,8 +707,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	 */
 	public static void createIndex(final DatabaseMappingDescriptor databaseMappingDescriptor, final Index index) throws DatabaseException {
 		
-		Siminov.validateSiminov();
-
 		String indexName = index.getName();
 		Iterator<String> columnNames = index.getColumns();
 		boolean isUnique = index.isUnique();
@@ -747,9 +744,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	 */
 	public static void createIndex(final DatabaseMappingDescriptor databaseMappingDescriptor, final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
 		
-		Siminov.validateSiminov();
-
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
@@ -766,7 +761,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		String query = queryBuilder.formCreateIndexQuery(indexName, databaseMappingDescriptor.getTableName(), columnNamesCollection.iterator(), isUnique);
 		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		
-		Resources resources = Resources.getInstance();
 		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
 			Index index = new Index();
@@ -849,8 +843,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	 */
 	public void createIndex(final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
 		
-		Siminov.validateSiminov();
-
 		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor();
 		createIndex(databaseMapping, indexName, columnNames, isUnique);
 	}
@@ -925,7 +917,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		
 		Siminov.validateSiminov();
 
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
@@ -937,7 +929,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		String query = queryBuilder.formDropIndexQuery(databaseMappingDescriptor.getTableName(), indexName);
 		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		
-		Resources resources = Resources.getInstance();
 		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
 			databaseEventHandler.indexDropped(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, databaseMappingDescriptor.getIndex(indexName));
@@ -996,7 +987,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 
 		Siminov.validateSiminov();
 
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
@@ -1008,7 +999,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		String tableName = databaseMappingDescriptor.getTableName();
 		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formDropTableQuery(tableName));
 		
-		Resources resources = Resources.getInstance();
 		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
 			databaseEventHandler.tableDropped(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor);
@@ -1039,7 +1029,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	public static void dropDatabase(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
 		Siminov.validateSiminov();
 
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
 		IDatabase database = databaseBundle.getDatabase();
 
 		if(database == null) {
@@ -1047,7 +1037,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 			throw new DeploymentException(Database.class.getName(), "dropDatabase", "No Database Instance Found For DATABASE-MAPPING: " + databaseDescriptor.getDatabaseName());
 		}
 
-		Resources resources = Resources.getInstance();
 		String databasePath = new DatabaseUtils().getDatabasePath(databaseDescriptor);
 
 		File file = new File(databasePath + databaseDescriptor.getDatabaseName());
@@ -1106,7 +1095,7 @@ Example: Make Beer Object
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
 		IDatabase database = databaseBundle.getDatabase();
 
 		if(database == null) {
@@ -1157,7 +1146,7 @@ Example: Make Beer Object
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
 		IDatabase database = databaseBundle.getDatabase();
 
 		if(database == null) {
@@ -1208,7 +1197,7 @@ Example:
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
 		IDatabase database = databaseBundle.getDatabase();
 
 		if(database == null) {
@@ -1263,7 +1252,7 @@ Example:
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -1339,7 +1328,7 @@ Example:
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
@@ -1417,7 +1406,7 @@ Example:
 		 */
 		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMapping.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMapping.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 
 		if(database == null) {
@@ -1514,7 +1503,7 @@ Example: Make Liquor Object
 		 */
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -1691,7 +1680,7 @@ Example: Make Beer Object
 		 */
 		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor(object.getClass().getName());
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMapping.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMapping.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -1887,7 +1876,7 @@ Example: Make Beer Object
 		 */
 		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 
 		if(database == null) {
@@ -1963,7 +1952,7 @@ Example: Make Beer Object
 		 */
 		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor(object.getClass().getName());
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMapping.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMapping.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2093,7 +2082,7 @@ Example:
 		
 		Siminov.validateSiminov();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2163,7 +2152,7 @@ Example:
 		
 		Siminov.validateSiminov();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2233,7 +2222,7 @@ Example:
 		
 		Siminov.validateSiminov();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2303,7 +2292,7 @@ Example:
 		
 		Siminov.validateSiminov();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2373,7 +2362,7 @@ Example:
 		
 		Siminov.validateSiminov();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2443,7 +2432,7 @@ Example:
 		
 		Siminov.validateSiminov();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2512,7 +2501,7 @@ Example:
 		
 		Siminov.validateSiminov();
 		
-		DatabaseBundle databaseBundle = Resources.getInstance().getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
@@ -2564,7 +2553,6 @@ Example:
 	}
 	
 	public static DatabaseDescriptor getDatabaseDescriptor(String className) throws DatabaseException {
-		Resources resources = Resources.getInstance();
 		return resources.getDatabaseDescriptorBasedOnClassName(className);
 	}
 	
@@ -2598,7 +2586,7 @@ Example:
 
 	static DatabaseMappingDescriptor getDatabaseMappingDescriptor(String className) throws DatabaseException {
 		try {
-			return Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(className);
+			return resources.requiredDatabaseMappingDescriptorBasedOnClassName(className);
 		} catch(SiminovException siminovException) {
 			Log.loge(Database.class.getName(), "getDatabaseMappingDescriptor", "SiminovException caught while getting required database mapping descriptor object, CLASS-NAME: " + className + ", " + siminovException.getMessage());
 			throw new DatabaseException(Database.class.getName(), "getDatabaseMappingDescriptor", siminovException.getMessage());
