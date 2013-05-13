@@ -1,6 +1,6 @@
 /** 
  * [SIMINOV FRAMEWORK]
- * Copyright [2013] [Siminov Software Solution|support@siminov.com]
+ * Copyright [2013] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
-import siminov.orm.Siminov;
 import siminov.orm.database.DatabaseBundle;
 import siminov.orm.events.EventHandler;
 import siminov.orm.events.IDatabaseEvents;
