@@ -60,4 +60,8 @@ public class ApplicationDescriptor() {
 	- processDatabaseMappingDescriptors
 	- processDatabase
 	
-11. Changed Company Name Siminov Software Solution to Siminov Software Solution LLP in License Signature.		
+11. Changed Company Name Siminov Software Solution to Siminov Software Solution LLP in License Signature.
+
+12. Bug Fix Database Save and Update API for relationship call saveOrUpdate instead of only update.
+
+		

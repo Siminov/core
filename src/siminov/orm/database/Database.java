@@ -1579,7 +1579,7 @@ Example: Make Liquor Object
 					continue;
 				}
 
-				save(value);
+				saveOrUpdate(value);
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
 				Object value = null;
 				try {
@@ -1599,7 +1599,7 @@ Example: Make Liquor Object
 				Iterator<Object> valuesIterator = values.iterator();
 				
 				while(valuesIterator.hasNext()) {
-					save(valuesIterator.next());
+					saveOrUpdate(valuesIterator.next());
 				}
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
 				Object value = null;
@@ -1620,7 +1620,7 @@ Example: Make Liquor Object
 				Iterator<Object> valuesIterator = values.iterator();
 				
 				while(valuesIterator.hasNext()) {
-					save(valuesIterator.next());
+					saveOrUpdate(valuesIterator.next());
 				}
 			}
 		}
@@ -1771,7 +1771,7 @@ Example: Make Beer Object
 					continue;
 				}
 
-				update(value);
+				saveOrUpdate(value);
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
 				Object value = null;
 				try {
@@ -1791,7 +1791,7 @@ Example: Make Beer Object
 				Iterator<Object> valuesIterator = returnedValue.iterator();
 				
 				while(valuesIterator.hasNext()) {
-					update(valuesIterator.next());
+					saveOrUpdate(valuesIterator.next());
 				}
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
 				Object value = null;
@@ -1812,7 +1812,7 @@ Example: Make Beer Object
 				Iterator<Object> valuesIterator = returnedValue.iterator();
 				
 				while(valuesIterator.hasNext()) {
-					update(valuesIterator.next());
+					saveOrUpdate(valuesIterator.next());
 				}
 			}
 		}
