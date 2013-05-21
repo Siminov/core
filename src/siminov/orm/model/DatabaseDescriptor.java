@@ -51,21 +51,21 @@ Example:
 		
 		<!-- Database Mappings -->
 			<database-mappings>
-				<database-mapping path="Liquor-Mappings/Liquor.core.xml" />
-				<database-mapping path="Liquor-Mappings/LiquorBrand.core.xml" />
+				<database-mapping path="Liquor-Mappings/Liquor.si.xml" />
+				<database-mapping path="Liquor-Mappings/LiquorBrand.si.xml" />
 			</database-mappings>
 	
 			 	<!-- OR -->
 
 			<database-mappings>
-				<database-mapping path="com.core.template.model.Liquor" />
-				<database-mapping path="com.core.template.model.LiquorBrand" />
+				<database-mapping path="siminov.orm.template.model.Liquor" />
+				<database-mapping path="siminov.orm.template.model.LiquorBrand" />
 			</database-mappings>
 		
 
 		<!-- Libraries -->
 		<libraries>
-			<library>com.core.library.template.resources</library>
+			<library>siminov.orm.template.resources</library>
 		</libraries>
 				
 	</database-descriptor>
@@ -178,22 +178,45 @@ public class DatabaseDescriptor {
 	}
 	
 	
+	/**
+	 * Get all Properties defined in descriptor.
+	 * @return All Property Values.
+	 */
 	public Iterator<String> getProperties() {
 		return this.properties.keySet().iterator();
 	}
 	
+	/**
+	 * Get Property based on name provided.
+	 * @param name Name of Property.
+	 * @return Property value.
+	 */
 	public String getProperty(String name) {
 		return this.properties.get(name);
 	}
 
+	/**
+	 * Check whether Property exist or not.
+	 * @param name Name of Property.
+	 * @return true/false, TRUE if property exist, FALSE if property does not exist.
+	 */
 	public boolean containProperty(String name) {
 		return this.properties.containsKey(name);
 	}
 	
+	/**
+	 * Add Property in property pool.
+	 * @param name Name of Property.
+	 * @param value value of Property.
+	 */
 	public void addProperty(String name, String value) {
 		this.properties.put(name, value);
 	}
 	
+	/**
+	 * Remove Property from property pool.
+	 * @param name Name of Property.
+	 */
 	public void removeProperty(String name) {
 		this.properties.remove(name);
 	}

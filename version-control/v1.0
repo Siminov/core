@@ -64,4 +64,11 @@ public class ApplicationDescriptor() {
 
 12. Bug Fix Database Save and Update API for relationship call saveOrUpdate instead of only update.
 
+13. Added API JavaDoc. 
+	- ApplicationDescriptor.java
+	- DatabaseDescriptor.java
+	- LibraryDescriptor.java
+	- DatabaseMappingDescriptor.java
+	
+	
 		

@@ -34,7 +34,7 @@ import siminov.orm.Constants;
 		
 Example:
 	{@code
-	<core>
+	<siminov>
 	
 		<property name="name">SIMINOV TEMPLATE</property>	
 		<property name="description">Siminov Template Application</property>
@@ -54,7 +54,7 @@ Example:
 		    <event-handler>com.core.template.events.DatabaseEventHandler</event-handler>
 		</event-handlers>
 			
-	</core>
+	</siminov>
 	}
 	
 		</pre>
@@ -148,22 +148,45 @@ public class ApplicationDescriptor {
 	}
 	
 
+	/**
+	 * Get all Properties defined in descriptor.
+	 * @return All Property Values.
+	 */
 	public Iterator<String> getProperties() {
 		return this.properties.keySet().iterator();
 	}
 	
+	/**
+	 * Get Property based on name provided.
+	 * @param name Name of Property.
+	 * @return Property value.
+	 */
 	public String getProperty(String name) {
 		return this.properties.get(name);
 	}
 
+	/**
+	 * Check whether Property exist or not.
+	 * @param name Name of Property.
+	 * @return true/false, TRUE if property exist, FALSE if property does not exist.
+	 */
 	public boolean containProperty(String name) {
 		return this.properties.containsKey(name);
 	}
 	
+	/**
+	 * Add Property in property pool.
+	 * @param name Name of Property.
+	 * @param value value of Property.
+	 */
 	public void addProperty(String name, String value) {
 		this.properties.put(name, value);
 	}
 	
+	/**
+	 * Remove Property from property pool.
+	 * @param name Name of Property.
+	 */
 	public void removeProperty(String name) {
 		this.properties.remove(name);
 	}
