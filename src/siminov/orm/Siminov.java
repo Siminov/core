@@ -95,7 +95,7 @@ public class Siminov {
 	  			<ul>
 	  				<li> Call it from Application class.
 
-	public class ApplicationSiminov extends Application {
+	public class Siminov extends Application {
 
 		public void onCreate() { 
 			super.onCreate();
@@ -104,7 +104,7 @@ public class Siminov {
 		}
 		
 		private void initializeSiminov() {
-			com.core.Siminov.initialize(this);
+			siminov.orm.Siminov.initialize(this);
 		}
 
 	}
@@ -112,14 +112,14 @@ public class Siminov {
 					
 					<li> Call it from LAUNCHER Activity
 
-	public class HomeActivity extends Activity {
+	public class SiminovActivity extends Activity {
 	
 		public void onCreate(Bundle savedInstanceState) {
 		
 		}
 
 		private void initializeSiminov() {
-			com.core.Siminov.initialize(getApplicationContext())
+			siminov.orm.Siminov.initialize(getApplicationContext())
 		}
 
 	}
@@ -216,7 +216,9 @@ public class Siminov {
 		
 	}
 	
-	
+	/**
+	 * It process ApplicationDescriptor.si.xml file defined in Application, and stores in Resources.
+	 */
 	protected static void processApplicationDescriptor() {
 		ApplicationDescriptorParser applicationDescriptorParser = null;
 		
@@ -240,6 +242,9 @@ public class Siminov {
 	}
 	
 	
+	/**
+	 * It process all DatabaseDescriptor.si.xml files defined by Application and stores in Resources.
+	 */
 	protected static void processDatabaseDescriptors() {
 		Iterator<String> databaseDescriptorPaths = ormResources.getApplicationDescriptor().getDatabaseDescriptorPaths();
 		while(databaseDescriptorPaths.hasNext()) {
@@ -267,6 +272,9 @@ public class Siminov {
 	}
 	
 	
+	/**
+	 * It process all LibraryDescriptor.si.xml files defined by application, and stores in Resources.
+	 */
 	protected static void processLibraries() {
 		
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
@@ -299,6 +307,9 @@ public class Siminov {
 	}
 
 	
+	/**
+	 * It process all DatabaseMappingDescriptor.si.xml file defined in Application, and stores in Resources.
+	 */
 	protected static void processDatabaseMappingDescriptors() {
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
 		if(!applicationDescriptor.isLoadInitially()) {
@@ -352,7 +363,10 @@ public class Siminov {
 		
 	}
 
-	
+
+	/**
+	 * It process all DatabaseDescriptor.si.xml and initialize Database and stores in Resources.
+	 */
 	protected static void processDatabase() {
 		
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
