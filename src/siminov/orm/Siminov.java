@@ -220,17 +220,7 @@ public class Siminov {
 	 * It process ApplicationDescriptor.si.xml file defined in Application, and stores in Resources.
 	 */
 	protected static void processApplicationDescriptor() {
-		ApplicationDescriptorParser applicationDescriptorParser = null;
-		
-		try {
-			applicationDescriptorParser = new ApplicationDescriptorParser();
-		} catch(SiminovException siminovException) {
-			Log.logd(Siminov.class.getName(), "processApplicationDescriptor", "SiminovException caught while doing application descriptor parser, " + siminovException.getMessage());
-			throw new DeploymentException(Siminov.class.getName(), "processApplicationDescriptor", siminovException.getMessage());
-		} catch(DeploymentException deploymentException) {
-			Log.logd(Siminov.class.getName(), "processApplicationDescriptor", "DeploymentException caught while doing application descriptor parser, " + deploymentException.getMessage());
-			throw new DeploymentException(Siminov.class.getName(), "processApplicationDescriptor", deploymentException.getMessage());
-		}
+		ApplicationDescriptorParser applicationDescriptorParser = new ApplicationDescriptorParser();
 		
 		ApplicationDescriptor applicationDescriptor = applicationDescriptorParser.getApplicationDescriptor();
 		if(applicationDescriptor == null) {
@@ -250,14 +240,7 @@ public class Siminov {
 		while(databaseDescriptorPaths.hasNext()) {
 			String databaseDescriptorPath = databaseDescriptorPaths.next();
 			
-			DatabaseDescriptorParser databaseDescriptorParser = null;
-			
-			try {
-				databaseDescriptorParser = new DatabaseDescriptorParser(databaseDescriptorPath);
-			} catch(SiminovException siminovException) {
-				Log.loge(Siminov.class.getName(), "processDatabaseDescriptors", "SiminovException caught while parsing database descriptor, DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + siminovException.getMessage());
-				throw new DeploymentException(Siminov.class.getName(), "processDatabaseDescriptors", siminovException.getMessage());
-			}
+			DatabaseDescriptorParser databaseDescriptorParser = new DatabaseDescriptorParser(databaseDescriptorPath);
 			
 			DatabaseDescriptor databaseDescriptor = databaseDescriptorParser.getDatabaseDescriptor();
 			if(databaseDescriptor == null) {
@@ -291,14 +274,7 @@ public class Siminov {
 				/*
 				 * Parse LibraryDescriptor.
 				 */
-				LibraryDescriptorParser libraryDescriptorParser = null;
-				
-				try {
-					libraryDescriptorParser = new LibraryDescriptorParser(libraryName);
-				} catch(SiminovException ce) {
-					Log.loge(Siminov.class.getName(), "processLibraries", "SiminovException caught while parsing library descriptor, LIBRARY-NAME: " + libraryName + ", " + ce.getMessage());
-					throw new DeploymentException(Siminov.class.getName(), "processLibraries", ce.getMessage());
-				}
+				LibraryDescriptorParser libraryDescriptorParser = new LibraryDescriptorParser(libraryName);
 				
 				databaseDescriptor.addLibrary(libraryName, libraryDescriptorParser.getLibraryDescriptor());
 			}
@@ -346,14 +322,7 @@ public class Siminov {
 			Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
 			while(databaseMappingPaths.hasNext()) {
 				String databaseMappingPath = databaseMappingPaths.next();
-				DatabaseMappingDescriptorParser databaseMappingParser = null;
-				
-				try {
-					databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingPath);
-				} catch(SiminovException ce) {
-					Log.loge(Siminov.class.getName(), "processDatabaseMappingDescriptors", "SiminovException caught while parsing database mapping, DATABASE-MAPPING: " + databaseMappingPath + ", " + ce.getMessage());
-					throw new DeploymentException(Siminov.class.getName(), "processDatabaseMappingDescriptors", "NAME: " + databaseMappingPath + ", " + ce.getMessage());
-				}
+				DatabaseMappingDescriptorParser databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingPath);
 				
 				databaseDescriptor.addDatabaseMapping(databaseMappingPath, databaseMappingParser.getDatabaseMapping());
 			}
