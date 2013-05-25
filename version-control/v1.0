@@ -71,4 +71,12 @@ public class ApplicationDescriptor() {
 	- DatabaseMappingDescriptor.java
 	
 	
-		
+14. Removed throw SiminovException from all parser classes:
+	- ApplicationDescriptorParser		
+	- DatabaseDescriptorParser
+	- LibraryDescriptorParser
+	- DatabaseMappingDescriptorParser
+	- AnnotationParser
+	- QuickDatabaseMappingDescriptorParser
+	
+15. Changes QuickDatabaseMappingParser class name to QuickDatabaseMappingDescriptorParser.
