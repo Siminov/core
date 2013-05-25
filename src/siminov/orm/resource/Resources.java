@@ -35,7 +35,7 @@ import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.LibraryDescriptor;
-import siminov.orm.parsers.QuickDatabaseMappingParser;
+import siminov.orm.parsers.QuickDatabaseMappingDescriptorParser;
 import siminov.orm.utils.EmptyIterator;
 import android.content.Context;
 
@@ -466,16 +466,16 @@ Example: DatabaseDescriptor.xml
 		if(databaseMapping == null) {
 			Log.logd(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, MODEL: " + className);
 			
-			QuickDatabaseMappingParser quickDatabaseMappingParser = null;
+			QuickDatabaseMappingDescriptorParser quickDatabaseMappingDescriptorParser = null;
 			try {
-				quickDatabaseMappingParser = new QuickDatabaseMappingParser(className);
-				quickDatabaseMappingParser.process();
+				quickDatabaseMappingDescriptorParser = new QuickDatabaseMappingDescriptorParser(className);
+				quickDatabaseMappingDescriptorParser.process();
 			} catch(SiminovException ce) {
 				Log.loge(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className + ", " + ce.getMessage());
 				throw new SiminovException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className  + ", " + ce.getMessage());
 			}
 			
-			DatabaseMappingDescriptor foundDatabaseMapping = quickDatabaseMappingParser.getDatabaseMapping();
+			DatabaseMappingDescriptor foundDatabaseMapping = quickDatabaseMappingDescriptorParser.getDatabaseMapping();
 			if(foundDatabaseMapping == null) {
 				Log.loge(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
 				throw new SiminovException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);

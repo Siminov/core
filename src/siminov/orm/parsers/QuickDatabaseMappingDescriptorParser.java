@@ -25,23 +25,22 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import siminov.orm.Constants;
-import siminov.orm.exception.SiminovException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.exception.PrematureEndOfParseException;
+import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.LibraryDescriptor;
 import siminov.orm.resource.Resources;
-
 import android.content.Context;
 
 
 /**
  * Exposes methods to quickly parse database mapping descriptor defined by application.
  */
-public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler implements Constants {
+public class QuickDatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler implements Constants {
 
 	private String tempValue = null;
 	private String finalDatabaseMappingBasedOnClassName = null;
@@ -54,7 +53,7 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 	
 	private Resources resources = Resources.getInstance();
 	
-	public QuickDatabaseMappingParser(final String findDatabaseMappingBasedOnClassName) throws SiminovException {
+	public QuickDatabaseMappingDescriptorParser(final String findDatabaseMappingBasedOnClassName) throws SiminovException {
 		
 		if(findDatabaseMappingBasedOnClassName == null || findDatabaseMappingBasedOnClassName.length() <= 0) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Database Mapping Class Name Which Needs To Be Searched.");
@@ -146,14 +145,7 @@ public class QuickDatabaseMappingParser extends SiminovSAXDefaultHandler impleme
 				
 				if(doesMatch) {
 
-					DatabaseMappingDescriptorParser databaseMappingParser = null;
-					
-					try {
-						databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingDescriptorPath);
-					} catch(SiminovException siminovException) {
-						Log.loge(getClass().getName(), "process", "SiminovException caught while parsing database mapping, NAME: " + databaseMappingDescriptorPath + ", " + siminovException.getMessage());
-						throw new SiminovException(getClass().getName(), "process", "NAME: " + databaseMappingDescriptorPath + ", " + siminovException.getMessage());
-					}
+					DatabaseMappingDescriptorParser databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingDescriptorPath);
 					
 					this.databaseMappingDescriptor = databaseMappingParser.getDatabaseMapping();
 					databaseDescriptor.addDatabaseMapping(databaseMappingDescriptorPath, databaseMappingDescriptor);
