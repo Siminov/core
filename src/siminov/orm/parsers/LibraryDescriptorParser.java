@@ -24,12 +24,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import siminov.orm.Constants;
-import siminov.orm.exception.SiminovException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.LibraryDescriptor;
 import siminov.orm.resource.Resources;
-
 import android.content.Context;
 
 
@@ -75,11 +73,11 @@ public class LibraryDescriptorParser extends SiminovSAXDefaultHandler implements
 	private String propertyName = null;
 	
 	
-	public LibraryDescriptorParser(final String libraryName) throws SiminovException {
+	public LibraryDescriptorParser(final String libraryName) {
 
 		if(libraryName == null || libraryName.length() <= 0) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Library Name Found.");
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Library Name Found.");
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Library Name Found.");
 		}
 		
 		this.libraryName = libraryName;
@@ -87,7 +85,7 @@ public class LibraryDescriptorParser extends SiminovSAXDefaultHandler implements
 		Context context = resources.getApplicationContext();
 		if(context == null) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context Found.");
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Application Context Found.");
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context Found.");
 		}
 
 		InputStream libraryDescriptorStream = null;
@@ -95,14 +93,14 @@ public class LibraryDescriptorParser extends SiminovSAXDefaultHandler implements
 
 		if(libraryDescriptorStream == null) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + ", PATH: " + libraryName.replace(".", "/") + "/" + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + ", PATH: " + libraryName.replace(".", "/") + "/" + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + ", PATH: " + libraryName.replace(".", "/") + "/" + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
 		}
 		
 		try {
 			parseMessage(libraryDescriptorStream);
 		} catch(Exception exception) {
 			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing LIBRARY-DESCRIPTOR: " + this.libraryName + ", " + exception.getMessage());
-			throw new SiminovException(getClass().getName(), "Constructor", "Exception caught while parsing LIBRARY-DESCRIPTOR: " + this.libraryName + ", " + exception.getMessage());
+			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing LIBRARY-DESCRIPTOR: " + this.libraryName + ", " + exception.getMessage());
 		}
 		
 		doValidation();

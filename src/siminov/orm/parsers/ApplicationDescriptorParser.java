@@ -25,12 +25,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import siminov.orm.Constants;
-import siminov.orm.exception.SiminovException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.resource.Resources;
-
 import android.content.Context;
 
 
@@ -78,12 +76,12 @@ public class ApplicationDescriptorParser extends SiminovSAXDefaultHandler implem
 	private String tempValue = null;
 	private String propertyName = null;
 	
-	public ApplicationDescriptorParser() throws SiminovException, DeploymentException {
+	public ApplicationDescriptorParser() {
 		
 		Context context = resources.getApplicationContext();
 		if(context == null) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context found.");
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Application Context found.");
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found.");
 		}
 
 		/*
@@ -95,14 +93,14 @@ public class ApplicationDescriptorParser extends SiminovSAXDefaultHandler implem
 			applicationDescriptorStream = context.getAssets().open(APPLICATION_DESCRIPTOR_FILE_NAME);
 		} catch(IOException ioException) {
 			Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of application descriptor, " + ioException.getMessage());
-			throw new SiminovException(getClass().getName(), "Constructor", "IOException caught while getting input stream of application descriptor, " + ioException.getMessage());
+			throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of application descriptor, " + ioException.getMessage());
 		}
 		
 		try {
 			parseMessage(applicationDescriptorStream);
 		} catch(Exception exception) {
 			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing APPLICATION-DESCRIPTOR, " + exception.getMessage());
-			throw new SiminovException(getClass().getName(), "Constructor", "Exception caught while parsing APPLICATION-DESCRIPTOR, " + exception.getMessage());
+			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing APPLICATION-DESCRIPTOR, " + exception.getMessage());
 		}
 		
 		doValidation();

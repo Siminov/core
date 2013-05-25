@@ -32,6 +32,7 @@ import siminov.orm.annotation.ManyToOne;
 import siminov.orm.annotation.OneToMany;
 import siminov.orm.annotation.OneToOne;
 import siminov.orm.annotation.RelationshipProperty;
+import siminov.orm.exception.DeploymentException;
 import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseMappingDescriptor;
@@ -51,17 +52,23 @@ public class AnnotationParser {
 	 * @return Database Mapping Object.
 	 * @throws SiminovException If any exception occur while parsing annotations of class.
 	 */
-	public DatabaseMappingDescriptor parseClass(final String className) throws SiminovException {
+	public DatabaseMappingDescriptor parseClass(final String className) {
 		
 		Class<?> classObject = null;
 		try {
 			classObject = Class.forName(className);
 		} catch(Exception exception) {
 			Log.loge(AnnotationParser.class.getName(), "parseClass", "Exception caught while creating class object, CLASS-NAME: " + className + ", " + exception.getMessage());
-			throw new SiminovException(AnnotationParser.class.getName(), "parseClass", "Exception caught while creating class object, CLASS-NAME: " + className + ", " + exception.getMessage());
+			throw new DeploymentException(AnnotationParser.class.getName(), "parseClass", "Exception caught while creating class object, CLASS-NAME: " + className + ", " + exception.getMessage());
+		}
+
+		try {
+			return parseClass(classObject);
+		} catch(SiminovException siminovException) {
+			Log.loge(AnnotationParser.class.getName(), "parserClass", "SiminovException caught while parsing anootation defined within class, CLASS-NAME: " + className + ", " + siminovException.getMessage());
+			throw new DeploymentException(AnnotationParser.class.getName(), "parserClass", "SiminovException caught while parsing anootation defined within class, CLASS-NAME: " + className + ", " + siminovException.getMessage());
 		}
 		
-		return parseClass(classObject);
 	}
 
 	/**

@@ -104,18 +104,18 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 	private boolean isRelationship = false;
 	
 	
-	public DatabaseMappingDescriptorParser(final String databaseMappingName) throws SiminovException {
+	public DatabaseMappingDescriptorParser(final String databaseMappingName) {
 		this.databaseMappingName = databaseMappingName;
 		
 		if(databaseMappingName == null || databaseMappingName.length() <= 0) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 		}
 		
 		Context context = resources.getApplicationContext();
 		if(context == null) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 		}
 
 		/*
@@ -130,14 +130,14 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 				databaseMappingStream = context.getAssets().open(this.databaseMappingName);
 			} catch(IOException ioException) {
 				Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + ", " + ioException.getMessage());
-				throw new SiminovException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + "," + ioException.getMessage());
+				throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + "," + ioException.getMessage());
 			}
 			
 			try {
 				parseMessage(databaseMappingStream);
 			} catch(Exception exception) {
 				Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
-				throw new SiminovException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
+				throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
 			}
 		}
 		

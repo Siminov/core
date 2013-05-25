@@ -25,12 +25,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import siminov.orm.Constants;
-import siminov.orm.exception.SiminovException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.resource.Resources;
-
 import android.content.Context;
 
 
@@ -88,11 +86,11 @@ public class DatabaseDescriptorParser extends SiminovSAXDefaultHandler implement
 	private String tempValue = null;
 	private String propertyName = null;
 
-	public DatabaseDescriptorParser(final String databaseDescriptorPath) throws SiminovException {
+	public DatabaseDescriptorParser(final String databaseDescriptorPath) {
 		
 		if(databaseDescriptorPath == null || databaseDescriptorPath.length() <= 0) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Database Descriptor path found.");
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Database Descriptor path found.");
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Database Descriptor path found.");
 		}
 		
 		this.databaseDescriptorPath = databaseDescriptorPath;
@@ -100,7 +98,7 @@ public class DatabaseDescriptorParser extends SiminovSAXDefaultHandler implement
 		Context context = resources.getApplicationContext();
 		if(context == null) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context found.");
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Application Context found.");
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found.");
 		}
 
 		/*
@@ -112,14 +110,14 @@ public class DatabaseDescriptorParser extends SiminovSAXDefaultHandler implement
 			databaseDescriptorStream = context.getAssets().open(this.databaseDescriptorPath);
 		} catch(IOException ioException) {
 			Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database descriptor, DATABASE-DESCRIPTOR-PATH: " + databaseDescriptorPath + ", " + ioException.getMessage());
-			throw new SiminovException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database descriptor, DATABASE-DESCRIPTOR-PATH: " + databaseDescriptorPath + ", " + ioException.getMessage());
+			throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database descriptor, DATABASE-DESCRIPTOR-PATH: " + databaseDescriptorPath + ", " + ioException.getMessage());
 		}
 		
 		try {
 			parseMessage(databaseDescriptorStream);
 		} catch(Exception exception) {
 			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + exception.getMessage());
-			throw new SiminovException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + exception.getMessage());
+			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + exception.getMessage());
 		}
 		
 		doValidation();
