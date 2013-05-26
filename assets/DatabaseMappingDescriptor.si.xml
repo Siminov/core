@@ -39,7 +39,7 @@
 		<column variable_name="class_variable_name" column_name="column_name_of_table">
 		    
 			    <!-- Mandatory Field -->
-			<property name="type">TEXT/INTEGER/LONG/BLOG/FLOAT</property>
+			<property name="type">java_variable_data_type</property>
 			
 				<!-- Optional Field (Default is false) -->
 			<property name="primary_key">true/false</property>
