@@ -137,7 +137,27 @@ DatabaseMapping.si.xml is the one who does the ORM (Object Relationship Modellin
 		
 		PROPERTIES OF COLUMN TAG
 		
-			-> type*: TEXT/INTEGER/LONG/BLOG/FLOAT. Database table column type. It is mandatory field.
+			-> type*: Java Variable data type. It is mandatory field.
+					
+					Java Data Types*:
+						-> java.lang.int
+						-> java.lang.Integer
+						-> java.lang.long
+						-> java.lang.Long
+						-> java.lang.float
+						-> java.lang.Float
+						-> java.lang.boolean
+						-> java.lang.Boolean
+						-> java.lang.char
+						-> java.lang.Character
+						-> java.lang.String
+						-> java.lang.byte
+						-> java.lang.Byte
+						-> java.lang.void
+						-> java.lang.Void
+						-> java.lang.short
+						-> java.lang.Short
+
 			
 			-> primary_key: TRUE/FALSE. It defines whether the field is primary key to table or not. It is optional field. Default value is false.
 			
