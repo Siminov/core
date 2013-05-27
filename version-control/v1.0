@@ -82,3 +82,6 @@ public class ApplicationDescriptor() {
 15. Changes QuickDatabaseMappingParser class name to QuickDatabaseMappingDescriptorParser.
 
 16. Assets/DatabaseMappingDescriptor.si.xml type property bug fix. (Java variable name should be defined instead of SQLite).
+
+17. Assets:ApplicationDescriptor.si.xml changed main core tag to siminov tag.
+

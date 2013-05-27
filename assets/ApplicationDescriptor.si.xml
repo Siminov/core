@@ -22,7 +22,7 @@
  
 <?xml version="1.0" encoding="UTF-8"?>
 
-<core>
+<siminov>
     
 	<!-- General Application Description Properties -->
 	
@@ -59,7 +59,7 @@
 		<event-handler>full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)</event-handler>
 	</event-handlers>
 
-</core>
+</siminov>
 
 
 
