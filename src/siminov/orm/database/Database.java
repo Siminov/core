@@ -500,8 +500,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		 * 
 		 */
 		
-		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
-		
 		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
