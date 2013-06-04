@@ -85,3 +85,4 @@ public class ApplicationDescriptor() {
 
 17. Assets:ApplicationDescriptor.si.xml changed main core tag to siminov tag.
 
+18. Database Class: Removed Dead Code
