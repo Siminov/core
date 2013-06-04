@@ -86,3 +86,6 @@ public class ApplicationDescriptor() {
 17. Assets:ApplicationDescriptor.si.xml changed main core tag to siminov tag.
 
 18. Database Class: Removed Dead Code
+
+19. Fixed Bug (doclet.assets/resources where not getting copied).
+Written ANT command to copy doclet.assets/resources to docs/resources 
