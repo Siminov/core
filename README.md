@@ -9,7 +9,7 @@ Get Started
 -----------
 Get the source
 
-  git clone git://github.com/siminov/andiorm.git
+  git clone git://github.com/siminov/android-orm.git
   
 	
 Features
