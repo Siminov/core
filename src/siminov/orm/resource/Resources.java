@@ -116,16 +116,16 @@ public class Resources {
 	 * Get iterator of all database descriptors provided in Application Descriptor file.
 		<p>
 			<pre>
-Example: ApplicationDescriptor.xml
+Example: ApplicationDescriptor.si.xml
 	
 	{@code
-	<core>
+	<siminov>
 	
 		<database-descriptors>
 			<database-descriptor>DatabaseDescriptor.si.xml</database-descriptor>
 		</database-descriptors>
 
-	</core>
+	</siminov>
 	}
 	
 			</pre>
@@ -145,23 +145,23 @@ Example: ApplicationDescriptor.xml
 		<p>
 			<pre>
 			
-Example: ApplicationDescriptor.xml
+Example: ApplicationDescriptor.si.xml
 	
 	{@code
-	<core>
+	<siminov>
 	
 		<database-descriptors>
-			<database-descriptor>DatabaseDescriptor.xml</database-descriptor>
+			<database-descriptor>DatabaseDescriptor.si.xml</database-descriptor>
 		</database-descriptors>
 
-	</core>
+	</siminov>
 	}
 	
 			</pre>
 		</p>
 	 
 	 * @param databaseDescriptorPath Iterator which contains all database descriptor paths provided.
-	 * @return
+	 * @return Database Descriptor
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnPath(final String databaseDescriptorPath) {
 		if(this.applicationDescriptor == null) {
@@ -250,7 +250,12 @@ Example: DatabaseDescriptor.xml
 		return null;
 	}
 
-	
+
+	/**
+	 * Get database descriptor name based on class name
+	 * @param className Name of Class
+	 * @return Database Descriptor Name
+	 */
 	public String getDatabaseDescriptorNameBasedOnClassName(final String className) {
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
@@ -319,6 +324,11 @@ Example: DatabaseDescriptor.xml
 	}
 
 	
+	/**
+	 * Get database descriptor name based on table name
+	 * @param tableName Name of Table
+	 * @return Database Descriptor Name
+	 */
 	public String getDatabaseDescriptorNameBasedOnTableName(final String tableName) {
 		if(this.applicationDescriptor == null) {
 			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
@@ -423,6 +433,10 @@ Example: DatabaseDescriptor.xml
 	}
 
 	
+	/**
+	 * Get all database mapping descriptors
+	 * @return Database Mapping Descriptors
+	 */
 	public Iterator<DatabaseMappingDescriptor> getDatabaseMappingDescriptors() {
 		Collection<DatabaseMappingDescriptor> databaseMappingDescriptors = new LinkedList<DatabaseMappingDescriptor>();
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
