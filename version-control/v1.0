@@ -90,4 +90,12 @@ public class ApplicationDescriptor() {
 19. Fixed Bug (doclet.assets/resources where not getting copied).
 Written ANT command to copy doclet.assets/resources to docs/resources
 
-20. README.md: Renamed Get Source Repository Path 
+20. README.md: Renamed Get Source Repository Path
+
+21. Database Class: Removed Unnecessary Imports
+
+22. Siminov Exception Class: Removed Unnecessary Imports
+
+23. Resources Class: Siminov ORM APIs Documentation
+
+24. Class Utils: Siminov ORM APIs Documentation
