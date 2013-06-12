@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import siminov.orm.Siminov;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.SiminovCriticalException;
 import siminov.orm.exception.SiminovException;
@@ -37,6 +36,11 @@ import siminov.orm.log.Log;
  */
 public class ClassUtils {
 
+	/**
+	 * Create a Class Object based on class name provided.
+	 * @param className Name of Class
+	 * @return Class Object
+	 */
 	public static Class<?> createClass(String className) {
 		Class<?> classObject = null;
 		try {
@@ -70,12 +74,26 @@ public class ClassUtils {
 		return object;
 	}
 
+	/**
+	 * Create a method object.
+	 * @param className Name of Class
+	 * @param methodName Name of Method
+	 * @param pamameterTypes Parameter Types
+	 * @return Method Object
+	 */
 	public static Object createMethodObject(String className, String methodName, Class<?>...pamameterTypes) {
 		
 		Object classObject = createClassInstance(className);
 		return createMethodObject(classObject, methodName, pamameterTypes);
 	}
 
+	/**
+	 * Create a method object.
+	 * @param classObject Class Object
+	 * @param methodName Name of Method
+	 * @param parameterTypes Parameter Types
+	 * @return Method Object
+	 */
 	public static Object createMethodObject(Object classObject, String methodName, Class<?>...parameterTypes) {
 		
 		Method method = null;
