@@ -52,21 +52,21 @@ public class AnnotationParser {
 	 * @return Database Mapping Object.
 	 * @throws SiminovException If any exception occur while parsing annotations of class.
 	 */
-	public DatabaseMappingDescriptor parseClass(final String className) {
+	public DatabaseMappingDescriptor parseClass(final String className) throws SiminovException {
 		
 		Class<?> classObject = null;
 		try {
 			classObject = Class.forName(className);
 		} catch(Exception exception) {
 			Log.loge(AnnotationParser.class.getName(), "parseClass", "Exception caught while creating class object, CLASS-NAME: " + className + ", " + exception.getMessage());
-			throw new DeploymentException(AnnotationParser.class.getName(), "parseClass", "Exception caught while creating class object, CLASS-NAME: " + className + ", " + exception.getMessage());
+			throw new SiminovException(AnnotationParser.class.getName(), "parseClass", "SiminovException caught while creating class object, CLASS-NAME: " + className + ", " + exception.getMessage());
 		}
 
 		try {
 			return parseClass(classObject);
 		} catch(SiminovException siminovException) {
 			Log.loge(AnnotationParser.class.getName(), "parserClass", "SiminovException caught while parsing anootation defined within class, CLASS-NAME: " + className + ", " + siminovException.getMessage());
-			throw new DeploymentException(AnnotationParser.class.getName(), "parserClass", "SiminovException caught while parsing anootation defined within class, CLASS-NAME: " + className + ", " + siminovException.getMessage());
+			throw new SiminovException(AnnotationParser.class.getName(), "parserClass", "SiminovException caught while parsing anootation defined within class, CLASS-NAME: " + className + ", " + siminovException.getMessage());
 		}
 		
 	}
