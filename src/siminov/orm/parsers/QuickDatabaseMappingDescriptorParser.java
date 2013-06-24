@@ -70,7 +70,12 @@ public class QuickDatabaseMappingDescriptorParser extends SiminovSAXDefaultHandl
 			throw new SiminovException(getClass().getName(), "process", "Invalid Application Context found.");
 		}
 
-		databaseMappingDescriptor = new AnnotationParser().parseClass(this.finalDatabaseMappingBasedOnClassName);
+		try {
+			databaseMappingDescriptor = new AnnotationParser().parseClass(this.finalDatabaseMappingBasedOnClassName);
+		} catch(SiminovException siminovException) {
+			Log.logd(QuickDatabaseMappingDescriptorParser.class.getName(), "process", "SiminovException caught while getting Annoted Class, CLASS-NAME: " + this.finalDatabaseMappingBasedOnClassName + ", MESSAGE: " + siminovException.getMessage());
+		}
+		
 		if(databaseMappingDescriptor != null) {
 			
 			Iterator<DatabaseDescriptor> databaseDescriptors = Resources.getInstance().getDatabaseDescriptors();
@@ -204,7 +209,10 @@ public class QuickDatabaseMappingDescriptorParser extends SiminovSAXDefaultHandl
 
 		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_TABLE)) {
 			String className = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_CLASS_NAME);
+
 			if(className.equalsIgnoreCase(finalDatabaseMappingBasedOnClassName)) {
+				doesMatch = true;
+			} else if(className.substring(className.lastIndexOf(".") + 1, className.length()).equalsIgnoreCase(finalDatabaseMappingBasedOnClassName)) {
 				doesMatch = true;
 			}
 			
