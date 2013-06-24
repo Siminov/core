@@ -2580,13 +2580,8 @@ Example:
 		return getDatabaseMappingDescriptor(getClass().getName());
 	}
 
-	static DatabaseMappingDescriptor getDatabaseMappingDescriptor(String className) throws DatabaseException {
-		try {
-			return resources.requiredDatabaseMappingDescriptorBasedOnClassName(className);
-		} catch(SiminovException siminovException) {
-			Log.loge(Database.class.getName(), "getDatabaseMappingDescriptor", "SiminovException caught while getting required database mapping descriptor object, CLASS-NAME: " + className + ", " + siminovException.getMessage());
-			throw new DatabaseException(Database.class.getName(), "getDatabaseMappingDescriptor", siminovException.getMessage());
-		}
+	static DatabaseMappingDescriptor getDatabaseMappingDescriptor(String className) {
+		return resources.requiredDatabaseMappingDescriptorBasedOnClassName(className);
 	}
 	
 	/**

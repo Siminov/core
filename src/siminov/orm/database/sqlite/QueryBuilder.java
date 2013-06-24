@@ -27,7 +27,6 @@ import siminov.orm.Constants;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
-import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor.Column;
@@ -1062,13 +1061,8 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 
 		DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
 		if(referedDatabaseMappingDescriptor == null) {
-			try {
-				referedDatabaseMappingDescriptor = Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
-				relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			} catch(SiminovException siminovException) {
-				Log.loge(QueryBuilder.class.getName(), "formTriggers", "SiminovException caught while getting required database mapping descriptor, CLASS-NAME: " + relationship.getReferTo() + ", " + siminovException.getMessage());
-				throw new DeploymentException(QueryBuilder.class.getName(), "formTriggers", siminovException.getMessage());
-			}
+			referedDatabaseMappingDescriptor = Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
+			relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
 			
 			relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
 		}
@@ -1174,13 +1168,8 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 				
 				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
 				if(referedDatabaseMappingDescriptor == null) {
-					try {
-						referedDatabaseMappingDescriptor = Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
-						relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-					} catch(SiminovException siminovException) {
-						Log.loge(QueryBuilder.class.getName(), "formForeignKeys", "SiminovException caught while getting required database mapping descriptor, CLASS-NAME: " + relationship.getReferTo() + ", " + siminovException.getMessage());
-						throw new DeploymentException(QueryBuilder.class.getName(), "formForeignKeys", siminovException.getMessage());
-					}
+					referedDatabaseMappingDescriptor = Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
+					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
 					
 					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
 				}
