@@ -99,3 +99,5 @@ Written ANT command to copy doclet.assets/resources to docs/resources
 23. Resources Class: Siminov ORM APIs Documentation
 
 24. Class Utils: Siminov ORM APIs Documentation
+
+25. Removed Error Thrown From Resource Class, requiredDatabaseMappingDescriptorBasedOnClassName API, and changed it to SiminovCriticalException
