@@ -29,6 +29,7 @@ import siminov.orm.events.EventHandler;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.events.ISiminovEvents;
 import siminov.orm.exception.DeploymentException;
+import siminov.orm.exception.SiminovCriticalException;
 import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
@@ -474,7 +475,7 @@ Example: DatabaseDescriptor.xml
 	 * @return DatabaseMappingDescriptor object.
 	 * @throws SiminovException If any exception occur while getting database mapping descriptor object.
 	 */
-	public DatabaseMappingDescriptor requiredDatabaseMappingDescriptorBasedOnClassName(final String className) throws SiminovException {
+	public DatabaseMappingDescriptor requiredDatabaseMappingDescriptorBasedOnClassName(final String className) {
 		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptorBasedOnClassName(className);
 
 		if(databaseMapping == null) {
@@ -486,13 +487,13 @@ Example: DatabaseDescriptor.xml
 				quickDatabaseMappingDescriptorParser.process();
 			} catch(SiminovException ce) {
 				Log.loge(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className + ", " + ce.getMessage());
-				throw new SiminovException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className  + ", " + ce.getMessage());
+				throw new SiminovCriticalException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className  + ", " + ce.getMessage());
 			}
 			
 			DatabaseMappingDescriptor foundDatabaseMapping = quickDatabaseMappingDescriptorParser.getDatabaseMapping();
 			if(foundDatabaseMapping == null) {
 				Log.loge(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
-				throw new SiminovException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
+				throw new SiminovCriticalException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
 			}
 			
 			return foundDatabaseMapping;
