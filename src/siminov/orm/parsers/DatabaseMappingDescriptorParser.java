@@ -122,7 +122,13 @@ public class DatabaseMappingDescriptorParser extends SiminovSAXDefaultHandler im
 		 * Parse DatabaseMapping.
 		 */
 		if(!databaseMappingName.endsWith(Constants.XML_FILE_EXTENSION)) {
-			this.databaseMapping = new AnnotationParser().parseClass(databaseMappingName);
+			
+			try {
+				this.databaseMapping = new AnnotationParser().parseClass(databaseMappingName);
+			} catch(SiminovException siminovException) {
+				Log.loge(DatabaseMappingDescriptorParser.class.getName(), "Constructor", "SiminovException caught while getting Annoted Class, CLASS-NAME: " + databaseMappingName + ", MESSAGE: " + siminovException.getMessage());
+				throw new DeploymentException(DatabaseMappingDescriptorParser.class.getName(), "Constructor", siminovException.getMessage());
+			}
 		} else {
 			InputStream databaseMappingStream = null;
 			
