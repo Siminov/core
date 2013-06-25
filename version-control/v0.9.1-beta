@@ -102,4 +102,6 @@ Written ANT command to copy doclet.assets/resources to docs/resources
 
 25. Removed Error Thrown From Resource Class, requiredDatabaseMappingDescriptorBasedOnClassName API, and changed it to SiminovCriticalException.
 
-26. Removed Critical Error Thrown From AnnotationParser Class, parseClass API, and changed it to SiminovException
+26. Removed Critical Error Thrown From AnnotationParser Class, parseClass API, and changed it to SiminovException.
+
+27. AnnotationParser Class, parseClass API, Changed Log Level To Debug.
