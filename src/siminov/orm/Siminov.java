@@ -288,7 +288,9 @@ public class Siminov {
 	 */
 	protected static void processDatabaseMappingDescriptors() {
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
-		if(!applicationDescriptor.isLoadInitially()) {
+		
+		if(firstTimeProcessed) {
+		} else if(!applicationDescriptor.isLoadInitially()) {
 			return;
 		}
 		
