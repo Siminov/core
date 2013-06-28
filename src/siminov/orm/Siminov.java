@@ -28,6 +28,7 @@ import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.events.ISiminovEvents;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
+import siminov.orm.exception.SiminovCriticalException;
 import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
@@ -38,7 +39,6 @@ import siminov.orm.parsers.DatabaseDescriptorParser;
 import siminov.orm.parsers.DatabaseMappingDescriptorParser;
 import siminov.orm.parsers.LibraryDescriptorParser;
 import siminov.orm.resource.Resources;
-import android.content.Context;
 
 
 /**
@@ -46,7 +46,7 @@ import android.content.Context;
  *	<p>
  *		Such As
  *		<p>
- *			1. Initialize: Entry point to the SIMINOV.
+ *			1. Initializer: Entry point to the SIMINOV.
  *		</p>
  *	
  *		<p>
@@ -76,6 +76,11 @@ public class Siminov {
 		if(!isActive) {
 			throw new DeploymentException(Siminov.class.getName(), "validateSiminov", "Siminov Not Active.");
 		}
+	}
+	
+	
+	public static IInitializer initialize() {
+		return new Initializer();
 	}
 	
 	/**
@@ -129,19 +134,12 @@ public class Siminov {
 	 * @param context Application content.
 	 * @exception If any exception occur while deploying application it will through DeploymentException, which is RuntimeException.
 	 */
-	public static void initialize(final Context context) {
+	static void start() {
 		
 		if(isActive) {
 			return;
 		}
 		
-		if(context == null) {
-			Log.logd(Siminov.class.getName(), "initialize", "Invalid Context Found.");
-			throw new DeploymentException(Siminov.class.getName(), "initialize", "Invalid Context Found.");
-		}
-		
-		ormResources.setApplicationContext(context);
-
 		process();
 		
 		isActive = true;
@@ -173,7 +171,7 @@ public class Siminov {
 	 * 
 	 * @throws SiminovException If any error occur while shutting down SIMINOV.
 	 */
-	public static void shutdown() throws SiminovException {
+	public static void shutdown() {
 		validateSiminov();
 		
 		Iterator<DatabaseDescriptor> databaseDescriptors = ormResources.getDatabaseDescriptors();
@@ -195,7 +193,7 @@ public class Siminov {
 		}
 		
 		if(failed) {
-			throw new SiminovException(Siminov.class.getName(), "shutdown", "DatabaseException caught while closing database.");			
+			throw new SiminovCriticalException(Siminov.class.getName(), "shutdown", "DatabaseException caught while closing database.");			
 		}
 		
 		ISiminovEvents coreEventHandler = ormResources.getSiminovEventHandler();
