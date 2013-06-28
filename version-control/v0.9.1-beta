@@ -107,3 +107,9 @@ Written ANT command to copy doclet.assets/resources to docs/resources
 27. AnnotationParser Class, parseClass API, Changed Log Level To Debug.
 
 28. Fixed Load Initially Bug in Siminov Class, processDatabaseMappingDescriptors API.
+
+
+29*. Major Change: Changed Siminov Initialization APIs. Provided a unique interface for all Siminov Products to initialize them-self.
+	-> Added IInitializer Interface.
+	-> Added Initializer Class which implements IInitialize interface.
+	-> Change initialize API in Siminov class which takes no arguments and return IInitializer interface through which we can set parameters need by Siminov and call start API to start Siminov.
