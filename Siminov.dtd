@@ -1,0 +1,17 @@
+<!-- Siminov DTD.
+
+<!DOCTYPE Siminov PUBLIC 
+    "-//Siminov/Siminov DTD 1.0//EN">
+
+An instance of this XML document may contain mappings for an arbitrary 
+number of classes. The class mappings may contain associations to classes
+mapped in the same document or in another document. No class may be 
+mapped more than once. Each document may also contain definitions of an
+arbitrary number of queries, and import declarations of arbitrary classes. 
+
+-->
+
+<!--
+	The document root.
+ -->
+

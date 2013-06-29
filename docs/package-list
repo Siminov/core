@@ -1,0 +1,12 @@
+siminov.orm
+siminov.orm.annotation
+siminov.orm.database
+siminov.orm.database.design
+siminov.orm.database.impl
+siminov.orm.database.sqlite
+siminov.orm.events
+siminov.orm.exception
+siminov.orm.log
+siminov.orm.model
+siminov.orm.parsers
+siminov.orm.utils
