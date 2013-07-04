@@ -102,4 +102,4 @@ LICENSE
 
 
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/7a4fa4337bbaef7efea367892bcc7e12 "githalytics.com")](http://githalytics.com/Siminov/andiorm)
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/e250ed9305868c42000edc051b0c1078 "githalytics.com")](http://githalytics.com/Siminov/android-orm)
