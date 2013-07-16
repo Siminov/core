@@ -110,6 +110,8 @@ public class Database implements IDatabase {
 				
 				if(columnValue instanceof String) {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX: " + index + ", VALUE: " + columnValue);
+				} else if(columnValue instanceof Integer) {
+					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Integer) columnValue).intValue());
 				} else if(columnValue instanceof Long) {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Long) columnValue).longValue());
 				} else if(columnValue instanceof Double) {
