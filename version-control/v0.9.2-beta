@@ -1,0 +1,2 @@
+1. Issue Reported: SQLite Generic Data Types
+   Since Siminov know data type specified by application, will explicitly convert data to user defined data type.
