@@ -33,6 +33,7 @@ import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
+import siminov.orm.model.DatabaseMappingDescriptor.Column;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -214,9 +215,42 @@ public class Database implements IDatabase {
 					if(isString) {
 						tuple.put(columnNames[i], sqliteCursor.getString(i));
 					} else if(isLong) {
-						tuple.put(columnNames[i], sqliteCursor.getLong(i));
+						long columnValue = sqliteCursor.getLong(i);
+
+						Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
+						if(column != null) {
+							if(column.getType() == int.class.getName()) {
+								tuple.put(columnNames[i], Integer.parseInt(Long.toString(columnValue)));
+							} else if(column.getType() == Integer.class.getName()) {
+								tuple.put(columnNames[i], Integer.getInteger(Long.toString(columnValue)));
+							} else if(column.getType() == long.class.getName()) {
+								tuple.put(columnNames[i], columnValue);
+							} else if(column.getType() == Long.class.getName()) {
+								tuple.put(columnNames[i], Long.valueOf(columnValue));
+							}
+						} else {
+							tuple.put(columnNames[i], columnValue);
+						}
+						
 					} else if(isFloat) {
-						tuple.put(columnNames[i], sqliteCursor.getFloat(i));
+						float columnValue = sqliteCursor.getFloat(i);
+						
+						Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
+						if(column != null) {
+							if(column.getType() == double.class.getName()) {
+								tuple.put(columnNames[i], Double.parseDouble(Float.toString(columnValue)));
+							} else if(column.getType() == Double.class.getName()) {
+								tuple.put(columnNames[i], Double.valueOf(Float.toString(columnValue)));
+							} else if(column.getType() == float.class.getName()) {
+								tuple.put(columnNames[i], columnValue);
+							} else if(column.getType() == Float.class.getName()) {
+								tuple.put(columnNames[i], Float.valueOf(columnValue));
+							}
+						} else {
+							tuple.put(columnNames[i], columnValue);
+						}
+
+						tuple.put(columnNames[i], columnValue);
 					} else if(isBlob) {
 						tuple.put(columnNames[i], sqliteCursor.getBlob(i));
 					}
