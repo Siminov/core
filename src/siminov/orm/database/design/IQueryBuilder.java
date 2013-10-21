@@ -17,181 +17,162 @@
 
 package siminov.orm.database.design;
 
-import java.util.Iterator;
+import java.util.Map;
 
-import siminov.orm.model.DatabaseMappingDescriptor;
+import siminov.orm.Constants;
 
 /**
  * Exposes API's to build database queries.
  */
 public interface IQueryBuilder {
 
-	/**
-	 * Build query to create table.
-	 * @param tableName Name of table.
-	 * @param columnNames Name of columns.
-	 * @param columnTypes Type of columns.
-	 * @param defaultValues Default value of columns.
-	 * @param checks Check condition of columns.
-	 * @param primaryKeys Primary Keys of table.
-	 * @param isNotNull Not Null fields of table.
-	 * @param uniqueColumns Unique Columns of table.
-	 * @param foreignKeys Foreign Keys of table.
-	 * @return Generated Query.
-	 */
-	public String formCreateTableQuery(final String tableName, final Iterator<String> columnNames, final Iterator<String> columnTypes, final Iterator<String> defaultValues, final Iterator<String> checks, final Iterator<String> primaryKeys, final Iterator<Boolean> isNotNull, final Iterator<String> uniqueColumns, final String foreignKeys);
 
-	/**
-	 * Build query to create index on table.
-	 * @param indexName Name of index.
-	 * @param tableName Name of table.
-	 * @param columnNames Name of columns.
-	 * @param isUnique Whether index is unique or not.
-	 * @return Generated Query.
-	 */
-	public String formCreateIndexQuery(final String indexName, final String tableName, final Iterator<String> columnNames, final boolean isUnique);
+	public String FORM_CREATE_TABLE_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_COLUMN_NAMES_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_COLUMN_TYPES_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_COLUMN_TYPES_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_DEFAULT_VALUES_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_DEFAULT_VALUES_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_CHECKS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_CHECKS_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_PRIMARY_KEYS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_PRIMARY_KEYS_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_NOT_NULLS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_NOT_NULLS_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_UNIQUE_COLUMNS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_UNIQUE_COLUMNS_PARAMETER;
+	public String FORM_CREATE_TABLE_QUERY_FOREIGN_KEYS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_FOREIGN_KEYS_PARAMETER;
 	
-	/**
-	 * Build query to drop table from database.
-	 * @param tableName Name of table.
-	 * @return Generated Query.
-	 */
-	public String formDropTableQuery(final String tableName);
-	
-	/**
-	 * Build query to drop index from table.
-	 * @param tableName Name of table.
-	 * @param indexName Name of index.
-	 * @return Generated Query.
-	 */
-	public String formDropIndexQuery(String tableName, String indexName);
-	
-	/**
-	 * Build query to fetch data from table.
-	 * @param tableName Name of table.
-	 * @param distinct Distinct TRUE/FALSE.
-	 * @param whereClause Where clause based on which data will be fetched from table.
-	 * @param columnNames Name of columns.
-	 * @param groupBys Group by value.
-	 * @param having Having clause
-	 * @param orderBy Order By value.
-	 * @param limit Limit of data fetched from table.
-	 * @return Generated Query.
-	 */
-	public String formSelectQuery(final String tableName, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit);
+	public String formCreateTableQuery(final Map<String, Object> parameters);
 
-	/**
-	 * Build query to save data in table.
-	 * @param tableName Name of table.
-	 * @param columnNames Name of columns.
-	 * @return Generated Query.
-	 */
-	public String formSaveBindQuery(final String tableName, final Iterator<String> columnNames);
-	
-	/**
-	 * Build query to update data in table.
-	 * @param tableName Name of table.
-	 * @param columnNames Name of columns.
-	 * @param whereClause Where clause based on which data will be updated.
-	 * @return Generated Query.
-	 */
-	public String formUpdateBindQuery(final String tableName, final Iterator<String> columnNames, final String whereClause);
-	
-	/**
-	 * Build query to delete data from table.
-	 * @param tableName Name of table.
-	 * @param whereClause Where clause based on which data will be deleted from table.
-	 * @return Generated Query.
-	 */
-	public String formDeleteQuery(final String tableName, final String whereClause);
-	
-	/**
-	 * Build query to get count of tuples.
-	 * @param tableName Name of table.
-	 * @param column Name of column.
-	 * @param distinct Distinct TRUE/FALSE.
-	 * @param whereClause Where clause based on which count will be decided.
-	 * @param groupBys Group By Column Names.
-	 * @param having Having clause for group by.
-	 * @return Generated Query.
-	 */
-	public String formCountQuery(final String tableName, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having);
-	
-	/**
-	 * Build query to get average of tuples.
-	 * @param tableName Name of table.
-	 * @param column Name of column of which average needs to be find.
-	 * @param whereClause Where clause based on which average will be decided.
-	 * @param groupBys Group By Column Names.
-	 * @param having Having clause for group by.
-	 * @return Generated Query.
-	 */
-	public String formAvgQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
-	
-	/**
-	 * Build query to get sum of tuples.
-	 * @param tableName Name of table.
-	 * @param column Name of column.
-	 * @param groupBys Group By Column Names.
-	 * @param having Having clause for group by.
-	 * @return Generated Query.
-	 */
-	public String formSumQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
-	
-	/**
-	 * Build query to get total of tuples.
-	 * @param tableName Name of table.
-	 * @param column Name of column.
-	 * @param groupBys Group By Column Names.
-	 * @param having Having clause for group by.
-	 * @return Generated Query.
-	 */
-	public String formTotalQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
 
-	/**
-	 * Build query to get maximum of tuples.
-	 * @param tableName Name of table.
-	 * @param columnName Name of column of which maximum value needs to be found.
-	 * @param groupBy Group by clause.
-	 * @param having Having clause for group by.
-	 * @return Generated Query.
-	 */
-	public String formMaxQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
 	
-	/**
-	 * Build query to get minimum of tuples.
-	 * @param tableName Name of table.
-	 * @param columnName Name of column.
-	 * @param groupBy Group by clause.
-	 * @param having Having clause for group by.
-	 * @return Generated Query.
-	 */
-	public String formMinQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having);
+	public String FORM_CREATE_INDEX_QUERY_INDEX_NAME_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_INDEX_NAME_PARAMETER;
+	public String FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_CREATE_INDEX_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_COLUMN_NAMES_PARAMETER;
+	public String FORM_CREATE_INDEX_QUERY_IS_UNIQUE_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_IS_UNIQUE_PARAMETER;
 	
-	/**
-	 * Build query to get group concat of tuples.
-	 * @param tableName Name of table.
-	 * @param columnName Name of column.
-	 * @param delimiter Delimiter of group concat.
-	 * @param whereClause Where clause for group concat.s
-	 * @param groupBy Group by clause.
-	 * @param having Having clause for group by.
-	 * @return Generated Query.
-	 */
-	public String formGroupConcatQuery(final String tableName, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having);
+	public String formCreateIndexQuery(final Map<String, Object> parameters);
 	
-	/**
-	 * Build query to generate trigger.
-	 * @param databaseMappingDescriptor Database Descriptor Object.
-	 * @return Generated Query.
-	 */
-	public Iterator<String> formTriggers(final DatabaseMappingDescriptor databaseMappingDescriptor);
+
 	
-	/**
-	 * Build query to generate foreign keys of table.
-	 * @param databaseMappingDescriptor Database Descriptor Object.
-	 * @return Generated Query.
-	 */
-	public String formForeignKeys(final DatabaseMappingDescriptor databaseMappingDescriptor);
+	public String FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER;
+	
+	public String formDropTableQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_DROP_INDEX_QUERY_INDEX_NAME_PARAMETER = Constants.FORM_DROP_INDEX_QUERY_INDEX_NAME_PARAMETER;
+	
+	public String formDropIndexQuery(final Map<String, Object> parameters);
+	
+
+
+	public String FORM_SELECT_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_SELECT_QUERY_DISTINCT_PARAMETER = Constants.FORM_SELECT_QUERY_DISTINCT_PARAMETER;
+	public String FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER;
+	public String FORM_SELECT_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_SELECT_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_SELECT_QUERY_HAVING_PARAMETER = Constants.FORM_SELECT_QUERY_HAVING_PARAMETER;
+	public String FORM_SELECT_QUERY_ORDER_BYS_PARAMETER = Constants.FORM_SELECT_QUERY_ORDER_BYS_PARAMETER;
+	public String FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER = Constants.FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER;
+	public String FORM_SELECT_QUERY_LIMIT_PARAMETER = Constants.FORM_SELECT_QUERY_LIMIT_PARAMETER;
+	
+	public String formSelectQuery(final Map<String, Object> parameters);
+
+
+	
+	public String FORM_SAVE_BIND_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_SAVE_BIND_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_SAVE_BIND_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_SAVE_BIND_QUERY_COLUMN_NAMES_PARAMETER;
+	
+	public String formSaveBindQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_UPDATE_BIND_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_UPDATE_BIND_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_UPDATE_BIND_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_UPDATE_BIND_QUERY_COLUMN_NAMES_PARAMETER;
+	public String FORM_UPDATE_BIND_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_UPDATE_BIND_QUERY_WHERE_CLAUSE_PARAMETER;
+	
+	public String formUpdateBindQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_DELETE_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_DELETE_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_DELETE_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_DELETE_QUERY_WHERE_CLAUSE_PARAMETER;
+	
+	public String formDeleteQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_COUNT_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_COUNT_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_COUNT_QUERY_COLUMN_PARAMETER = Constants.FORM_COUNT_QUERY_COLUMN_PARAMETER;
+	public String FORM_COUNT_QUERY_DISTINCT_PARAMETER = Constants.FORM_COUNT_QUERY_DISTINCT_PARAMETER;
+	public String FORM_COUNT_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_COUNT_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_COUNT_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_COUNT_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_COUNT_QUERY_HAVING_PARAMETER = Constants.FORM_COUNT_QUERY_HAVING_PARAMETER;
+	
+	public String formCountQuery(final Map<String, Object> parameters);
+	
+	
+
+	public String FORM_AVG_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_AVG_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_AVG_QUERY_COLUMN_PARAMETER = Constants.FORM_AVG_QUERY_COLUMN_PARAMETER;
+	public String FORM_AVG_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_AVG_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_AVG_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_AVG_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_AVG_QUERY_HAVING_PARAMETER = Constants.FORM_AVG_QUERY_HAVING_PARAMETER;
+	
+	public String formAvgQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_SUM_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_SUM_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_SUM_QUERY_COLUMN_PARAMETER = Constants.FORM_SUM_QUERY_COLUMN_PARAMETER;
+	public String FORM_SUM_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_SUM_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_SUM_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_SUM_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_SUM_QUERY_HAVING_PARAMETER = Constants.FORM_SUM_QUERY_HAVING_PARAMETER;
+	
+	public String formSumQuery(final Map<String, Object> parameters);
+	
+	
+
+	public String FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_TOTAL_QUERY_COLUMN_PARAMETER = Constants.FORM_TOTAL_QUERY_COLUMN_PARAMETER;
+	public String FORM_TOTAL_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_TOTAL_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_TOTAL_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_TOTAL_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_TOTAL_QUERY_HAVING_PARAMETER = Constants.FORM_TOTAL_QUERY_HAVING_PARAMETER;
+	
+	public String formTotalQuery(final Map<String, Object> parameters);
+
+
+	
+	public String FORM_MAX_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_MAX_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_MAX_QUERY_COLUMN_PARAMETER = Constants.FORM_MAX_QUERY_COLUMN_PARAMETER;
+	public String FORM_MAX_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_MAX_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_MAX_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_MAX_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_MAX_QUERY_HAVING_PARAMETER = Constants.FORM_MAX_QUERY_HAVING_PARAMETER;
+	
+	public String formMaxQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_MIN_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_MIN_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_MIN_QUERY_COLUMN_PARAMETER = Constants.FORM_MIN_QUERY_COLUMN_PARAMETER;
+	public String FORM_MIN_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_MIN_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_MIN_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_MIN_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_MIN_QUERY_HAVING_PARAMETER = Constants.FORM_MIN_QUERY_HAVING_PARAMETER;
+	
+	public String formMinQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER;
+	public String FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER;
+	public String FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER;
+	public String FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER;
+	public String FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER;
+	public String FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER;
+	
+	public String formGroupConcatQuery(final Map<String, Object> parameters);
+	
+
+	
+	public String FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER = Constants.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER;
+	
+	public String formForeignKeys(final Map<String, Object> parameters);
 	
 }
