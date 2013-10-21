@@ -625,30 +625,32 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		 * Else get foreign keys.
 		 */
 		String foreignKeys = "";
-		Iterator<String> triggers = null;
 		
-		int androidSDKVersion = android.os.Build.VERSION.SDK_INT;
-		if(androidSDKVersion < 8) {
-			triggers = queryBuilder.formTriggers(databaseMappingDescriptor);
-		} else {
-			foreignKeys = queryBuilder.formForeignKeys(databaseMappingDescriptor);
-		}
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER, databaseMappingDescriptor);
+		
+		foreignKeys = queryBuilder.formForeignKeys(parameters);
+
 		
 		/*
 		 * Call QueryBuilder.formCreateTableQuery, get query to create table.
 		 * After forming create table query call executeQuery method to create table in database.
 		 */
-		String query = queryBuilder.formCreateTableQuery(tableName, columnNames.iterator(), columnTypes.iterator(), defaultValues.iterator(), checks.iterator(), primaryKeys.iterator(), isNotNull.iterator(), uniqueKeys.iterator(), foreignKeys);
+		
+		parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_TABLE_NAME_PARAMETER, tableName);
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_COLUMN_NAMES_PARAMETER, columnNames.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_COLUMN_TYPES_PARAMETER, columnTypes.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_DEFAULT_VALUES_PARAMETER, defaultValues.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_CHECKS_PARAMETER, checks.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_PRIMARY_KEYS_PARAMETER, primaryKeys.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_NOT_NULLS_PARAMETER, isNotNull.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_UNIQUE_COLUMNS_PARAMETER, uniqueKeys.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_FOREIGN_KEYS_PARAMETER, foreignKeys);
+		
+		String query = queryBuilder.formCreateTableQuery(parameters);
 		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		
-		/*
-		 * Create all triggers.
-		 */
-		if(triggers != null) {
-			while(triggers.hasNext()) {
-				database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, triggers.next());
-			}
-		}
 		
 		/*
 		 * Create Index for table if its defined.
@@ -672,6 +674,82 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		}
 	}
 
+	/**
+	 * It drop's the table from database
+	  	<p>
+			<pre> 
+
+	{@code
+
+	try {
+		new Liquor().dropTable();
+	} catch(DatabaseException databaseException) {
+		//Log It.
+	}
+	
+	}
+			</pre>
+		</p>
+	 * @throws DatabaseException If not able to drop table.
+	 */
+	public void dropTable() throws DatabaseException {
+		
+		Siminov.validateSiminov();
+
+		final DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor();
+		dropTable(databaseMapping);
+	}
+
+	/**
+	 * It drop's the table from database based on database-mapping.
+	  	<p>
+			<pre> Drop the Liquor table.
+	
+	{@code
+	
+	DatabaseMapping databaseMapping = new Liquor().getDatabaseMapping();
+	
+	try {
+		Database.dropTable(databaseMapping);
+	} catch(DatabaseException databaseException) {
+		//Log It.
+	}
+	
+	}
+	
+			</pre>
+		</p>
+	 * @param databaseMappingDescriptor Database-mapping object which defines the structure of table.
+	 * @throws DatabaseException If not able to drop table.
+	 */
+	public static void dropTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+
+		Siminov.validateSiminov();
+
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
+		IDatabase database = databaseBundle.getDatabase();
+		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
+		
+		if(database == null) {
+			Log.loge(Database.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			throw new DeploymentException(Database.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+		}
+		
+
+		String tableName = databaseMappingDescriptor.getTableName();
+		
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER, tableName);
+
+		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formDropTableQuery(parameters));
+		
+		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
+		if(databaseEventHandler != null) {
+			databaseEventHandler.tableDropped(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor);
+		}
+	}
+	
+	
 	/**
 	   Is used to create a new index on a table in database.
 	  	<p>
@@ -753,8 +831,17 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		while(columnNames.hasNext()) {
 			columnNamesCollection.add(columnNames.next());
 		}
+
 		
-		String query = queryBuilder.formCreateIndexQuery(indexName, databaseMappingDescriptor.getTableName(), columnNamesCollection.iterator(), isUnique);
+		
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_INDEX_NAME_PARAMETER, indexName);
+		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_COLUMN_NAMES_PARAMETER, columnNamesCollection.iterator());
+		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_IS_UNIQUE_PARAMETER, isUnique);
+		
+		
+		String query = queryBuilder.formCreateIndexQuery(parameters);
 		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		
 		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
@@ -922,7 +1009,14 @@ SIMINOV will read each class Annotations defined by developer and create table's
 			throw new DeploymentException(Database.class.getName(), "dropIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
 		}
 
-		String query = queryBuilder.formDropIndexQuery(databaseMappingDescriptor.getTableName(), indexName);
+		
+		
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_DROP_INDEX_QUERY_INDEX_NAME_PARAMETER, indexName);
+
+		
+		String query = queryBuilder.formDropIndexQuery(parameters);
 		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		
 		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
@@ -931,75 +1025,6 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		}
 	}
 	
-	/**
-	 * It drop's the table from database
-	  	<p>
-			<pre> 
-
-	{@code
-
-	try {
-		new Liquor().dropTable();
-	} catch(DatabaseException databaseException) {
-		//Log It.
-	}
-	
-	}
-			</pre>
-		</p>
-	 * @throws DatabaseException If not able to drop table.
-	 */
-	public void dropTable() throws DatabaseException {
-		
-		Siminov.validateSiminov();
-
-		final DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor();
-		dropTable(databaseMapping);
-	}
-
-	/**
-	 * It drop's the table from database based on database-mapping.
-	  	<p>
-			<pre> Drop the Liquor table.
-	
-	{@code
-	
-	DatabaseMapping databaseMapping = new Liquor().getDatabaseMapping();
-	
-	try {
-		Database.dropTable(databaseMapping);
-	} catch(DatabaseException databaseException) {
-		//Log It.
-	}
-	
-	}
-	
-			</pre>
-		</p>
-	 * @param databaseMappingDescriptor Database-mapping object which defines the structure of table.
-	 * @throws DatabaseException If not able to drop table.
-	 */
-	public static void dropTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
-
-		Siminov.validateSiminov();
-
-		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
-		IDatabase database = databaseBundle.getDatabase();
-		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
-		
-		if(database == null) {
-			Log.loge(Database.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(Database.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-		}
-		
-		String tableName = databaseMappingDescriptor.getTableName();
-		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formDropTableQuery(tableName));
-		
-		IDatabaseEvents databaseEventHandler = resources.getDatabaseEventHandler();
-		if(databaseEventHandler != null) {
-			databaseEventHandler.tableDropped(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor);
-		}
-	}
 	
 	/**
 	 * It drop's the whole database based on database-descriptor.
@@ -1260,7 +1285,20 @@ Example:
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), distinct, whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit));
+
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_DISTINCT_PARAMETER, distinct);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER, columnNames);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_GROUP_BYS_PARAMETER, groupBy);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_HAVING_PARAMETER, having);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_ORDER_BYS_PARAMETER, orderBy);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER, whichOrderBy);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_LIMIT_PARAMETER, limit);
+		
+		
+		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formSelectQuery(parameters));
 		Collection<Map<String, Object>> datasBundle = new LinkedList<Map<String,Object>>();
 		while(datas.hasNext()) {
 			datasBundle.add(datas.next());
@@ -1336,7 +1374,20 @@ Example:
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		String query = queryBuilder.formSelectQuery(databaseMappingDescriptor.getTableName(), distinct, whereClause, columnNames, groupBy, having, orderBy, whichOrderBy, limit);
+		
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_DISTINCT_PARAMETER, distinct);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER, columnNames);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_GROUP_BYS_PARAMETER, groupBy);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_HAVING_PARAMETER, having);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_ORDER_BYS_PARAMETER, orderBy);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER, whichOrderBy);
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_LIMIT_PARAMETER, limit);
+		
+		
+		String query = queryBuilder.formSelectQuery(parameters);
 		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query));
 			
 		/*
@@ -1536,7 +1587,12 @@ Example: Make Liquor Object
 		/*
 		 * 3. Using QueryBuilder form insert bind query.
 		 */
-		String query = queryBuilder.formSaveBindQuery(tableName, columnNames.iterator());
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_SAVE_BIND_QUERY_TABLE_NAME_PARAMETER, tableName);
+		parameters.put(IQueryBuilder.FORM_SAVE_BIND_QUERY_COLUMN_NAMES_PARAMETER, columnNames.iterator());
+
+		
+		String query = queryBuilder.formSaveBindQuery(parameters);
 		
 		
 		/*
@@ -1728,7 +1784,13 @@ Example: Make Beer Object
 		/*
 		 * 4. Using QueryBuilder form update bind query.
 		 */
-		String query = queryBuilder.formUpdateBindQuery(tableName, columnNames.iterator(), whereClause.toString());
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_UPDATE_BIND_QUERY_TABLE_NAME_PARAMETER, tableName);
+		parameters.put(IQueryBuilder.FORM_UPDATE_BIND_QUERY_COLUMN_NAMES_PARAMETER, columnNames.iterator());
+		parameters.put(IQueryBuilder.FORM_UPDATE_BIND_QUERY_WHERE_CLAUSE_PARAMETER, whereClause.toString());
+		
+		
+		String query = queryBuilder.formUpdateBindQuery(parameters);
 
 		/*
 		 * 5. Pass query to executeBindQuery method for updation.
@@ -1996,7 +2058,13 @@ Example: Make Beer Object
 		/*
 		 * 4. Using QueryBuilder form update bind query.
 		 */
-		String query = queryBuilder.formDeleteQuery(databaseMapping.getTableName(), where.toString());
+		
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_DELETE_QUERY_TABLE_NAME_PARAMETER, databaseMapping.getTableName());
+		parameters.put(IQueryBuilder.FORM_DELETE_QUERY_WHERE_CLAUSE_PARAMETER, where.toString());
+
+		
+		String query = queryBuilder.formDeleteQuery(parameters);
 		/*
 		 * 5. Pass query to executeBindQuery method for deletion.
 		 */
@@ -2087,7 +2155,17 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formCountQuery(databaseMappingDescriptor.getTableName(), column, distinct, whereClause, groupBys, having);
+		
+		Map<String, Object> parameters = new HashMap<String, Object> ();
+		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_COLUMN_PARAMETER, column);
+		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_DISTINCT_PARAMETER, distinct);
+		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_GROUP_BYS_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_HAVING_PARAMETER, having);
+		
+		
+		String query = queryBuilder.formCountQuery(parameters);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2157,7 +2235,16 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formAvgQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_AVG_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_AVG_QUERY_COLUMN_PARAMETER, column);
+		parameters.put(IQueryBuilder.FORM_AVG_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_AVG_QUERY_GROUP_BYS_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_AVG_QUERY_HAVING_PARAMETER, having);
+		
+		
+		String query = queryBuilder.formAvgQuery(parameters);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2227,7 +2314,16 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formSumQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_SUM_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_SUM_QUERY_COLUMN_PARAMETER, column);
+		parameters.put(IQueryBuilder.FORM_SUM_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_SUM_QUERY_GROUP_BYS_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_SUM_QUERY_HAVING_PARAMETER, having);
+		
+		
+		String query = queryBuilder.formSumQuery(parameters);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2297,7 +2393,16 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formTotalQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_COLUMN_PARAMETER, column);
+		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_GROUP_BYS_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_HAVING_PARAMETER, having);
+		
+		
+		String query = queryBuilder.formTotalQuery(parameters);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2367,7 +2472,16 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formMinQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_MIN_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_MIN_QUERY_COLUMN_PARAMETER, column);
+		parameters.put(IQueryBuilder.FORM_MIN_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_MIN_QUERY_GROUP_BYS_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_MIN_QUERY_HAVING_PARAMETER, having);
+		
+		
+		String query = queryBuilder.formMinQuery(parameters);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2437,7 +2551,16 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formMaxQuery(databaseMappingDescriptor.getTableName(), column, whereClause, groupBys, having);
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_MAX_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_MAX_QUERY_COLUMN_PARAMETER, column);
+		parameters.put(IQueryBuilder.FORM_MAX_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_MAX_QUERY_GROUP_BYS_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_MAX_QUERY_HAVING_PARAMETER, having);
+		
+		
+		String query = queryBuilder.formMaxQuery(parameters);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
@@ -2506,7 +2629,17 @@ Example:
 			throw new DeploymentException(Database.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
-		String query = queryBuilder.formGroupConcatQuery(databaseMappingDescriptor.getTableName(), column, delimiter, whereClause, groupBys, having);
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER, column);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER, delimiter);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER, having);
+		
+		
+		String query = queryBuilder.formGroupConcatQuery(parameters);
 
 		Iterator<Map<String, Object>> datas = database.executeFetchQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
 		while(datas.hasNext()) {
