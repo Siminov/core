@@ -20,7 +20,6 @@ package siminov.orm.database.sqlite;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -38,6 +37,43 @@ import android.text.TextUtils;
 
 public class QueryBuilder implements Constants, IQueryBuilder {
 
+	
+	public String formTableInfoQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER);
+		return "pragma table_info(" + tableName + ")";
+	}
+
+
+	
+	public String formFetchDatabaseVersionQuery(final Map<String, Object> parameters) {
+		return "PRAGMA user_version;";
+	}
+	
+	
+	public String formUpdateDatabaseVersionQuery(final Map<String, Object> parameters) {
+		
+		final Double databaseVersion = (Double) parameters.get(IQueryBuilder.FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER);
+		return "PRAGMA user_version=" + databaseVersion;
+	}
+	
+
+	public String formAlterAddColumnQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_TABLE_NAME_PARAMETER);
+		final String columnName = (String) parameters.get(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER);
+		
+		return "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " TEXT";
+	}
+	
+	
+	
+	public String formTableNames(final Map<String, Object> parameters) {
+		return "SELECT * FROM sqlite_master WHERE type='table'";
+	}
+
+	
+	
 	@SuppressWarnings("unchecked")
 	public String formCreateTableQuery(final Map<String, Object> parameters) {
 

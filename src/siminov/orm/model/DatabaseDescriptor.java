@@ -112,6 +112,24 @@ public class DatabaseDescriptor {
 	public void setType(String type) {
 		this.properties.put(Constants.DATABASE_DESCRIPTOR_TYPE, type);
 	}
+
+	public double getVersion() {
+		String version = this.properties.get(Constants.DATABASE_DESCRIPTOR_VERSION);
+		if(version == null || version.length() <= 0) {
+			return 0.0;
+		}
+		
+		return Long.valueOf(version);
+	}
+	
+	/**
+	 * Set Version of Application as per defined in ApplicationDescriptor.si.xml file.
+	 * @param version Version of application.
+	 */
+	public void setVersion(final long version) {
+		this.properties.put(Constants.DATABASE_DESCRIPTOR_VERSION, Long.toString(version));
+	}
+	
 	
 	/**
 	 * Get description as per defined in DatabaseDescriptor.si.xml file.

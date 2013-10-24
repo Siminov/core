@@ -370,6 +370,7 @@ public class Siminov {
 			
 			File file = new File(databasePath + databaseName);
 			if(file.exists()) {
+				
 				try {
 					database.openOrCreate(databaseDescriptor);					
 					ormResources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
@@ -397,6 +398,15 @@ public class Siminov {
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
+				
+				
+				//Update Database
+				try {
+					Database.upgradeDatabase(databaseDescriptor);
+				} catch(DatabaseException databaseException) {
+					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while upgrading database, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
 			} else {
 				
 				firstTimeProcessed = true;
@@ -410,7 +420,7 @@ public class Siminov {
 					file.mkdirs();
 				} catch(Exception exception) {
 					Log.loge(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
-					throw new DeploymentException(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", exception.getMessage());
 				}
 				
 				try {
@@ -422,6 +432,8 @@ public class Siminov {
 					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
+				
+				
 				
 				
 				IDatabaseEvents databaseEventHandler = ormResources.getDatabaseEventHandler();

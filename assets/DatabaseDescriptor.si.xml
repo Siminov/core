@@ -31,7 +31,10 @@
 
 		<!-- Optional Field (Default is sqlite)-->
 	<property name="type">type_of_database</property>
-		
+
+		<!-- Mandatory Field -->
+	<property name="version">database_version</property>
+			
 		<!-- Optional Field -->
 	<property name="description">database_description</property>
 
@@ -75,7 +78,9 @@ Type Of Properties:
 		-> database_name*: Name of database. It is mandatory field. If database file is created will be on name of it.
 	
 		-> type: It defines the type of database. It is optional field. Default is sqlite. 
-		
+
+		-> version*: Version of database. It is mandatory field. This field is used for database upgradation.
+			
 		-> description: Description of database. It is optional field.
 		
 		-> is_locking_required: Control whether or not the database is made thread-safe by using locks around critical sections. This is pretty expensive, so if you know that your DB will only be used by a multi threads then you should set this to true. The default is false.

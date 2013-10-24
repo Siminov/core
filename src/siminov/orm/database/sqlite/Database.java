@@ -219,34 +219,43 @@ public class Database implements IDatabase {
 					} else if(isLong) {
 						long columnValue = sqliteCursor.getLong(i);
 
-						Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
-						if(column != null) {
-							if(column.getType() == int.class.getName()) {
-								tuple.put(columnNames[i], Integer.parseInt(Long.toString(columnValue)));
-							} else if(column.getType() == Integer.class.getName()) {
-								tuple.put(columnNames[i], Integer.getInteger(Long.toString(columnValue)));
-							} else if(column.getType() == long.class.getName()) {
+						if(databaseMappingDescriptor != null) {
+							
+							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
+							if(column != null) {
+								if(column.getType() == int.class.getName()) {
+									tuple.put(columnNames[i], Integer.parseInt(Long.toString(columnValue)));
+								} else if(column.getType() == Integer.class.getName()) {
+									tuple.put(columnNames[i], Integer.getInteger(Long.toString(columnValue)));
+								} else if(column.getType() == long.class.getName()) {
+									tuple.put(columnNames[i], columnValue);
+								} else if(column.getType() == Long.class.getName()) {
+									tuple.put(columnNames[i], Long.valueOf(columnValue));
+								}
+							} else {
 								tuple.put(columnNames[i], columnValue);
-							} else if(column.getType() == Long.class.getName()) {
-								tuple.put(columnNames[i], Long.valueOf(columnValue));
 							}
 						} else {
 							tuple.put(columnNames[i], columnValue);
 						}
-						
 					} else if(isFloat) {
 						float columnValue = sqliteCursor.getFloat(i);
 						
-						Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
-						if(column != null) {
-							if(column.getType() == double.class.getName()) {
-								tuple.put(columnNames[i], Double.parseDouble(Float.toString(columnValue)));
-							} else if(column.getType() == Double.class.getName()) {
-								tuple.put(columnNames[i], Double.valueOf(Float.toString(columnValue)));
-							} else if(column.getType() == float.class.getName()) {
+						if(databaseMappingDescriptor != null) {
+							
+							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
+							if(column != null) {
+								if(column.getType() == double.class.getName()) {
+									tuple.put(columnNames[i], Double.parseDouble(Float.toString(columnValue)));
+								} else if(column.getType() == Double.class.getName()) {
+									tuple.put(columnNames[i], Double.valueOf(Float.toString(columnValue)));
+								} else if(column.getType() == float.class.getName()) {
+									tuple.put(columnNames[i], columnValue);
+								} else if(column.getType() == Float.class.getName()) {
+									tuple.put(columnNames[i], Float.valueOf(columnValue));
+								}
+							} else {
 								tuple.put(columnNames[i], columnValue);
-							} else if(column.getType() == Float.class.getName()) {
-								tuple.put(columnNames[i], Float.valueOf(columnValue));
 							}
 						} else {
 							tuple.put(columnNames[i], columnValue);

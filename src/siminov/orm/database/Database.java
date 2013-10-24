@@ -62,7 +62,7 @@ import siminov.orm.utils.ClassUtils;
 public abstract class Database implements Constants {
 
 	private static Resources resources = Resources.getInstance();
-	
+
 	
 	/**
 	 * It is used to create instance of IDatabase implementation.
@@ -70,8 +70,182 @@ public abstract class Database implements Constants {
 	 * @return
 	 * @throws DatabaseException
 	 */
-	public static DatabaseBundle createDatabase(DatabaseDescriptor databaseDescriptor) throws DatabaseException {
+	public static DatabaseBundle createDatabase(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
 		return DatabaseFactory.getInstance().getDatabaseBundle(databaseDescriptor);
+	}
+	
+
+	
+	public static void upgradeDatabase(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
+
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
+		IDatabase database = databaseBundle.getDatabase();
+		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
+		
+		if(database == null) {
+			Log.loge(Database.class.getName(), "upgradeDatabase", "No Database Instance Found For, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+			throw new DatabaseException(Database.class.getName(), "upgradeDatabase", "No Database Instance Found For, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+		}
+		
+		
+		/*
+		 * Fetch Database Version
+		 */
+		String fetchDatabaseVersionQuery = queryBuilder.formFetchDatabaseVersionQuery(null);
+		Log.logd(Database.class.getName(), "upgradeDatabase", "Fetch Database Version Query: " + fetchDatabaseVersionQuery);
+
+
+		double currentDatabaseVersion = 0;
+		Iterator<Map<String, Object>> datas = database.executeFetchQuery(databaseDescriptor, null, fetchDatabaseVersionQuery);
+
+		while(datas.hasNext()) {
+			Map<String, Object> data = datas.next();
+			Collection<Object> parse = data.values();
+
+			Iterator<Object> values = parse.iterator();
+			while(values.hasNext()) {
+				currentDatabaseVersion = ((Long) values.next()).doubleValue();
+			}
+		}
+
+		
+		if(currentDatabaseVersion == databaseDescriptor.getVersion()) {
+			return;
+		}
+		
+		
+		Collection<String> tableNames = new ArrayList<String>();
+		Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappings();
+		
+
+		/*
+		 * Get Table Names
+		 */
+		String fetchTableNamesQuery = queryBuilder.formTableNames(null);
+		Log.logd(Database.class.getName(), "upgradeDatabase", "Fetch Table Names, " + fetchTableNamesQuery);
+		
+		datas = database.executeFetchQuery(databaseDescriptor, null, fetchTableNamesQuery);
+		while(datas.hasNext()) {
+			Map<String, Object> data = datas.next();
+			Iterator<String> keys = data.keySet().iterator();
+
+			while(keys.hasNext()) {
+				String key = keys.next();
+						
+				if(key.equals(FORM_TABLE_NAMES_NAME)) {
+					tableNames.add((String) data.get(key));
+				}
+			}
+		}
+		
+		
+		/*
+		 * Create Or Upgrade Table
+		 */
+		while(databaseMappingDescriptors.hasNext()) {
+			DatabaseMappingDescriptor databaseMappingDescriptor = databaseMappingDescriptors.next();
+			
+			boolean contain = false;
+			for(String tableName: tableNames) {
+				
+				if(tableName.equalsIgnoreCase(databaseMappingDescriptor.getTableName())) {
+					contain = true;
+					break;
+				}
+			}
+			
+			if(contain) {
+				Database.upgradeTable(databaseMappingDescriptor);
+			} else {
+				Database.createTable(databaseMappingDescriptor);
+			}
+		}
+		
+		
+		/*
+		 * Update Database Version
+		 */
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER, databaseDescriptor.getVersion());
+		
+		String updateDatabaseVersionQuery = queryBuilder.formUpdateDatabaseVersionQuery(parameters);
+		Log.logd(Database.class.getName(), "upgradeDatabase", "Update Database Version Query: " + updateDatabaseVersionQuery);
+		
+		database.executeQuery(databaseDescriptor, null, updateDatabaseVersionQuery);
+	}
+	
+	
+	public static void upgradeTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+
+		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorTableName(databaseMappingDescriptor.getTableName());
+		IDatabase database = databaseBundle.getDatabase();
+		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
+		
+		if(database == null) {
+			Log.loge(Database.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + databaseMappingDescriptor.getTableName());
+			throw new DatabaseException(Database.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + databaseMappingDescriptor.getTableName());
+		}
+
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(IQueryBuilder.FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		
+		String tableInfoQuery = queryBuilder.formTableInfoQuery(parameters);
+		Log.logd(Database.class.getName(), "upgradeTable", "Table Info Query: " + tableInfoQuery);
+		
+		
+		Collection<Column> newColumns = new ArrayList<Column>();
+		Collection<String> oldColumns = new ArrayList<String>();
+		Iterator<Column> columns = databaseMappingDescriptor.getColumns();
+		
+
+		Iterator<Map<String, Object>> datas = database.executeFetchQuery(null, null, tableInfoQuery);
+		while(datas.hasNext()) {
+			Map<String, Object> data = datas.next();
+			Iterator<String> keys = data.keySet().iterator();
+
+			while(keys.hasNext()) {
+				String key = keys.next();
+						
+				if(key.equals(FORM_TABLE_INFO_QUERY_NAME)) {
+					oldColumns.add((String) data.get(key));
+				}
+			}
+		}
+
+		
+		while(columns.hasNext()) {
+			Column column = columns.next();
+				
+			boolean contain = false;
+			for(String oldColumn: oldColumns) {
+				
+				if(oldColumn.equalsIgnoreCase(column.getColumnName())) {
+					contain = true;
+					break;
+				}
+			}
+			
+			if(!contain) {
+				newColumns.add(column);
+			}
+		}
+		
+		
+		for(Column column: newColumns) {
+			
+			String columnName = column.getColumnName();
+			
+			parameters = new HashMap<String, Object>();
+			parameters.put(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+			parameters.put(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER, columnName);
+			
+			String addColumnQuery = queryBuilder.formAlterAddColumnQuery(parameters);
+			Log.logd(Database.class.getName(), "upgradeTable", "Add New Column Query: " + addColumnQuery);
+			
+			
+			database.executeQuery(null, null, addColumnQuery);
+		}
 	}
 	
 	
