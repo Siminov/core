@@ -18,12 +18,15 @@
 package siminov.orm;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import siminov.orm.database.Database;
 import siminov.orm.database.DatabaseBundle;
 import siminov.orm.database.DatabaseUtils;
 import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.events.ISiminovEvents;
 import siminov.orm.exception.DatabaseException;
@@ -356,6 +359,9 @@ public class Siminov {
 			}
 
 			IDatabase database = databaseBundle.getDatabase();
+			IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
+			
+			
 			
 			/*
 			 * If Database exists then open and return.
@@ -371,6 +377,9 @@ public class Siminov {
 			File file = new File(databasePath + databaseName);
 			if(file.exists()) {
 				
+				/*
+				 * Open Database
+				 */
 				try {
 					database.openOrCreate(databaseDescriptor);					
 					ormResources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
@@ -379,8 +388,11 @@ public class Siminov {
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 				
+				
+				/*
+				 * Enable Foreign Key Constraints
+				 */
 				try {
-					// Enable foreign key constraints
 			        database.executeQuery(databaseDescriptor, null, Constants.SQLITE_DATABASE_QUERY_TO_ENABLE_FOREIGN_KEYS_MAPPING);
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
@@ -389,6 +401,10 @@ public class Siminov {
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
+				
+				/*
+				 * Safe MultiThread Transaction
+				 */
 				try {
 			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
 				} catch(DatabaseException databaseException) {
@@ -400,7 +416,9 @@ public class Siminov {
 
 				
 				
-				//Update Database
+				/*
+				 * Upgrade Database
+				 */
 				try {
 					Database.upgradeDatabase(databaseDescriptor);
 				} catch(DatabaseException databaseException) {
@@ -415,6 +433,9 @@ public class Siminov {
 					processDatabaseMappingDescriptors();
 				}
 				
+				/*
+				 * Create Database Directory
+				 */
 				file = new File(databasePath);
 				try {
 					file.mkdirs();
@@ -423,6 +444,10 @@ public class Siminov {
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", exception.getMessage());
 				}
 				
+				
+				/*
+				 * Create Database File.
+				 */
 				try {
 					database.openOrCreate(databaseDescriptor);			
 					ormResources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
@@ -433,6 +458,22 @@ public class Siminov {
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 				
+
+				/*
+				 * Set Database Version
+				 */
+				Map<String, Object> parameters = new HashMap<String, Object>();
+				parameters.put(IQueryBuilder.FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER, databaseDescriptor.getVersion());
+
+				
+				try {
+					
+					String updateDatabaseVersionQuery = queryBuilder.formUpdateDatabaseVersionQuery(parameters);
+					database.executeQuery(databaseDescriptor, null, updateDatabaseVersionQuery);
+				} catch(DatabaseException databaseException) {
+					Log.loge(Siminov.class.getName(), "processDatabase", "Database Exception caught while updating database version, " + databaseException.getMessage());
+					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
+				}
 				
 				
 				
@@ -442,8 +483,10 @@ public class Siminov {
 				}
 
 				
+				/*
+				 * Enable Foreign Key Constraints
+				 */
 				try {
-					// Enable foreign key constraints
 			        database.executeQuery(databaseDescriptor, null, Constants.SQLITE_DATABASE_QUERY_TO_ENABLE_FOREIGN_KEYS_MAPPING);
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
@@ -452,6 +495,10 @@ public class Siminov {
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
+				
+				/*
+				 * Safe MultiThread Transaction
+				 */
 				try {
 			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
 				} catch(DatabaseException databaseException) {
@@ -461,6 +508,10 @@ public class Siminov {
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
+				
+				/*
+				 * Create Library Tables
+				 */
 				Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.orderedLibraryDescriptors();
 				while(libraryDescriptors.hasNext()) {
 					try {
@@ -473,6 +524,10 @@ public class Siminov {
 					}
 				}
 
+				
+				/*
+				 * Create Tables
+				 */
 				try {
 					Database.createTables(databaseDescriptor.orderedDatabaseMappings());			
 				} catch(DatabaseException databaseException) {
