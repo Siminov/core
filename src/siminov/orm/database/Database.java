@@ -113,10 +113,17 @@ public abstract class Database implements Constants {
 			return;
 		}
 		
+		Collection<DatabaseMappingDescriptor> allDatabaseMappingDescriptor = new ArrayList<DatabaseMappingDescriptor>();
+		Iterator<DatabaseMappingDescriptor> allDatabaseMappingDescriptorIterator = resources.getDatabaseMappingDescriptors();
+		while(allDatabaseMappingDescriptorIterator.hasNext()) {
+			allDatabaseMappingDescriptor.add(allDatabaseMappingDescriptorIterator.next());
+		}
+		
+		
 		
 		Collection<String> tableNames = new ArrayList<String>();
+
 		Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappings();
-		
 
 		/*
 		 * Get Table Names
@@ -160,6 +167,37 @@ public abstract class Database implements Constants {
 				Database.createTable(databaseMappingDescriptor);
 			}
 		}
+		
+		
+		/*
+		 * Drop Table
+		 */
+		for(String tableName: tableNames) {
+			if(tableName.equalsIgnoreCase(ANDROID_METADATA_TABLE_NAME)) {
+				continue;
+			}
+			
+			
+			boolean contain = false;
+			
+			for(DatabaseMappingDescriptor databaseMappingDescriptor: allDatabaseMappingDescriptor) {
+				
+				if(tableName.equalsIgnoreCase(databaseMappingDescriptor.getTableName())) {
+					contain = true;
+					break;
+				}
+			}
+
+			if(!contain) {
+
+				Map<String, Object> parameters = new HashMap<String, Object> ();
+				parameters.put(IQueryBuilder.FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER, tableName);
+
+				database.executeQuery(databaseDescriptor, null, queryBuilder.formDropTableQuery(parameters));
+			}
+		}
+		
+		
 		
 		
 		/*
@@ -990,7 +1028,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	 * @param isUnique true/false whether index needs to be unique or not. (A unique index guarantees that the index key contains no duplicate values and therefore every row in the table is in some way unique.)
 	 * @throws DatabaseException If not able to create index on table.
 	 */
-	public static void createIndex(final DatabaseMappingDescriptor databaseMappingDescriptor, final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
+	static void createIndex(final DatabaseMappingDescriptor databaseMappingDescriptor, final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
 		
 		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(databaseMappingDescriptor.getClassName());
 		IDatabase database = databaseBundle.getDatabase();
@@ -1098,7 +1136,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	 * @param isUnique true/false whether index needs to be unique or not. (A unique index guarantees that the index key contains no duplicate values and therefore every row in the table is in some way unique.)
 	 * @throws DatabaseException If not able to create index on table.
 	 */
-	public void createIndex(final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
+	void createIndex(final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
 		
 		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor();
 		createIndex(databaseMapping, indexName, columnNames, isUnique);
