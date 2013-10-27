@@ -76,6 +76,11 @@ public abstract class Database implements Constants {
 	
 
 	
+	/**
+	 * Upgrade Existing Database.
+	 * @param databaseDescriptor
+	 * @throws DatabaseException throws If any exception thrown.
+	 */
 	public static void upgradeDatabase(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
 
 		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
@@ -213,6 +218,11 @@ public abstract class Database implements Constants {
 	}
 	
 	
+	/**
+	 * Upgrade Table.
+	 * @param databaseMappingDescriptor object related to table.
+	 * @throws DatabaseException If any exception thrown while upgrating table.
+	 */
 	public static void upgradeTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 
 		DatabaseBundle databaseBundle = resources.getDatabaseBundleBasedOnDatabaseMappingDescriptorTableName(databaseMappingDescriptor.getTableName());
@@ -841,7 +851,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		Map<String, Object> parameters = new HashMap<String, Object> ();
 		parameters.put(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER, databaseMappingDescriptor);
 		
-		foreignKeys = queryBuilder.formForeignKeys(parameters);
+		foreignKeys = queryBuilder.formForeignKeyQuery(parameters);
 
 		
 		/*

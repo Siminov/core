@@ -826,7 +826,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param relationships References provided to create foreign key.
 	 * @return  Generated query.
 	 */
-	public String formForeignKeys(final Map<String, Object> parameters) {
+	public String formForeignKeyQuery(final Map<String, Object> parameters) {
 		
 		final DatabaseMappingDescriptor child = (DatabaseMappingDescriptor) parameters.get(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER);
 		
