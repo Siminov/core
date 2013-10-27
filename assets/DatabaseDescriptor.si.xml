@@ -1,0 +1,105 @@
+<!-- 
+/** 
+ * [SIMINOV FRAMEWORK]
+ * Copyright [2013] [Siminov Software Solution LLP|support@siminov.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **/
+
+-->
+
+<!-- Design Of DatabaseDescriptor.si.xml -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database-descriptor>
+
+    <!-- General Database Descriptor Properties -->
+    
+	    <!-- Mandatory Field -->
+	<property name="database_name">name_of_database_file</property>
+
+		<!-- Optional Field (Default is sqlite)-->
+	<property name="type">type_of_database</property>
+
+		<!-- Mandatory Field -->
+	<property name="version">database_version</property>
+			
+		<!-- Optional Field -->
+	<property name="description">database_description</property>
+
+		<!-- Optional Field (Default is false) -->
+	<property name="is_locking_required">true/false</property>
+	
+		<!-- Optional Field (Default is false) -->
+	<property name="external_storage">true/false</property>
+		
+
+
+	<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
+	
+		<!-- Optional Field -->
+	<database-mappings>
+		<database-mapping path="full_path_of_database_mapping_descriptor_file" />
+	</database-mappings>
+
+
+
+	<!-- Libraries Needed Under This Database Descriptor -->
+	
+		<!-- Optional Field -->
+	<libraries>
+		<library>full_path_of_library_descriptor_file</library>
+	</libraries>
+	
+</database-descriptor>
+
+
+
+<!-- 
+
+DatabaseDescriptor.si.xml is the one who shows database properties needed by application.
+
+
+Type Of Properties: 
+	
+	i. General Database Descriptor Properties.
+		
+		-> database_name*: Name of database. It is mandatory field. If database file is created will be on name of it.
+	
+		-> type: It defines the type of database. It is optional field. Default is sqlite. 
+
+		-> version*: Version of database. It is mandatory field. This field is used for database upgradation.
+			
+		-> description: Description of database. It is optional field.
+		
+		-> is_locking_required: Control whether or not the database is made thread-safe by using locks around critical sections. This is pretty expensive, so if you know that your DB will only be used by a multi threads then you should set this to true. The default is false.
+							It is optional field. 
+
+		-> external_storage: It specifies whether database resources needs to be saved on external storage or not (SDCard). It is optinal field. Default value is false.
+
+	
+	iii. Database Mapping Descriptor Paths Needed Under This Database Descriptor.  
+		
+		- Provide full database mapping descriptor file path if you have used xml format to define ORM.
+
+		- Provide full class path of database mapping descriptor POJO class if you have used annotation to define ORM.
+		
+		
+	
+	iv. Library Descriptor Paths Needed Under This Database Descriptor.
+	
+		- Provide full package name under which LibraryDescriptor.si.xml file is placed.
+		
+
+-->
