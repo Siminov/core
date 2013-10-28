@@ -37,10 +37,10 @@ import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.LibraryDescriptor;
-import siminov.orm.parsers.ApplicationDescriptorParser;
-import siminov.orm.parsers.DatabaseDescriptorParser;
-import siminov.orm.parsers.DatabaseMappingDescriptorParser;
-import siminov.orm.parsers.LibraryDescriptorParser;
+import siminov.orm.reader.ApplicationDescriptorReader;
+import siminov.orm.reader.DatabaseDescriptorReader;
+import siminov.orm.reader.DatabaseMappingDescriptorReader;
+import siminov.orm.reader.LibraryDescriptorReader;
 import siminov.orm.resource.Resources;
 
 
@@ -221,7 +221,7 @@ public class Siminov {
 	 * It process ApplicationDescriptor.si.xml file defined in Application, and stores in Resources.
 	 */
 	protected static void processApplicationDescriptor() {
-		ApplicationDescriptorParser applicationDescriptorParser = new ApplicationDescriptorParser();
+		ApplicationDescriptorReader applicationDescriptorParser = new ApplicationDescriptorReader();
 		
 		ApplicationDescriptor applicationDescriptor = applicationDescriptorParser.getApplicationDescriptor();
 		if(applicationDescriptor == null) {
@@ -241,7 +241,7 @@ public class Siminov {
 		while(databaseDescriptorPaths.hasNext()) {
 			String databaseDescriptorPath = databaseDescriptorPaths.next();
 			
-			DatabaseDescriptorParser databaseDescriptorParser = new DatabaseDescriptorParser(databaseDescriptorPath);
+			DatabaseDescriptorReader databaseDescriptorParser = new DatabaseDescriptorReader(databaseDescriptorPath);
 			
 			DatabaseDescriptor databaseDescriptor = databaseDescriptorParser.getDatabaseDescriptor();
 			if(databaseDescriptor == null) {
@@ -275,7 +275,7 @@ public class Siminov {
 				/*
 				 * Parse LibraryDescriptor.
 				 */
-				LibraryDescriptorParser libraryDescriptorParser = new LibraryDescriptorParser(libraryName);
+				LibraryDescriptorReader libraryDescriptorParser = new LibraryDescriptorReader(libraryName);
 				
 				databaseDescriptor.addLibrary(libraryName, libraryDescriptorParser.getLibraryDescriptor());
 			}
@@ -308,10 +308,10 @@ public class Siminov {
 				Iterator<String> libraryDatabaseMappingPaths = libraryDescriptor.getDatabaseMappingPaths();
 				while(libraryDatabaseMappingPaths.hasNext()) {
 					String libraryDatabaseMappingPath = libraryDatabaseMappingPaths.next();
-					DatabaseMappingDescriptorParser databaseMappingParser = null;
+					DatabaseMappingDescriptorReader databaseMappingParser = null;
 					
 					try {
-						databaseMappingParser = new DatabaseMappingDescriptorParser(libraryPath, libraryDatabaseMappingPath);
+						databaseMappingParser = new DatabaseMappingDescriptorReader(libraryPath, libraryDatabaseMappingPath);
 					} catch(SiminovException ce) {
 						Log.loge(Siminov.class.getName(), "processDatabaseMappingDescriptors", "SiminovException caught while parsing database mapping, LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
 						throw new DeploymentException(Siminov.class.getName(), "processDatabaseMappingDescriptors", "LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
@@ -325,7 +325,7 @@ public class Siminov {
 			Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
 			while(databaseMappingPaths.hasNext()) {
 				String databaseMappingPath = databaseMappingPaths.next();
-				DatabaseMappingDescriptorParser databaseMappingParser = new DatabaseMappingDescriptorParser(databaseMappingPath);
+				DatabaseMappingDescriptorReader databaseMappingParser = new DatabaseMappingDescriptorReader(databaseMappingPath);
 				
 				databaseDescriptor.addDatabaseMapping(databaseMappingPath, databaseMappingParser.getDatabaseMapping());
 			}
