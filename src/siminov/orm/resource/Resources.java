@@ -36,7 +36,7 @@ import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.LibraryDescriptor;
-import siminov.orm.parsers.QuickDatabaseMappingDescriptorParser;
+import siminov.orm.reader.QuickDatabaseMappingDescriptorReader;
 import siminov.orm.utils.EmptyIterator;
 import android.content.Context;
 
@@ -481,9 +481,9 @@ Example: DatabaseDescriptor.xml
 		if(databaseMapping == null) {
 			Log.logd(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, MODEL: " + className);
 			
-			QuickDatabaseMappingDescriptorParser quickDatabaseMappingDescriptorParser = null;
+			QuickDatabaseMappingDescriptorReader quickDatabaseMappingDescriptorParser = null;
 			try {
-				quickDatabaseMappingDescriptorParser = new QuickDatabaseMappingDescriptorParser(className);
+				quickDatabaseMappingDescriptorParser = new QuickDatabaseMappingDescriptorReader(className);
 				quickDatabaseMappingDescriptorParser.process();
 			} catch(SiminovException ce) {
 				Log.loge(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className + ", " + ce.getMessage());
