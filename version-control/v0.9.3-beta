@@ -1,1 +1,47 @@
-1. siminov.orm.parsers package renamed to siminov.orm.reader
+1. siminov.orm.parsers package renamed to siminov.orm.reader.
+
+2. DatabaseDescriptor.si.xml
+	- Removed describing libraries from DatabaseDescriptor.si.xml
+		Reason: Changes according to new library architecture, app configuration will not have any dependency on library.
+	- Changes is_locking_required property name to transaction_safe
+		Reason: More clear in name.
+
+3. LibraryDescriptor.si.xml
+	- Changes in database-mapping value: Developer have to include name of database descriptor also along with database mapping descriptor path.
+	
+4. Constants.java
+	- Removed constants related to library architecture changes.
+	- Removed unneccessarly constants.
+	
+5. Siminov.java
+	- Changes according to library architecture changes.
+	
+6. Database.java
+	- Changes according to library architecture changes.
+	
+7. DatabaseFactory.java
+	- Changes according to library architecture changes.
+	
+8. IDatabaseEvents.java
+	- Changed event api names, now all event names will start with ON prefix.
+	
+9. ISIminovEvents.java
+	- Changed event api names, now all event names will start with ON prefix.
+	
+10. ApplicationDescriptor.java
+	- Changes according to library architecture.
+	
+11. DatabaseDescriptor.java
+	- Changes according to library architecture.
+	
+12. DatabaseDescriptorReader.java, DatabaseMappingDescriptor.java, LibraryDescriptorReader.java, QuickDatabaseMappingDescriptorReader.java
+	- Changes according to library architecture.
+	
+13. Resources.java
+	- Changes according to library architecture.
+	
+14. LibraryHelper.java
+	- Add library helper class: it helps to get library information.
+	
+	
+	
