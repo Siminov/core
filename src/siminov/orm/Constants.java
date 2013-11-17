@@ -84,6 +84,7 @@ public interface Constants {
 	 */
 	public String APPLICATION_DESCRIPTOR_EVENT_HANDLER = "event-handler";
 
+	
 	// DatabaseDescriptor Constants.
 
 	/**
@@ -95,6 +96,8 @@ public interface Constants {
 	 * DatabaseDescriptor.si.xml property TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_PROPERTY = "property";
+
+	public String DATABASE_DESCRIPTOR_PROPERTY_NAME = "name";
 
 	/**
 	 * DatabaseDescriptor.si.xml description TAG.
@@ -121,32 +124,16 @@ public interface Constants {
 	public String DATABASE_DESCRIPTOR_DATABASE_MAPPING = "database-mapping";
 
 	/**
-	 * DatabaseDescriptor.si.xml path TAG.
-	 */
-	public String DATABASE_DESCRIPTOR_PATH = "path";
-
-	/**
 	 * DatabaseDescriptor.si.xml is_locking_required TAG.
 	 */
-	public String DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED = "is_locking_required";
+	public String DATABASE_DESCRIPTOR_TRANSACTION_SAFE = "transaction_safe";
 
 	/**
 	 * DatabaseDescriptor.si.xml external_storage TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_EXTERNAL_STORAGE = "external_storage";
 
-	/**
-	 * DatabaseDescriptor.si.xml libraries TAG.
-	 */
-	public String DATABASE_DESCRIPTOR_LIBRARIES = "libraries";
 
-	/**
-	 * DatabaseDescriptor.si.xml library TAG.
-	 */
-	public String DATABASE_DESCRIPTOR_LIBRARY = "library";
-
-	public String DATABASE_DESCRIPTOR_PROPERTY_NAME = "name";
-	
 	// LibraryDescriptor Constants.
 
 	/**
@@ -184,10 +171,9 @@ public interface Constants {
 	 */
 	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING = "database-mapping";
 
-	/**
-	 * LibraryDescriptor.si.xml path TAG.
-	 */
-	public String LIBRARY_DESCRIPTOR_PATH = "path";
+	
+	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR = ".";
+	
 
 	// DatabaseMappingDescriptor Constants.
 
@@ -1027,4 +1013,5 @@ public interface Constants {
 	 * Android Metadata Table Name
 	 */
 	public String ANDROID_METADATA_TABLE_NAME = "android_metadata";
+
 }
