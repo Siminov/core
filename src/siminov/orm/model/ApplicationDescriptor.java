@@ -70,6 +70,9 @@ public class ApplicationDescriptor {
 	private Map<String, DatabaseDescriptor> databaseDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseDescriptor>();
 
 	private Collection<String> events = new ConcurrentLinkedQueue<String> ();
+
+	private Collection<String> libraries = new ConcurrentLinkedQueue<String>();
+	
 	
 	/**
 	 * Get Application Descriptor Name as per defined in ApplicationDescriptor.si.xml file.
@@ -331,6 +334,24 @@ public class ApplicationDescriptor {
 	public void removeDatabaseDescriptor(final DatabaseDescriptor databaseDescriptor) {
 		removeDatabaseDescriptorBasedOnName(databaseDescriptor.getDatabaseName());
 	}
+	
+	
+	public void addLibrary(final String library) {
+		this.libraries.add(library);
+	}
+	
+	public Iterator<String> getLibraries() {
+		return this.libraries.iterator();
+	}
+	
+	public boolean containLibrary(final String library) {
+		return this.libraries.contains(library);
+	}
+	
+	public void removeLibrary(final String library) {
+		this.libraries.add(library);
+	}
+	
 	
 	/**
 	 * Get all event handlers as per defined in ApplicationDescriptor.si.xml file.
