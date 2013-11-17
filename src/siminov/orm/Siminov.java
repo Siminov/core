@@ -42,6 +42,7 @@ import siminov.orm.reader.DatabaseDescriptorReader;
 import siminov.orm.reader.DatabaseMappingDescriptorReader;
 import siminov.orm.reader.LibraryDescriptorReader;
 import siminov.orm.resource.Resources;
+import siminov.orm.utils.LibraryHelper;
 
 
 /**
@@ -150,12 +151,11 @@ public class Siminov {
 		ISiminovEvents coreEventHandler = ormResources.getSiminovEventHandler();
 		if(ormResources.getSiminovEventHandler() != null) {
 			if(firstTimeProcessed) {
-				coreEventHandler.firstTimeSiminovInitialized();
+				coreEventHandler.onFirstTimeSiminovInitialized();
 			} else {
-				coreEventHandler.siminovInitialized();
+				coreEventHandler.onSiminovInitialized();
 			}
 		} 
-		
 	}
 
 
@@ -182,7 +182,7 @@ public class Siminov {
 		boolean failed = false;
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			DatabaseBundle databaseBundle = ormResources.getDatabaseBundleBasedOnDatabaseDescriptorName(databaseDescriptor.getDatabaseName());
+			DatabaseBundle databaseBundle = ormResources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 			IDatabase database = databaseBundle.getDatabase();
 			
 			try {
@@ -201,7 +201,7 @@ public class Siminov {
 		
 		ISiminovEvents coreEventHandler = ormResources.getSiminovEventHandler();
 		if(ormResources.getSiminovEventHandler() != null) {
-			coreEventHandler.siminovStopped();
+			coreEventHandler.onSiminovStopped();
 		}
 	}
 	
@@ -262,27 +262,48 @@ public class Siminov {
 	protected static void processLibraries() {
 		
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
-		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
+		
+		LibraryHelper libraryHelper = new LibraryHelper();
+		Iterator<String> libraries = libraryHelper.getLibraries();
+		
+		while(libraries.hasNext()) {
+			
+			String library = libraries.next();
 
-		while(databaseDescriptors.hasNext()) {
+			applicationDescriptor.addLibrary(library);
 			
-			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
+			/*
+			 * Parse LibraryDescriptor.
+			 */
+			LibraryDescriptorReader libraryDescriptorReader = new LibraryDescriptorReader(library);
+			LibraryDescriptor libraryDescriptor = libraryDescriptorReader.getLibraryDescriptor();
 			
-			Iterator<String> libraries = databaseDescriptor.getLibraryPaths();
-			while(libraries.hasNext()) {
-				String libraryName = libraries.next();
+		
+			/*
+			 * Map Database Mapping Descriptors
+			 */
+			Iterator<String> databaseMappingDescriptors = libraryDescriptor.getDatabaseMappingPaths();
+			while(databaseMappingDescriptors.hasNext()) {
+
+				String libraryDatabaseMappingDescriptorPath = databaseMappingDescriptors.next();
 				
-				/*
-				 * Parse LibraryDescriptor.
-				 */
-				LibraryDescriptorReader libraryDescriptorParser = new LibraryDescriptorReader(libraryName);
+				String databaseDescriptorName = libraryDatabaseMappingDescriptorPath.substring(0, libraryDatabaseMappingDescriptorPath.indexOf(Constants.LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR));
+				String databaseMappingDescriptor = libraryDatabaseMappingDescriptorPath.substring(libraryDatabaseMappingDescriptorPath.indexOf(Constants.LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR) + 1, libraryDatabaseMappingDescriptorPath.length());
 				
-				databaseDescriptor.addLibrary(libraryName, libraryDescriptorParser.getLibraryDescriptor());
+				
+				Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
+				while(databaseDescriptors.hasNext()) {
+					
+					DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
+					if(databaseDescriptor.getDatabaseName().equalsIgnoreCase(databaseDescriptorName)) {
+						databaseDescriptor.addDatabaseMappingPath(library + File.separator + databaseMappingDescriptor);
+					}
+				}
 			}
 		}
-		
 	}
 
+	
 	
 	/**
 	 * It process all DatabaseMappingDescriptor.si.xml file defined in Application, and stores in Resources.
@@ -299,30 +320,8 @@ public class Siminov {
 		while(databaseDescriptors.hasNext()) {
 			
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			
-			Iterator<String> libraries = databaseDescriptor.getLibraryPaths();
-			while(libraries.hasNext()) {
-				String libraryPath = libraries.next();
-				LibraryDescriptor libraryDescriptor = databaseDescriptor.getLibraryDescriptorBasedOnPath(libraryPath);
-				
-				Iterator<String> libraryDatabaseMappingPaths = libraryDescriptor.getDatabaseMappingPaths();
-				while(libraryDatabaseMappingPaths.hasNext()) {
-					String libraryDatabaseMappingPath = libraryDatabaseMappingPaths.next();
-					DatabaseMappingDescriptorReader databaseMappingParser = null;
-					
-					try {
-						databaseMappingParser = new DatabaseMappingDescriptorReader(libraryPath, libraryDatabaseMappingPath);
-					} catch(SiminovException ce) {
-						Log.loge(Siminov.class.getName(), "processDatabaseMappingDescriptors", "SiminovException caught while parsing database mapping, LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
-						throw new DeploymentException(Siminov.class.getName(), "processDatabaseMappingDescriptors", "LIBRARY-DATABASE-MAPPING: " + libraryDatabaseMappingPath + ", " + ce.getMessage());
-					}
-					
-					libraryDescriptor.addDatabaseMapping(libraryDatabaseMappingPath, databaseMappingParser.getDatabaseMapping());
-				}
-			}
-
-			
 			Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
+
 			while(databaseMappingPaths.hasNext()) {
 				String databaseMappingPath = databaseMappingPaths.next();
 				DatabaseMappingDescriptorReader databaseMappingParser = new DatabaseMappingDescriptorReader(databaseMappingPath);
@@ -382,7 +381,6 @@ public class Siminov {
 				 */
 				try {
 					database.openOrCreate(databaseDescriptor);					
-					ormResources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
 				} catch(DatabaseException databaseException) {
 					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while opening database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
@@ -406,7 +404,7 @@ public class Siminov {
 				 * Safe MultiThread Transaction
 				 */
 				try {
-			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
+			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isTransactionSafe());
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
@@ -450,7 +448,6 @@ public class Siminov {
 				 */
 				try {
 					database.openOrCreate(databaseDescriptor);			
-					ormResources.addDatabaseBundle(databaseDescriptor.getDatabaseName(), databaseBundle);
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
@@ -479,7 +476,7 @@ public class Siminov {
 				
 				IDatabaseEvents databaseEventHandler = ormResources.getDatabaseEventHandler();
 				if(databaseEventHandler != null) {
-					databaseEventHandler.databaseCreated(databaseDescriptor);
+					databaseEventHandler.onDatabaseCreated(databaseDescriptor);
 				}
 
 				
@@ -500,7 +497,7 @@ public class Siminov {
 				 * Safe MultiThread Transaction
 				 */
 				try {
-			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isLockingRequired());
+			        database.executeMethod(Constants.SQLITE_DATABASE_ENABLE_LOCKING, databaseDescriptor.isTransactionSafe());
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
@@ -509,21 +506,6 @@ public class Siminov {
 				}
 
 				
-				/*
-				 * Create Library Tables
-				 */
-				Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.orderedLibraryDescriptors();
-				while(libraryDescriptors.hasNext()) {
-					try {
-						Database.createTables(libraryDescriptors.next().orderedDatabaseMappings());			
-					} catch(DatabaseException databaseException) {
-						new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
-						
-						Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating tables for library, " + databaseException.getMessage());
-						throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
-					}
-				}
-
 				
 				/*
 				 * Create Tables
