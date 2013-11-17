@@ -17,14 +17,12 @@
 
 package siminov.orm.resource;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
 import siminov.orm.database.DatabaseBundle;
+import siminov.orm.database.DatabaseFactory;
 import siminov.orm.events.EventHandler;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.events.ISiminovEvents;
@@ -35,9 +33,7 @@ import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.model.LibraryDescriptor;
 import siminov.orm.reader.QuickDatabaseMappingDescriptorReader;
-import siminov.orm.utils.EmptyIterator;
 import android.content.Context;
 
 
@@ -55,15 +51,13 @@ public class Resources {
 	private Context applicationContext = null;
 	
 	private ApplicationDescriptor applicationDescriptor = null;
+	private DatabaseFactory databaseFactory = null;
 	
-	private Map<String, DatabaseBundle> databaseBundleBasedOnDatabaseDescriptorName = new HashMap<String, DatabaseBundle>();
-	private Map<String, DatabaseBundle> databaseBundleBasedOnDatabaseMappingClassName = new HashMap<String, DatabaseBundle>();
-	private Map<String, DatabaseBundle> databaseBundleBasedOnDatabaseMappingTableName = new HashMap<String, DatabaseBundle>();
-
 	private static Resources resources = null;
 	
 	private Resources() {
 
+		databaseFactory = DatabaseFactory.getInstance();
 	}
 
 	/**
@@ -234,18 +228,6 @@ Example: DatabaseDescriptor.xml
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor;
 			}
-				
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-				
-			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
-			while(libraries.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraries.next();
-				if(libraryDescriptor.containsDatabaseMappingBasedOnClassName(className)) {
-					return databaseDescriptor;
-				}
-			}
 		}
 		
 		return null;
@@ -269,18 +251,6 @@ Example: DatabaseDescriptor.xml
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
-			}
-				
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-				
-			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
-			while(libraries.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraries.next();
-				if(libraryDescriptor.containsDatabaseMappingBasedOnClassName(className)) {
-					return databaseDescriptor.getDatabaseName();
-				}
 			}
 		}
 		
@@ -307,18 +277,6 @@ Example: DatabaseDescriptor.xml
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor;
 			}
-				
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-				
-			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
-			while(libraries.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraries.next();
-				if(libraryDescriptor.containsDatabaseMappingBasedOnTableName(tableName)) {
-					return databaseDescriptor;
-				}
-			}
 		}
 		
 		return null;
@@ -343,18 +301,6 @@ Example: DatabaseDescriptor.xml
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
 			}
-				
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-				
-			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
-			while(libraries.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraries.next();
-				if(libraryDescriptor.containsDatabaseMappingBasedOnTableName(tableName)) {
-					return databaseDescriptor.getDatabaseName();
-				}
-			}
 		}
 		
 		return null;
@@ -378,18 +324,6 @@ Example: DatabaseDescriptor.xml
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabseMappingBasedOnClassName(className);
-			}
-				
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-				
-			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
-			while(libraries.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraries.next();
-				if(libraryDescriptor.containsDatabaseMappingBasedOnClassName(className)) {
-					return libraryDescriptor.getDatabseMappingBasedOnClassName(className);
-				}
 			}
 		}
 		
@@ -416,18 +350,6 @@ Example: DatabaseDescriptor.xml
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabseMappingBasedOnTableName(tableName);
 			}
-				
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-				
-			Iterator<LibraryDescriptor> libraries = databaseDescriptor.getLibraryDescriptors();
-			while(libraries.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraries.next();
-				if(libraryDescriptor.containsDatabaseMappingBasedOnTableName(tableName)) {
-					return libraryDescriptor.getDatabseMappingBasedOnTableName(tableName);
-				}
-			}
 		}
 		
 		return null;
@@ -446,23 +368,10 @@ Example: DatabaseDescriptor.xml
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
 			
 			Iterator<DatabaseMappingDescriptor> databaseMappings = databaseDescriptor.getDatabaseMappings();
-			Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.getLibraryDescriptors();
-			
 			while(databaseMappings.hasNext()) {
 				DatabaseMappingDescriptor databaseMappingDescriptor = databaseMappings.next();
 				databaseMappingDescriptors.add(databaseMappingDescriptor);
 			}
-			
-			while(libraryDescriptors.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraryDescriptors.next();
-				Iterator<DatabaseMappingDescriptor> libraryDatabaseMappingDescriptors = libraryDescriptor.getDatabseMappings();
-				
-				while(libraryDatabaseMappingDescriptors.hasNext()) {
-					DatabaseMappingDescriptor libraryDatabaseMappingDescriptor = libraryDatabaseMappingDescriptors.next();
-					databaseMappingDescriptors.add(libraryDatabaseMappingDescriptor);
-				}
-			}
-			
 		}
 		
 		return databaseMappingDescriptors.iterator();
@@ -505,158 +414,14 @@ Example: DatabaseDescriptor.xml
 	
 	
 	/**
-	 * Get all Library Paths as per defined in all Database Descriptor file's.
-	 * @return Iterator which contains all library paths defined in all Database Descriptor file's.
-	 */
-	public Iterator<String> getLibraryPaths() {
-		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getLibraryPaths", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
-		}
-
-		Collection<String> libraries = new ArrayList<String>();
-		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
-		
-		while(databaseDescriptors.hasNext()) {
-			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-			
-			Iterator<String> thisDatabaseDescriptorLibraries = databaseDescriptor.getLibraryPaths();
-			while(thisDatabaseDescriptorLibraries.hasNext()) {
-				libraries.add(thisDatabaseDescriptorLibraries.next());
-			}
-		}
-		
-		return libraries.iterator();
-	}
-
-	/**
-	 * Get all library paths based on Database Descriptor name.
-	 * @param databaseDescriptorName Name of Database Descriptor.
-	 * @return Iterator which contains all library paths based on Database Descriptor.
-	 */
-	public Iterator<String> getLibraryPathsBasedOnDatabaseDescriptorName(final String databaseDescriptorName) {
-		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getLibraryPathsBasedOnDatabaseDescriptorName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
-		}
-
-		DatabaseDescriptor databaseDescriptor = this.applicationDescriptor.getDatabaseDescriptorBasedOnName(databaseDescriptorName);
-		
-		if(!databaseDescriptor.isLibrariesNeeded()) {
-			return new EmptyIterator<String>();
-		}
-			
-		return databaseDescriptor.getLibraryPaths();
-	}
-
-	/**
-	 * Get all Library Descriptor objects as per contain in all Database Descriptor's.
-	 * @return Iterator which contains all library descriptor objects defined in all Database Descriptor's.
-	 */
-	public Iterator<LibraryDescriptor> getLibraries() {
-		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getLibraries", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
-		}
-
-		Collection<LibraryDescriptor> libraries = new ArrayList<LibraryDescriptor>();
-		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
-		
-		while(databaseDescriptors.hasNext()) {
-			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			if(!databaseDescriptor.isLibrariesNeeded()) {
-				continue;
-			}
-			
-			Iterator<LibraryDescriptor> databaseDescriptorLibraries = databaseDescriptor.getLibraryDescriptors();
-			while(databaseDescriptorLibraries.hasNext()) {
-				libraries.add(databaseDescriptorLibraries.next());
-			}
-		}
-		
-		return libraries.iterator();
-	}
-
-
-	/**
-	 * Get all Library Descriptor objects based on Database Descriptor name.
-	 * @param databaseDescriptorName Name of Database Descriptor.
-	 * @return Iterator which contains all Library Descriptor objects based on Database Descriptor name.
-	 */
-	public Iterator<LibraryDescriptor> getLibrariesBasedOnDatabaseDescriptorName(final String databaseDescriptorName) {
-		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getLibrariesBasedOnDatabaseDescriptorName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
-		}
-
-		DatabaseDescriptor databaseDescriptor = this.applicationDescriptor.getDatabaseDescriptorBasedOnName(databaseDescriptorName);
-		if(databaseDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getLibrariesBasedOnDatabaseDescriptorName", "Siminov Not Active, INVALID DATABASE-DESCRIPTOR FOUND");
-		}
-		
-		if(!databaseDescriptor.isLibrariesNeeded()) {
-			return new EmptyIterator<LibraryDescriptor>();
-		}
-			
-		return databaseDescriptor.getLibraryDescriptors();
-	}
-
-	/**
-	 * Get all Library Database Mapping objects based in library descriptor path.
-	 * @param libraryPath Library Descriptor path.
-	 * @return
-	 */
-	public Iterator<DatabaseMappingDescriptor> getLibraryDatabaseMappingDescriptorsBasedOnLibraryDescriptorPath(final String libraryPath) {
-		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getLibraryDatabaseMappingsBasedOnLibraryDescriptorPath", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
-		}
-
-		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
-		while(databaseDescriptors.hasNext()) {
-			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			if(!databaseDescriptor.containsLibraryBasedOnPath(libraryPath)) {
-				continue;
-			}
-			
-			return databaseDescriptor.getLibraryDescriptorBasedOnPath(libraryPath).getDatabseMappings();
-		}
-		
-		return new EmptyIterator<DatabaseMappingDescriptor>();
-	}
-	
-	/**
 	 * Get IDatabase object based on Database Descriptor name.
 	 * @param databaseName Name of Database Descriptor.
 	 * @return IDatabase object.
 	 */
-	public DatabaseBundle getDatabaseBundleBasedOnDatabaseDescriptorName(final String databaseName) {
-		return this.databaseBundleBasedOnDatabaseDescriptorName.get(databaseName);
-	}
-
-	/**
-	 * Get IDatabase object based on Database Mapping POJO class name.
-	 * @param classObject POJO class object.
-	 * @return IDatabase object.
-	 */
-	public DatabaseBundle getDatabaseBundleBasedOnDatabaseMappingDescriptorPojoClass(final Class<?> classObject) {
-		return this.databaseBundleBasedOnDatabaseMappingClassName.get(classObject.getName());
-	}
-	
-	/**
-	 * Get IDatabase based on Database Mapping POJO class name.
-	 * @param databaseMappingClassName POJO class name.
-	 * @return IDatabase object.
-	 */
-	public DatabaseBundle getDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(final String databaseMappingClassName) {
-		return this.databaseBundleBasedOnDatabaseMappingClassName.get(databaseMappingClassName);
-	}
-	
-	/**
-	 * Get IDatabase object based on Database Mapping table name.
-	 * @param databaseMappingTableName Database Mapping table name.
-	 * @return IDatabase object.
-	 */
-	public DatabaseBundle getDatabaseBundleBasedOnDatabaseMappingDescriptorTableName(final String databaseMappingTableName) {
-		return this.databaseBundleBasedOnDatabaseMappingTableName.get(databaseMappingTableName);
+	public DatabaseBundle getDatabaseBundle(final String databaseName) {
+		
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptorBasedOnName(databaseName);
+		return this.databaseFactory.getDatabaseBundle(databaseDescriptor);
 	}
 
 	/**
@@ -664,117 +429,22 @@ Example: DatabaseDescriptor.xml
 	 * @return Iterator which contains all IDatabase objects.
 	 */
 	public Iterator<DatabaseBundle> getDatabaseBundles() {
-		return this.databaseBundleBasedOnDatabaseDescriptorName.values().iterator();
+		return this.databaseFactory.getDatabaseBundles();
 	}
 	
-	/**
-	 * Add IDatabase object in respect to Database Descriptor name.
-	 * @param databaseDescriptorName Database Descriptor name.
-	 * @param database IDatabase object.
-	 */
-	public void addDatabaseBundle(final String databaseDescriptorName, final DatabaseBundle databaseBundle) {
-		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptorBasedOnName(databaseDescriptorName);
-		if(databaseDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "addDatabase", "Siminov Not Active, INVALID DATABASE-DESCRIPTOR FOUND.");
-		}
-		
-		Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappings();
-		while(databaseMappingDescriptors.hasNext()) {
-			DatabaseMappingDescriptor databaseMapping = databaseMappingDescriptors.next();
-			
-			this.databaseBundleBasedOnDatabaseMappingClassName.put(databaseMapping.getClassName(), databaseBundle);
-			this.databaseBundleBasedOnDatabaseMappingTableName.put(databaseMapping.getTableName(), databaseBundle);
-		}
-		
-		Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.getLibraryDescriptors();
-		while(libraryDescriptors.hasNext()) {
-			LibraryDescriptor libraryDescriptor = libraryDescriptors.next();
-			
-			Iterator<DatabaseMappingDescriptor> libraryDatabaseMappings = libraryDescriptor.getDatabseMappings();
-			while(libraryDatabaseMappings.hasNext()) {
-				DatabaseMappingDescriptor libraryDatabaseMapping = libraryDatabaseMappings.next();
-				
-				this.databaseBundleBasedOnDatabaseMappingClassName.put(libraryDatabaseMapping.getClassName(), databaseBundle);
-				this.databaseBundleBasedOnDatabaseMappingTableName.put(libraryDatabaseMapping.getTableName(), databaseBundle);
-			}
-		}
-		
-		this.databaseBundleBasedOnDatabaseDescriptorName.put(databaseDescriptorName, databaseBundle);
-	}
 
 	/**
-	 * Remove IDatabase object from Resources.
-	 * @param databaseBundle IDatabase object which needs to be removed.
-	 */
-	public void removeDatabaseBundle(final DatabaseBundle databaseBundle) {
-		this.databaseBundleBasedOnDatabaseMappingClassName.values().remove(databaseBundle);
-		this.databaseBundleBasedOnDatabaseMappingTableName.values().remove(databaseBundle);
-		this.databaseBundleBasedOnDatabaseDescriptorName.values().remove(databaseBundle);
-	}
-	
-	/**
 	 * Remove IDatabase object from Resources based on Database Descriptor name.
-	 * @param databaseName Database Descriptor name.
+	 * @param databaseDescriptorName Database Descriptor name.
 	 */
-	public void removeDatabaseBundleBasedOnDatabaseDescriptorName(final String databaseName) {
-		removeDatabaseBundle(this.databaseBundleBasedOnDatabaseDescriptorName.get(databaseName));
+	public void removeDatabaseBundle(final String databaseDescriptorName) {
+		
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptorBasedOnName(databaseDescriptorName);
+		this.databaseFactory.removeDatabaseBundle(databaseDescriptor);
 	}
 	
-	/**
-	 * Remove IDatabase object from Resources based on Database Mapping POJO class name.
-	 * @param className POJO class name
-	 */
-	public void removeDatabaseBundleBasedOnDatabaseMappingDescriptorClassName(final String className) {
-		removeDatabaseBundle(this.databaseBundleBasedOnDatabaseMappingClassName.get(className));
-	}
+
 	
-	/**
-	 * Remove IDatabase object from Resources based on Database Mapping table name.
-	 * @param tableName Name of table.
-	 */
-	public void removeDatabaseBundleBasedOnDatabaseMappingDescriptorTableName(final String tableName) {
-		removeDatabaseBundle(this.databaseBundleBasedOnDatabaseMappingTableName.get(tableName));
-	}
-	
-	/**
-	 * It used to synchronize IDatabase objects to its mapping.
-	 * <p>
-	 * It is used when SIMINOV is in lazy load mode.
-	 */
-	public void synchronizeDatabases() {
-		Iterator<String> databaseNames = this.databaseBundleBasedOnDatabaseDescriptorName.keySet().iterator();
-		while(databaseNames.hasNext()) {
-			String databaseName = databaseNames.next();
-			
-			DatabaseBundle databaseBundle = getDatabaseBundleBasedOnDatabaseDescriptorName(databaseName);
-			DatabaseDescriptor databaseDescriptor = getDatabaseDescriptorBasedOnName(databaseName);
-			if(databaseDescriptor == null) {
-				throw new DeploymentException(Resources.class.getName(), "synchronizeDatabase", "Siminov Not Active, INVALID DATABASE-DESCRIPTOR FOUND.");
-			}
-			
-			Iterator<DatabaseMappingDescriptor> databaseMappings = databaseDescriptor.getDatabaseMappings();
-			while(databaseMappings.hasNext()) {
-				DatabaseMappingDescriptor databaseMapping = databaseMappings.next();
-				
-				this.databaseBundleBasedOnDatabaseMappingClassName.put(databaseMapping.getClassName(), databaseBundle);
-				this.databaseBundleBasedOnDatabaseMappingTableName.put(databaseMapping.getTableName(), databaseBundle);
-			}
-			
-			Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.getLibraryDescriptors();
-			while(libraryDescriptors.hasNext()) {
-				LibraryDescriptor libraryDescriptor = libraryDescriptors.next();
-				
-				Iterator<DatabaseMappingDescriptor> libraryDatabaseMappings = libraryDescriptor.getDatabseMappings();
-				while(libraryDatabaseMappings.hasNext()) {
-					DatabaseMappingDescriptor libraryDatabaseMapping = libraryDatabaseMappings.next();
-					
-					this.databaseBundleBasedOnDatabaseMappingClassName.put(libraryDatabaseMapping.getClassName(), databaseBundle);
-					this.databaseBundleBasedOnDatabaseMappingTableName.put(libraryDatabaseMapping.getTableName(), databaseBundle);
-				}
-			}
-		}
-	}
 
 	/**
 	 * Get SIMINOV-EVENT Handler
