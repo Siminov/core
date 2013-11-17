@@ -80,15 +80,11 @@ public class DatabaseDescriptor {
 	private Map<String, String> properties = new HashMap<String, String> ();
 	
 	private Collection<String> databaseMappingPaths = new ConcurrentLinkedQueue<String> ();
-	private Collection<String> libraryPaths = new ConcurrentLinkedQueue<String> ();
 
 	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
 	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
 	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
 	
-	private Map<String, LibraryDescriptor> libraryDescriptorsBasedOnName = new HashMap<String, LibraryDescriptor>();
-	private Map<String, LibraryDescriptor> libraryDescriptorsBasedOnPath = new HashMap<String, LibraryDescriptor>();
-
 	/**
 	 * Get database descriptor name as defined in DatabaseDescriptor.si.xml file.
 	 * @return Database Descriptor Name.
@@ -176,11 +172,11 @@ public class DatabaseDescriptor {
 	 * Check whether database transactions to make multi-threading safe or not.
 	 * @return TRUE: If locking is required as per defined in DatabaseDescriptor.si.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.si.xml file.
 	 */
-	public boolean isLockingRequired() {
-		String isLockingRequired = this.properties.get(Constants.DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED);
-		if(isLockingRequired == null || isLockingRequired.length() <= 0) {
+	public boolean isTransactionSafe() {
+		String transactionSafe = this.properties.get(Constants.DATABASE_DESCRIPTOR_TRANSACTION_SAFE);
+		if(transactionSafe == null || transactionSafe.length() <= 0) {
 			return false;
-		} else if(isLockingRequired != null && isLockingRequired.length() > 0 && isLockingRequired.equalsIgnoreCase("true")) {
+		} else if(transactionSafe != null && transactionSafe.length() > 0 && transactionSafe.equalsIgnoreCase("true")) {
 			return true;
 		}
 		
@@ -189,10 +185,10 @@ public class DatabaseDescriptor {
 	
 	/**
 	 * Set database locking as per defined in DatabaseDescriptor.si.xml file.
-	 * @param isLockingRequired (true/false) database locking as per defined in DatabaseDescriptor.si.xml file.
+	 * @param transactionSafe (true/false) database locking as per defined in DatabaseDescriptor.si.xml file.
 	 */
-	public void setLockingRequired(final boolean isLockingRequired) {
-		this.properties.put(Constants.DATABASE_DESCRIPTOR_IS_LOCKING_REQUIRED, Boolean.toString(isLockingRequired));
+	public void setTransactionSafe(final boolean transactionSafe) {
+		this.properties.put(Constants.DATABASE_DESCRIPTOR_TRANSACTION_SAFE, Boolean.toString(transactionSafe));
 	}
 	
 	
@@ -328,12 +324,12 @@ EXAMPLE:
 	/**
 	 * Add database mapping object in respect to database mapping path.
 	 * @param databaseMappingPath Database Mapping Path.
-	 * @param databaseMapping Database Mapping object.
+	 * @param databaseMappingDescriptor Database Mapping object.
 	 */
-	public void addDatabaseMapping(final String databaseMappingPath, final DatabaseMappingDescriptor databaseMapping) {
-		this.databaseMappingsBasedOnPath.put(databaseMappingPath, databaseMapping);
-		this.databaseMappingsBasedOnTableName.put(databaseMapping.getTableName(), databaseMapping);
-		this.databaseMappingsBasedOnClassName.put(databaseMapping.getClassName(), databaseMapping);
+	public void addDatabaseMapping(final String databaseMappingPath, final DatabaseMappingDescriptor databaseMappingDescriptor) {
+		this.databaseMappingsBasedOnPath.put(databaseMappingPath, databaseMappingDescriptor);
+		this.databaseMappingsBasedOnTableName.put(databaseMappingDescriptor.getTableName(), databaseMappingDescriptor);
+		this.databaseMappingsBasedOnClassName.put(databaseMappingDescriptor.getClassName(), databaseMappingDescriptor);
 	}
 
 	/**
@@ -351,7 +347,7 @@ EXAMPLE:
 	}
 	
 	/**
-	 * Remove database mappping object based on POJO class name.
+	 * Remove database mapping object based on POJO class name.
 	 * @param className POJO class name.
 	 */
 	public void removeDatabaseMappingBasedOnClassName(final String className) {
@@ -403,134 +399,6 @@ EXAMPLE:
 		}
  		
 		return orderedDatabaseMappings.iterator();
-	}
-	
-	/**
-	 * Check whether library exists or not based on library name provided.
-	 * @param libraryName Name of library as per defined in LibraryDescriptor.si.xml file.
-	 * @return
-	 */
-	public boolean containsLibraryBasedOnName(final String libraryName) {
-		return this.libraryDescriptorsBasedOnName.containsKey(libraryName);
-	}
-
-	/**
-	 * Check whether library exists or not based on library path provided.
-	 * @param libraryPath Path of library as per defined in DatabaseDescriptor.si.xml file.
-	 * @return
-	 */
-	public boolean containsLibraryBasedOnPath(final String libraryPath) {
-		return this.libraryDescriptorsBasedOnPath.containsKey(libraryPath);
-	}
-	
-	/**
-	 * Get all library paths as per defined in DatabaseDescriptor.si.xml file.
-	 * @return Iterator which contains all library paths.
-	 */
-	public Iterator<String> getLibraryPaths() {
-		return this.libraryPaths.iterator();
-	}
-	
-	/**
-	 * Add library path as per defined in DatabaseDescriptor.si.xml file.
-	 * @param libraryPath Library path defined in DatabaseDescriptor.si.xml file.
-	 */
-	public void addLibraryPath(final String libraryPath) {
-		this.libraryPaths.add(libraryPath);
-	}
-	
-	/**
-	 * Get all library descriptor paths contained.
-	 * @return Iterator which contains all library descriptor objects.
-	 */
-	public Iterator<LibraryDescriptor> getLibraryDescriptors() {
-		return this.libraryDescriptorsBasedOnName.values().iterator();
-	}
-
-	/**
-	 * Get all library descriptor objects in sorted order as per defined in DatabaseDescriptor.si.xml file.
-	 * @return Iterator which contains all library descriptor objects in sorted order.
-	 */
-	public Iterator<LibraryDescriptor> orderedLibraryDescriptors() {
-		Collection<LibraryDescriptor> orderedLibraryDescriptors = new LinkedList<LibraryDescriptor> ();
-		
-		for(String libraryName : libraryPaths) {
-			orderedLibraryDescriptors.add(getLibraryDescriptorBasedOnPath(libraryName));
-		}
-		
-		return orderedLibraryDescriptors.iterator();
-	}
-
-	/**
-	 * Get library descriptor object based on library descriptor path.
-	 * @param libraryPath Library Descriptor path.
-	 * @return
-	 */
-	public LibraryDescriptor getLibraryDescriptorBasedOnPath(final String libraryPath) {
-		return this.libraryDescriptorsBasedOnPath.get(libraryPath);
-	}
-
-	/**
-	 * Add library object in respect to library descriptor path.
-	 * @param libraryPath Library Descriptor Path.
-	 * @param libraryDescriptor Library Descriptor Object.
-	 */
-	public void addLibrary(final String libraryPath, final LibraryDescriptor libraryDescriptor) {
-		this.libraryDescriptorsBasedOnPath.put(libraryPath, libraryDescriptor);
-		this.libraryDescriptorsBasedOnName.put(libraryDescriptor.getName(), libraryDescriptor);
-	}
-	
-	/**
-	 * Remove library descriptor based on library path defined in DatabaseDescriptor.si.xml file.
-	 * @param libraryPath Library Descriptor Path.
-	 */
-	public void removeLibraryBasedOnPath(final String libraryPath) {
-		this.libraryPaths.remove(libraryPath);
-		
-		LibraryDescriptor libraryDescriptor = this.libraryDescriptorsBasedOnPath.get(libraryPath);
-		this.libraryDescriptorsBasedOnPath.remove(libraryPath);
-		
-		this.libraryDescriptorsBasedOnName.values().remove(libraryDescriptor);
-	}
-	
-	/**
-	 * Remove library descriptor based on library name defined in LibraryDescriptor.si.xml file.
-	 * @param libraryName Library Name.
-	 */
-	public void removeLibraryBasedOnName(final String libraryName) {
-		removeLibrary(this.libraryDescriptorsBasedOnName.get(libraryName));
-	}
-	
-	/**
-	 * Remove library descriptor object based on library descriptor object.
-	 * @param removeLibraryDescriptor Library Descriptor object.
-	 */
-	public void removeLibrary(final LibraryDescriptor removeLibraryDescriptor) {
-		LibraryDescriptor libraryDescriptor = this.libraryDescriptorsBasedOnName.get(removeLibraryDescriptor.getName());
-		Collection<String> keys = this.libraryDescriptorsBasedOnPath.keySet();
-		
-		String keyMatched = null;
-		boolean found = false;
-		for(String key : keys) {
-			LibraryDescriptor descriptor = this.libraryDescriptorsBasedOnPath.get(key);
-			if(libraryDescriptor == descriptor) {
-				keyMatched = key;
-				found = true;
-				break;
-			}
-		}
-		
-		if(found) {
-			removeLibraryBasedOnPath(keyMatched);
-		}
-	}
-	
-	/**
-	 * Check whether library is needed by Database Descriptor or not.
-	 * @return TRUE: If library exists, FALSE: If no library exists.
-	 */
-	public boolean isLibrariesNeeded() {
-		return this.libraryPaths.size() > 0 ? true : false;
 	}
 	
 }
