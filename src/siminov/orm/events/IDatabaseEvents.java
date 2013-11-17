@@ -1,5 +1,5 @@
 /** 
- * [SIMINOV FRAMEWORK]
+\ * [SIMINOV FRAMEWORK]
  * Copyright [2013] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,13 +31,13 @@ public interface IDatabaseEvents {
 	 * This event is fired when database gets created as per database descriptor.
 	 * @param databaseDescripton contains meta data associated with database.
 	 */
-	public void databaseCreated(final DatabaseDescriptor databaseDescriptor);
+	public void onDatabaseCreated(final DatabaseDescriptor databaseDescriptor);
 	
 	/**
 	 * This event is fired when database is dropped.
 	 * @param databaseDescriptor contains meta data associated with dropped database.
 	 */
-	public void databaseDropped(final DatabaseDescriptor databaseDescriptor);
+	public void onDatabaseDropped(final DatabaseDescriptor databaseDescriptor);
 	
 	
 	
@@ -45,13 +45,13 @@ public interface IDatabaseEvents {
 	 * This event is fired when a table is created.
 	 * @param databaseMapping contains meta data associated with created table.
 	 */
-	public void tableCreated(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping);
+	public void onTableCreated(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping);
 	
 	/**
 	 * This event is fired when a table is dropped.
 	 * @param databaseMapping contains meta data associated with dropped table.
 	 */
-	public void tableDropped(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping);
+	public void onTableDropped(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping);
 	
 	
 	
@@ -61,13 +61,13 @@ public interface IDatabaseEvents {
 	 * @param databaseMapping contains meta data associated with table on which index is created.
 	 * @param index meta data about index got created.
 	 */
-	public void indexCreated(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping, Index index);
+	public void onIndexCreated(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping, Index index);
 	
 	/**
 	 * This event is fired when a index is dropped.
 	 * @param databaseMapping contains meta data associated with table on which index is dropped.
 	 * @param index meta data about index got dropped.
 	 */
-	public void indexDropped(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping, Index index);
+	public void onIndexDropped(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMapping, Index index);
 	
 }
