@@ -26,18 +26,18 @@ public interface ISiminovEvents {
 	/**
 	 * This event gets fired when SIMINOV is initialize for first time.
 	 */
-	public void firstTimeSiminovInitialized();
+	public void onFirstTimeSiminovInitialized();
 
 	
 	/**
 	 * This event gets fired when SIMINOV is initialize.
 	 */
-	public void siminovInitialized();
+	public void onSiminovInitialized();
 	
 	
 	/**
 	 * This event gets fired when SIMINOV is stopped.
 	 */
-	public void siminovStopped();
+	public void onSiminovStopped();
 	
 }
