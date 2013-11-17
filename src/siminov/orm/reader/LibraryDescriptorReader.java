@@ -17,6 +17,7 @@
 
 package siminov.orm.reader;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.Iterator;
 
@@ -89,7 +90,7 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 		}
 
 		InputStream libraryDescriptorStream = null;
-		libraryDescriptorStream = getClass().getClassLoader().getResourceAsStream(libraryName.replace(".", "/") + "/" + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
+		libraryDescriptorStream = getClass().getClassLoader().getResourceAsStream(libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
 
 		if(libraryDescriptorStream == null) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + ", PATH: " + libraryName.replace(".", "/") + "/" + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
@@ -114,9 +115,7 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 			libraryDescriptor = new LibraryDescriptor();
 		} else if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_PROPERTY)) {
 			initializeProperty(attributes);
-		} else if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_DATABASE_MAPPING)) {
-			initializeMapping(attributes);
-		}
+		} 
 	}
 	
 	public void characters(char[] ch, int start, int length) throws SAXException {
@@ -133,15 +132,13 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 		
 		if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_PROPERTY)) {
 			libraryDescriptor.addProperty(propertyName, tempValue);
-		} 
+		} else if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_DATABASE_MAPPING)) {
+			libraryDescriptor.addDatabaseMappingPath(tempValue);
+		}
 	}
 	
 	private void initializeProperty(final Attributes attributes) {
 		propertyName = attributes.getValue(LIBRARY_DESCRIPTOR_NAME);
-	}
-	
-	private void initializeMapping(final Attributes attributes) {
-		libraryDescriptor.addDatabaseMappingPath(attributes.getValue(LIBRARY_DESCRIPTOR_PATH));
 	}
 	
 	private void doValidation() throws DeploymentException {

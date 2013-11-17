@@ -131,8 +131,6 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 			databaseDescriptor = new DatabaseDescriptor();
 		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
 			initializeProperty(attributes);
-		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING)) {
-			databaseDescriptor.addDatabaseMappingPath(attributes.getValue(DATABASE_DESCRIPTOR_PATH));
 		} 
 	}
 	
@@ -147,10 +145,11 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
+		
 		if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
 			databaseDescriptor.addProperty(propertyName, tempValue);
-		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_LIBRARY)) {
-			databaseDescriptor.addLibraryPath(tempValue);
+		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING)) {
+			databaseDescriptor.addDatabaseMappingPath(tempValue);
 		} 
 	}
 	

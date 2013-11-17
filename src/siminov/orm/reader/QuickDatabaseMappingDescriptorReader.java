@@ -32,7 +32,6 @@ import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.model.LibraryDescriptor;
 import siminov.orm.resource.Resources;
 import android.content.Context;
 
@@ -86,28 +85,12 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 				while(databaseMappingPaths.hasNext()) {
 					String databaseMappingDescriptorPath = databaseMappingPaths.next();
 					if(this.finalDatabaseMappingBasedOnClassName.equalsIgnoreCase(databaseMappingDescriptorPath)) {
+
 						databaseDescriptor.addDatabaseMapping(this.finalDatabaseMappingBasedOnClassName, databaseMappingDescriptor);
-						Resources.getInstance().synchronizeDatabases();
-						
 						return;
 					}
 				}
 				
-		        Iterator<LibraryDescriptor> libraryDescriptors = databaseDescriptor.getLibraryDescriptors();
-	        	while(libraryDescriptors.hasNext()) {
-	        		LibraryDescriptor libraryDescriptor = libraryDescriptors.next();
-	        		Iterator<String> libraryDatabaseMappingPaths = libraryDescriptor.getDatabaseMappingPaths();
-	        		
-	        		while(libraryDatabaseMappingPaths.hasNext()) {
-	        			String libraryDatabaseMappingPath = libraryDatabaseMappingPaths.next();
-	        			if(libraryDatabaseMappingPath.equalsIgnoreCase(this.finalDatabaseMappingBasedOnClassName)) {
-	        				libraryDescriptor.addDatabaseMapping(libraryDatabaseMappingPath, databaseMappingDescriptor);
-	    					Resources.getInstance().synchronizeDatabases();
-
-	    					return;
-	        			}
-	        		}
-	        	}
 			}
 			
 			return;
@@ -135,7 +118,11 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 				InputStream databaseMappingDescriptorStream = null;
 				
 				try {
-					databaseMappingDescriptorStream = context.getAssets().open(databaseMappingDescriptorPath);
+					
+					databaseMappingDescriptorStream = getClass().getClassLoader().getResourceAsStream(databaseMappingDescriptorPath);
+					if(databaseMappingDescriptorStream == null) {
+						databaseMappingDescriptorStream = context.getAssets().open(databaseMappingDescriptorPath);
+					}
 				} catch(IOException ioException) {
 					Log.loge(getClass().getName(), "process", "IOException caught while getting input stream of DATABASE-MAPPING: " + databaseMappingDescriptorPath + ", " + ioException.getMessage());
 					throw new SiminovException(getClass().getName(), "process", "IOException caught while getting input stream of application descriptor: " + databaseMappingDescriptorPath + ", " + ioException.getMessage());
@@ -154,52 +141,11 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 					
 					this.databaseMappingDescriptor = databaseMappingParser.getDatabaseMapping();
 					databaseDescriptor.addDatabaseMapping(databaseMappingDescriptorPath, databaseMappingDescriptor);
-					Resources.getInstance().synchronizeDatabases();
 					
 					return;
 				}
 			}
 			
-
-			Iterator<String> libraryDescriptorPaths = databaseDescriptor.getLibraryPaths();
-			while(libraryDescriptorPaths.hasNext()) {
-				String libraryDescriptorPath = libraryDescriptorPaths.next();
-				
-				LibraryDescriptor libraryDescriptor = databaseDescriptor.getLibraryDescriptorBasedOnPath(libraryDescriptorPath);
-				Iterator<String> libraryDatabaseMappings = libraryDescriptor.getDatabaseMappingPaths();
-				
-				while(libraryDatabaseMappings.hasNext()) {
-					String libraryDatabaseMapping = libraryDatabaseMappings.next();
-					InputStream databaseMappingStream = null;
-
-					databaseMappingStream = getClass().getClassLoader().getResourceAsStream(libraryDescriptorPath.replace(".", "/") + "/" + libraryDatabaseMapping);
-					
-					try {
-						parseMessage(databaseMappingStream);
-					} catch(Exception exception) {
-						Log.loge(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + libraryDatabaseMapping + ", " + exception.getMessage());
-						throw new SiminovException(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + libraryDatabaseMapping + ", " + exception.getMessage());
-					}
-					
-					if(doesMatch) {
-
-						DatabaseMappingDescriptorReader databaseMappingParser = null;
-						
-						try {
-							databaseMappingParser = new DatabaseMappingDescriptorReader(libraryDescriptorPath, libraryDatabaseMapping);
-						} catch(SiminovException siminovException) {
-							Log.loge(getClass().getName(), "process", "SiminovException caught while parsing database mapping, NAME: " + libraryDatabaseMapping + ", " + siminovException.getMessage());
-							throw new SiminovException(getClass().getName(), "process", "NAME: " + libraryDatabaseMapping + ", " + siminovException.getMessage());
-						}
-						
-						databaseMappingDescriptor = databaseMappingParser.getDatabaseMapping();
-						libraryDescriptor.addDatabaseMapping(libraryDatabaseMapping, databaseMappingDescriptor);
-						Resources.getInstance().synchronizeDatabases();
-						
-						return;
-					}
-				}
-			}
 		}
 	}
 	

@@ -17,6 +17,7 @@
 
 package siminov.orm.reader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -133,11 +134,16 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 			InputStream databaseMappingStream = null;
 			
 			try {
-				databaseMappingStream = context.getAssets().open(this.databaseMappingName);
+
+				databaseMappingStream = getClass().getClassLoader().getResourceAsStream(this.databaseMappingName);
+				if(databaseMappingStream == null) {
+					databaseMappingStream = context.getAssets().open(this.databaseMappingName);
+				}
 			} catch(IOException ioException) {
 				Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + ", " + ioException.getMessage());
 				throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + "," + ioException.getMessage());
 			}
+
 			
 			try {
 				parseMessage(databaseMappingStream);
@@ -150,41 +156,6 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		doValidation();
 	}
 
-	public DatabaseMappingDescriptorReader(final String libraryPackageName, final String databaseMappingName) throws SiminovException {
-		this.databaseMappingName = databaseMappingName;
-		
-		if(databaseMappingName == null || databaseMappingName.length() <= 0) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
-		}
-		
-		Context context = resources.getApplicationContext();
-		if(context == null) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
-			throw new SiminovException(getClass().getName(), "Constructor", "Invalid context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
-		}
-
-		/*
-		 * Parse ApplicationDescriptor.
-		 */
-		if(!databaseMappingName.endsWith(Constants.XML_FILE_EXTENSION)) {
-			this.databaseMapping = new AnnotationReader().parseClass(databaseMappingName);
-		} else {
-			InputStream databaseMappingStream = null;
-			databaseMappingStream = getClass().getClassLoader().getResourceAsStream(libraryPackageName.replace(".", "/") + "/" + this.databaseMappingName);
-
-			try {
-				parseMessage(databaseMappingStream);
-			} catch(Exception exception) {
-				Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
-				throw new SiminovException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
-			}
-		}
-		
-		doValidation();
-	}
-
-	
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		
 		tempValue = "";
