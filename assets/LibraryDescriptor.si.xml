@@ -37,7 +37,7 @@
 	<!-- Optional Field -->
 		<!-- Database Mappings -->
 	<database-mappings>
-		<database-mapping path="full_path_of_database_mapping_descriptor_file" />
+		<database-mapping>name_of_database_descriptor.full_path_of_database_mapping_descriptor_file</database-mapping>
 	</database-mappings>
 	 
 </library>
@@ -59,6 +59,8 @@ Type Of Properties:
 
 
 	ii. Database Mapping Paths Needed Under This Database Descriptor.	 
+		
+		- Name of database descriptor associated to.
 		
 		- Provide full database mapping descriptor file path if you have used xml format to define ORM.
 
