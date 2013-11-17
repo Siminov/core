@@ -18,6 +18,7 @@
 package siminov.orm.database;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import siminov.orm.database.design.IDataTypeHandler;
 import siminov.orm.database.design.IDatabase;
@@ -64,8 +65,8 @@ public class DatabaseFactory {
 	 * @return IDatabase Object.
 	 * @throws DatabaseException If not able to create IDatabase instance.
 	 */
-	public DatabaseBundle getDatabaseBundle(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
-		if(databaseBundles.contains(databaseDescriptor.getDatabaseName())) {
+	public DatabaseBundle getDatabaseBundle(final DatabaseDescriptor databaseDescriptor) {
+		if(databaseBundles.containsKey(databaseDescriptor.getDatabaseName())) {
 			return databaseBundles.get(databaseDescriptor.getDatabaseName());
 		}
 
@@ -78,6 +79,16 @@ public class DatabaseFactory {
 		return databaseBundle;
 	}
 
+	
+	public Iterator<DatabaseBundle> getDatabaseBundles() {
+		return databaseBundles.values().iterator();
+	}
+
+	public void removeDatabaseBundle(final DatabaseDescriptor databaseDescriptor) {
+		this.databaseBundles.remove(databaseDescriptor.getDatabaseName());
+	}
+
+	
 	private DatabaseBundle getDatabaseBundle(String packageName) {
 		
 		IDatabase database = (IDatabase) ClassUtils.createClassInstance(packageName + "." + DATABASE_CLASS_NAME);
