@@ -39,7 +39,7 @@
 	<property name="description">database_description</property>
 
 		<!-- Optional Field (Default is false) -->
-	<property name="is_locking_required">true/false</property>
+	<property name="transaction_safe">true/false</property>
 	
 		<!-- Optional Field (Default is false) -->
 	<property name="external_storage">true/false</property>
@@ -50,17 +50,8 @@
 	
 		<!-- Optional Field -->
 	<database-mappings>
-		<database-mapping path="full_path_of_database_mapping_descriptor_file" />
+		<database-mapping>full_path_of_database_mapping_descriptor_file</database-mapping>
 	</database-mappings>
-
-
-
-	<!-- Libraries Needed Under This Database Descriptor -->
-	
-		<!-- Optional Field -->
-	<libraries>
-		<library>full_path_of_library_descriptor_file</library>
-	</libraries>
 	
 </database-descriptor>
 
@@ -94,12 +85,5 @@ Type Of Properties:
 		- Provide full database mapping descriptor file path if you have used xml format to define ORM.
 
 		- Provide full class path of database mapping descriptor POJO class if you have used annotation to define ORM.
-		
-		
-	
-	iv. Library Descriptor Paths Needed Under This Database Descriptor.
-	
-		- Provide full package name under which LibraryDescriptor.si.xml file is placed.
-		
 
 -->
