@@ -26,7 +26,7 @@ public class DataTypeHandler implements IDataTypeHandler {
 	private static final String SQLITE_DATA_TYPE_REAL = "REAL";
 	private static final String SQLITE_DATA_TYPE_NONE = "NONE";
 	private static final String SQLITE_DATA_TYPE_NUMERIC = "NUMERIC";
-
+	
 	
 	public String convert(String dataType) {
 		
@@ -43,9 +43,9 @@ public class DataTypeHandler implements IDataTypeHandler {
 		} else if(dataType.equalsIgnoreCase(Float.class.getName())) {
 			return SQLITE_DATA_TYPE_REAL;
 		} else if(dataType.equalsIgnoreCase(boolean.class.getName())) {
-			return SQLITE_DATA_TYPE_NUMERIC;
+			return SQLITE_DATA_TYPE_TEXT;
 		} else if(dataType.equalsIgnoreCase(Boolean.class.getName())) {
-			return SQLITE_DATA_TYPE_NUMERIC;
+			return SQLITE_DATA_TYPE_TEXT;
 		} else if(dataType.equalsIgnoreCase(char.class.getName())) {
 			return SQLITE_DATA_TYPE_TEXT;
 		} else if(dataType.equalsIgnoreCase(Character.class.getName())) {

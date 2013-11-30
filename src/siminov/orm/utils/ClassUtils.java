@@ -19,8 +19,10 @@ package siminov.orm.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -100,9 +102,22 @@ public class ClassUtils {
 		
 		try {
 			method = classObject.getClass().getMethod(methodName, parameterTypes);				
+		} catch(NoSuchMethodException noSuchMethodException) {
+			Log.logd(ClassUtils.class.getName(), "createMethodObject", "NoSuchMethodException caught while creating method, METHOD-NAME: " + methodName + ", " + noSuchMethodException.getMessage());
+			
+			/*
+			 * Try For Primitive Data Type
+			 */
+			parameterTypes = convertToPrimitiveClasses(parameterTypes);
+			try {
+				method = classObject.getClass().getMethod(methodName, parameterTypes);				
+			} catch(Exception exception) {
+				Log.loge(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			}
 		} catch(Exception exception) {
-			Log.loge(ClassUtils.class.getName(), "createMethodObject", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
-			throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodObject", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			Log.loge(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 		}
 		
 		method.setAccessible(true);
@@ -210,4 +225,38 @@ public class ClassUtils {
 		return object;
 	}
 	
+	
+	private static Class<?>[] convertToPrimitiveClasses(Class<?>...classes) {
+		
+		Collection<Class<?>> convertedClasses = new HashSet<Class<?>>();
+		for(Class<?> classObject : classes) {
+			
+			if(classObject.getName().equalsIgnoreCase(Integer.class.getName())) {
+				convertedClasses.add(int.class);
+			} else if(classObject.getName().equalsIgnoreCase(Long.class.getName())) {
+				convertedClasses.add(long.class);
+			} else if(classObject.getName().equalsIgnoreCase(Float.class.getName())) {
+				convertedClasses.add(float.class);
+			} else if(classObject.getName().equalsIgnoreCase(Double.class.getName())) {
+				convertedClasses.add(double.class);
+			} else if(classObject.getName().equalsIgnoreCase(Boolean.class.getName())) {
+				convertedClasses.add(boolean.class);
+			} else if(classObject.getName().equalsIgnoreCase(Blob.class.getName())) {
+				convertedClasses.add(byte.class);
+			} else {
+				convertedClasses.add(classObject);
+			}
+		}
+		
+		
+		Class<?>[] convertedArrayClasses = new Class<?>[convertedClasses.size()];
+		Iterator<Class<?>> convertedClassesItr = convertedClasses.iterator();
+		
+		int count = 0;
+		while(convertedClassesItr.hasNext()) {
+			convertedArrayClasses[count++] = convertedClassesItr.next();
+		}
+		
+		return convertedArrayClasses;
+	}
 }

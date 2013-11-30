@@ -120,6 +120,8 @@ public class Database implements IDatabase {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Float) columnValue).floatValue());
 				} else if(columnValue instanceof byte[]) {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + new String((byte[]) columnValue));
+				} else if(columnValue instanceof Boolean) {
+					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Boolean) columnValue).toString());
 				} else {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + columnValue);
 				}
@@ -148,6 +150,8 @@ public class Database implements IDatabase {
 				statement.bindDouble(index + 1, (Float) columnValue);
 			} else if(columnValue instanceof byte[]) {
 				statement.bindBlob(index + 1, (byte[]) columnValue);
+			} else if(columnValue instanceof Boolean) {
+				statement.bindString(index + 1,  (Boolean) columnValue ? Boolean.TRUE.toString() : Boolean.FALSE.toString());
 			} else {
 				statement.bindNull(index + 1);
 			}
@@ -179,6 +183,8 @@ public class Database implements IDatabase {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Float) columnValue).floatValue());
 				} else if(columnValue instanceof byte[]) {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + new String((byte[]) columnValue));
+				} else if(columnValue instanceof Boolean) {
+					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Boolean) columnValue).toString());
 				} else {
 					Log.loge(Database.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + columnValue);
 				}
@@ -215,7 +221,27 @@ public class Database implements IDatabase {
 					boolean isBlob = sqliteCursor.isBlob(i);
 					
 					if(isString) {
-						tuple.put(columnNames[i], sqliteCursor.getString(i));
+
+						String columnValue = sqliteCursor.getString(i);
+
+						if(databaseMappingDescriptor != null) {
+							
+							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
+							if(column != null) {
+	
+								if(column.getType().equalsIgnoreCase(String.class.getName())) {
+									tuple.put(columnNames[i], (String) columnValue);
+								} else if(column.getType().equalsIgnoreCase(boolean.class.getName())) {
+									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? true : false);
+								} else if(column.getType().equalsIgnoreCase(Boolean.class.getName())) {
+									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? Boolean.TRUE : Boolean.FALSE);
+								}
+							} else {
+								tuple.put(columnNames[i], columnValue);
+							}
+						} else {
+							tuple.put(columnNames[i], columnValue);
+						}
 					} else if(isLong) {
 						long columnValue = sqliteCursor.getLong(i);
 
@@ -223,13 +249,13 @@ public class Database implements IDatabase {
 							
 							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
 							if(column != null) {
-								if(column.getType() == int.class.getName()) {
+								if(column.getType().equalsIgnoreCase(int.class.getName())) {
 									tuple.put(columnNames[i], Integer.parseInt(Long.toString(columnValue)));
-								} else if(column.getType() == Integer.class.getName()) {
+								} else if(column.getType().equalsIgnoreCase(Integer.class.getName())) {
 									tuple.put(columnNames[i], Integer.getInteger(Long.toString(columnValue)));
-								} else if(column.getType() == long.class.getName()) {
+								} else if(column.getType().equalsIgnoreCase(long.class.getName())) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(column.getType() == Long.class.getName()) {
+								} else if(column.getType().equalsIgnoreCase(Long.class.getName())) {
 									tuple.put(columnNames[i], Long.valueOf(columnValue));
 								}
 							} else {
@@ -245,15 +271,15 @@ public class Database implements IDatabase {
 							
 							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
 							if(column != null) {
-								if(column.getType() == double.class.getName()) {
+								if(column.getType().equalsIgnoreCase(double.class.getName())) {
 									tuple.put(columnNames[i], Double.parseDouble(Float.toString(columnValue)));
-								} else if(column.getType() == Double.class.getName()) {
+								} else if(column.getType().equalsIgnoreCase(Double.class.getName())) {
 									tuple.put(columnNames[i], Double.valueOf(Float.toString(columnValue)));
-								} else if(column.getType() == float.class.getName()) {
+								} else if(column.getType().equalsIgnoreCase(float.class.getName())) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(column.getType() == Float.class.getName()) {
+								} else if(column.getType().equalsIgnoreCase(Float.class.getName())) {
 									tuple.put(columnNames[i], Float.valueOf(columnValue));
-								}
+								} 
 							} else {
 								tuple.put(columnNames[i], columnValue);
 							}
