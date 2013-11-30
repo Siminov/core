@@ -44,4 +44,12 @@
 	- Add library helper class: it helps to get library information.
 	
 	
+15. Database.java 
+	- Implemented SQLite Boolean data type.
+
+16. DataTypeHandler.java
+	- Implemented SQLite Boolean data type.
+
+17. ClassUtils.java
+	- Implemented SQLite Boolean data type.
 	
