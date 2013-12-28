@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import siminov.orm.database.DatabaseUtils;
+import siminov.orm.database.design.IDataTypeHandler;
 import siminov.orm.database.design.IDatabase;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
@@ -229,12 +230,14 @@ public class Database implements IDatabase {
 							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
 							if(column != null) {
 	
-								if(column.getType().equalsIgnoreCase(String.class.getName())) {
+								if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_STRING_DATA_TYPE)) {
 									tuple.put(columnNames[i], (String) columnValue);
-								} else if(column.getType().equalsIgnoreCase(boolean.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? true : false);
-								} else if(column.getType().equalsIgnoreCase(Boolean.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? Boolean.TRUE : Boolean.FALSE);
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_STRING_DATA_TYPE)) {
+									tuple.put(columnNames[i], (String) columnValue);
 								}
 							} else {
 								tuple.put(columnNames[i], columnValue);
@@ -249,13 +252,15 @@ public class Database implements IDatabase {
 							
 							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
 							if(column != null) {
-								if(column.getType().equalsIgnoreCase(int.class.getName())) {
+								if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INT_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Integer.parseInt(Long.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(Integer.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INTEGER_DATA_TYPE)) {
 									tuple.put(columnNames[i], Integer.getInteger(Long.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(long.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(column.getType().equalsIgnoreCase(Long.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_DATA_TYPE)) {
+									tuple.put(columnNames[i], Long.valueOf(columnValue));
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
 									tuple.put(columnNames[i], Long.valueOf(columnValue));
 								}
 							} else {
@@ -271,15 +276,17 @@ public class Database implements IDatabase {
 							
 							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
 							if(column != null) {
-								if(column.getType().equalsIgnoreCase(double.class.getName())) {
+								if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Double.parseDouble(Float.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(Double.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Double.valueOf(Float.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(float.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(column.getType().equalsIgnoreCase(Float.class.getName())) {
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_DATA_TYPE)) {
 									tuple.put(columnNames[i], Float.valueOf(columnValue));
-								} 
+								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
+									tuple.put(columnNames[i], Float.valueOf(columnValue));
+								}
 							} else {
 								tuple.put(columnNames[i], columnValue);
 							}

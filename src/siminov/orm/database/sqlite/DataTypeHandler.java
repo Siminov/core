@@ -21,51 +21,70 @@ import siminov.orm.database.design.IDataTypeHandler;
 
 public class DataTypeHandler implements IDataTypeHandler {
 
-	private static final String SQLITE_DATA_TYPE_INTEGER = "INTEGER";
-	private static final String SQLITE_DATA_TYPE_TEXT = "TEXT";
-	private static final String SQLITE_DATA_TYPE_REAL = "REAL";
-	private static final String SQLITE_DATA_TYPE_NONE = "NONE";
-	private static final String SQLITE_DATA_TYPE_NUMERIC = "NUMERIC";
-	
 	
 	public String convert(String dataType) {
+	
+		/*
+		 * Java Data Type Conversation
+		 */
+		if(dataType.equalsIgnoreCase(JAVA_INT_PRIMITIVE_DATA_TYPE)) {
+			return SQLITE_INTEGER_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_INTEGER_DATA_TYPE)) {
+			return SQLITE_INTEGER_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_LONG_PRIMITIVE_DATA_TYPE)) {
+			return SQLITE_INTEGER_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_LONG_DATA_TYPE)) {
+			return SQLITE_INTEGER_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_FLOAT_PRIMITIVE_DATA_TYPE)) {
+			return SQLITE_REAL_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_FLOAT_DATA_TYPE)) {
+			return SQLITE_REAL_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_DOUBLE_PRIMITIVE_DATA_TYPE)) {
+			return SQLITE_REAL_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_DOUBLE_DATA_TYPE)) {
+			return SQLITE_REAL_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_BOOLEAN_PRIMITIVE_DATA_TYPE)) {
+			return SQLITE_TEXT_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_BOOLEAN_DATA_TYPE)) {
+			return SQLITE_TEXT_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_CHAR_PRIMITIVE_DATA_TYPE)) {
+			return SQLITE_TEXT_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_CHARACTER_DATA_TYPE)) {
+			return SQLITE_TEXT_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_STRING_DATA_TYPE)) {
+			return SQLITE_TEXT_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_BYTE_PRIMITITVE_DATA_TYPE)) {
+			return SQLITE_NONE_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_BYTE_DATA_TYPE)) {
+			return SQLITE_NONE_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_VOID_PRIMITITVE_DATA_TYPE)) {
+			return SQLITE_NONE_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_VOID_DATA_TYPE)) {
+			return SQLITE_NONE_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_SHORT_PRIMITITVE_DATA_TYPE)) {
+			return SQLITE_INTEGER_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVA_SHORT_DATA_TYPE)) {
+			return SQLITE_INTEGER_DATA_TYPE;
+		}
+
 		
-		if(dataType.equalsIgnoreCase(int.class.getName())) {
-			return SQLITE_DATA_TYPE_INTEGER;
-		} else if(dataType.equalsIgnoreCase(Integer.class.getName())) {
-			return SQLITE_DATA_TYPE_INTEGER;
-		} else if(dataType.equalsIgnoreCase(long.class.getName())) {
-			return SQLITE_DATA_TYPE_INTEGER;
-		} else if(dataType.equalsIgnoreCase(Long.class.getName())) {
-			return SQLITE_DATA_TYPE_INTEGER;
-		} else if(dataType.equalsIgnoreCase(float.class.getName())) {
-			return SQLITE_DATA_TYPE_REAL;
-		} else if(dataType.equalsIgnoreCase(Float.class.getName())) {
-			return SQLITE_DATA_TYPE_REAL;
-		} else if(dataType.equalsIgnoreCase(boolean.class.getName())) {
-			return SQLITE_DATA_TYPE_TEXT;
-		} else if(dataType.equalsIgnoreCase(Boolean.class.getName())) {
-			return SQLITE_DATA_TYPE_TEXT;
-		} else if(dataType.equalsIgnoreCase(char.class.getName())) {
-			return SQLITE_DATA_TYPE_TEXT;
-		} else if(dataType.equalsIgnoreCase(Character.class.getName())) {
-			return SQLITE_DATA_TYPE_TEXT;
-		} else if(dataType.equalsIgnoreCase(String.class.getName())) {
-			return SQLITE_DATA_TYPE_TEXT;
-		} else if(dataType.equalsIgnoreCase(byte.class.getName())) {
-			return SQLITE_DATA_TYPE_NONE;
-		} else if(dataType.equalsIgnoreCase(Byte.class.getName())) {
-			return SQLITE_DATA_TYPE_NONE;
-		} else if(dataType.equalsIgnoreCase(void.class.getName())) {
-			return SQLITE_DATA_TYPE_NONE;
-		} else if(dataType.equalsIgnoreCase(Void.class.getName())) {
-			return SQLITE_DATA_TYPE_NONE;
-		} else if(dataType.equalsIgnoreCase(short.class.getName())) {
-			return SQLITE_DATA_TYPE_INTEGER;
-		} else if(dataType.equalsIgnoreCase(Short.class.getName())) {
-			return SQLITE_DATA_TYPE_INTEGER;
-		} else {
-			return SQLITE_DATA_TYPE_NONE;
+		/*
+		 * JavaScript Data Type Conversation
+		 */
+		else if(dataType.equalsIgnoreCase(JAVASCRIPT_STRING_DATA_TYPE)) {
+			return SQLITE_REAL_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVASCRIPT_NUMBER_DATA_TYPE)) {
+			return SQLITE_REAL_DATA_TYPE;
+		} else if(dataType.equalsIgnoreCase(JAVASCRIPT_BOOLEAN_DATA_TYPE)) {
+			return SQLITE_TEXT_DATA_TYPE;
+		}
+		
+		
+		/*
+		 * Other Data Type
+		 */
+		else {
+			return SQLITE_NONE_DATA_TYPE;
 		}
 		
 	}
