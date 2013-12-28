@@ -83,10 +83,10 @@ public class ClassUtils {
 	 * @param pamameterTypes Parameter Types
 	 * @return Method Object
 	 */
-	public static Object createMethodObject(String className, String methodName, Class<?>...pamameterTypes) {
+	public static Object createMethodBasedOnClassName(String className, String methodName, Class<?>...pamameterTypes) {
 		
 		Object classObject = createClassInstance(className);
-		return createMethodObject(classObject, methodName, pamameterTypes);
+		return createMethodBasedOnClassInstance(classObject, methodName, pamameterTypes);
 	}
 
 	/**
@@ -96,14 +96,14 @@ public class ClassUtils {
 	 * @param parameterTypes Parameter Types
 	 * @return Method Object
 	 */
-	public static Object createMethodObject(Object classObject, String methodName, Class<?>...parameterTypes) {
+	public static Object createMethodBasedOnClassInstance(Object classObject, String methodName, Class<?>...parameterTypes) {
 		
 		Method method = null;
 		
 		try {
 			method = classObject.getClass().getMethod(methodName, parameterTypes);				
 		} catch(NoSuchMethodException noSuchMethodException) {
-			Log.logd(ClassUtils.class.getName(), "createMethodObject", "NoSuchMethodException caught while creating method, METHOD-NAME: " + methodName + ", " + noSuchMethodException.getMessage());
+			Log.logd(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "NoSuchMethodException caught while creating method, METHOD-NAME: " + methodName + ", " + noSuchMethodException.getMessage());
 			
 			/*
 			 * Try For Primitive Data Type
@@ -112,12 +112,12 @@ public class ClassUtils {
 			try {
 				method = classObject.getClass().getMethod(methodName, parameterTypes);				
 			} catch(Exception exception) {
-				Log.loge(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
-				throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				Log.loge(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 			}
 		} catch(Exception exception) {
-			Log.loge(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
-			throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodObject", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			Log.loge(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 		}
 		
 		method.setAccessible(true);
@@ -136,7 +136,7 @@ public class ClassUtils {
 		Collection<Object> columnValues = new ArrayList<Object>();
 		while(methodNames.hasNext()) {
 			String methodName = methodNames.next();
-			Method method = (Method) createMethodObject(classObject.getClass().getName(), methodName);
+			Method method = (Method) createMethodBasedOnClassName(classObject.getClass().getName(), methodName);
 
 			try {
 				columnValues.add(method.invoke(classObject, new Object[] {}));	
@@ -158,7 +158,7 @@ public class ClassUtils {
 	 */
 	public static Object getValue(final Object classObject, final String methodName) throws SiminovException {
 		
-		Method method = (Method) createMethodObject(classObject.getClass().getName(), methodName);
+		Method method = (Method) createMethodBasedOnClassName(classObject.getClass().getName(), methodName);
 		try {
 			return method.invoke(classObject, new Object[] {});	
 		} catch(Exception exception) {
@@ -177,7 +177,7 @@ public class ClassUtils {
 	 */
 	public static Object invokeMethod(final Object classObject, final String methodName, final Class<?>[] parameterTypes,final Object[] parameters) throws SiminovException {
 
-		Method method = (Method) createMethodObject(classObject.getClass().getName(), methodName, parameterTypes);
+		Method method = (Method) createMethodBasedOnClassName(classObject.getClass().getName(), methodName, parameterTypes);
 		return invokeMethod(classObject, method, parameters);
 	}
 
