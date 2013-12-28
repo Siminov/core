@@ -92,6 +92,8 @@ public interface Constants {
 	 */
 	public String DATABASE_DESCRIPTOR = "database-descriptor";
 
+	public String DATABASE_DESCRIPTOR_FILE_NAME = "DescriptorDescriptor.si.xml";
+	
 	/**
 	 * DatabaseDescriptor.si.xml property TAG.
 	 */
@@ -1014,4 +1016,20 @@ public interface Constants {
 	 */
 	public String ANDROID_METADATA_TABLE_NAME = "android_metadata";
 
+	
+	/**
+	 * Inline Resource Constants
+	 */
+	public String RESOURCE_OPEN_CURLY_BRACKET = "{";
+	public String RESOURCE_CLOSE_CURLY_BRACKET = "}";
+	public String RESOURCE_SLASH = "-";
+	public String RESOURCE_COMMA = ",";
+	public String RESOURCE_SPACE = " ";
+	public String RESOURCE_INLINE_REFERENCE = "@inline";
+	public String RESOURCE_SELF_REFERENCE = "@self";
+	public String RESOURCE_REFER_REFERENCE = "@refer";
+	public String RESOURCE_DOT = ".";
+
+	public String NEW_LINE = "\n";
+	
 }
