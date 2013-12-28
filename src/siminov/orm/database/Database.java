@@ -29,18 +29,18 @@ import java.util.Set;
 
 import siminov.orm.Constants;
 import siminov.orm.Siminov;
+import siminov.orm.database.design.IAverage;
+import siminov.orm.database.design.ICount;
 import siminov.orm.database.design.IDataTypeHandler;
 import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IDelete;
+import siminov.orm.database.design.IGroupConcat;
+import siminov.orm.database.design.IMax;
+import siminov.orm.database.design.IMin;
 import siminov.orm.database.design.IQueryBuilder;
-import siminov.orm.database.impl.IAverage;
-import siminov.orm.database.impl.ICount;
-import siminov.orm.database.impl.IDelete;
-import siminov.orm.database.impl.IGroupConcat;
-import siminov.orm.database.impl.IMax;
-import siminov.orm.database.impl.IMin;
-import siminov.orm.database.impl.ISelect;
-import siminov.orm.database.impl.ISum;
-import siminov.orm.database.impl.ITotal;
+import siminov.orm.database.design.ISelect;
+import siminov.orm.database.design.ISum;
+import siminov.orm.database.design.ITotal;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
@@ -1876,46 +1876,38 @@ Example: Make Liquor Object
 
 				saveOrUpdate(value);
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
-				Object value = null;
+				Iterator<?> values = null;
 				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
+					values = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
 					Log.loge(Database.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(Database.class.getName(), "save", siminovException.getMessage());
 				} 
 
 				
-				if(value == null) {
+				if(values == null) {
 					continue;
 				}
 				
-				@SuppressWarnings("unchecked")
-				Collection<Object> values = (Collection<Object>) value;
-				Iterator<Object> valuesIterator = values.iterator();
-				
-				while(valuesIterator.hasNext()) {
-					saveOrUpdate(valuesIterator.next());
+				while(values.hasNext()) {
+					saveOrUpdate(values.next());
 				}
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
-				Object value = null;
+				Iterator<?> values = null;
 				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
+					values = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
 					Log.loge(Database.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(Database.class.getName(), "save", siminovException.getMessage());
 				} 
 
 				
-				if(value == null) {
+				if(values == null) {
 					continue;
 				}
 				
-				@SuppressWarnings("unchecked")
-				Collection<Object> values = (Collection<Object>) value;
-				Iterator<Object> valuesIterator = values.iterator();
-				
-				while(valuesIterator.hasNext()) {
-					saveOrUpdate(valuesIterator.next());
+				while(values.hasNext()) {
+					saveOrUpdate(values.next());
 				}
 			}
 		}
@@ -2075,46 +2067,38 @@ Example: Make Beer Object
 
 				saveOrUpdate(value);
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
-				Object value = null;
+				Iterator<?> relationshipValues = null;
 				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
+					relationshipValues = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
 					Log.loge(Database.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(Database.class.getName(), "update", siminovException.getMessage());
 				} 
 
 				
-				if(value == null) {
+				if(relationshipValues == null) {
 					continue;
 				}
 				
-				@SuppressWarnings("unchecked")
-				Collection<Object> returnedValue = (Collection<Object>) value;
-				Iterator<Object> valuesIterator = returnedValue.iterator();
-				
-				while(valuesIterator.hasNext()) {
-					saveOrUpdate(valuesIterator.next());
+				while(relationshipValues.hasNext()) {
+					saveOrUpdate(relationshipValues.next());
 				}
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
-				Object value = null;
+				Iterator<?> relationshipValues = null;
 				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
+					relationshipValues = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
 					Log.loge(Database.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(Database.class.getName(), "update", siminovException.getMessage());
 				} 
 
 				
-				if(value == null) {
+				if(relationshipValues == null) {
 					continue;
 				}
 
-				@SuppressWarnings("unchecked")
-				Collection<Object> returnedValue = (Collection<Object>) value;
-				Iterator<Object> valuesIterator = returnedValue.iterator();
-				
-				while(valuesIterator.hasNext()) {
-					saveOrUpdate(valuesIterator.next());
+				while(relationshipValues.hasNext()) {
+					saveOrUpdate(relationshipValues.next());
 				}
 			}
 		}
@@ -3660,7 +3644,7 @@ Example:
 				if(whereClause.length() <= 0) {
 					whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
 				} else {
-					whereClause.append(", " + foreignKey + "='" + columnValue.toString() + "'");  
+					whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
 				}
 			}
 
@@ -3724,7 +3708,7 @@ Example:
 				if(whereClause.length() <= 0) {
 					whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
 				} else {
-					whereClause.append(", " + foreignKey + "='" + columnValue.toString() + "'");  
+					whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
 				}
 			}
 
@@ -3746,7 +3730,7 @@ Example:
 			}
 			
 			try {
-				ClassUtils.invokeMethod(object, oneToManyRelationship.getSetterReferMethodName(), new Class[] {referedCollection.getClass()}, new Object[] {referedCollection});
+				ClassUtils.invokeMethod(object, oneToManyRelationship.getSetterReferMethodName(), new Class[] {Iterator.class}, new Object[] {referedCollection.iterator()});
 			} catch(SiminovException siminovException) {
 				Log.loge(Database.class.getName(), "processOneToManyRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(Database.class.getName(), "processOneToManyRelationship", siminovException.getMessage());

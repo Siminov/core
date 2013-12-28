@@ -19,15 +19,15 @@ package siminov.orm.database;
 
 import java.util.Arrays;
 
-import siminov.orm.database.impl.IAverage;
-import siminov.orm.database.impl.ICount;
-import siminov.orm.database.impl.IDelete;
-import siminov.orm.database.impl.IGroupConcat;
-import siminov.orm.database.impl.IMax;
-import siminov.orm.database.impl.IMin;
-import siminov.orm.database.impl.ISelect;
-import siminov.orm.database.impl.ISum;
-import siminov.orm.database.impl.ITotal;
+import siminov.orm.database.design.IAverage;
+import siminov.orm.database.design.ICount;
+import siminov.orm.database.design.IDelete;
+import siminov.orm.database.design.IGroupConcat;
+import siminov.orm.database.design.IMax;
+import siminov.orm.database.design.IMin;
+import siminov.orm.database.design.ISelect;
+import siminov.orm.database.design.ISum;
+import siminov.orm.database.design.ITotal;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseMappingDescriptor;
 

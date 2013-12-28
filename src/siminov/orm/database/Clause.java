@@ -17,15 +17,15 @@
 
 package siminov.orm.database;
 
-import siminov.orm.database.impl.IAverageClause;
-import siminov.orm.database.impl.ICountClause;
-import siminov.orm.database.impl.IDeleteClause;
-import siminov.orm.database.impl.ISelectClause;
-import siminov.orm.database.impl.IGroupConcatClause;
-import siminov.orm.database.impl.IMaxClause;
-import siminov.orm.database.impl.IMinClause;
-import siminov.orm.database.impl.ISumClause;
-import siminov.orm.database.impl.ITotalClause;
+import siminov.orm.database.design.IAverageClause;
+import siminov.orm.database.design.ICountClause;
+import siminov.orm.database.design.IDeleteClause;
+import siminov.orm.database.design.IGroupConcatClause;
+import siminov.orm.database.design.IMaxClause;
+import siminov.orm.database.design.IMinClause;
+import siminov.orm.database.design.ISelectClause;
+import siminov.orm.database.design.ISumClause;
+import siminov.orm.database.design.ITotalClause;
 
 public class Clause implements ISelectClause, IDeleteClause, ICountClause, ISumClause, ITotalClause, IAverageClause, IMaxClause, IMinClause, IGroupConcatClause {
 
