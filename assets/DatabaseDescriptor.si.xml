@@ -20,8 +20,6 @@
 
 <!-- Design Of DatabaseDescriptor.si.xml -->
 
-<?xml version="1.0" encoding="UTF-8"?>
-
 <database-descriptor>
 
     <!-- General Database Descriptor Properties -->

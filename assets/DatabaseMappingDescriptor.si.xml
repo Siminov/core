@@ -20,8 +20,6 @@
 
 <!-- Design Of DatabaseMappingDescriptor.si.xml -->
 
-<?xml version="1.0" encoding="UTF-8"?>
-
 <database-mapping>
 
     <!-- General Properties Of Table And Class -->
