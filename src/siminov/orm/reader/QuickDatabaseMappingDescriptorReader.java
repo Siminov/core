@@ -41,7 +41,7 @@ import android.content.Context;
  */
 public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler implements Constants {
 
-	private String tempValue = null;
+	private StringBuilder tempValue = new StringBuilder();
 	private String finalDatabaseMappingBasedOnClassName = null;
 	
 	private Context context = null;
@@ -70,7 +70,7 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 		}
 
 		try {
-			databaseMappingDescriptor = new AnnotationReader().parseClass(this.finalDatabaseMappingBasedOnClassName);
+			databaseMappingDescriptor = new AnnotationReader().parseClassBasedOnClassName(this.finalDatabaseMappingBasedOnClassName);
 		} catch(SiminovException siminovException) {
 			Log.logd(QuickDatabaseMappingDescriptorReader.class.getName(), "process", "SiminovException caught while getting Annoted Class, CLASS-NAME: " + this.finalDatabaseMappingBasedOnClassName + ", MESSAGE: " + siminovException.getMessage());
 		}
@@ -151,7 +151,7 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 	
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		
-		tempValue = "";
+		tempValue = new StringBuilder();
 
 		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_TABLE)) {
 			String className = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_CLASS_NAME);
@@ -167,13 +167,14 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 	}
 	
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		tempValue = new String(ch,start,length);
+		String value = new String(ch,start,length);
 		
-		if(tempValue == null || tempValue.length() <= 0) {
+		if(value == null || value.length() <= 0 || value.equalsIgnoreCase(NEW_LINE)) {
 			return;
 		}
 		
-		tempValue.trim();
+		value = value.trim();
+		tempValue.append(value);
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {

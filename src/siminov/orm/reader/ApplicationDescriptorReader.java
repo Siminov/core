@@ -73,7 +73,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 	
 	private Resources resources = Resources.getInstance();
 
-	private String tempValue = null;
+	private StringBuilder tempValue = new StringBuilder();
 	private String propertyName = null;
 	
 	public ApplicationDescriptorReader() {
@@ -108,7 +108,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-		tempValue = "";
+		tempValue = new StringBuilder();
 		
 		if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_SIMINOV)) {
 			applicationDescriptor = new ApplicationDescriptor();
@@ -118,27 +118,28 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 	}
 	
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		tempValue = new String(ch,start,length);
+		String value = new String(ch,start,length);
 		
-		if(tempValue == null || tempValue.length() <= 0) {
+		if(value == null || value.length() <= 0 || value.equalsIgnoreCase(NEW_LINE)) {
 			return;
 		}
 		
-		tempValue.trim();
+		value = value.trim();
+		tempValue.append(value);
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_PROPERTY)) {
-			applicationDescriptor.addProperty(propertyName, tempValue);
+			applicationDescriptor.addProperty(propertyName, tempValue.toString());
 		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_DATABASE_DESCRIPTOR)) {
-			applicationDescriptor.addDatabaseDescriptorPath(tempValue);
+			applicationDescriptor.addDatabaseDescriptorPath(tempValue.toString());
 		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_EVENT_HANDLER)) {
 			
 			if(tempValue == null || tempValue.length() <= 0) {
 				return;
 			}
 			
-			applicationDescriptor.addEvent(tempValue);
+			applicationDescriptor.addEvent(tempValue.toString());
 		}
 	}
 	

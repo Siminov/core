@@ -83,7 +83,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	
 	private Resources resources = Resources.getInstance();
 
-	private String tempValue = null;
+	private StringBuilder tempValue = new StringBuilder();
 	private String propertyName = null;
 
 	public DatabaseDescriptorReader(final String databaseDescriptorPath) {
@@ -105,13 +105,23 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		 * Parse ApplicationDescriptor.
 		 */
 		InputStream databaseDescriptorStream = null;
-		
+
 		try {
-			databaseDescriptorStream = context.getAssets().open(this.databaseDescriptorPath);
+
+			databaseDescriptorStream = getClass().getClassLoader().getResourceAsStream(this.databaseDescriptorPath);
+			if(databaseDescriptorStream == null) {
+				databaseDescriptorStream = context.getAssets().open(this.databaseDescriptorPath);
+			}
 		} catch(IOException ioException) {
 			Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database descriptor, DATABASE-DESCRIPTOR-PATH: " + databaseDescriptorPath + ", " + ioException.getMessage());
-			throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database descriptor, DATABASE-DESCRIPTOR-PATH: " + databaseDescriptorPath + ", " + ioException.getMessage());
+
+			try {
+			} catch(Exception exception) {
+				Log.loge(DatabaseDescriptorReader.class.getName(), "Constructor", "Exception caught while getting database descriptor file stream, " + exception.getMessage());
+				throw new DeploymentException(DatabaseDescriptorReader.class.getName(), "Constructor", exception.getMessage());
+			}
 		}
+
 		
 		try {
 			parseMessage(databaseDescriptorStream);
@@ -125,7 +135,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		
-		tempValue = "";
+		tempValue = new StringBuilder();
 		
 		if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR)) {
 			databaseDescriptor = new DatabaseDescriptor();
@@ -135,21 +145,22 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	}
 	
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		tempValue = new String(ch,start,length);
+		String value = new String(ch,start,length);
 		
-		if(tempValue == null || tempValue.length() <= 0) {
+		if(value == null || value.length() <= 0 || value.equalsIgnoreCase(NEW_LINE)) {
 			return;
 		}
 		
-		tempValue.trim();
+		value = value.trim();
+		tempValue.append(value);
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
 		if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
-			databaseDescriptor.addProperty(propertyName, tempValue);
+			databaseDescriptor.addProperty(propertyName, tempValue.toString());
 		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING)) {
-			databaseDescriptor.addDatabaseMappingPath(tempValue);
+			databaseDescriptor.addDatabaseMappingPath(tempValue.toString());
 		} 
 	}
 	

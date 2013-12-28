@@ -17,7 +17,6 @@
 
 package siminov.orm.reader;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -87,7 +86,7 @@ Example:
  */
 public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler implements Constants {
 
-	private String tempValue = null;
+	private StringBuilder tempValue = new StringBuilder();
 	private String propertyName = null;
 	
 	private String databaseMappingName = null;
@@ -125,7 +124,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		if(!databaseMappingName.endsWith(Constants.XML_FILE_EXTENSION)) {
 			
 			try {
-				this.databaseMapping = new AnnotationReader().parseClass(databaseMappingName);
+				this.databaseMapping = new AnnotationReader().parseClassBasedOnClassName(databaseMappingName);
 			} catch(SiminovException siminovException) {
 				Log.loge(DatabaseMappingDescriptorReader.class.getName(), "Constructor", "SiminovException caught while getting Annoted Class, CLASS-NAME: " + databaseMappingName + ", MESSAGE: " + siminovException.getMessage());
 				throw new DeploymentException(DatabaseMappingDescriptorReader.class.getName(), "Constructor", siminovException.getMessage());
@@ -158,7 +157,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		
-		tempValue = "";
+		tempValue = new StringBuilder();
 		
 		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING)) {
 			databaseMapping = new DatabaseMappingDescriptor();
@@ -198,13 +197,14 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 	}
 	
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		tempValue = new String(ch,start,length);
+		String value = new String(ch,start,length);
 		
-		if(tempValue == null || tempValue.length() <= 0) {
+		if(value == null || value.length() <= 0 || value.equalsIgnoreCase(NEW_LINE)) {
 			return;
 		}
 		
-		tempValue.trim();
+		value = value.trim();
+		tempValue.append(value);
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -212,7 +212,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 			processProperty();
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_COLUMN)) {
 			if(currentIndex != null) {
-				currentIndex.addColumn(tempValue);
+				currentIndex.addColumn(tempValue.toString());
 				return;
 			}
 			
@@ -315,9 +315,9 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 	private void processProperty() {
 		
 		if(isRelationship) {
-			currectRelationship.addProperty(propertyName, tempValue);
+			currectRelationship.addProperty(propertyName, tempValue.toString());
 		} else if(isColumn) {
-			currentColumn.addProperty(propertyName, tempValue);
+			currentColumn.addProperty(propertyName, tempValue.toString());
 		}
 	}
 	
