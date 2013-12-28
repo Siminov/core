@@ -23,11 +23,6 @@ import java.util.Random;
 
 import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
-import siminov.orm.resource.Resources;
-
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 
 
@@ -123,21 +118,5 @@ public class Utils {
 	 */
 	public static boolean isEmulator() {
 		return Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic");
-	}
-	
-	/**
-	 * Check whether device have network coverage or not.
-	 * @return TRUE: If network coverage if there, FALSE: If network coverage is not there.
-	 */
-	public static boolean hasCoverage() {
-		Context context = Resources.getInstance().getApplicationContext();
-		
-		final ConnectivityManager conMgr =  (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
-		if (activeNetwork != null && activeNetwork.isConnected()) {
-		    return true;
-		} else {
-		    return false;
-		}
 	}
 }
