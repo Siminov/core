@@ -58,7 +58,7 @@ Example:
 	</p>
  *
  */
-public class LibraryDescriptor {
+public class LibraryDescriptor implements IDescriptor {
 
 	private Map<String, String> properties = new HashMap<String, String> ();
 	

@@ -61,7 +61,7 @@ Example:
 	</p>
  *
  */
-public class ApplicationDescriptor {
+public class ApplicationDescriptor implements IDescriptor {
 
 	private Map<String, String> properties = new HashMap<String, String> ();
 	
@@ -193,8 +193,7 @@ public class ApplicationDescriptor {
 	public void removeProperty(String name) {
 		this.properties.remove(name);
 	}
-	
-	
+
 	/**
 	 * Check whether database needed by application or not.
 	 * @return TRUE: If database needed by application, FALSE: If database is not needed by application.

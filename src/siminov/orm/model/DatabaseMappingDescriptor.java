@@ -26,6 +26,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import siminov.orm.Constants;
+import siminov.orm.utils.EmptyIterator;
 
 
 /**
@@ -78,7 +79,7 @@ Example:
 	</p>
  *
  */
-public class DatabaseMappingDescriptor {
+public class DatabaseMappingDescriptor implements IDescriptor {
 
 	private String tableName = null;
 	private String className = null;
@@ -255,7 +256,7 @@ public class DatabaseMappingDescriptor {
 	 * Remove index object.
 	 * @param indexName Name of index.
 	 */
-	public void removeIndex(final String indexName) {
+	public void removeIndexBasedOnName(final String indexName) {
 		removeIndex(getIndex(indexName));
 	}
 	
@@ -386,6 +387,50 @@ public class DatabaseMappingDescriptor {
 		this.relationshipsBasedOnRefer.put(relationship.getRefer(), relationship);
 		this.relationshipsBasedOnReferTo.put(relationship.getRefer(), relationship);
 	}
+
+	
+	/**
+	 * Get all Properties defined in descriptor.
+	 * @return All Property Values.
+	 */
+	public Iterator<String> getProperties() {
+		return new EmptyIterator<String>();
+	}
+	
+	/**
+	 * Get Property based on name provided.
+	 * @param name Name of Property.
+	 * @return Property value.
+	 */
+	public String getProperty(String name) {
+		return null;
+	}
+
+	/**
+	 * Check whether Property exist or not.
+	 * @param name Name of Property.
+	 * @return true/false, TRUE if property exist, FALSE if property does not exist.
+	 */
+	public boolean containProperty(String name) {
+		return false;
+	}
+	
+	/**
+	 * Add Property in property pool.
+	 * @param name Name of Property.
+	 * @param value value of Property.
+	 */
+	public void addProperty(String name, String value) {
+		
+	}
+	
+	/**
+	 * Remove Property from property pool.
+	 * @param name Name of Property.
+	 */
+	public void removeProperty(String name) {
+		
+	}
 	
 	/**
 	 * Exposes methods to GET and SET Column information as per define in DatabaseMappingDescriptor.si.xml file by application.
@@ -413,7 +458,7 @@ Example:
 	</p>
 	 *
 	 */
-	public static class Column {
+	public static class Column implements IDescriptor {
 		private String variableName = null;
 		private String columnName = null;
 
@@ -646,7 +691,6 @@ Example:
 		public void removeProperty(String name) {
 			this.properties.remove(name);
 		}
-		
 	}
 
 	
@@ -666,7 +710,7 @@ Example:
 	</p>
 	 *
 	 */
-	public static class Index {
+	public static class Index implements IDescriptor {
 		private String name = null;
 		private Collection<String> columns = new LinkedList<String> ();
 
@@ -737,12 +781,50 @@ Example:
 			this.columns.remove(column);
 		}
 		
+		public Iterator<String> getProperties() {
+			return new EmptyIterator<String>();
+		}
+
+		/**
+		 * Get Property based on name provided.
+		 * @param name Name of Property.
+		 * @return Property value.
+		 */
+		public String getProperty(String name) {
+			return null;
+		}
+
+		/**
+		 * Check whether Property exist or not.
+		 * @param name Name of Property.
+		 * @return true/false, TRUE if property exist, FALSE if property does not exist.
+		 */
+		public boolean containProperty(String name) {
+			return false;
+		}
+		
+		/**
+		 * Add Property in property pool.
+		 * @param name Name of Property.
+		 * @param value value of Property.
+		 */
+		public void addProperty(String name, String value) {
+			
+		}
+		
+		/**
+		 * Remove Property from property pool.
+		 * @param name Name of Property.
+		 */
+		public void removeProperty(String name) {
+			
+		}
 	}
 
 	/**
 	 * Contains relationship details.
 	 */
-	public static class Relationship {
+	public static class Relationship implements IDescriptor {
 		
 		private String relationshipType = null;
 		
@@ -936,7 +1018,7 @@ Example:
 		public void removeProperty(String name) {
 			this.properties.remove(name);
 		}
-
+		
 		
 		/**
 		 * Get database mapping descriptor object.

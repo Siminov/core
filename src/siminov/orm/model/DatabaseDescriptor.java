@@ -75,7 +75,7 @@ Example:
 		</pre>
 	</p>
 */
-public class DatabaseDescriptor {
+public class DatabaseDescriptor implements IDescriptor {
 	
 	private Map<String, String> properties = new HashMap<String, String> ();
 	
@@ -132,7 +132,7 @@ public class DatabaseDescriptor {
 	 * @return Description defined in DatabaseDescriptor.si.xml file.
 	 */
 	public String getDescription() {
-		return this.properties.get(Constants.DATABASE_DESCRIPTOR_TYPE);
+		return this.properties.get(Constants.DATABASE_DESCRIPTOR_DESCRIPTION);
 	}
 	
 	/**
@@ -234,7 +234,7 @@ public class DatabaseDescriptor {
 	public void removeProperty(String name) {
 		this.properties.remove(name);
 	}
-
+	
 	
 	/**
 	 * Check whether database mapping object exists or not, based on table name.
