@@ -61,9 +61,7 @@ import siminov.orm.utils.LibraryHelper;
 public class Siminov {
 
 	protected static boolean isActive = false;
-	
 	protected static boolean firstTimeProcessed = false;
-	protected static boolean processedDatabaseMappingDescriptors = false;
 
 	protected static Resources ormResources = Resources.getInstance();
 	
@@ -214,7 +212,6 @@ public class Siminov {
 		processDatabaseMappingDescriptors();
 
 		processDatabase();
-		
 	}
 	
 	/**
@@ -239,6 +236,7 @@ public class Siminov {
 	protected static void processDatabaseDescriptors() {
 		Iterator<String> databaseDescriptorPaths = ormResources.getApplicationDescriptor().getDatabaseDescriptorPaths();
 		while(databaseDescriptorPaths.hasNext()) {
+
 			String databaseDescriptorPath = databaseDescriptorPaths.next();
 			
 			DatabaseDescriptorReader databaseDescriptorParser = new DatabaseDescriptorReader(databaseDescriptorPath);
@@ -250,9 +248,7 @@ public class Siminov {
 			}
 
 			ormResources.getApplicationDescriptor().addDatabaseDescriptor(databaseDescriptorPath, databaseDescriptor);
-			
 		}
-		
 	}
 	
 	
@@ -296,7 +292,7 @@ public class Siminov {
 					
 					DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
 					if(databaseDescriptor.getDatabaseName().equalsIgnoreCase(databaseDescriptorName)) {
-						databaseDescriptor.addDatabaseMappingPath(library + File.separator + databaseMappingDescriptor);
+						databaseDescriptor.addDatabaseMappingDescriptorPath(library + File.separator + databaseMappingDescriptor);
 					}
 				}
 			}
@@ -309,8 +305,9 @@ public class Siminov {
 	 * It process all DatabaseMappingDescriptor.si.xml file defined in Application, and stores in Resources.
 	 */
 	protected static void processDatabaseMappingDescriptors() {
+		doesDatabaseExists();
+
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
-		
 		if(firstTimeProcessed) {
 		} else if(!applicationDescriptor.isLoadInitially()) {
 			return;
@@ -320,18 +317,15 @@ public class Siminov {
 		while(databaseDescriptors.hasNext()) {
 			
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
+			Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingDescriptorPaths();
 
 			while(databaseMappingPaths.hasNext()) {
 				String databaseMappingPath = databaseMappingPaths.next();
 				DatabaseMappingDescriptorReader databaseMappingParser = new DatabaseMappingDescriptorReader(databaseMappingPath);
 				
-				databaseDescriptor.addDatabaseMapping(databaseMappingPath, databaseMappingParser.getDatabaseMapping());
+				databaseDescriptor.addDatabaseMappingDescriptor(databaseMappingPath, databaseMappingParser.getDatabaseMappingDescriptor());
 			}
 		}
-		
-		processedDatabaseMappingDescriptors = true;
-		
 	}
 
 
@@ -425,12 +419,6 @@ public class Siminov {
 				}
 			} else {
 				
-				firstTimeProcessed = true;
-				
-				if(!processedDatabaseMappingDescriptors) {
-					processDatabaseMappingDescriptors();
-				}
-				
 				/*
 				 * Create Database Directory
 				 */
@@ -511,7 +499,7 @@ public class Siminov {
 				 * Create Tables
 				 */
 				try {
-					Database.createTables(databaseDescriptor.orderedDatabaseMappings());			
+					Database.createTables(databaseDescriptor.orderedDatabaseMappingDescriptors());			
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
@@ -522,6 +510,36 @@ public class Siminov {
 			}
 			
 		}
-		
 	}
+	
+	protected static void doesDatabaseExists() {
+		
+		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
+		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
+		
+		boolean databaseExists = true;
+		while(databaseDescriptors.hasNext()) {
+			
+			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
+			String databasePath = new DatabaseUtils().getDatabasePath(databaseDescriptor);
+
+			String databaseName = databaseDescriptor.getDatabaseName();
+			if(!databaseName.endsWith(".db")) {
+				databaseName = databaseName + ".db";
+			}
+
+			
+			File file = new File(databasePath + databaseName);
+			if(!file.exists()) {
+				databaseExists = false;
+			}
+		}
+		
+		if(!databaseExists) {
+			firstTimeProcessed = true;
+		} else {
+			firstTimeProcessed = false;
+		}
+	}
+	
 }
