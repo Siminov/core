@@ -79,11 +79,11 @@ public class DatabaseDescriptor implements IDescriptor {
 	
 	private Map<String, String> properties = new HashMap<String, String> ();
 	
-	private Collection<String> databaseMappingPaths = new ConcurrentLinkedQueue<String> ();
+	private Collection<String> databaseMappingDescriptorPaths = new ConcurrentLinkedQueue<String> ();
 
-	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	private Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	private Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	private Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
 	
 	/**
 	 * Get database descriptor name as defined in DatabaseDescriptor.si.xml file.
@@ -241,8 +241,8 @@ public class DatabaseDescriptor implements IDescriptor {
 	 * @param tableName Name of table.
 	 * @return TRUE: If database mapping exists, FALSE: If database mapping does not exists.
 	 */
-	public boolean containsDatabaseMappingBasedOnTableName(final String tableName) {
-		return this.databaseMappingsBasedOnTableName.containsKey(tableName);
+	public boolean containsDatabaseMappingDescriptorBasedOnTableName(final String tableName) {
+		return this.databaseMappingDescriptorsBasedOnTableName.containsKey(tableName);
 	}
 	
 	/**
@@ -250,16 +250,16 @@ public class DatabaseDescriptor implements IDescriptor {
 	 * @param className POJO class name.
 	 * @return TRUE: If database mapping exists, FALSE: If database mapping does not exists.
 	 */
-	public boolean containsDatabaseMappingBasedOnClassName(final String className) {
-		return this.databaseMappingsBasedOnClassName.containsKey(className);
+	public boolean containsDatabaseMappingDescriptorBasedOnClassName(final String className) {
+		return this.databaseMappingDescriptorsBasedOnClassName.containsKey(className);
 	}
 	
 	/**
 	 * Get all database mapping paths as per defined in DatabaseDescriptor.si.xml file.
 	 * @return Iterator which contain all database mapping paths.
 	 */
-	public Iterator<String> getDatabaseMappingPaths() {
-		return this.databaseMappingPaths.iterator();
+	public Iterator<String> getDatabaseMappingDescriptorPaths() {
+		return this.databaseMappingDescriptorPaths.iterator();
 	}
 
 	/**
@@ -280,18 +280,18 @@ EXAMPLE:
 		</pre>
 	</p>
 	 
-	 * @param databaseMappingPath Database Mapping Path.
+	 * @param databaseMappingDescriptorPath Database Mapping Path.
 	 */
-	public void addDatabaseMappingPath(final String databaseMappingPath) {
-		this.databaseMappingPaths.add(databaseMappingPath);
+	public void addDatabaseMappingDescriptorPath(final String databaseMappingDescriptorPath) {
+		this.databaseMappingDescriptorPaths.add(databaseMappingDescriptorPath);
 	}
 
 	/**
 	 * Get all database mapping objects contained.
 	 * @return All database mapping objects.
 	 */
-	public Iterator<DatabaseMappingDescriptor> getDatabaseMappings() {
-		return this.databaseMappingsBasedOnClassName.values().iterator();
+	public Iterator<DatabaseMappingDescriptor> getDatabaseMappingDescriptors() {
+		return this.databaseMappingDescriptorsBasedOnClassName.values().iterator();
 	}
 
 	/**
@@ -299,8 +299,8 @@ EXAMPLE:
 	 * @param tableName Name of table.
 	 * @return DatabaseMapping object based on table name.
 	 */
-	public DatabaseMappingDescriptor getDatabseMappingBasedOnTableName(final String tableName) {
-		return this.databaseMappingsBasedOnTableName.get(tableName);
+	public DatabaseMappingDescriptor getDatabseMappingDescriptorBasedOnTableName(final String tableName) {
+		return this.databaseMappingDescriptorsBasedOnTableName.get(tableName);
 	}
 
 	/**
@@ -308,57 +308,57 @@ EXAMPLE:
 	 * @param className POJO class name.
 	 * @return Database Mapping object.
 	 */
-	public DatabaseMappingDescriptor getDatabseMappingBasedOnClassName(final String className) {
-		return this.databaseMappingsBasedOnClassName.get(className);
+	public DatabaseMappingDescriptor getDatabseMappingDescriptorBasedOnClassName(final String className) {
+		return this.databaseMappingDescriptorsBasedOnClassName.get(className);
 	}
 	
 	/**
 	 * Get database mapping object based on path.
-	 * @param databaseMappingPath Database Mapping path as per defined in Database Descriptor.xml file.
+	 * @param databaseMappingDescriptorPath Database Mapping path as per defined in Database Descriptor.xml file.
 	 * @return Database Mapping object.
 	 */
-	public DatabaseMappingDescriptor getDatabseMappingBasedOnPath(final String databaseMappingPath) {
-		return this.databaseMappingsBasedOnPath.get(databaseMappingPath);
+	public DatabaseMappingDescriptor getDatabseMappingDescriptorBasedOnPath(final String databaseMappingDescriptorPath) {
+		return this.databaseMappingDescriptorsBasedOnPath.get(databaseMappingDescriptorPath);
 	}
 	
 	/**
 	 * Add database mapping object in respect to database mapping path.
-	 * @param databaseMappingPath Database Mapping Path.
+	 * @param databaseMappingDescriptorPath Database Mapping Path.
 	 * @param databaseMappingDescriptor Database Mapping object.
 	 */
-	public void addDatabaseMapping(final String databaseMappingPath, final DatabaseMappingDescriptor databaseMappingDescriptor) {
-		this.databaseMappingsBasedOnPath.put(databaseMappingPath, databaseMappingDescriptor);
-		this.databaseMappingsBasedOnTableName.put(databaseMappingDescriptor.getTableName(), databaseMappingDescriptor);
-		this.databaseMappingsBasedOnClassName.put(databaseMappingDescriptor.getClassName(), databaseMappingDescriptor);
+	public void addDatabaseMappingDescriptor(final String databaseMappingDescriptorPath, final DatabaseMappingDescriptor databaseMappingDescriptor) {
+		this.databaseMappingDescriptorsBasedOnPath.put(databaseMappingDescriptorPath, databaseMappingDescriptor);
+		this.databaseMappingDescriptorsBasedOnTableName.put(databaseMappingDescriptor.getTableName(), databaseMappingDescriptor);
+		this.databaseMappingDescriptorsBasedOnClassName.put(databaseMappingDescriptor.getClassName(), databaseMappingDescriptor);
 	}
 
 	/**
 	 * Remove database mapping object based on database mapping path.
-	 * @param databaseMappingPath Database Mapping Path.
+	 * @param databaseMappingDescriptorPath Database Mapping Path.
 	 */
-	public void removeDatabaseMappingBasedOnPath(final String databaseMappingPath) {
-		this.databaseMappingPaths.remove(databaseMappingPath);
+	public void removeDatabaseMappingDescriptorBasedOnPath(final String databaseMappingDescriptorPath) {
+		this.databaseMappingDescriptorPaths.remove(databaseMappingDescriptorPath);
 		
-		DatabaseMappingDescriptor databaseMapping = this.databaseMappingsBasedOnPath.get(databaseMappingPath);
-		this.databaseMappingsBasedOnPath.remove(databaseMappingPath);
+		DatabaseMappingDescriptor databaseMappingDescriptor = this.databaseMappingDescriptorsBasedOnPath.get(databaseMappingDescriptorPath);
+		this.databaseMappingDescriptorsBasedOnPath.remove(databaseMappingDescriptorPath);
 		
-		this.databaseMappingsBasedOnClassName.values().remove(databaseMapping);
-		this.databaseMappingsBasedOnTableName.values().remove(databaseMapping);
+		this.databaseMappingDescriptorsBasedOnClassName.values().remove(databaseMappingDescriptor);
+		this.databaseMappingDescriptorsBasedOnTableName.values().remove(databaseMappingDescriptor);
 	}
 	
 	/**
 	 * Remove database mapping object based on POJO class name.
 	 * @param className POJO class name.
 	 */
-	public void removeDatabaseMappingBasedOnClassName(final String className) {
-		DatabaseMappingDescriptor databaseMapping = this.databaseMappingsBasedOnClassName.get(className);
-		Collection<String> keys = this.databaseMappingsBasedOnPath.keySet();
+	public void removeDatabaseMappingDescriptorBasedOnClassName(final String className) {
+		DatabaseMappingDescriptor databaseMappingDescriptor = this.databaseMappingDescriptorsBasedOnClassName.get(className);
+		Collection<String> keys = this.databaseMappingDescriptorsBasedOnPath.keySet();
 		
 		String keyMatched = null;
 		boolean found = false;
 		for(String key : keys) {
-			DatabaseMappingDescriptor mapping = this.databaseMappingsBasedOnPath.get(key);
-			if(databaseMapping == mapping) {
+			DatabaseMappingDescriptor mapping = this.databaseMappingDescriptorsBasedOnPath.get(key);
+			if(databaseMappingDescriptor == mapping) {
 				keyMatched = key;
 				found = true;
 				break;
@@ -366,7 +366,7 @@ EXAMPLE:
 		}
 		
 		if(found) {
-			removeDatabaseMappingBasedOnPath(keyMatched);
+			removeDatabaseMappingDescriptorBasedOnPath(keyMatched);
 		}
 	}
 	
@@ -374,31 +374,31 @@ EXAMPLE:
 	 * Remove database mapping object based on table name.
 	 * @param tableName Name of table.
 	 */
-	public void removeDatabaseMappingBasedOnTableName(final String tableName) {
-		DatabaseMappingDescriptor databaseMapping = this.databaseMappingsBasedOnTableName.get(tableName);
-		removeDatabaseMappingBasedOnClassName(databaseMapping.getClassName());
+	public void removeDatabaseMappingDescriptorBasedOnTableName(final String tableName) {
+		DatabaseMappingDescriptor databaseMappingDescriptor = this.databaseMappingDescriptorsBasedOnTableName.get(tableName);
+		removeDatabaseMappingDescriptorBasedOnClassName(databaseMappingDescriptor.getClassName());
 	}
 	
 	/**
 	 * Remove database mapping object based on database mapping object.
-	 * @param databaseMapping Database Mapping object which needs to be removed.
+	 * @param databaseMappingDescriptor Database Mapping object which needs to be removed.
 	 */
-	public void removeDatabaseMapping(final DatabaseMappingDescriptor databaseMapping) {
-		removeDatabaseMappingBasedOnClassName(databaseMapping.getClassName());
+	public void removeDatabaseMappingDescriptor(final DatabaseMappingDescriptor databaseMappingDescriptor) {
+		removeDatabaseMappingDescriptorBasedOnClassName(databaseMappingDescriptor.getClassName());
 	}
 	
 	/**
 	 * Get all database mapping objects in sorted order. The order will be as per defined in DatabaseDescriptor.si.xml file.
 	 * @return Iterator which contains all database mapping objects.
 	 */
-	public Iterator<DatabaseMappingDescriptor> orderedDatabaseMappings() {
-		Collection<DatabaseMappingDescriptor> orderedDatabaseMappings = new LinkedList<DatabaseMappingDescriptor> ();
+	public Iterator<DatabaseMappingDescriptor> orderedDatabaseMappingDescriptors() {
+		Collection<DatabaseMappingDescriptor> orderedDatabaseMappingDescriptors = new LinkedList<DatabaseMappingDescriptor> ();
 		
-		for(String databaseMappingPath : this.databaseMappingPaths) {
-			orderedDatabaseMappings.add(getDatabseMappingBasedOnPath(databaseMappingPath));
+		for(String databaseMappingDescriptorPath : this.databaseMappingDescriptorPaths) {
+			orderedDatabaseMappingDescriptors.add(getDatabseMappingDescriptorBasedOnPath(databaseMappingDescriptorPath));
 		}
  		
-		return orderedDatabaseMappings.iterator();
+		return orderedDatabaseMappingDescriptors.iterator();
 	}
 	
 }
