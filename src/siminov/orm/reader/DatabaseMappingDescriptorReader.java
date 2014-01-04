@@ -93,7 +93,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 
 	private Resources resources = Resources.getInstance();
 
-	private DatabaseMappingDescriptor databaseMapping = null;
+	private DatabaseMappingDescriptor databaseMappingDescriptor = null;
 
 	private DatabaseMappingDescriptor.Column currentColumn = null;
 	private DatabaseMappingDescriptor.Index currentIndex = null;
@@ -124,7 +124,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		if(!databaseMappingName.endsWith(Constants.XML_FILE_EXTENSION)) {
 			
 			try {
-				this.databaseMapping = new AnnotationReader().parseClassBasedOnClassName(databaseMappingName);
+				this.databaseMappingDescriptor = new AnnotationReader().parseClassBasedOnClassName(databaseMappingName);
 			} catch(SiminovException siminovException) {
 				Log.loge(DatabaseMappingDescriptorReader.class.getName(), "Constructor", "SiminovException caught while getting Annoted Class, CLASS-NAME: " + databaseMappingName + ", MESSAGE: " + siminovException.getMessage());
 				throw new DeploymentException(DatabaseMappingDescriptorReader.class.getName(), "Constructor", siminovException.getMessage());
@@ -160,7 +160,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		tempValue = new StringBuilder();
 		
 		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING)) {
-			databaseMapping = new DatabaseMappingDescriptor();
+			databaseMappingDescriptor = new DatabaseMappingDescriptor();
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_TABLE)) {
 			initializeTable(attributes);
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_COLUMN)) {
@@ -216,10 +216,10 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 				return;
 			}
 			
-			databaseMapping.addColumn(currentColumn);
+			databaseMappingDescriptor.addColumn(currentColumn);
 			isColumn = false;
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_INDEX)) {
-			databaseMapping.addIndex(currentIndex);
+			databaseMappingDescriptor.addIndex(currentIndex);
 			isIndex = false;
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
 			processRelationship();
@@ -235,16 +235,16 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 
 	}
 	
-	public DatabaseMappingDescriptor getDatabaseMapping() {
-		return this.databaseMapping;
+	public DatabaseMappingDescriptor getDatabaseMappingDescriptor() {
+		return this.databaseMappingDescriptor;
 	}
 	
 	private void initializeTable(Attributes attributes) {
 		String tableName = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_TABLE_NAME);
 		String className = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_CLASS_NAME);
 		
-		databaseMapping.setTableName(tableName);
-		databaseMapping.setClassName(className);
+		databaseMappingDescriptor.setTableName(tableName);
+		databaseMappingDescriptor.setClassName(className);
 	}
 	
 	private void initializeColumn(final Attributes attributes) {
@@ -322,14 +322,14 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 	}
 	
 	private void processRelationship() {
-		databaseMapping.addRelationship(currectRelationship);
+		databaseMappingDescriptor.addRelationship(currectRelationship);
 	}
 	
 	private void doValidation() {
 		/*
 		 * Validate Table Name field.
 		 */
-		String tableName = databaseMapping.getTableName();
+		String tableName = databaseMappingDescriptor.getTableName();
 		if(tableName == null || tableName.length() <= 0) {
 			Log.loge(getClass().getName(), "doValidation", "TABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "doValidation", "TABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
@@ -338,13 +338,13 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		/*
 		 * Validate Class Name field.
 		 */
-		String className = databaseMapping.getClassName();
+		String className = databaseMappingDescriptor.getClassName();
 		if(className == null || className.length() <= 0) {
 			Log.loge(getClass().getName(), "doValidation", "CLASS-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "doValidation", "CLASS-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
 		}
 		
-		Iterator<Column> columns = databaseMapping.getColumns();
+		Iterator<Column> columns = databaseMappingDescriptor.getColumns();
 		while(columns.hasNext()) {
 			Column column = columns.next();
 
