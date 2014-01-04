@@ -30,42 +30,43 @@ public interface IGroupConcatClause {
 	 * @param value Value for which EQUAL TO (=) condition will be applied.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat equalTo(String value);
-
+	public IGroupConcat equalTo(Object value);
+	
+	
 	/**
 	 * Used to specify NOT EQUAL TO (!=) condition.
 	 * @param value Value for which NOT EQUAL TO (=) condition will be applied.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat notEqualTo(String value);
+	public IGroupConcat notEqualTo(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN (>) condition.
 	 * @param value Value for while GREATER THAN (>) condition will be specified.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat greaterThan(String value);
+	public IGroupConcat greaterThan(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN EQUAL (>=) condition.
 	 * @param value Value for which GREATER THAN EQUAL (>=) condition will be specified.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat greaterThanEqual(String value);
+	public IGroupConcat greaterThanEqual(Object value);
 	
 	/**
 	 * Used to specify LESS THAN (<) condition.
 	 * @param value Value for which LESS THAN (<) condition will be specified.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat lessThan(String value);
+	public IGroupConcat lessThan(Object value);
 	
 	/**
 	 * Used to specify LESS THAN EQUAL (<=) condition.
 	 * @param value Value for which LESS THAN EQUAL (<=) condition will be specified.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat lessThanEqual(String value);
+	public IGroupConcat lessThanEqual(Object value);
 	
 	/**
 	 * Used to specify BETWEEN condition.
@@ -73,20 +74,20 @@ public interface IGroupConcatClause {
 	 * @param end End Range.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat between(String start, String end);
+	public IGroupConcat between(Object start, Object end);
 	
 	/**
 	 * Used to specify LIKE condition.
 	 * @param like LIKE condition.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat like(String like);
+	public IGroupConcat like(Object like);
 	
 	/**
 	 * Used to specify IN condition.
 	 * @param values Values for IN condition.
 	 * @return IGroupConcat Interface.
 	 */
-	public IGroupConcat in(String...values);
+	public IGroupConcat in(Object...values);
 
 }
