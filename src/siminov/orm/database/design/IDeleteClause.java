@@ -30,42 +30,43 @@ public interface IDeleteClause {
 	 * @param value Value for which EQUAL TO (=) condition will be applied.
 	 * @return IDelete Interface.
 	 */
-	public IDelete equalTo(String value);
+	public IDelete equalTo(Object value);
 
+	
 	/**
 	 * Used to specify NOT EQUAL TO (!=) condition.
 	 * @param value Value for which NOT EQUAL TO (=) condition will be applied.
 	 * @return IDelete Interface.
 	 */
-	public IDelete notEqualTo(String value);
+	public IDelete notEqualTo(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN (>) condition.
 	 * @param value Value for while GREATER THAN (>) condition will be specified.
 	 * @return IDelete Interface.
 	 */
-	public IDelete greaterThan(String value);
+	public IDelete greaterThan(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN EQUAL (>=) condition.
 	 * @param value Value for which GREATER THAN EQUAL (>=) condition will be specified.
 	 * @return IDelete Interface.
 	 */
-	public IDelete greaterThanEqual(String value);
+	public IDelete greaterThanEqual(Object value);
 	
 	/**
 	 * Used to specify LESS THAN (<) condition.
 	 * @param value Value for which LESS THAN (<) condition will be specified.
 	 * @return IDelete Interface.
 	 */
-	public IDelete lessThan(String value);
+	public IDelete lessThan(Object value);
 	
 	/**
 	 * Used to specify LESS THAN EQUAL (<=) condition.
 	 * @param value Value for which LESS THAN EQUAL (<=) condition will be specified.
 	 * @return IDelete Interface.
 	 */
-	public IDelete lessThanEqual(String value);
+	public IDelete lessThanEqual(Object value);
 	
 	/**
 	 * Used to specify BETWEEN condition.
@@ -73,20 +74,20 @@ public interface IDeleteClause {
 	 * @param end End Range.
 	 * @return IDelete Interface.
 	 */
-	public IDelete between(String start, String end);
+	public IDelete between(Object start, Object end);
 	
 	/**
 	 * Used to specify LIKE condition.
 	 * @param like LIKE condition.
 	 * @return IDelete Interface.
 	 */
-	public IDelete like(String like);
+	public IDelete like(Object like);
 	
 	/**
 	 * Used to specify IN condition.
 	 * @param values Values for IN condition.
 	 * @return IDelete Interface.
 	 */
-	public IDelete in(String...values);
+	public IDelete in(Object...values);
 
 }
