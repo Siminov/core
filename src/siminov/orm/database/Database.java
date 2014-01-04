@@ -129,7 +129,7 @@ public abstract class Database implements Constants {
 		
 		Collection<String> tableNames = new ArrayList<String>();
 
-		Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappings();
+		Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappingDescriptors();
 
 		/*
 		 * Get Table Names
