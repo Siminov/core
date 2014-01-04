@@ -22,9 +22,6 @@ package siminov.orm.database.design;
  */
 public interface IGroupConcatClause {
 
-	public String INTERFACE_NAME = IGroupConcatClause.class.getName();
-
-	
 	/**
 	 * Used to specify EQUAL TO (=) condition.
 	 * @param value Value for which EQUAL TO (=) condition will be applied.

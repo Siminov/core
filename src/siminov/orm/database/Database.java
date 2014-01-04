@@ -1489,7 +1489,7 @@ Example:
 	 * @throws DatabaseException if any error occur while fetching tuples from table.
 	 */
 	public ISelect select() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), ISelect.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), ISelect.class.getName());
 	}
 	
 	static Object[] select(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
@@ -2337,7 +2337,7 @@ Example:
 	   	@throws DatabaseException If any error occurs while saving tuples in database.
 	 */
 	public IDelete delete() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), IDelete.INTERFACE_NAME, this);
+		return new Select(getDatabaseMappingDescriptor(), IDelete.class.getName(), this);
 	}
 
 
@@ -2368,7 +2368,7 @@ Example:
  	@throws DatabaseException If any error occur while find count.
  */
 	public ICount count() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), ICount.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), ICount.class.getName());
 	}
 	
 	static final int count(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2449,7 +2449,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding average.
 	 */
 	public IAverage avg() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), IAverage.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), IAverage.class.getName());
 	}
 
 	
@@ -2531,7 +2531,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding sum.
 	 */
 	public ISum sum() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), ISum.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), ISum.class.getName());
 	}
 
 	static final int sum(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2611,7 +2611,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding total.
 	 */
 	public ITotal total() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), ITotal.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), ITotal.class.getName());
 	}
 
 	
@@ -2693,7 +2693,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding minimum.
 	 */
 	public IMin min() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), IMin.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), IMin.class.getName());
 	}
 	
 	static final int min(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2774,7 +2774,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding minimum.
 	 */
 	public IMax max() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), IMax.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), IMax.class.getName());
 	}
 	
 	static final int max(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
@@ -2854,7 +2854,7 @@ Example:
 	 	@throws DatabaseException If any error occur while finding group concat.
 	 */
 	public IGroupConcat groupConcat() throws DatabaseException {
-		return new Select(getDatabaseMappingDescriptor(), IGroupConcat.INTERFACE_NAME);
+		return new Select(getDatabaseMappingDescriptor(), IGroupConcat.class.getName());
 	}
 
 	static final String groupConcat(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having) throws DatabaseException {

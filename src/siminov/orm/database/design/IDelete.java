@@ -24,9 +24,6 @@ import siminov.orm.exception.DatabaseException;
  */
 public interface IDelete {
 
-	public String INTERFACE_NAME = IDelete.class.getName();
-
-	
 	/**
 	 * Column name of which condition will be specified.
 	 * @param column Name of column.

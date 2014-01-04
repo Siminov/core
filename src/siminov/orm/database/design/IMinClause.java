@@ -21,9 +21,6 @@ package siminov.orm.database.design;
  * Exposes API's to provide condition on where clause to calculate minimum.
  */
 public interface IMinClause {
-
-	public String INTERFACE_NAME = IMinClause.class.getName();
-
 	
 	/**
 	 * Used to specify EQUAL TO (=) condition.

@@ -193,21 +193,21 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 		}
 
 		
-		if(interfaceName.equalsIgnoreCase(IDelete.INTERFACE_NAME)) {
+		if(interfaceName.equalsIgnoreCase(IDelete.class.getName())) {
 			Database.delete(referObject, where);
-		} else if(interfaceName.equalsIgnoreCase(ICount.INTERFACE_NAME)) {
+		} else if(interfaceName.equalsIgnoreCase(ICount.class.getName())) {
 			return Database.count(databaseMappingDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(interfaceName.equalsIgnoreCase(IAverage.INTERFACE_NAME)) {
+		} else if(interfaceName.equalsIgnoreCase(IAverage.class.getName())) {
 			return Database.avg(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(interfaceName.equalsIgnoreCase(ISum.INTERFACE_NAME)) {
+		} else if(interfaceName.equalsIgnoreCase(ISum.class.getName())) {
 			return Database.sum(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(interfaceName.equalsIgnoreCase(ITotal.INTERFACE_NAME)) {
+		} else if(interfaceName.equalsIgnoreCase(ITotal.class.getName())) {
 			return Database.total(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(interfaceName.equalsIgnoreCase(IMax.INTERFACE_NAME)) {
+		} else if(interfaceName.equalsIgnoreCase(IMax.class.getName())) {
 			return Database.max(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(interfaceName.equalsIgnoreCase(IMin.INTERFACE_NAME)) {
+		} else if(interfaceName.equalsIgnoreCase(IMin.class.getName())) {
 			return Database.min(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
-		} else if(interfaceName.equalsIgnoreCase(IGroupConcat.INTERFACE_NAME)) {
+		} else if(interfaceName.equalsIgnoreCase(IGroupConcat.class.getName())) {
 			return Database.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
 		} 
 

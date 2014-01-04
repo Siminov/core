@@ -116,3 +116,6 @@
 	
 38. ResourceUtils.java
 	- Few bug fix's.				
+	
+39. IAverage.java, IAverageClause.java, ICount.java, ICountClause.java, IDelete.java, IDeleteClause.java, IGroupConcat.java, IGroupConcatClause.java, IMax.java, IMaxClause.java, IMin.java, IMinClause.java, ISelect.java, ISelectClause.java, ISum.java, ISumClause.java, ITotal.java, ITotalClause.java	
+	- Removed INTERFACE_NAME variable.
