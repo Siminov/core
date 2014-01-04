@@ -80,13 +80,13 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 			Iterator<DatabaseDescriptor> databaseDescriptors = Resources.getInstance().getDatabaseDescriptors();
 			while(databaseDescriptors.hasNext()) {
 				DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-				Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
+				Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingDescriptorPaths();
 				
 				while(databaseMappingPaths.hasNext()) {
 					String databaseMappingDescriptorPath = databaseMappingPaths.next();
 					if(this.finalDatabaseMappingBasedOnClassName.equalsIgnoreCase(databaseMappingDescriptorPath)) {
 
-						databaseDescriptor.addDatabaseMapping(this.finalDatabaseMappingBasedOnClassName, databaseMappingDescriptor);
+						databaseDescriptor.addDatabaseMappingDescriptor(this.finalDatabaseMappingBasedOnClassName, databaseMappingDescriptor);
 						return;
 					}
 				}
@@ -110,7 +110,7 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			Iterator<String> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappingPaths();
+			Iterator<String> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappingDescriptorPaths();
 					
 			while(databaseMappingDescriptors.hasNext()) {
 				String databaseMappingDescriptorPath = databaseMappingDescriptors.next();
@@ -139,8 +139,8 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 
 					DatabaseMappingDescriptorReader databaseMappingParser = new DatabaseMappingDescriptorReader(databaseMappingDescriptorPath);
 					
-					this.databaseMappingDescriptor = databaseMappingParser.getDatabaseMapping();
-					databaseDescriptor.addDatabaseMapping(databaseMappingDescriptorPath, databaseMappingDescriptor);
+					this.databaseMappingDescriptor = databaseMappingParser.getDatabaseMappingDescriptor();
+					databaseDescriptor.addDatabaseMappingDescriptor(databaseMappingDescriptorPath, databaseMappingDescriptor);
 					
 					return;
 				}
