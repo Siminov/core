@@ -160,7 +160,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
 			databaseDescriptor.addProperty(propertyName, tempValue.toString());
 		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING)) {
-			databaseDescriptor.addDatabaseMappingPath(tempValue.toString());
+			databaseDescriptor.addDatabaseMappingDescriptorPath(tempValue.toString());
 		} 
 	}
 	
@@ -173,7 +173,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		/*
 		 * Validate Database Name field.
 		 */
-		Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingPaths();
+		Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingDescriptorPaths();
 		while(databaseMappingPaths.hasNext()) {
 			String databaseMappingPath = databaseMappingPaths.next();
 			
