@@ -87,4 +87,32 @@
 28. Utils.java
 	- Removed hasCoverage API.
 	
-										
+29. Siminov.java
+	- Improved source code.
+
+30. Clause.java
+	- Changed API parameter type to Object.	
+		
+31. Database.java
+	- DatabaseDescriptor API changes.		
+	
+32. IAverageClause.java, ICountClause.java, IDeleteClause.java, IGroupConcatClause.java, IMaxClause.java, IMinClause.java, ISelectClause.java, ITotalClause.java, ISumClause.java
+	- Changes API parameter type to Object, this will allow to work on any data type.	
+	
+33. DatabaseDescriptor.java
+	- Change in few API names.						
+								
+34. DatabaseDescriptorReader.java
+	- Change in API names.							
+	
+35. DatabaseMappingDescriptor.java
+	- Change in API names.		
+	
+36. QuickDatabaseMappingDescriptorReader.java
+	- Change in API names.	
+	
+37. Resources.java
+	- Change in API names.	
+	
+38. ResourceUtils.java
+	- Few bug fix's.				
