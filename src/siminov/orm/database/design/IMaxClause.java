@@ -30,42 +30,43 @@ public interface IMaxClause {
 	 * @param value Value for which EQUAL TO (=) condition will be applied.
 	 * @return IMax Interface.
 	 */
-	public IMax equalTo(String value);
-
+	public IMax equalTo(Object value);
+	
+	
 	/**
 	 * Used to specify NOT EQUAL TO (!=) condition.
 	 * @param value Value for which NOT EQUAL TO (=) condition will be applied.
 	 * @return IMax Interface.
 	 */
-	public IMax notEqualTo(String value);
+	public IMax notEqualTo(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN (>) condition.
 	 * @param value Value for while GREATER THAN (>) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMax greaterThan(String value);
+	public IMax greaterThan(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN EQUAL (>=) condition.
 	 * @param value Value for which GREATER THAN EQUAL (>=) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMax greaterThanEqual(String value);
+	public IMax greaterThanEqual(Object value);
 	
 	/**
 	 * Used to specify LESS THAN (<) condition.
 	 * @param value Value for which LESS THAN (<) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMax lessThan(String value);
+	public IMax lessThan(Object value);
 	
 	/**
 	 * Used to specify LESS THAN EQUAL (<=) condition.
 	 * @param value Value for which LESS THAN EQUAL (<=) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMax lessThanEqual(String value);
+	public IMax lessThanEqual(Object value);
 	
 	/**
 	 * Used to specify BETWEEN condition.
@@ -73,20 +74,20 @@ public interface IMaxClause {
 	 * @param end End Range.
 	 * @return IMax Interface.
 	 */
-	public IMax between(String start, String end);
+	public IMax between(Object start, Object end);
 	
 	/**
 	 * Used to specify LIKE condition.
 	 * @param like LIKE condition.
 	 * @return IMax Interface.
 	 */
-	public IMax like(String like);
+	public IMax like(Object like);
 	
 	/**
 	 * Used to specify IN condition.
 	 * @param values Values for IN condition.
 	 * @return IMax Interface.
 	 */
-	public IMax in(String...values);
+	public IMax in(Object...values);
 	
 }
