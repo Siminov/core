@@ -96,18 +96,19 @@ public class ResourceUtils {
 			return resolve(key, value, descriptors);
 		} else if(resourceValue.contains(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE)) {
 			
-			String key = resourceValue.substring(resourceValue.indexOf(Constants.RESOURCE_OPEN_CURLY_BRACKET) + 1, resourceValue.indexOf(Constants.RESOURCE_CLOSE_CURLY_BRACKET));
+			String key = resourceValue.substring(resourceValue.indexOf(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE) + (Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE).length() + 1, resourceValue.indexOf(Constants.RESOURCE_CLOSE_CURLY_BRACKET));
 			String value = null;
 			
 			for(IDescriptor descriptor: descriptors) {
 				
 				if(descriptor.containProperty(key)) {
 					value = descriptor.getProperty(key);
+					break;
 				}
 			}
 
 			
-			String resolvedValue = value.replace(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE + " " + key + Constants.RESOURCE_CLOSE_CURLY_BRACKET, value);
+			String resolvedValue = resourceValue.replace(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE + " " + key + Constants.RESOURCE_CLOSE_CURLY_BRACKET, value);
 			return resolve(resourceName, resolvedValue, descriptors);
 		} 
 		
