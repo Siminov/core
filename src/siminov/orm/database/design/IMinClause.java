@@ -30,42 +30,43 @@ public interface IMinClause {
 	 * @param value Value for which EQUAL TO (=) condition will be applied.
 	 * @return IMax Interface.
 	 */
-	public IMin equalTo(String value);
-
+	public IMin equalTo(Object value);
+	
+	
 	/**
 	 * Used to specify NOT EQUAL TO (!=) condition.
 	 * @param value Value for which NOT EQUAL TO (=) condition will be applied.
 	 * @return IMax Interface.
 	 */
-	public IMin notEqualTo(String value);
+	public IMin notEqualTo(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN (>) condition.
 	 * @param value Value for while GREATER THAN (>) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMin greaterThan(String value);
+	public IMin greaterThan(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN EQUAL (>=) condition.
 	 * @param value Value for which GREATER THAN EQUAL (>=) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMin greaterThanEqual(String value);
+	public IMin greaterThanEqual(Object value);
 	
 	/**
 	 * Used to specify LESS THAN (<) condition.
 	 * @param value Value for which LESS THAN (<) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMin lessThan(String value);
+	public IMin lessThan(Object value);
 	
 	/**
 	 * Used to specify LESS THAN EQUAL (<=) condition.
 	 * @param value Value for which LESS THAN EQUAL (<=) condition will be specified.
 	 * @return IMax Interface.
 	 */
-	public IMin lessThanEqual(String value);
+	public IMin lessThanEqual(Object value);
 	
 	/**
 	 * Used to specify BETWEEN condition.
@@ -73,20 +74,20 @@ public interface IMinClause {
 	 * @param end End Range.
 	 * @return IMax Interface.
 	 */
-	public IMin between(String start, String end);
+	public IMin between(Object start, Object end);
 	
 	/**
 	 * Used to specify LIKE condition.
 	 * @param like LIKE condition.
 	 * @return IMax Interface.
 	 */
-	public IMin like(String like);
+	public IMin like(Object like);
 	
 	/**
 	 * Used to specify IN condition.
 	 * @param values Values for IN condition.
 	 * @return IMax Interface.
 	 */
-	public IMin in(String...values);
+	public IMin in(Object...values);
 	
 }
