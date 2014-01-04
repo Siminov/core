@@ -56,47 +56,47 @@ public class Clause implements ISelectClause, IDeleteClause, ICountClause, ISumC
 		where.append(column);
 	}
 	
-	public Select equalTo(String value) {
-		where.append(EQUAL_TO + " '" + value + "' ");
+	public Select equalTo(Object value) {
+		where.append(EQUAL_TO + " '" + value.toString() + "' ");
 		return this.select;
 	}
-	
-	public Select notEqualTo(String value) {
+
+	public Select notEqualTo(Object value) {
 		where.append(NOT_EQUAL_TO + " '" + value + "' ");
 		return this.select;
 	}
 	
-	public Select greaterThan(String value) {
+	public Select greaterThan(Object value) {
 		where.append(GREATER_THAN + " '" + value + "' ");
 		return this.select;
 	}
 	
-	public Select greaterThanEqual(String value) {
+	public Select greaterThanEqual(Object value) {
 		where.append(GREATER_THAN_EQUAL + " '" + value + "' ");
 		return this.select;
 	}
 	
-	public Select lessThan(String value) {
+	public Select lessThan(Object value) {
 		where.append(LESS_THAN + " '" + value + "' ");
 		return this.select;
 	}
 	
-	public Select lessThanEqual(String value) {
+	public Select lessThanEqual(Object value) {
 		where.append(LESS_THAN_EQUAL + " '" + value + "' ");
 		return this.select;
 	}
 
-	public Select between(String start, String end) {
+	public Select between(Object start, Object end) {
 		where.append(BETWEEN + " '" + start + "' " + AND + " '" + end + "' ");
 		return this.select;
 	}
 	
-	public Select like(String like) {
+	public Select like(Object like) {
 		where.append(LIKE + " '" + like + "' ");
 		return this.select;
 	}
 	
-	public Select in(String...values) {
+	public Select in(Object...values) {
 		where.append(IN + "(");
 		
 		if(values != null && values.length > 0) {
