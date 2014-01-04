@@ -29,42 +29,43 @@ public interface ICountClause {
 	 * @param value Value for which EQUAL TO (=) condition will be applied.
 	 * @return ICount Interface.
 	 */
-	public ICount equalTo(String value);
+	public ICount equalTo(Object value);
 
+	
 	/**
 	 * Used to specify NOT EQUAL TO (!=) condition.
 	 * @param value Value for which NOT EQUAL TO (=) condition will be applied.
 	 * @return ICount Interface.
 	 */
-	public ICount notEqualTo(String value);
+	public ICount notEqualTo(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN (>) condition.
 	 * @param value Value for while GREATER THAN (>) condition will be specified.
 	 * @return ICount Interface.
 	 */
-	public ICount greaterThan(String value);
+	public ICount greaterThan(Object value);
 	
 	/**
 	 * Used to specify GREATER THAN EQUAL (>=) condition.
 	 * @param value Value for which GREATER THAN EQUAL (>=) condition will be specified.
 	 * @return ICount Interface.
 	 */
-	public ICount greaterThanEqual(String value);
+	public ICount greaterThanEqual(Object value);
 	
 	/**
 	 * Used to specify LESS THAN (<) condition.
 	 * @param value Value for which LESS THAN (<) condition will be specified.
 	 * @return ICount Interface.
 	 */
-	public ICount lessThan(String value);
+	public ICount lessThan(Object value);
 	
 	/**
 	 * Used to specify LESS THAN EQUAL (<=) condition.
 	 * @param value Value for which LESS THAN EQUAL (<=) condition will be specified.
 	 * @return ICount Interface.
 	 */
-	public ICount lessThanEqual(String value);
+	public ICount lessThanEqual(Object value);
 	
 	/**
 	 * Used to specify BETWEEN condition.
@@ -72,20 +73,20 @@ public interface ICountClause {
 	 * @param end End Range.
 	 * @return ICount Interface.
 	 */
-	public ICount between(String start, String end);
+	public ICount between(Object start, Object end);
 	
 	/**
 	 * Used to specify LIKE condition.
 	 * @param like LIKE condition.
 	 * @return ICount Interface.
 	 */
-	public ICount like(String like);
+	public ICount like(Object like);
 	
 	/**
 	 * Used to specify IN condition.
 	 * @param values Values for IN condition.
 	 * @return ICount Interface.
 	 */
-	public ICount in(String...values);
+	public ICount in(Object...values);
 
 }
