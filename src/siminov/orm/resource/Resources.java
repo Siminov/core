@@ -223,7 +223,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnClassName(className);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnClassName(className);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor;
@@ -247,7 +247,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnClassName(className);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnClassName(className);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
@@ -272,7 +272,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnTableName(tableName);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnTableName(tableName);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor;
@@ -296,7 +296,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnTableName(tableName);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnTableName(tableName);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
@@ -320,10 +320,10 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnClassName(className);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnClassName(className);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
-				return databaseDescriptor.getDatabseMappingBasedOnClassName(className);
+				return databaseDescriptor.getDatabseMappingDescriptorBasedOnClassName(className);
 			}
 		}
 		
@@ -345,10 +345,10 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingBasedOnTableName(tableName);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnTableName(tableName);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
-				return databaseDescriptor.getDatabseMappingBasedOnTableName(tableName);
+				return databaseDescriptor.getDatabseMappingDescriptorBasedOnTableName(tableName);
 			}
 		}
 		
@@ -367,7 +367,7 @@ Example: DatabaseDescriptor.xml
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
 			
-			Iterator<DatabaseMappingDescriptor> databaseMappings = databaseDescriptor.getDatabaseMappings();
+			Iterator<DatabaseMappingDescriptor> databaseMappings = databaseDescriptor.getDatabaseMappingDescriptors();
 			while(databaseMappings.hasNext()) {
 				DatabaseMappingDescriptor databaseMappingDescriptor = databaseMappings.next();
 				databaseMappingDescriptors.add(databaseMappingDescriptor);
