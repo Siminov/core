@@ -34,6 +34,6 @@ public interface IInitializer {
 	/**
 	 * Start Siminov Framework.
 	 */
-	public void start();
+	public void initialize();
 	
 }

@@ -46,7 +46,7 @@ public class Initializer implements IInitializer {
 	/**
 	 * Start Siminov Framework.
 	 */
-	public void start() {
+	public void initialize() {
 		
 		Context context = null;
 		

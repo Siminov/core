@@ -80,7 +80,7 @@ public class Siminov {
 	}
 	
 	
-	public static IInitializer initialize() {
+	public static IInitializer initializer() {
 		return new Initializer();
 	}
 	
