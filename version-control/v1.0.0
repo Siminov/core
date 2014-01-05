@@ -119,3 +119,14 @@
 	
 39. IAverage.java, IAverageClause.java, ICount.java, ICountClause.java, IDelete.java, IDeleteClause.java, IGroupConcat.java, IGroupConcatClause.java, IMax.java, IMaxClause.java, IMin.java, IMinClause.java, ISelect.java, ISelectClause.java, ISum.java, ISumClause.java, ITotal.java, ITotalClause.java	
 	- Removed INTERFACE_NAME variable.
+
+40. siminov.orm.annotation
+	- Removed annotation from ORM. 
+	- Looking to future cross platform app deployment we have planned to remove annotation because it is not supported in many platforms.
+		
+41. Database 
+	- Created a new Database class which supports both Inheritance and Composition.		
+	
+42. LibraryHelper
+	- Deleted Library Helper class because many platform will not support of getting all class names of application.
+		
