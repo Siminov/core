@@ -68,8 +68,6 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 
 	private LibraryDescriptor libraryDescriptor = null;
 	
-	private Resources resources = Resources.getInstance();
-
 	private StringBuilder tempValue = new StringBuilder();
 	private String propertyName = null;
 	
@@ -82,19 +80,15 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 		}
 		
 		this.libraryName = libraryName;
+		this.libraryName = this.libraryName.replace(".", "/");
 		
-		Context context = resources.getApplicationContext();
-		if(context == null) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context Found.");
-			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context Found.");
-		}
 
 		InputStream libraryDescriptorStream = null;
-		libraryDescriptorStream = getClass().getClassLoader().getResourceAsStream(libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
+		libraryDescriptorStream = getClass().getClassLoader().getResourceAsStream(this.libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
 
 		if(libraryDescriptorStream == null) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + ", PATH: " + libraryName.replace(".", "/") + "/" + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
-			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + ", PATH: " + libraryName.replace(".", "/") + "/" + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
+			Log.loge(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
+			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
 		}
 		
 		try {

@@ -26,7 +26,6 @@ import org.xml.sax.SAXException;
 
 import siminov.orm.Constants;
 import siminov.orm.exception.DeploymentException;
-import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor.Column;
@@ -118,38 +117,26 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 		}
 
-		/*
-		 * Parse DatabaseMapping.
-		 */
-		if(!databaseMappingName.endsWith(Constants.XML_FILE_EXTENSION)) {
-			
-			try {
-				this.databaseMappingDescriptor = new AnnotationReader().parseClassBasedOnClassName(databaseMappingName);
-			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseMappingDescriptorReader.class.getName(), "Constructor", "SiminovException caught while getting Annoted Class, CLASS-NAME: " + databaseMappingName + ", MESSAGE: " + siminovException.getMessage());
-				throw new DeploymentException(DatabaseMappingDescriptorReader.class.getName(), "Constructor", siminovException.getMessage());
-			}
-		} else {
-			InputStream databaseMappingStream = null;
-			
-			try {
 
-				databaseMappingStream = getClass().getClassLoader().getResourceAsStream(this.databaseMappingName);
-				if(databaseMappingStream == null) {
-					databaseMappingStream = context.getAssets().open(this.databaseMappingName);
-				}
-			} catch(IOException ioException) {
-				Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + ", " + ioException.getMessage());
-				throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + "," + ioException.getMessage());
-			}
-
+		InputStream databaseMappingStream = null;
 			
-			try {
-				parseMessage(databaseMappingStream);
-			} catch(Exception exception) {
-				Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
-				throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
+		try {
+
+			databaseMappingStream = getClass().getClassLoader().getResourceAsStream(this.databaseMappingName);
+			if(databaseMappingStream == null) {
+				databaseMappingStream = context.getAssets().open(this.databaseMappingName);
 			}
+		} catch(IOException ioException) {
+			Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + ", " + ioException.getMessage());
+			throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + "," + ioException.getMessage());
+		}
+
+		
+		try {
+			parseMessage(databaseMappingStream);
+		} catch(Exception exception) {
+			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
+			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
 		}
 		
 		doValidation();

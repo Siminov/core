@@ -84,6 +84,8 @@ public interface Constants {
 	 */
 	public String APPLICATION_DESCRIPTOR_EVENT_HANDLER = "event-handler";
 
+	public String APPLICATION_DESCRIPTOR_LIBRARY = "library";
+ 	
 	
 	// DatabaseDescriptor Constants.
 

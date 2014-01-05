@@ -129,6 +129,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
+		
 		if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_PROPERTY)) {
 			applicationDescriptor.addProperty(propertyName, tempValue.toString());
 		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_DATABASE_DESCRIPTOR)) {
@@ -140,6 +141,13 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 			}
 			
 			applicationDescriptor.addEvent(tempValue.toString());
+		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_LIBRARY)) {
+			
+			if(tempValue == null || tempValue.length() <= 0) {
+				return;
+			}
+			
+			applicationDescriptor.addLibrary(tempValue.toString());
 		}
 	}
 	

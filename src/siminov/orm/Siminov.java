@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import siminov.orm.database.Database;
 import siminov.orm.database.DatabaseBundle;
+import siminov.orm.database.DatabaseHelper;
 import siminov.orm.database.DatabaseUtils;
 import siminov.orm.database.design.IDatabase;
 import siminov.orm.database.design.IQueryBuilder;
@@ -42,7 +42,6 @@ import siminov.orm.reader.DatabaseDescriptorReader;
 import siminov.orm.reader.DatabaseMappingDescriptorReader;
 import siminov.orm.reader.LibraryDescriptorReader;
 import siminov.orm.resource.Resources;
-import siminov.orm.utils.LibraryHelper;
 
 
 /**
@@ -74,9 +73,9 @@ public class Siminov {
 	 * @exception If SIMINOV is not active it will throw DeploymentException which is RuntimeException.
 	 * 
 	 */
-	public static void validateSiminov() {
+	public static void isActive() {
 		if(!isActive) {
-			throw new DeploymentException(Siminov.class.getName(), "validateSiminov", "Siminov Not Active.");
+			throw new DeploymentException(Siminov.class.getName(), "isActive", "Siminov Not Active.");
 		}
 	}
 	
@@ -173,7 +172,7 @@ public class Siminov {
 	 * @throws SiminovException If any error occur while shutting down SIMINOV.
 	 */
 	public static void shutdown() {
-		validateSiminov();
+		isActive();
 		
 		Iterator<DatabaseDescriptor> databaseDescriptors = ormResources.getDatabaseDescriptors();
 
@@ -258,16 +257,12 @@ public class Siminov {
 	protected static void processLibraries() {
 		
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
-		
-		LibraryHelper libraryHelper = new LibraryHelper();
-		Iterator<String> libraries = libraryHelper.getLibraries();
+		Iterator<String> libraries = applicationDescriptor.getLibraries();
 		
 		while(libraries.hasNext()) {
 			
 			String library = libraries.next();
 
-			applicationDescriptor.addLibrary(library);
-			
 			/*
 			 * Parse LibraryDescriptor.
 			 */
@@ -292,7 +287,7 @@ public class Siminov {
 					
 					DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
 					if(databaseDescriptor.getDatabaseName().equalsIgnoreCase(databaseDescriptorName)) {
-						databaseDescriptor.addDatabaseMappingDescriptorPath(library + File.separator + databaseMappingDescriptor);
+						databaseDescriptor.addDatabaseMappingDescriptorPath(library.replace(".", "/") + File.separator + databaseMappingDescriptor);
 					}
 				}
 			}
@@ -345,7 +340,7 @@ public class Siminov {
 			DatabaseBundle databaseBundle = null;
 			
 			try {
-				databaseBundle = Database.createDatabase(databaseDescriptor);
+				databaseBundle = DatabaseHelper.createDatabase(databaseDescriptor);
 			} catch(DatabaseException databaseException) {
 				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while getting database instance from database factory, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + databaseException.getMessage());
 				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
@@ -412,7 +407,7 @@ public class Siminov {
 				 * Upgrade Database
 				 */
 				try {
-					Database.upgradeDatabase(databaseDescriptor);
+					DatabaseHelper.upgradeDatabase(databaseDescriptor);
 				} catch(DatabaseException databaseException) {
 					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while upgrading database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
@@ -499,7 +494,7 @@ public class Siminov {
 				 * Create Tables
 				 */
 				try {
-					Database.createTables(databaseDescriptor.orderedDatabaseMappingDescriptors());			
+					DatabaseHelper.createTables(databaseDescriptor.orderedDatabaseMappingDescriptors());			
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
