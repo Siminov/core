@@ -194,21 +194,21 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 
 		
 		if(interfaceName.equalsIgnoreCase(IDelete.class.getName())) {
-			Database.delete(referObject, where);
+			DatabaseHelper.delete(referObject, where);
 		} else if(interfaceName.equalsIgnoreCase(ICount.class.getName())) {
-			return Database.count(databaseMappingDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
+			return DatabaseHelper.count(databaseMappingDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IAverage.class.getName())) {
-			return Database.avg(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return DatabaseHelper.avg(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ISum.class.getName())) {
-			return Database.sum(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return DatabaseHelper.sum(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ITotal.class.getName())) {
-			return Database.total(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return DatabaseHelper.total(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IMax.class.getName())) {
-			return Database.max(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return DatabaseHelper.max(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IMin.class.getName())) {
-			return Database.min(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return DatabaseHelper.min(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IGroupConcat.class.getName())) {
-			return Database.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
+			return DatabaseHelper.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
 		} 
 
 		return null;
@@ -251,7 +251,7 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 			limit = String.valueOf(this.limit);
 		}
 		
-		return Database.select(databaseMappingDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
+		return DatabaseHelper.select(databaseMappingDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
 		
 	}
 	
