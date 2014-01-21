@@ -10,7 +10,7 @@ import siminov.orm.model.IDescriptor;
 
 public class ResourceUtils {
 
-	public static String resolve(final String resourceName, final String resourceValue, final IDescriptor...descriptors) throws SiminovException {
+	public static String resolve(final String resourceValue, final IDescriptor...descriptors) throws SiminovException {
 		
 		if(resourceValue == null) {
 			return resourceValue;
@@ -49,7 +49,7 @@ public class ResourceUtils {
 					String apiParameter = apiParameterTokenizer.nextToken();
 					
 					resourceAPIParameterTypes.add(String.class);
-					resourceAPIParameters.add(resolve(resourceName, apiParameter, descriptors));
+					resourceAPIParameters.add(resolve(apiParameter, descriptors));
 				}
 				
 			
@@ -63,7 +63,7 @@ public class ResourceUtils {
 				Object classObject = ClassUtils.createClassInstance(resourceClass);
 				String resolvedValue = (String) ClassUtils.invokeMethod(classObject, resourceAPI, apiParameterTypes, resourceAPIParameters.toArray());
 				
-				return resolve(resourceName, resolvedValue, descriptors);
+				return resolve(resolvedValue, descriptors);
 			} else {
 
 				resourceKey = resourceValue.substring(openingCurlyBracketIndex, singleClosingCurlyBracketIndex);
@@ -77,7 +77,7 @@ public class ResourceUtils {
 				String value = (String) ClassUtils.getValue(classObject, resourceAPI);
 			
 				String resolvedValue = resourceValue.replace(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_REFER_REFERENCE + Constants.RESOURCE_SPACE + resourceKey + Constants.RESOURCE_CLOSE_CURLY_BRACKET, value);
-				return resolve(resourceName, resolvedValue, descriptors);
+				return resolve(resolvedValue, descriptors);
 			}
 		} else if(resourceValue.contains(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_SELF_REFERENCE)) {
 			
@@ -93,7 +93,7 @@ public class ResourceUtils {
 				}
 			}
 			
-			return resolve(key, value, descriptors);
+			return resolve(value, descriptors);
 		} else if(resourceValue.contains(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE)) {
 			
 			String key = resourceValue.substring(resourceValue.indexOf(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE) + (Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE).length() + 1, resourceValue.indexOf(Constants.RESOURCE_CLOSE_CURLY_BRACKET));
@@ -109,7 +109,7 @@ public class ResourceUtils {
 
 			
 			String resolvedValue = resourceValue.replace(Constants.RESOURCE_OPEN_CURLY_BRACKET + Constants.RESOURCE_INLINE_REFERENCE + " " + key + Constants.RESOURCE_CLOSE_CURLY_BRACKET, value);
-			return resolve(resourceName, resolvedValue, descriptors);
+			return resolve(resolvedValue, descriptors);
 		} 
 		
 		return resourceValue;

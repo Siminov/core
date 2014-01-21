@@ -130,3 +130,9 @@
 42. LibraryHelper
 	- Deleted Library Helper class because many platform will not support of getting all class names of application.
 		
+		
+43. IInlineResource
+	- Added new interface for inline resources.
+	
+44. ResourceUtils
+	- Modified resolve API parameters.		
