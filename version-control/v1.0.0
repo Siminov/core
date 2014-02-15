@@ -135,4 +135,10 @@
 	- Added new interface for inline resources.
 	
 44. ResourceUtils
-	- Modified resolve API parameters.		
+	- Modified resolve API parameters.
+	
+45. IInlineResource
+	- Moved IInlineResource class to Siminov Connect
+	
+46. ResourceUtils
+	- Removed ResourceUtils class, not needed			
