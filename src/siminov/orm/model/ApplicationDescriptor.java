@@ -63,15 +63,15 @@ Example:
  */
 public class ApplicationDescriptor implements IDescriptor {
 
-	private Map<String, String> properties = new HashMap<String, String> ();
+	protected Map<String, String> properties = new HashMap<String, String> ();
 	
-	private Collection<String> databaseDescriptorPaths = new ConcurrentLinkedQueue<String> ();
-	private Map<String, DatabaseDescriptor> databaseDescriptorsBasedOnName = new ConcurrentHashMap<String, DatabaseDescriptor>();
-	private Map<String, DatabaseDescriptor> databaseDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseDescriptor>();
+	protected Collection<String> databaseDescriptorPaths = new ConcurrentLinkedQueue<String> ();
+	protected Map<String, DatabaseDescriptor> databaseDescriptorsBasedOnName = new ConcurrentHashMap<String, DatabaseDescriptor>();
+	protected Map<String, DatabaseDescriptor> databaseDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseDescriptor>();
 
-	private Collection<String> events = new ConcurrentLinkedQueue<String> ();
+	protected Collection<String> events = new ConcurrentLinkedQueue<String> ();
 
-	private Collection<String> libraries = new ConcurrentLinkedQueue<String>();
+	protected Collection<String> libraries = new ConcurrentLinkedQueue<String>();
 	
 	
 	/**

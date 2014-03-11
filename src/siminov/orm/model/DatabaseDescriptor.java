@@ -77,13 +77,13 @@ Example:
 */
 public class DatabaseDescriptor implements IDescriptor {
 	
-	private Map<String, String> properties = new HashMap<String, String> ();
+	protected Map<String, String> properties = new HashMap<String, String> ();
 	
-	private Collection<String> databaseMappingDescriptorPaths = new ConcurrentLinkedQueue<String> ();
+	protected Collection<String> databaseMappingDescriptorPaths = new ConcurrentLinkedQueue<String> ();
 
-	private Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	private Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	private Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	protected Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	protected Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	protected Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
 	
 	/**
 	 * Get database descriptor name as defined in DatabaseDescriptor.si.xml file.

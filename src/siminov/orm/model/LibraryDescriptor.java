@@ -60,13 +60,14 @@ Example:
  */
 public class LibraryDescriptor implements IDescriptor {
 
-	private Map<String, String> properties = new HashMap<String, String> ();
+	protected Map<String, String> properties = new HashMap<String, String> ();
 	
-	private Collection<String> databaseMappingPaths = new ConcurrentLinkedQueue<String> ();
+	protected Collection<String> databaseMappingPaths = new ConcurrentLinkedQueue<String> ();
 	
-	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	private Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	protected Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	protected Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	protected Map<String, DatabaseMappingDescriptor> databaseMappingsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+
 
 	/**
 	 * Get library name.

@@ -81,16 +81,16 @@ Example:
  */
 public class DatabaseMappingDescriptor implements IDescriptor {
 
-	private String tableName = null;
-	private String className = null;
+	protected String tableName = null;
+	protected String className = null;
 	
-	private Map<String, Column> columnsBasedOnColumnNames = new LinkedHashMap<String, Column>();
-	private Map<String, Column> columnsBasedOnVariableNames = new LinkedHashMap<String, Column>();
+	protected Map<String, Column> columnsBasedOnColumnNames = new LinkedHashMap<String, Column>();
+	protected Map<String, Column> columnsBasedOnVariableNames = new LinkedHashMap<String, Column>();
 	
-	private Map<String, Index> indexes = new LinkedHashMap<String, Index>();
+	protected Map<String, Index> indexes = new LinkedHashMap<String, Index>();
 
-	private Map<String, Relationship> relationshipsBasedOnRefer = new LinkedHashMap<String, Relationship>(); 
-	private Map<String, Relationship> relationshipsBasedOnReferTo = new LinkedHashMap<String, Relationship>();
+	protected Map<String, Relationship> relationshipsBasedOnRefer = new LinkedHashMap<String, Relationship>(); 
+	protected Map<String, Relationship> relationshipsBasedOnReferTo = new LinkedHashMap<String, Relationship>();
 	
 	
 	/**
