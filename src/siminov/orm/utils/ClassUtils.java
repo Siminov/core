@@ -17,6 +17,7 @@
 
 package siminov.orm.utils;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Blob;
@@ -76,6 +77,38 @@ public class ClassUtils {
 		return object;
 	}
 
+	public static Object createClassInstance(String className, Object...constructorParameters) {
+		
+		Class<?> classObject = createClass(className);
+		Class<?>[] constructorParameterTypes = new Class[constructorParameters.length];
+		
+		for(int i = 0;i < constructorParameters.length;i++) {
+			constructorParameterTypes[i] = constructorParameters[i].getClass();
+		}
+		
+		Constructor<?> constructor = null;
+
+		try {
+			constructor = classObject.getDeclaredConstructor(constructorParameterTypes);
+		} catch(Exception exception) {
+			Log.loge(ClassUtils.class.getName(), "createClassInstance", "Exception caught while invoking constructor, CLASS-NAME: " + className);
+			throw new SiminovCriticalException(ClassUtils.class.getName(), "createClassInstance", "Exception caught while invoking constructor, CLASS-NAME: " + className);
+		}
+		
+		
+		Object object = null;
+		try {
+			constructor.setAccessible(true);
+			object = constructor.newInstance(constructorParameters);
+		} catch(Exception exception) {
+			Log.loge(ClassUtils.class.getName(), "createClassInstance", "Exception caught while creating new instance of class, CLASS-NAME: " + className + ", " + exception.getMessage());
+			throw new SiminovCriticalException(ClassUtils.class.getName(), "createClassInstance", "Exception caught while creating new instance of class, CLASS-NAME: " + className + ", " + exception.getMessage());
+		}
+		
+		return object;
+	}
+	
+	
 	/**
 	 * Create a method object.
 	 * @param className Name of Class
