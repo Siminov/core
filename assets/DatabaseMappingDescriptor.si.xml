@@ -20,7 +20,7 @@
 
 <!-- Design Of DatabaseMappingDescriptor.si.xml -->
 
-<database-mapping>
+<database-mapping-descriptor>
 
     <!-- General Properties Of Table And Class -->
     
@@ -110,7 +110,7 @@
 
 	</table>
 
-</database-mapping>
+</database-mapping-descriptor>
 
 
 

@@ -47,9 +47,9 @@
 	<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
 	
 		<!-- Optional Field -->
-	<database-mappings>
-		<database-mapping>full_path_of_database_mapping_descriptor_file</database-mapping>
-	</database-mappings>
+	<database-mapping-descriptors>
+		<database-mapping-descriptor>full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
+	</database-mapping-descriptors>
 	
 </database-descriptor>
 

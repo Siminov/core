@@ -51,9 +51,9 @@
 
 	<!-- Library Descriptors Used By Application (zero-to-many) -->
 		<!-- Optional Field's -->
-	<libraries>
-	 	<library>full_path_of_library_descriptor_file</library>   
-	</libraries>
+	<library-descriptors>
+	 	<library-descriptor>full_path_of_library_descriptor_file</library-descriptor>   
+	</library-descriptors>
 	
 		
 	<!-- Event Handlers Implemented By Application (zero-to-many) -->
