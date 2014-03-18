@@ -146,7 +146,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		
 		tempValue = new StringBuilder();
 		
-		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING)) {
+		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR)) {
 			databaseMappingDescriptor = new DatabaseMappingDescriptor();
 		} else if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_TABLE)) {
 			initializeTable(attributes);

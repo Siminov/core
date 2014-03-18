@@ -159,7 +159,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		
 		if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
 			databaseDescriptor.addProperty(propertyName, tempValue.toString());
-		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING)) {
+		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR)) {
 			databaseDescriptor.addDatabaseMappingDescriptorPath(tempValue.toString());
 		} 
 	}

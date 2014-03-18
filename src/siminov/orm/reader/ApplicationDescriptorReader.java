@@ -141,7 +141,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 			}
 			
 			applicationDescriptor.addEvent(tempValue.toString());
-		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_LIBRARY)) {
+		} else if(localName.equalsIgnoreCase(APPLICATION_DESCRIPTOR_LIBRARY_DESCRIPTOR)) {
 			
 			if(tempValue == null || tempValue.length() <= 0) {
 				return;

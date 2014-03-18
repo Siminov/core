@@ -84,7 +84,7 @@ public interface Constants {
 	 */
 	public String APPLICATION_DESCRIPTOR_EVENT_HANDLER = "event-handler";
 
-	public String APPLICATION_DESCRIPTOR_LIBRARY = "library";
+	public String APPLICATION_DESCRIPTOR_LIBRARY_DESCRIPTOR = "library-descriptor";
  	
 	
 	// DatabaseDescriptor Constants.
@@ -120,12 +120,12 @@ public interface Constants {
 	/**
 	 * DatabaseDescriptor.si.xml database-mappings TAG.
 	 */
-	public String DATABASE_DESCRIPTOR_DATABASE_MAPPINGS = "database-mappings";
+	public String DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTORS = "database-mapping-descriptors";
 
 	/**
 	 * DatabaseDescriptor.si.xml database-mapping TAG.
 	 */
-	public String DATABASE_DESCRIPTOR_DATABASE_MAPPING = "database-mapping";
+	public String DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR = "database-mapping-descriptor";
 
 	/**
 	 * DatabaseDescriptor.si.xml is_locking_required TAG.
@@ -148,7 +148,7 @@ public interface Constants {
 	/**
 	 * LibraryDescriptor.si.xml library TAG.
 	 */
-	public String LIBRARY_DESCRIPTOR_LIBRARY = "library";
+	public String LIBRARY_DESCRIPTOR_LIBRARY_DESCRIPTOR = "library-descriptor";
 
 	/**
 	 * LibraryDescriptor.si.xml property TAG.
@@ -168,12 +168,12 @@ public interface Constants {
 	/**
 	 * LibraryDescriptor.si.xml database-mappings TAG.
 	 */
-	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPINGS = "database-mappings";
+	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTORS = "database-mapping-descriptors";
 
 	/**
 	 * LibraryDescriptor.si.xml database-mapping TAG.
 	 */
-	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING = "database-mapping";
+	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR = "database-mapping-descriptor";
 
 	
 	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR = ".";
@@ -184,7 +184,7 @@ public interface Constants {
 	/**
 	 * DatabaseMappingDescriptor.si.xml database-mapping TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING = "database-mapping";
+	public String DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR = "database-mapping-descriptor";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml table TAG.
