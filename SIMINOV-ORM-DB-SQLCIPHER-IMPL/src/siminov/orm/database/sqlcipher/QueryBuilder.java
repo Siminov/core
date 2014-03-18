@@ -20,14 +20,13 @@ package siminov.orm.database.sqlcipher;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import siminov.orm.Constants;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
-import siminov.orm.exception.SiminovException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor.Column;
@@ -38,23 +37,56 @@ import android.text.TextUtils;
 
 public class QueryBuilder implements Constants, IQueryBuilder {
 
-	private Resources resources = Resources.getInstance();
 	
-	/**
-	 * It generates query to create table in database.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnNames All column names needed in table.
-	 * @param columnTypes All column types, It can be TEXT, INTEGER, LONG, BLOG, FLOAT
-	 * @param defaultValues Default value columns.
-	 * @param checks Constraint needed on column value.
-	 * @param primaryKeys Primary keys needed in table.
-	 * @param isNotNull Weather column can contain empty value or not.
-	 * @param uniqueColumns Weather column values should be unique or not.
-	 * @param foreignKeys Foreign key contained in table.
-	 * @return Generated query.
-	 */
-	public String formCreateTableQuery(final String tableName, final Iterator<String> columnNames, final Iterator<String> columnTypes, final Iterator<String> defaultValues, final Iterator<String> checks, final Iterator<String> primaryKeys, final Iterator<Boolean> isNotNull, final Iterator<String> uniqueColumns, final String foreignKeys) {
+	public String formTableInfoQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER);
+		return "pragma table_info(" + tableName + ")";
+	}
+
+
+	
+	public String formFetchDatabaseVersionQuery(final Map<String, Object> parameters) {
+		return "PRAGMA user_version;";
+	}
+	
+	
+	public String formUpdateDatabaseVersionQuery(final Map<String, Object> parameters) {
+		
+		final Double databaseVersion = (Double) parameters.get(IQueryBuilder.FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER);
+		return "PRAGMA user_version=" + databaseVersion;
+	}
+	
+
+	public String formAlterAddColumnQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_TABLE_NAME_PARAMETER);
+		final String columnName = (String) parameters.get(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER);
+		
+		return "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " TEXT";
+	}
+	
+	
+	
+	public String formTableNames(final Map<String, Object> parameters) {
+		return "SELECT * FROM sqlite_master WHERE type='table'";
+	}
+
+	
+	
+	@SuppressWarnings("unchecked")
+	public String formCreateTableQuery(final Map<String, Object> parameters) {
+
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_TABLE_NAME_PARAMETER);
+		final Iterator<String> columnNames = (Iterator<String>) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_COLUMN_NAMES_PARAMETER);
+		final Iterator<String> columnTypes = (Iterator<String>) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_COLUMN_TYPES_PARAMETER);
+		final Iterator<String> defaultValues = (Iterator<String>) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_DEFAULT_VALUES_PARAMETER);
+		final Iterator<String> checks = (Iterator<String>) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_CHECKS_PARAMETER);
+		final Iterator<String> primaryKeys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_PRIMARY_KEYS_PARAMETER);
+		final Iterator<Boolean> isNotNull = (Iterator<Boolean>) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_NOT_NULLS_PARAMETER);
+		final Iterator<String> uniqueColumns = (Iterator<String>) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_UNIQUE_COLUMNS_PARAMETER);
+		final String foreignKeys = (String) parameters.get(IQueryBuilder.FORM_CREATE_TABLE_QUERY_FOREIGN_KEYS_PARAMETER);
+
 		
 		StringBuilder query = new StringBuilder();
 			query.append("CREATE TABLE IF NOT EXISTS " + tableName + " (");
@@ -146,16 +178,14 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return query.toString();
  	}
 	
-	/**
-	 * It generates query to create index on table specified.
-	 * 
-	 * @param indexName Name of index.
-	 * @param tableName Name of table on which index is required.
-	 * @param columnNames Column names needed in index.
-	 * @param isUnique true/false whether index needs to be unique or not. (A unique index guarantees that the index key contains no duplicate values and therefore every row in the table is in some way unique.)
-	 * @return Generated query.
-	 */
-	public String formCreateIndexQuery(final String indexName, final String tableName, final Iterator<String> columnNames, final boolean isUnique) {
+
+	@SuppressWarnings("unchecked")
+	public String formCreateIndexQuery(final Map<String, Object> parameters) {
+		
+		final String indexName = (String) parameters.get(IQueryBuilder.FORM_CREATE_INDEX_QUERY_INDEX_NAME_PARAMETER);
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER);
+		final Iterator<String> columnNames = (Iterator<String>) parameters.get(IQueryBuilder.FORM_CREATE_INDEX_QUERY_COLUMN_NAMES_PARAMETER);
+		final boolean isUnique = (Boolean) parameters.get(IQueryBuilder.FORM_CREATE_INDEX_QUERY_IS_UNIQUE_PARAMETER);
 		
 		StringBuilder query = new StringBuilder();
 			if(isUnique) {
@@ -185,7 +215,10 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param tableName Name of table.
 	 * @return Generated query.
 	 */
-	public String formDropTableQuery(final String tableName) {
+	public String formDropTableQuery(final Map<String, Object> parameters) {
+
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			query.append("DROP TABLE IF EXISTS " + tableName);
@@ -200,7 +233,11 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param indexName Name of index.
 	 * @return Generated query.
 	 */
-	public String formDropIndexQuery(String tableName, String indexName) {
+	public String formDropIndexQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER);
+		final String indexName = (String) parameters.get(IQueryBuilder.FORM_DROP_INDEX_QUERY_INDEX_NAME_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			query.append("DROP INDEX IF EXISTS " + indexName + " ON " + tableName);
@@ -220,8 +257,20 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param limit Limit of tuples needed.
 	 * @return Generated query.
 	 */
-	public String formSelectQuery(final String tableName, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBys, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) {
+	@SuppressWarnings("unchecked")
+	public String formSelectQuery(final Map<String, Object> parameters) {
 
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER);
+		final boolean distinct = (Boolean) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_DISTINCT_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER);
+		final Iterator<String> columnNames = (Iterator<String>) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_HAVING_PARAMETER);
+		final Iterator<String> orderBy = (Iterator<String>) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_ORDER_BYS_PARAMETER);
+		final String whichOrderBy = (String) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER);
+		final String limit = (String) parameters.get(IQueryBuilder.FORM_SELECT_QUERY_LIMIT_PARAMETER);
+		
+		
 		StringBuilder groupBysBuilder = new StringBuilder();
 		
 		int index = 0;
@@ -331,7 +380,11 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param columnNames Column names.
 	 * @return Generated query.
 	 */
-	public String formSaveBindQuery(final String tableName, final Iterator<String> columnNames) {
+	@SuppressWarnings("unchecked")
+	public String formSaveBindQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_SAVE_BIND_QUERY_TABLE_NAME_PARAMETER);
+		final Iterator<String> columnNames = (Iterator<String>) parameters.get(IQueryBuilder.FORM_SAVE_BIND_QUERY_COLUMN_NAMES_PARAMETER);
 		
 		StringBuilder query = new StringBuilder();
 			query.append("INSERT INTO " + tableName + "(");
@@ -370,7 +423,13 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param whereClause Condition of which tuple need to be update.
 	 * @return Generated query.
 	 */
-	public String formUpdateBindQuery(final String tableName, final Iterator<String> columnNames, final String whereClause) {
+	@SuppressWarnings("unchecked")
+	public String formUpdateBindQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_UPDATE_BIND_QUERY_TABLE_NAME_PARAMETER);
+		final Iterator<String> columnNames = (Iterator<String>) parameters.get(IQueryBuilder.FORM_UPDATE_BIND_QUERY_COLUMN_NAMES_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_UPDATE_BIND_QUERY_WHERE_CLAUSE_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			query.append("UPDATE " + tableName + " SET ");
@@ -401,7 +460,11 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param whereClause Condition on which tuples need to delete.
 	 * @return Generated query.
 	 */
-	public String formDeleteQuery(final String tableName, final String whereClause) {
+	public String formDeleteQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_DELETE_QUERY_TABLE_NAME_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_DELETE_QUERY_WHERE_CLAUSE_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			query.append("DELETE FROM " + tableName);
@@ -421,7 +484,16 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param whereClause Condition on which count needed.
 	 * @return Generated query.
 	 */
-	public String formCountQuery(final String tableName, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having) {
+	@SuppressWarnings("unchecked")
+	public String formCountQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_COUNT_QUERY_TABLE_NAME_PARAMETER);
+		final String column = (String) parameters.get(IQueryBuilder.FORM_COUNT_QUERY_COLUMN_PARAMETER);
+		final boolean distinct = (Boolean) parameters.get(IQueryBuilder.FORM_COUNT_QUERY_DISTINCT_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_COUNT_QUERY_WHERE_CLAUSE_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_COUNT_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_COUNT_QUERY_HAVING_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			if(column != null && column.length() > 0) {
@@ -467,8 +539,16 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param columnName Column name of which average needed.
 	 * @return Generated query.
 	 */
-	public String formAvgQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+	@SuppressWarnings("unchecked")
+	public String formAvgQuery(final Map<String, Object> parameters) {
 
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_AVG_QUERY_TABLE_NAME_PARAMETER);
+		final String column = (String) parameters.get(IQueryBuilder.FORM_AVG_QUERY_COLUMN_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_AVG_QUERY_WHERE_CLAUSE_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_AVG_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_AVG_QUERY_HAVING_PARAMETER);
+		
+		
 		StringBuilder query = new StringBuilder();
 			query.append("SELECT AVG(" + column + ")" + " FROM " + tableName);
 			
@@ -504,7 +584,15 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param columnName Column name of which sum needed.
 	 * @return Generated query.
 	 */
-	public String formSumQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+	@SuppressWarnings("unchecked")
+	public String formSumQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_SUM_QUERY_TABLE_NAME_PARAMETER);
+		final String column = (String) parameters.get(IQueryBuilder.FORM_SUM_QUERY_COLUMN_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_SUM_QUERY_WHERE_CLAUSE_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_SUM_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_SUM_QUERY_HAVING_PARAMETER);
+
 		
 		StringBuilder query = new StringBuilder();
 			query.append("SELECT SUM(" + column + ")" + " FROM " + tableName);
@@ -543,7 +631,15 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param columnName Column name of which total needed.
 	 * @return Generated query.
 	 */
-	public String formTotalQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+	@SuppressWarnings("unchecked")
+	public String formTotalQuery(final Map<String, Object> parameters) {
+
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER);
+		final String column = (String) parameters.get(IQueryBuilder.FORM_TOTAL_QUERY_COLUMN_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_TOTAL_QUERY_WHERE_CLAUSE_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_TOTAL_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_TOTAL_QUERY_HAVING_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			query.append("SELECT TOTAL(" + column + ")" + " FROM " + tableName);
@@ -582,7 +678,15 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param groupBy Group by clause.
 	 * @return Generated query.
 	 */
-	public String formMaxQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+	@SuppressWarnings("unchecked")
+	public String formMaxQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_MAX_QUERY_TABLE_NAME_PARAMETER);
+		final String column = (String) parameters.get(IQueryBuilder.FORM_MAX_QUERY_COLUMN_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_MAX_QUERY_WHERE_CLAUSE_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_MAX_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_MAX_QUERY_HAVING_PARAMETER);
+
 		
 		StringBuilder query = new StringBuilder();
 			query.append("SELECT MAX(" + column + ")" + " FROM " + tableName);
@@ -622,7 +726,15 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param groupBy Group by clause.
 	 * @return Generated query.
 	 */
-	public String formMinQuery(final String tableName, final String column, final String whereClause, final Iterator<String> groupBys, final String having) {
+	@SuppressWarnings("unchecked")
+	public String formMinQuery(final Map<String, Object> parameters) {
+		
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_MIN_QUERY_TABLE_NAME_PARAMETER);
+		final String column = (String) parameters.get(IQueryBuilder.FORM_MIN_QUERY_COLUMN_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_MIN_QUERY_WHERE_CLAUSE_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_MIN_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_MIN_QUERY_HAVING_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			query.append("SELECT MIN(" + column + ")" + " FROM " + tableName);
@@ -663,7 +775,16 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param whereClause Condition on which group concat needed.
 	 * @return Generated query.
 	 */
-	public String formGroupConcatQuery(final String tableName, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having) {
+	@SuppressWarnings("unchecked")
+	public String formGroupConcatQuery(final Map<String, Object> parameters) {
+
+		final String tableName = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER);
+		final String column = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER);
+		final String delimiter = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER);
+		final String having = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER);
+		
 		
 		StringBuilder query = new StringBuilder();
 			if(delimiter == null || delimiter.length() <= 0) {
@@ -698,444 +819,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 
 
-	
-	/*
-	 * Make Trigger On Update Cascade Query.
-	 * 
-	 * REF:
-	 * 	CREATE TRIGGER update_customer_address UPDATE OF address ON customers 
-  	 *	BEGIN
-     *	UPDATE orders SET address = new.address WHERE customer_name = old.name;
-  	 *	END;
-	 */
-	
-	/**
-	 * It generates query to create trigger to put cascade update constraint on table.
-	 * 
-	 * @param triggerName Name of trigger needed.
-	 * @param parentTable Name of parent table.
-	 * @param childTable Name of child table.
-	 * @param parentKeys Column names of parent table.
-	 * @param childKeys Column names of child table.
-	 * @return Generated query.
-	 */
-	private String formTriggerOnUpdateCascade(final String triggerName, final String parentTable, final String childTable, final Iterator<String> foreignKeys) {
-		
-		StringBuilder query = new StringBuilder();
-			query.append("CREATE TRIGGER IF NOT EXISTS " + triggerName + " UPDATE OF ");
-				
-			Collection<String> duplicateForeignKeys = new LinkedList<String>();
-			
-			int index = 0;
-			while(foreignKeys.hasNext()) {
-				String foreignKey = foreignKeys.next();
-				
-				if(index == 0) {
-					query.append(foreignKey);
-				} else {
-					query.append(", " + foreignKey);
-				}
-				
-				duplicateForeignKeys.add(foreignKey);
-				index++;
-			}
-			
-			Iterator<String> duplicateForeignKeysIterator = duplicateForeignKeys.iterator();
-			
-			query.append(" ON " + parentTable);
-			query.append(" BEGIN ");
-			query.append("UPDATE " + childTable);
-
-			index = 0;
-			while(duplicateForeignKeysIterator.hasNext()) {
-				String foreignKey = duplicateForeignKeysIterator.next();
-				
-				if(index == 0) {
-					query.append(" SET " + foreignKey + "=" + "NEW" + "." + foreignKey);
-				} else {
-					query.append(", " + foreignKey + "=" + "NEW" + "." + foreignKey);
-				}
-				
-				index++;
-			}
-			
-			duplicateForeignKeysIterator = duplicateForeignKeys.iterator();
-			
-			index = 0;
-			while(duplicateForeignKeysIterator.hasNext()) {
-				String foreignKey = duplicateForeignKeysIterator.next();
-				
-				if(index == 0) {
-					query.append(" WHERE " + foreignKey + "=" + "OLD" + "." + foreignKey);
-				} else {
-					query.append(" AND " + foreignKey + "=" + "OLD" + "." + foreignKey);
-				}
-				
-				index++;
-			}
-			
-			query.append(";");
-			query.append(" END;");
-			
-		return query.toString();
-	}
-	
-	/*
-	 * Make Trigger On Delete Or Update Set Null Query.
-	 * 
-	 * REF:
-	 * 	CREATE TRIGGER update_customer_address UPDATE OF address ON customers 
-  	 *	BEGIN
-     *	UPDATE orders SET address = null WHERE customer_name = old.name;
-  	 *	END;
-	 */
-	
-
-	/**
-	 * It generates query to create trigger to put set null update constraint on table.
-	 * 
-	 * @param triggerName Name of trigger needed.
-	 * @param parentTable Name of parent table.
-	 * @param childTable Name of child table.
-	 * @param parentKeys Column names of parent table.
-	 * @param childKeys Column names of child table.
-	 * @return Generated query.
-	 */
-	private String formTriggerOnDeleteOrUpdateSetNull(final String triggerName, final String parentTable, final String childTable, final Iterator<String> foreignKeys) {
-		
-		StringBuilder query = new StringBuilder();
-			query.append("CREATE TRIGGER IF NOT EXISTS " + triggerName + " UPDATE OF ");
-			
-			Collection<String> duplicateForeignKeys = new LinkedList<String>();
-			
-			int index = 0;
-			while(foreignKeys.hasNext()) {
-				String parentKey = foreignKeys.next();
-				
-				if(index == 0) {
-					query.append(parentKey);
-				} else {
-					query.append(", " + parentKey);
-				}
-				
-				duplicateForeignKeys.add(parentKey);
-				index++;
-			}
-		
-			Iterator<String> duplicateForeignKeysIterator = duplicateForeignKeys.iterator();
-			
-			query.append(" ON " + parentTable);
-			query.append(" BEGIN ");
-			query.append("UPDATE " + childTable);
-			
-			index = 0;
-			while(duplicateForeignKeysIterator.hasNext()) {
-				String foreignKey = duplicateForeignKeysIterator.next();
-				
-				if(index == 0) {
-					query.append(" SET " + foreignKey + "=" + "NULL");
-				} else {
-					query.append(", " + foreignKey + "=" + "NULL");
-				}
-
-				index++;
-			}
-			
-			index = 0;
-			while(duplicateForeignKeysIterator.hasNext()) {
-				String foreignKey = duplicateForeignKeysIterator.next();
-				
-				if(index == 0) {
-					query.append(" WHERE " + foreignKey + "=" + "OLD" + "." + foreignKey);
-				} else {
-					query.append(" AND " + foreignKey + "=" + "OLD" + "." + foreignKey);
-				}
-				
-				index++;
-			}
-			
-			query.append(";");
-			query.append(" END;");
-			
-		return query.toString();
-	}
-
-	
-	/*
-	 * Make Trigger On Update Enforce Referential Integrity Query.
-	 * 
-	 * REF:
-	 * 	CREATE TRIGGER trigger_name BEFORE UPDATE ON child_table BEGIN 
-	 *	SELECT CASE 
-	 *	WHEN ((SELECT parent_table . primary_key FROM parent_table WHERE parent_table . primary_key = NEW. foreign_key ) ISNULL) 
-	 *	THEN RAISE(ABORT, 'Error Message') 
-	 *	END; 
-	 *	END;
-	 */
-	
-	/**
-	 * It generates query to create trigger to put update referential integrity.
-	 * 
-	 * @param triggerName Name of table.
-	 * @param parentTable Name of parent table.
-	 * @param childTable Name of child table.
-	 * @param parentKeys Column names of parent table.
-	 * @param childKeys Column names of child table.
-	 * @return Generated query.
-	 */
-	private String formTriggerOnUpdateEnforceReferentialIntegrity(final String triggerName, final String parentTable, final String childTable, final Iterator<String> foreignKeys) {
-
-		StringBuilder query = new StringBuilder();
-			query.append("CREATE TRIGGER IF NOT EXISTS " + triggerName + " "); 
-			query.append("BEFORE UPDATE ON " + childTable + " BEGIN ");
-			query.append("SELECT CASE ");
-			
-			int index = 0;
-			while(foreignKeys.hasNext()) {
-				String foreignKey = foreignKeys.next();
-				
-				if(index == 0) {
-					query.append(" WHEN ((SELECT " + foreignKey + " ");
-					
-					query.append(" FROM " + parentTable + " ");
-					query.append(" WHERE ");
-					
-					query.append(foreignKey + "=" + "NEW" + "." + foreignKey);
-				} else {
-					query.append(" AND " + foreignKey + "=" + "NEW" + "." + foreignKey);
-				}
-				
-				index++;
-			}
-			
-			query.append(") " + QUERY_BUILDER_IS_NULL + ")");
-			query.append(" THEN RAISE(ABORT, 'UPDATE ON TABLE " + childTable + " VOILATES FOREIGN KEY UPDATE ON TABLE')");
-			query.append(" END;");
-			query.append(" END;");
-			
-		return query.toString();
-	}
-
-	
-	/*
-	 * Make Trigger On Insert Referential Integrity Query.
-	 * 
-	 * REF:
-	 * 	CREATE TRIGGER trigger_name BEFORE INSERT ON child_table BEGIN 
-	 *	SELECT CASE 
-	 *	WHEN ((SELECT parent_table . primary_key FROM parent_table WHERE parent_table . primary_key = NEW. foreign_key ) ISNULL) 
-	 *	THEN RAISE(ABORT, 'Error Message') 
-	 *	END; 
-	 *	END;
-	 */
-	
-
-	/**
-	 * It generates query to create trigger to put delete referential integrity.
-	 * 
-	 * @param triggerName Name of table.
-	 * @param parentTable Name of parent table.
-	 * @param childTable Name of child table.
-	 * @param parentKeys Column names of parent table.
-	 * @param childKeys Column names of child table.
-	 * @return Generated query.
-	 */
-	private String formTriggerOnInsertEnforceReferentialIntegrity(final String triggerName, final String parentTable, final String childTable, final Iterator<String> foreignKeys) {
-
-		StringBuilder query = new StringBuilder();
-			query.append("CREATE TRIGGER IF NOT EXISTS " + triggerName + " "); 
-			query.append("BEFORE INSERT ON " + childTable + " BEGIN ");
-			query.append("SELECT CASE ");
-
-			int index = 0;
-			while(foreignKeys.hasNext()) {
-				String foreignKey = foreignKeys.next();
-				
-				if(index == 0) {
-					query.append(" WHEN ((SELECT " + foreignKey + " ");
-					
-					query.append(" FROM " + parentTable + " ");
-					query.append(" WHERE ");
-					
-					query.append(foreignKey + "=" + "NEW" + "." + foreignKey);
-				} else {
-					query.append(" AND " + foreignKey + "=" + "NEW" + "." + foreignKey);
-				}
-				
-				index++;
-			}
-			
-			query.append(") " + QUERY_BUILDER_IS_NULL + ")");
-			query.append(" THEN RAISE(ABORT, 'INSERT ON TABLE " + childTable + " VOILATES FOREIGN KEY UPDATE ON TABLE')");
-			query.append(" END;");
-			query.append(" END;");
-			
-		return query.toString();
-	}
-	
-	/*
-	 * Make Trigger On Delete Cascade Query.
-	 * 
-	 * REF: 
-	 *	CREATE TRIGGER trigger_name 
-	 *	BEFORE DELETE ON parent_table 
-	 *	FOR EACH ROW BEGIN 
-	 *	DELETE FROM child_table WHERE child_table.foreign_key = OLD. primary_key ; 
-	 *	END;
-	 */
-	
-
-	/**
-	 * It generates query to create trigger to put cascade delete constraint on table.
-	 * 
-	 * @param triggerName Name of trigger needed.
-	 * @param parentTable Name of parent table.
-	 * @param childTable Name of child table.
-	 * @param parentKeys Column names of parent table.
-	 * @param childKeys Column names of child table.
-	 * @return Generated query.
-	 */
-	private String formTriggerOnDeleteCascade(final String triggerName, final String parentTable, final String childTable, final Iterator<String> foreignKeys) {
-		
-		StringBuilder query = new StringBuilder();
-			query.append("CREATE TRIGGER IF NOT EXISTS " + triggerName + " ");
-			query.append("BEFORE DELETE ON " + parentTable + " ");
-			query.append("FOR EACH ROW BEGIN ");
-			query.append("DELETE FROM " + childTable);
-			
-			int index = 0;
-			while(foreignKeys.hasNext()) {
-				String foreignKey = foreignKeys.next();
-				
-				if(index == 0) {
-					query.append(" WHERE " + childTable + "." + foreignKey + "=" + "OLD" + "." + foreignKey);
-				} else {
-					query.append(" AND " + childTable + "." + foreignKey + "=" + "OLD" + "." + foreignKey);
-				}
-				
-				index++;
-			}
-			
-			query.append(" ;");
-			query.append(" END;");
-			
-		return query.toString();
-	}
-
-	/**
-	 * It generates query to create trigger based on parameters provided.
-	 * 
-	 * @param childTable Name of child table.
-	 * @param relationships References provided to create triggers.
-	 * @return Generated query.
-	 */
-	public Iterator<String> formTriggers(final DatabaseMappingDescriptor child) {
-		Collection<String> triggers = new LinkedList<String>();
-		
-		Iterator<DatabaseMappingDescriptor.Relationship> manyToOneRelationships = child.getManyToOneRelationships();
-		while(manyToOneRelationships.hasNext()) {
-			Relationship oneToManyRelationship = manyToOneRelationships.next();
-			Iterator<String> trigger = formTriggers(child, oneToManyRelationship);
-			
-			while(trigger.hasNext()) {
-				triggers.add(trigger.next());
-			}
-		}
-		
-		Iterator<DatabaseMappingDescriptor.Relationship> manyToManyRelationships = child.getManyToManyRelationships();
-		while(manyToManyRelationships.hasNext()) {
-			Relationship oneToManyRelationship = manyToManyRelationships.next();
-			Iterator<String> trigger = formTriggers(child, oneToManyRelationship);
-			
-			while(trigger.hasNext()) {
-				triggers.add(trigger.next());
-			}
-		}
-
-		return triggers.iterator();
-	}
-
-	private Iterator<String> formTriggers(final DatabaseMappingDescriptor child, final Relationship relationship) {
-		Collection<String> triggers = new LinkedList<String>();
-		String childName = child.getTableName();
-
-		String onDeleteAction = relationship.getOnDelete();
-		String onUpdateAction = relationship.getOnUpdate();
-
-		DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
-		if(referedDatabaseMappingDescriptor == null) {
-			referedDatabaseMappingDescriptor = resources.requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
-			relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			
-			relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-		}
-
-		
-		String parentTable = referedDatabaseMappingDescriptor.getTableName();
-		
-		Iterator<Column> columns = referedDatabaseMappingDescriptor.getColumns();
-		Collection<String> foreignKeys = new LinkedList<String>();
-
-		while(columns.hasNext()) {
-			Column column = columns.next();
-			
-			boolean isPrimary = column.isPrimaryKey();
-			if(isPrimary) {
-				foreignKeys.add(column.getColumnName());
-			}
-		}
-
-		if(onDeleteAction != null && onDeleteAction.length() > 0) {
-			if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE)) {
-				String triggerName = parentTable + "_ON_DELETE_CASCADE_" + childName;
-
-				String trigger = formTriggerOnDeleteCascade(triggerName, parentTable, childName, foreignKeys.iterator());
-				triggers.add(trigger);
-			} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_RESTRICT)) {
-			} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_NO_ACTION)) {
-			} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_NULL)) {
-				String triggerName = parentTable + "_ON_DELETE_SET_NULL_" + childName;
-
-				String trigger = formTriggerOnDeleteOrUpdateSetNull(triggerName, parentTable, childName, foreignKeys.iterator());
-				triggers.add(trigger);
-			} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT)) {
-			}
-		}
-
-		if(onUpdateAction != null && onUpdateAction.length() > 0) {
-			if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE)) {
-				String triggerName = parentTable + "_ON_UPDATE_CASCADE_" + childName;
-
-				String trigger = formTriggerOnUpdateCascade(triggerName, parentTable, childName, foreignKeys.iterator());
-				triggers.add(trigger);
-			} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_RESTRICT)) {
-			} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_NO_ACTION)) {
-			} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_NULL)) {
-				String triggerName = parentTable + "_ON_UPDATE_SET_NULL_" + childName;
-
-				String trigger = formTriggerOnDeleteOrUpdateSetNull(triggerName, parentTable, childName, foreignKeys.iterator());
-				triggers.add(trigger);
-			} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT)) {
-			}
-		}
-
-		/*
-		 * On Update Enforce Referential Integrity.
-		 */
-		String triggerName = parentTable + "_ON_UPDATE_ENFORCE_REFERENTIAL_INTEGRITY_" + childName;
-		String trigger = formTriggerOnUpdateEnforceReferentialIntegrity(triggerName, parentTable, childName, foreignKeys.iterator());
-		triggers.add(trigger);
-
-		/*
-		 * On Insert Enforce Referential Integrity.
-		 */
-		triggerName = parentTable + "_ON_INSERT_ENFORCE_REFERENTIAL_INTEGRITY_" + childName;
-		trigger = formTriggerOnInsertEnforceReferentialIntegrity(triggerName, parentTable, childName, foreignKeys.iterator());
-		triggers.add(trigger);
-		
-		return triggers.iterator();
-	}
-
 
 	/**
 	 * It generates query to create foreign keys in table.
@@ -1143,7 +826,9 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	 * @param relationships References provided to create foreign key.
 	 * @return  Generated query.
 	 */
-	public String formForeignKeys(final DatabaseMappingDescriptor child) {
+	public String formForeignKeyQuery(final Map<String, Object> parameters) {
+		
+		final DatabaseMappingDescriptor child = (DatabaseMappingDescriptor) parameters.get(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER);
 		
 		Iterator<Relationship> oneToManyRealtionships = child.getManyToOneRelationships();
 		Iterator<Relationship> manyToManyRealtionships = child.getManyToManyRelationships();
@@ -1171,7 +856,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 				
 				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
 				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = resources.requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
+					referedDatabaseMappingDescriptor = Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
 					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
 					
 					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
