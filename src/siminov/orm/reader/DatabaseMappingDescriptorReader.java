@@ -103,10 +103,10 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 	private boolean isRelationship = false;
 	
 	
-	public DatabaseMappingDescriptorReader(final String databaseMappingName) {
-		this.databaseMappingName = databaseMappingName;
+	public DatabaseMappingDescriptorReader(final String databaseMappingDescriptorName) {
+		this.databaseMappingName = databaseMappingDescriptorName;
 		
-		if(databaseMappingName == null || databaseMappingName.length() <= 0) {
+		if(databaseMappingDescriptorName == null || databaseMappingDescriptorName.length() <= 0) {
 			Log.loge(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 		}
