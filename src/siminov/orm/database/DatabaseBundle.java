@@ -18,20 +18,20 @@
 package siminov.orm.database;
 
 import siminov.orm.database.design.IDataTypeHandler;
-import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IDatabaseImpl;
 import siminov.orm.database.design.IQueryBuilder;
 
 public class DatabaseBundle {
 
-	private IDatabase database = null;
+	private IDatabaseImpl database = null;
 	private IQueryBuilder queryBuilder = null;
 	private IDataTypeHandler dataTypeHandler = null;
 	
-	public IDatabase getDatabase() {
+	public IDatabaseImpl getDatabase() {
 		return this.database;
 	}
 	
-	public void setDatabase(IDatabase database) {
+	public void setDatabase(IDatabaseImpl database) {
 		this.database = database;
 	}
 	

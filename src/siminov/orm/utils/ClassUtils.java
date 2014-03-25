@@ -136,7 +136,7 @@ public class ClassUtils {
 		try {
 			method = classObject.getClass().getMethod(methodName, parameterTypes);				
 		} catch(NoSuchMethodException noSuchMethodException) {
-			Log.logd(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "NoSuchMethodException caught while creating method, METHOD-NAME: " + methodName + ", " + noSuchMethodException.getMessage());
+			Log.logd(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "NoSuchMethodException caught while creating method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + noSuchMethodException.getMessage());
 			
 			/*
 			 * Try For Primitive Data Type
@@ -145,12 +145,12 @@ public class ClassUtils {
 			try {
 				method = classObject.getClass().getMethod(methodName, parameterTypes);				
 			} catch(Exception exception) {
-				Log.loge(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
-				throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				Log.loge(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
 			}
 		} catch(Exception exception) {
-			Log.loge(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
-			throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			Log.loge(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			throw new SiminovCriticalException(ClassUtils.class.getName(), "createMethodBasedOnClassInstance", "Exception caught while creating method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
 		}
 		
 		method.setAccessible(true);
@@ -174,8 +174,8 @@ public class ClassUtils {
 			try {
 				columnValues.add(method.invoke(classObject, new Object[] {}));	
 			} catch(Exception exception) {
-				Log.loge(ClassUtils.class.getName(), "getValues", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
-				throw new SiminovException(ClassUtils.class.getName(), "getValues", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				Log.loge(ClassUtils.class.getName(), "getValues", "Exception caught while getting return value from method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				throw new SiminovException(ClassUtils.class.getName(), "getValues", "Exception caught while getting return value from method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
 			}
 		}
 		
@@ -195,8 +195,8 @@ public class ClassUtils {
 		try {
 			return method.invoke(classObject, new Object[] {});	
 		} catch(Exception exception) {
-			Log.loge(ClassUtils.class.getName(), "getValue", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
-			throw new SiminovException(ClassUtils.class.getName(), "getValue", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			Log.loge(ClassUtils.class.getName(), "getValue", "Exception caught while getting return value from method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
+			throw new SiminovException(ClassUtils.class.getName(), "getValue", "Exception caught while getting return value from method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + methodName + ", " + exception.getMessage());
 		}
 	}
 
@@ -219,13 +219,13 @@ public class ClassUtils {
 		try {
 			return method.invoke(classObject, parameters);
 		} catch(InvocationTargetException invocationTargetException) {
-			Log.loge(ClassUtils.class.getName(), "invokeMethod", "InvocationTargetException caught while getting return value from method, METHOD-NAME: " + method.getName() + ", " + invocationTargetException.getMessage());
+			Log.loge(ClassUtils.class.getName(), "invokeMethod", "InvocationTargetException caught while getting return value from method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + method.getName() + ", " + invocationTargetException.getMessage());
 
 			Throwable throwable = invocationTargetException.getTargetException();
 			throw new SiminovException(throwable.getClass().getName(), "", throwable.getMessage());
 		} catch(Exception exception) {
-			Log.loge(ClassUtils.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + method.getName() + ", " + exception.getMessage());
-			throw new SiminovException(ClassUtils.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + method.getName() + ", " + exception.getMessage());
+			Log.loge(ClassUtils.class.getName(), "invokeMethod", "Exception caught while getting return value from method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + method.getName() + ", " + exception.getMessage());
+			throw new SiminovException(ClassUtils.class.getName(), "invokeMethod", "Exception caught while getting return value from method, CLASS-NAME: " + classObject.getClass().getName() + ", METHOD-NAME: " + method.getName() + ", " + exception.getMessage());
 		}
 	}
 	

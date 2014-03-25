@@ -25,7 +25,7 @@ import java.util.Map;
 import siminov.orm.database.DatabaseBundle;
 import siminov.orm.database.DatabaseHelper;
 import siminov.orm.database.DatabaseUtils;
-import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IDatabaseImpl;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.events.ISiminovEvents;
@@ -180,7 +180,7 @@ public class Siminov {
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
 			DatabaseBundle databaseBundle = ormResources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-			IDatabase database = databaseBundle.getDatabase();
+			IDatabaseImpl database = databaseBundle.getDatabase();
 			
 			try {
 				database.close(databaseDescriptor);
@@ -346,7 +346,7 @@ public class Siminov {
 				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 			}
 
-			IDatabase database = databaseBundle.getDatabase();
+			IDatabaseImpl database = databaseBundle.getDatabase();
 			IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 			
 			

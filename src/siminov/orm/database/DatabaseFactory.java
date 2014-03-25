@@ -22,6 +22,7 @@ import java.util.Iterator;
 
 import siminov.orm.database.design.IDataTypeHandler;
 import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IDatabaseImpl;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseDescriptor;
@@ -38,7 +39,7 @@ public class DatabaseFactory {
 	private Hashtable<String, DatabaseBundle> databaseBundles = new Hashtable<String, DatabaseBundle> ();
 
 	private String DATABASE_PACKAGE_NAME = "siminov.orm.database";
-	private String DATABASE_CLASS_NAME = "Database";
+	private String DATABASE_CLASS_NAME = "DatabaseImpl";
 	private String DATABASE_QUERY_BUILDER = "QueryBuilder";
 	private String DATABASE_DATA_TYPE_HANDLER = "DataTypeHandler";
 	
@@ -91,7 +92,7 @@ public class DatabaseFactory {
 	
 	private DatabaseBundle getDatabaseBundle(String packageName) {
 		
-		IDatabase database = (IDatabase) ClassUtils.createClassInstance(packageName + "." + DATABASE_CLASS_NAME);
+		IDatabaseImpl database = (IDatabaseImpl) ClassUtils.createClassInstance(packageName + "." + DATABASE_CLASS_NAME);
 		IQueryBuilder queryBuilder = (IQueryBuilder) ClassUtils.createClassInstance(packageName + "." + DATABASE_QUERY_BUILDER);
 		IDataTypeHandler dataTypeHandler = (IDataTypeHandler) ClassUtils.createClassInstance(packageName + "." + DATABASE_DATA_TYPE_HANDLER);
 		
@@ -101,7 +102,6 @@ public class DatabaseFactory {
 		databaseBundle.setDataTypeHandler(dataTypeHandler);
 		
 		return databaseBundle;
-		
 	}
 	
 }

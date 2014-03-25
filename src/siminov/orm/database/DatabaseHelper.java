@@ -30,7 +30,7 @@ import java.util.Set;
 import siminov.orm.Constants;
 import siminov.orm.Siminov;
 import siminov.orm.database.design.IDataTypeHandler;
-import siminov.orm.database.design.IDatabase;
+import siminov.orm.database.design.IDatabaseImpl;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.events.IDatabaseEvents;
 import siminov.orm.exception.DatabaseException;
@@ -76,7 +76,7 @@ public abstract class DatabaseHelper implements Constants {
 
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
@@ -220,7 +220,7 @@ public abstract class DatabaseHelper implements Constants {
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
@@ -718,7 +718,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		IDataTypeHandler dataTypeHandler = databaseBundle.getDataTypeHandler();
 		
@@ -922,7 +922,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
@@ -1016,7 +1016,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
@@ -1085,7 +1085,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
@@ -1135,7 +1135,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		Siminov.isActive();
 
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
 			Log.loge(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For DATABASE-MAPPING: " + databaseDescriptor.getDatabaseName());
@@ -1201,7 +1201,7 @@ Example: Make Beer Object
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
 			Log.loge(DatabaseHelper.class.getName(), "beginTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
@@ -1252,7 +1252,7 @@ Example: Make Beer Object
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
 			Log.loge(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
@@ -1303,7 +1303,7 @@ Example:
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
 			Log.loge(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
@@ -1336,7 +1336,7 @@ Example:
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -1427,7 +1427,7 @@ Example:
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
@@ -1520,7 +1520,7 @@ Example:
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
 			Log.loge(DatabaseHelper.class.getName(), "fetchManual", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
@@ -1615,7 +1615,7 @@ Example: Make Liquor Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -1786,7 +1786,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -1977,7 +1977,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
 			Log.loge(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
@@ -2054,7 +2054,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -2122,7 +2122,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -2173,7 +2173,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -2224,7 +2224,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -2274,7 +2274,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -2324,7 +2324,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -2374,7 +2374,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
@@ -2424,7 +2424,7 @@ Example: Make Beer Object
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resources.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
-		IDatabase database = databaseBundle.getDatabase();
+		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {

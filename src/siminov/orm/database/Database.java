@@ -5,6 +5,7 @@ import java.util.Map;
 
 import siminov.orm.database.design.IAverage;
 import siminov.orm.database.design.ICount;
+import siminov.orm.database.design.IDatabase;
 import siminov.orm.database.design.IDelete;
 import siminov.orm.database.design.IGroupConcat;
 import siminov.orm.database.design.IMax;
@@ -16,7 +17,7 @@ import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
 
-public class Database {
+public class Database implements IDatabase {
 
 	private Object object = null;
 	
