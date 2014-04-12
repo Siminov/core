@@ -87,6 +87,6 @@ public interface ITotal {
 	 * @return Return total.
 	 * @throws DatabaseException Throws exception if any error occur while calculating total. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 	
 }

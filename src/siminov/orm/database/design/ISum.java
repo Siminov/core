@@ -88,6 +88,6 @@ public interface ISum {
 	 * @return Return sum.
 	 * @throws DatabaseException Throws exception if any error occur while calculating sum. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 
 }

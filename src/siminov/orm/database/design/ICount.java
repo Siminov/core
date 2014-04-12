@@ -92,6 +92,6 @@ public interface ICount {
 	 * @return Return count.
 	 * @throws DatabaseException Throws exception if any error occur while calculating count. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 	
 }

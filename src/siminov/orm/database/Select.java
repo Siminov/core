@@ -160,7 +160,8 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 		return this;
 	}
 
-	public Object execute() throws DatabaseException {
+	@SuppressWarnings("unchecked")
+	public<T> T execute() throws DatabaseException {
 
 		String where = "";
 		if(this.whereClause != null && this.whereClause.length() > 0) {
@@ -190,69 +191,34 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 		
 		if(this.groupBy == null) {
 			this.groupBy = new String[] {};
+		}
+
+		String limit = null;
+		if(this.limit != 0) {
+			limit = String.valueOf(this.limit);
 		}
 
 		
 		if(interfaceName.equalsIgnoreCase(IDelete.class.getName())) {
 			DatabaseHelper.delete(referObject, where);
 		} else if(interfaceName.equalsIgnoreCase(ICount.class.getName())) {
-			return DatabaseHelper.count(databaseMappingDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.count(databaseMappingDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IAverage.class.getName())) {
-			return DatabaseHelper.avg(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.avg(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ISum.class.getName())) {
-			return DatabaseHelper.sum(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.sum(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ITotal.class.getName())) {
-			return DatabaseHelper.total(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.total(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IMax.class.getName())) {
-			return DatabaseHelper.max(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.max(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IMin.class.getName())) {
-			return DatabaseHelper.min(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.min(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IGroupConcat.class.getName())) {
-			return DatabaseHelper.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
-		} 
+			return (T) DatabaseHelper.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
+		} else if(interfaceName.equalsIgnoreCase(ISelect.class.getName())) {
+			return (T) DatabaseHelper.select(databaseMappingDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
+		}
 
 		return null;
 	}
-
-	public Object[] fetch() throws DatabaseException {
-
-		String where = "";
-		if(this.whereClause != null && this.whereClause.length() > 0) {
-			where = this.whereClause;
-		} else {
-			if(this.where != null) {
-				where = this.where.toString();
-			}
-		}
-		
-		String having = "";
-		if(this.havingClause != null && this.havingClause.length() > 0) {
-			having = this.havingClause;
-		} else {
-			if(this.having != null) {
-				having = this.having.toString();
-			}
-		}
-
-		if(this.columns == null) {
-			this.columns = new String[] {};			
-		}
-		
-		if(this.orderBy == null) {
-			this.orderBy = new String[] {};
-		}
-		
-		if(this.groupBy == null) {
-			this.groupBy = new String[] {};
-		}
-		
-		String limit = null;
-		if(this.limit != 0) {
-			limit = String.valueOf(this.limit);
-		}
-		
-		return DatabaseHelper.select(databaseMappingDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
-		
-	}
-	
 }

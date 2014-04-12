@@ -87,6 +87,6 @@ public interface IMin {
 	 * @return Return minimum.
 	 * @throws DatabaseException Throws exception if any error occur while calculating minimum. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 
 }

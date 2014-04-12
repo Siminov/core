@@ -94,6 +94,6 @@ public interface IGroupConcat {
 	 * @return Return group concat.
 	 * @throws DatabaseException Throws exception if any error occur while calculating group concat. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 
 }

@@ -57,6 +57,6 @@ public interface IDelete {
 	 * Used to delete, this method should be called in last to delete tuples from table.
 	 * @throws DatabaseException Throws exception if any error occur while deleting tuples from table. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 
 }

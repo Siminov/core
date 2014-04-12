@@ -88,6 +88,6 @@ public interface IAverage {
 	 * @return Return average.
 	 * @throws DatabaseException Throws exception if any error occur while calculating average. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 
 }

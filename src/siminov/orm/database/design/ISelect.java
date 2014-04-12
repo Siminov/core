@@ -119,6 +119,6 @@ public interface ISelect {
 	 * @return Return array of model objects.
 	 * @throws DatabaseException Throws exception if any error occur while getting tuples from table. 
 	 */
-	public Object[] fetch() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 	
 }

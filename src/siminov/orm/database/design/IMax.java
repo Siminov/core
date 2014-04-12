@@ -87,6 +87,6 @@ public interface IMax {
 	 * @return Return maximum.
 	 * @throws DatabaseException Throws exception if any error occur while calculating maximum. 
 	 */
-	public Object execute() throws DatabaseException;
+	public<T> T execute() throws DatabaseException;
 	
 }
