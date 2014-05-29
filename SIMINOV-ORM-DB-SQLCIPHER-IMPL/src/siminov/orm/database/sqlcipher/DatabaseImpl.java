@@ -54,7 +54,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 			try {
 				file.mkdirs();
 			} catch(Exception exception) {
-				Log.loge(DatabaseImpl.class.getName(), "openOrCreate", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
+				Log.error(DatabaseImpl.class.getName(), "openOrCreate", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
 				throw new DeploymentException(DatabaseImpl.class.getName(), "openOrCreate", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
 			}
 		}
@@ -63,7 +63,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		
 		String databaseName = databaseDescriptor.getDatabaseName();
 		if(databaseName == null || databaseName.length() <= 0) {
-			Log.loge(getClass().getName(), "doValidation", "DATABASE-NAME IS MANDATORY FIELD - DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+			Log.error(getClass().getName(), "doValidation", "DATABASE-NAME IS MANDATORY FIELD - DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 			throw new DatabaseException(getClass().getName(), "doValidation", "DATABASE-NAME IS MANDATORY FIELD - DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 		}
 		
@@ -76,7 +76,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		try {
 			sqliteDatabase = SQLiteDatabase.openOrCreateDatabase(databasePath + databaseName, password, null);
 		} catch(SQLiteException sqliteException) {
-			Log.loge(DatabaseImpl.class.getName(), "openOrCreate", "SQLiteException caught while opening database, " + sqliteException.getMessage());
+			Log.error(DatabaseImpl.class.getName(), "openOrCreate", "SQLiteException caught while opening database, " + sqliteException.getMessage());
 			throw new DatabaseException(DatabaseImpl.class.getName(), "openOrCreate", "SQLiteException caught while opening database, " + sqliteException.getMessage());
 		}
 	}
@@ -86,42 +86,42 @@ public class DatabaseImpl implements IDatabaseImpl {
 	}
 
 	public void executeQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
-		Log.logd(DatabaseImpl.class.getName(), "executeQuery(" + query + ")", "QUERY: " + query);
+		Log.debug(DatabaseImpl.class.getName(), "executeQuery(" + query + ")", "QUERY: " + query);
 		
 		try {
 			sqliteDatabase.execSQL(query);			
 		} catch(SQLiteException sqliteException) {
-			Log.loge(DatabaseImpl.class.getName(), "executeQuery(" + query + ")", "SQLiteException caught while executing query, QUERY: " + query + ", " + sqliteException.getMessage());
+			Log.error(DatabaseImpl.class.getName(), "executeQuery(" + query + ")", "SQLiteException caught while executing query, QUERY: " + query + ", " + sqliteException.getMessage());
 			throw new DatabaseException(DatabaseImpl.class.getName(), "executeQuery(" + query + ")", "SQLiteException caught while executing query, QUERY: " + query + ", " + sqliteException.getMessage());
 		}
 	}
 	
 	public void executeBindQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query, final Iterator<Object> columnValues) throws DatabaseException {
-		Log.logd(DatabaseImpl.class.getName(), "executeBindQuery", "QUERY: " + query);
+		Log.debug(DatabaseImpl.class.getName(), "executeBindQuery", "QUERY: " + query);
 		
 		SQLiteStatement statement =null;
 		
 		try {
 			statement = sqliteDatabase.compileStatement(query);
 		} catch(SQLiteException sqliteException) {
-			Log.loge(DatabaseImpl.class.getName(), "executeBindQuery(" + query + ")", "SQLiteException caught while compiling statement, " + sqliteException.getMessage());
+			Log.error(DatabaseImpl.class.getName(), "executeBindQuery(" + query + ")", "SQLiteException caught while compiling statement, " + sqliteException.getMessage());
 
 			int index = 0;
 			while(columnValues.hasNext()) {
 				Object columnValue = columnValues.next();
 				
 				if(columnValue instanceof String) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX: " + index + ", VALUE: " + columnValue);
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX: " + index + ", VALUE: " + columnValue);
 				} else if(columnValue instanceof Long) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Long) columnValue).longValue());
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Long) columnValue).longValue());
 				} else if(columnValue instanceof Double) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Double) columnValue).doubleValue());
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Double) columnValue).doubleValue());
 				} else if(columnValue instanceof Float) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Float) columnValue).floatValue());
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + ((Float) columnValue).floatValue());
 				} else if(columnValue instanceof byte[]) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + new String((byte[]) columnValue));
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + new String((byte[]) columnValue));
 				} else {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + columnValue);
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + columnValue);
 				}
 				
 				index++;
@@ -159,24 +159,24 @@ public class DatabaseImpl implements IDatabaseImpl {
 		try {
 			statement.execute();
 		} catch(SQLiteException sqliteException) {
-			Log.loge(DatabaseImpl.class.getName(), "executeBindQuery(" + query + ")", "SQLiteException caught while executing statement, " + sqliteException.getMessage());
+			Log.error(DatabaseImpl.class.getName(), "executeBindQuery(" + query + ")", "SQLiteException caught while executing statement, " + sqliteException.getMessage());
 			
 			index = 0;
 			while(newColumnValues.hasNext()) {
 				Object columnValue = newColumnValues.next();
 				
 				if(columnValue instanceof String) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + columnValue);
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + columnValue);
 				} else if(columnValue instanceof Long) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Long) columnValue).longValue());
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Long) columnValue).longValue());
 				} else if(columnValue instanceof Double) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Double) columnValue).doubleValue());
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Double) columnValue).doubleValue());
 				} else if(columnValue instanceof Float) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Float) columnValue).floatValue());
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + ((Float) columnValue).floatValue());
 				} else if(columnValue instanceof byte[]) {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + new String((byte[]) columnValue));
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-NAME: " + index + ", VALUE: " + new String((byte[]) columnValue));
 				} else {
-					Log.loge(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + columnValue);
+					Log.error(DatabaseImpl.class.getName(), "executeBindQuery", "COLUMN-INDEX " + index + ", VALUE: " + columnValue);
 				}
 				
 				index++;
@@ -206,13 +206,13 @@ public class DatabaseImpl implements IDatabaseImpl {
 					Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnName);
 					
 					if(column == null) {
-						Log.loge(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Object Found For Column Name: " + columnName);
+						Log.error(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Object Found For Column Name: " + columnName);
 						throw new DatabaseException(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Object Found For Column Name: " + columnName);
 					}
 					
 					String columnType = column.getType();
 					if(columnType == null || columnType.length() <= 0) {
-						Log.loge(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
+						Log.error(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
 						throw new DatabaseException(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
 					}
 					
@@ -269,7 +269,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 			try {
 				method = sqliteDatabase.getClass().getMethod(methodName, boolean.class);	
 			} catch(Exception exception) {
-				Log.loge(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				Log.error(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 				throw new DatabaseException(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 			}
 		} else {
@@ -277,14 +277,14 @@ public class DatabaseImpl implements IDatabaseImpl {
 				try {
 					method = sqliteDatabase.getClass().getMethod(methodName, new Class[] {});	
 				} catch(Exception exception) {
-					Log.loge(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+					Log.error(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 					throw new DatabaseException(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 				}
 			} else {
 				try {
 					method = sqliteDatabase.getClass().getMethod(methodName, parameter.getClass());	
 				} catch(Exception exception) {
-					Log.loge(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+					Log.error(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 					throw new DatabaseException(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 				}
 			}
@@ -298,14 +298,14 @@ public class DatabaseImpl implements IDatabaseImpl {
 			try {
 				 method.invoke(sqliteDatabase, new Object[] {});	
 			} catch(Exception exception) {
-				Log.loge(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				Log.error(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 				throw new DatabaseException(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 			}
 		} else {
 			try {
 				 method.invoke(sqliteDatabase, new Object[] {parameter});	
 			} catch(Exception exception) {
-				Log.loge(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
+				Log.error(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 				throw new DatabaseException(DatabaseImpl.class.getName(), "invokeMethod", "Exception caught while getting return value from method, METHOD-NAME: " + methodName + ", " + exception.getMessage());
 			}
 		}
