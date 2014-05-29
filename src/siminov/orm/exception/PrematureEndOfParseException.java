@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
 /**
  * This is SAX exception, which is thrown if any exception occur at time of parsing descriptors.
  */
-public class PrematureEndOfParseException extends SAXException {
+public class PrematureEndOfParseException extends SAXException implements IException {
 
 	private String className = null;
 	private String methodName = null;

@@ -388,20 +388,20 @@ Example: DatabaseDescriptor.xml
 		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptorBasedOnClassName(className);
 
 		if(databaseMapping == null) {
-			Log.logd(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, MODEL: " + className);
+			Log.debug(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, MODEL: " + className);
 			
 			QuickDatabaseMappingDescriptorReader quickDatabaseMappingDescriptorParser = null;
 			try {
 				quickDatabaseMappingDescriptorParser = new QuickDatabaseMappingDescriptorReader(className);
 				quickDatabaseMappingDescriptorParser.process();
 			} catch(SiminovException ce) {
-				Log.loge(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className + ", " + ce.getMessage());
+				Log.error(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className + ", " + ce.getMessage());
 				throw new SiminovCriticalException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className  + ", " + ce.getMessage());
 			}
 			
 			DatabaseMappingDescriptor foundDatabaseMapping = quickDatabaseMappingDescriptorParser.getDatabaseMapping();
 			if(foundDatabaseMapping == null) {
-				Log.loge(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
+				Log.error(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
 				throw new SiminovCriticalException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
 			}
 			

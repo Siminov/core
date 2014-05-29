@@ -80,7 +80,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 		
 		Context context = resources.getApplicationContext();
 		if(context == null) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context found.");
+			Log.error(getClass().getName(), "Constructor", "Invalid Application Context found.");
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found.");
 		}
 
@@ -92,14 +92,14 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 		try {
 			applicationDescriptorStream = context.getAssets().open(APPLICATION_DESCRIPTOR_FILE_NAME);
 		} catch(IOException ioException) {
-			Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of application descriptor, " + ioException.getMessage());
+			Log.error(getClass().getName(), "Constructor", "IOException caught while getting input stream of application descriptor, " + ioException.getMessage());
 			throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of application descriptor, " + ioException.getMessage());
 		}
 		
 		try {
 			parseMessage(applicationDescriptorStream);
 		} catch(Exception exception) {
-			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing APPLICATION-DESCRIPTOR, " + exception.getMessage());
+			Log.error(getClass().getName(), "Constructor", "Exception caught while parsing APPLICATION-DESCRIPTOR, " + exception.getMessage());
 			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing APPLICATION-DESCRIPTOR, " + exception.getMessage());
 		}
 		
@@ -162,7 +162,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 		 */
 		String name = applicationDescriptor.getName();
 		if(name == null || name.length() <= 0) {
-			Log.loge(getClass().getName(), "doValidation", "NAME IS MANDATORY FIELD - APPLICATION-DESCRIPTOR");
+			Log.error(getClass().getName(), "doValidation", "NAME IS MANDATORY FIELD - APPLICATION-DESCRIPTOR");
 			throw new DeploymentException(getClass().getName(), "doValidation", "NAME IS MANDATORY FIELD - APPLICATION-DESCRIPTOR");
 		}
 		
@@ -171,7 +171,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 			String databaseDescriptorPath = databaseDescriptorPaths.next();
 			
 			if(!databaseDescriptorPath.contains(SIMINOV_DESCRIPTOR_EXTENSION)) {
-				Log.loge(getClass().getName(), "doValidation", "INVALID DATABASE DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseDescriptorPath);
+				Log.error(getClass().getName(), "doValidation", "INVALID DATABASE DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseDescriptorPath);
 				throw new DeploymentException(getClass().getName(), "doValidation", "INVALID DATABASE DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseDescriptorPath);
 			}
 		}

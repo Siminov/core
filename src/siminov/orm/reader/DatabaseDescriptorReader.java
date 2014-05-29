@@ -89,7 +89,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	public DatabaseDescriptorReader(final String databaseDescriptorPath) {
 		
 		if(databaseDescriptorPath == null || databaseDescriptorPath.length() <= 0) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Database Descriptor path found.");
+			Log.error(getClass().getName(), "Constructor", "Invalid Database Descriptor path found.");
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Database Descriptor path found.");
 		}
 		
@@ -97,7 +97,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		
 		Context context = resources.getApplicationContext();
 		if(context == null) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context found.");
+			Log.error(getClass().getName(), "Constructor", "Invalid Application Context found.");
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found.");
 		}
 
@@ -113,11 +113,11 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 				databaseDescriptorStream = context.getAssets().open(this.databaseDescriptorPath);
 			}
 		} catch(IOException ioException) {
-			Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database descriptor, DATABASE-DESCRIPTOR-PATH: " + databaseDescriptorPath + ", " + ioException.getMessage());
+			Log.error(getClass().getName(), "Constructor", "IOException caught while getting input stream of database descriptor, DATABASE-DESCRIPTOR-PATH: " + databaseDescriptorPath + ", " + ioException.getMessage());
 
 			try {
 			} catch(Exception exception) {
-				Log.loge(DatabaseDescriptorReader.class.getName(), "Constructor", "Exception caught while getting database descriptor file stream, " + exception.getMessage());
+				Log.error(DatabaseDescriptorReader.class.getName(), "Constructor", "Exception caught while getting database descriptor file stream, " + exception.getMessage());
 				throw new DeploymentException(DatabaseDescriptorReader.class.getName(), "Constructor", exception.getMessage());
 			}
 		}
@@ -126,7 +126,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		try {
 			parseMessage(databaseDescriptorStream);
 		} catch(Exception exception) {
-			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + exception.getMessage());
+			Log.error(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + exception.getMessage());
 			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseDescriptorPath + ", " + exception.getMessage());
 		}
 		
@@ -179,7 +179,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 			
 			if(databaseMappingPath.endsWith(XML_FILE_EXTENSION)) {
 				if(!databaseMappingPath.contains(SIMINOV_DESCRIPTOR_EXTENSION)) {
-					Log.loge(getClass().getName(), "doValidation", "INVALID DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
+					Log.error(getClass().getName(), "doValidation", "INVALID DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
 					throw new DeploymentException(getClass().getName(), "doValidation", "INVALID DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
 				}
 			}

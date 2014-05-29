@@ -80,7 +80,7 @@ public abstract class DatabaseHelper implements Constants {
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "upgradeDatabase", "No Database Instance Found For, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+			Log.error(DatabaseHelper.class.getName(), "upgradeDatabase", "No Database Instance Found For, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 			throw new DatabaseException(DatabaseHelper.class.getName(), "upgradeDatabase", "No Database Instance Found For, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 		}
 		
@@ -89,7 +89,7 @@ public abstract class DatabaseHelper implements Constants {
 		 * Fetch Database Version
 		 */
 		String fetchDatabaseVersionQuery = queryBuilder.formFetchDatabaseVersionQuery(null);
-		Log.logd(DatabaseHelper.class.getName(), "upgradeDatabase", "Fetch Database Version Query: " + fetchDatabaseVersionQuery);
+		Log.debug(DatabaseHelper.class.getName(), "upgradeDatabase", "Fetch Database Version Query: " + fetchDatabaseVersionQuery);
 
 
 		double currentDatabaseVersion = 0;
@@ -126,7 +126,7 @@ public abstract class DatabaseHelper implements Constants {
 		 * Get Table Names
 		 */
 		String fetchTableNamesQuery = queryBuilder.formTableNames(null);
-		Log.logd(DatabaseHelper.class.getName(), "upgradeDatabase", "Fetch Table Names, " + fetchTableNamesQuery);
+		Log.debug(DatabaseHelper.class.getName(), "upgradeDatabase", "Fetch Table Names, " + fetchTableNamesQuery);
 		
 		datas = database.executeFetchQuery(databaseDescriptor, null, fetchTableNamesQuery);
 		while(datas.hasNext()) {
@@ -204,7 +204,7 @@ public abstract class DatabaseHelper implements Constants {
 		parameters.put(IQueryBuilder.FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER, databaseDescriptor.getVersion());
 		
 		String updateDatabaseVersionQuery = queryBuilder.formUpdateDatabaseVersionQuery(parameters);
-		Log.logd(DatabaseHelper.class.getName(), "upgradeDatabase", "Update Database Version Query: " + updateDatabaseVersionQuery);
+		Log.debug(DatabaseHelper.class.getName(), "upgradeDatabase", "Update Database Version Query: " + updateDatabaseVersionQuery);
 		
 		database.executeQuery(databaseDescriptor, null, updateDatabaseVersionQuery);
 	}
@@ -224,7 +224,7 @@ public abstract class DatabaseHelper implements Constants {
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + databaseMappingDescriptor.getTableName());
+			Log.error(DatabaseHelper.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + databaseMappingDescriptor.getTableName());
 			throw new DatabaseException(DatabaseHelper.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + databaseMappingDescriptor.getTableName());
 		}
 
@@ -233,7 +233,7 @@ public abstract class DatabaseHelper implements Constants {
 		parameters.put(IQueryBuilder.FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
 		
 		String tableInfoQuery = queryBuilder.formTableInfoQuery(parameters);
-		Log.logd(DatabaseHelper.class.getName(), "upgradeTable", "Table Info Query: " + tableInfoQuery);
+		Log.debug(DatabaseHelper.class.getName(), "upgradeTable", "Table Info Query: " + tableInfoQuery);
 		
 		
 		Collection<Column> newColumns = new ArrayList<Column>();
@@ -283,7 +283,7 @@ public abstract class DatabaseHelper implements Constants {
 			parameters.put(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER, columnName);
 			
 			String addColumnQuery = queryBuilder.formAlterAddColumnQuery(parameters);
-			Log.logd(DatabaseHelper.class.getName(), "upgradeTable", "Add New Column Query: " + addColumnQuery);
+			Log.debug(DatabaseHelper.class.getName(), "upgradeTable", "Add New Column Query: " + addColumnQuery);
 			
 			
 			database.executeQuery(null, null, addColumnQuery);
@@ -723,7 +723,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		IDataTypeHandler dataTypeHandler = databaseBundle.getDataTypeHandler();
 		
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -926,7 +926,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -1020,7 +1020,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "createIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "createIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "createIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -1089,7 +1089,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "dropIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
+			Log.error(DatabaseHelper.class.getName(), "dropIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
 			throw new DeploymentException(DatabaseHelper.class.getName(), "dropIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
 		}
 
@@ -1138,7 +1138,7 @@ SIMINOV will read each class Annotations defined by developer and create table's
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For DATABASE-MAPPING: " + databaseDescriptor.getDatabaseName());
+			Log.error(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For DATABASE-MAPPING: " + databaseDescriptor.getDatabaseName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For DATABASE-MAPPING: " + databaseDescriptor.getDatabaseName());
 		}
 
@@ -1204,7 +1204,7 @@ Example: Make Beer Object
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "beginTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+			Log.error(DatabaseHelper.class.getName(), "beginTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "beginTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 		}
 		
@@ -1255,7 +1255,7 @@ Example: Make Beer Object
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+			Log.error(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 		}
 
@@ -1306,14 +1306,14 @@ Example:
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+			Log.error(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 		}
 		
 		try {
 			database.executeMethod(SQLITE_DATABASE_END_TRANSACTION, null);
 		} catch(DatabaseException databaseException) {
-			Log.loge(DatabaseHelper.class.getName(), "commitTransaction", "DatabaseException caught while executing end transaction method, " + databaseException.getMessage());
+			Log.error(DatabaseHelper.class.getName(), "commitTransaction", "DatabaseException caught while executing end transaction method, " + databaseException.getMessage());
 		}
 	}
 	
@@ -1340,7 +1340,7 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -1393,7 +1393,7 @@ Example:
 		try {
 			classObject = Class.forName(databaseMappingDescriptor.getClassName());
 		} catch(Exception exception) {
-			Log.loge(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DatabaseException(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -1431,7 +1431,7 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "lazyFetch", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "lazyFetch", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "lazyFetch", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -1468,7 +1468,7 @@ Example:
 		try {
 			classObject = Class.forName(databaseMappingDescriptor.getClassName());
 		} catch(Exception exception) {
-			Log.loge(DatabaseHelper.class.getName(), "lazyFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "lazyFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DatabaseException(DatabaseHelper.class.getName(), "lazyFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -1523,7 +1523,7 @@ Example:
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "fetchManual", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "fetchManual", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "fetchManual", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -1546,7 +1546,7 @@ Example:
 		try {
 			classObject = Class.forName(databaseMappingDescriptor.getClassName());
 		} catch(Exception exception) {
-			Log.loge(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DatabaseException(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -1603,7 +1603,7 @@ Example: Make Liquor Object
 		 */
 		
 		if(object == null) {
-			Log.logd(DatabaseHelper.class.getName(), "save", "Invalid Object Found.");
+			Log.debug(DatabaseHelper.class.getName(), "save", "Invalid Object Found.");
 			return;
 		}
 		
@@ -1619,7 +1619,7 @@ Example: Make Liquor Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -1639,7 +1639,7 @@ Example: Make Liquor Object
 				columnNames.add(column.getColumnName());
 				columnValues.add(ClassUtils.getValue(object, column.getGetterMethodName()));
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 			} 
 		}
@@ -1687,7 +1687,7 @@ Example: Make Liquor Object
 				try {
 					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
@@ -1702,7 +1702,7 @@ Example: Make Liquor Object
 				try {
 					values = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
@@ -1719,7 +1719,7 @@ Example: Make Liquor Object
 				try {
 					values = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
@@ -1775,7 +1775,7 @@ Example: Make Beer Object
 		 */
 
 		if(object == null) {
-			Log.logd(DatabaseHelper.class.getName(), "update", "Invalid Object Found.");
+			Log.debug(DatabaseHelper.class.getName(), "update", "Invalid Object Found.");
 			return;
 		}
 
@@ -1790,7 +1790,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "update", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "update", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "update", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -1812,7 +1812,7 @@ Example: Make Beer Object
 				columnNames.add(column.getColumnName());
 				columnValue = ClassUtils.getValue(object, column.getGetterMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 			} 
 			
@@ -1874,7 +1874,7 @@ Example: Make Beer Object
 				try {
 					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 				} 
 
@@ -1889,7 +1889,7 @@ Example: Make Beer Object
 				try {
 					relationshipValues = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 				} 
 
@@ -1906,7 +1906,7 @@ Example: Make Beer Object
 				try {
 					relationshipValues = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 				} 
 
@@ -1966,7 +1966,7 @@ Example: Make Beer Object
 		 */
 		
 		if(object == null) {
-			Log.logd(DatabaseHelper.class.getName(), "saveOrUpdate", "Invalid Object Found.");
+			Log.debug(DatabaseHelper.class.getName(), "saveOrUpdate", "Invalid Object Found.");
 			return;
 		}
 		
@@ -1980,7 +1980,7 @@ Example: Make Beer Object
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -1998,7 +1998,7 @@ Example: Make Beer Object
 				try {
 					columnValue = ClassUtils.getValue(object, column.getGetterMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "saveOrUpdate", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "saveOrUpdate", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "saveOrUpdate", siminovException.getMessage());
 				} 
 
@@ -2043,7 +2043,7 @@ Example: Make Beer Object
 		 */
 		
 		if(object == null) {
-			Log.logd(DatabaseHelper.class.getName(), "delete", "Invalid Object Found.");
+			Log.debug(DatabaseHelper.class.getName(), "delete", "Invalid Object Found.");
 			return;
 		}
 
@@ -2058,7 +2058,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "delete", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "delete", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "delete", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 		
@@ -2074,7 +2074,7 @@ Example: Make Beer Object
 				try {
 					columnValue = ClassUtils.getValue(object, column.getGetterMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "delete", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "delete", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "delete", siminovException.getMessage());
 				} 
 
@@ -2126,7 +2126,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -2177,7 +2177,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -2228,7 +2228,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -2278,7 +2278,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -2328,7 +2328,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -2378,7 +2378,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -2428,7 +2428,7 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.loge(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 			throw new DeploymentException(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
 		}
 
@@ -2654,7 +2654,7 @@ Example:
 			try {
 				columnNameAndItsValues.put(column.getColumnName(), ClassUtils.getValue(object, column.getGetterMethodName()));
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "getColumnValues", siminovException.getMessage());
 			} 
 		}
@@ -2683,7 +2683,7 @@ Example:
 					try {
 						columnNameAndItsValues.put(column.getColumnName(), ClassUtils.getValue(object, column.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "getColumnValues", siminovException.getMessage());
 					} 
 				}
@@ -2703,7 +2703,7 @@ Example:
 					try {
 						columnNameAndItsValues.put(column.getColumnName(), ClassUtils.getValue(object, column.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "getColumnValues", siminovException.getMessage());
 					} 
 				}
@@ -3125,7 +3125,7 @@ Example:
 			try {
 				object = ClassUtils.createAndInflateObject(databaseMappingDescriptor.getClassName(), data);
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "parseAndInflateData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "parseAndInflateData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "parseAndInflateData", siminovException.getMessage());
 			} 
 			
@@ -3160,7 +3160,7 @@ Example:
 				try {
 					columnValue = ClassUtils.getValue(object, column.getGetterMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 				}
 
@@ -3192,7 +3192,7 @@ Example:
 			try {
 				ClassUtils.invokeMethod(object, oneToOneRelationship.getSetterReferMethodName(), new Class[] {referedObjects[0].getClass()}, new Object[] {referedObjects[0]});
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 			}
 			
@@ -3224,7 +3224,7 @@ Example:
 				try {
 					columnValue = ClassUtils.getValue(object, column.getGetterMethodName());
 				} catch(SiminovException siminovException) {
-					Log.loge(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToManyRelationship", siminovException.getMessage());
 				}
 
@@ -3255,7 +3255,7 @@ Example:
 			try {
 				ClassUtils.invokeMethod(object, oneToManyRelationship.getSetterReferMethodName(), new Class[] {Iterator.class}, new Object[] {referedCollection.iterator()});
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToManyRelationship", siminovException.getMessage());
 			}
 		}
@@ -3278,12 +3278,12 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 			}
 			
@@ -3299,7 +3299,7 @@ Example:
 						columnNames.add(column.getColumnName());
 						columnValues.add(ClassUtils.getValue(referedObject, column.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + referedObject.getClass().getName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + referedObject.getClass().getName() + ", " + " METHOD-NAME: " + column.getGetterMethodName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 					} 
 				}
@@ -3323,12 +3323,12 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 			}
 
@@ -3344,7 +3344,7 @@ Example:
 					try {
 						columnValue = ClassUtils.getValue(referedObject, column.getGetterMethodName());
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 					} 
 
@@ -3374,7 +3374,7 @@ Example:
 
 			Object referedObject = ClassUtils.createClassInstance(manyToOneRelationship.getReferedDatabaseMappingDescriptor().getClassName());
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 			}
 
@@ -3415,7 +3415,7 @@ Example:
 					try {
 						ClassUtils.invokeMethod(referedObject, column.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
 					}
 				}
@@ -3423,7 +3423,7 @@ Example:
 			
 
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
 			}
 
@@ -3431,7 +3431,7 @@ Example:
 			try {
 				ClassUtils.invokeMethod(object, manyToOneRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 			}
 		}
@@ -3454,12 +3454,12 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 			}
 
@@ -3475,7 +3475,7 @@ Example:
 						columnNames.add(column.getColumnName());
 						columnValues.add(ClassUtils.getValue(object, column.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 					} 
 				}
@@ -3499,12 +3499,12 @@ Example:
 			try {
 				referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 			}
 
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 			}
 
@@ -3520,7 +3520,7 @@ Example:
 					try {
 						columnValue = ClassUtils.getValue(referedObject, column.getGetterMethodName());
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 					} 
 
@@ -3551,7 +3551,7 @@ Example:
 
 			Object referedObject = ClassUtils.createClassInstance(manyToManyRelationship.getReferedDatabaseMappingDescriptor().getClassName());
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 			}
 
@@ -3592,21 +3592,21 @@ Example:
 					try {
 						ClassUtils.invokeMethod(referedObject, column.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
 					} catch(SiminovException siminovException) {
-						Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + column.getSetterMethodName() + ", " + siminovException.getMessage());
 					}
 				}
 			}
 
 			if(referedObject == null) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
 			}
 			
 			try {
 				ClassUtils.invokeMethod(object, manyToManyRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
 			} catch(SiminovException siminovException) {
-				Log.loge(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 			}
 		}

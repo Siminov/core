@@ -20,7 +20,7 @@ package siminov.orm.exception;
 /**
  * This is general exception, which is thrown through Siminov APIs, if any exception occur while performing any tasks.
  */
-public class SiminovException extends Exception {
+public class SiminovException extends Exception implements IException {
 
 	private String className = null;
 	private String methodName = null;

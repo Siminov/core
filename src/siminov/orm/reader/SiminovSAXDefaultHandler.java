@@ -45,7 +45,7 @@ public class SiminovSAXDefaultHandler extends DefaultHandler {
 	 */
 	public void parseMessage(final InputStream inputStream) throws SiminovException {
 		if(inputStream == null) {
-			Log.loge(getClass().getName(), "parseMessage", "Invalid InputStream Found.");
+			Log.error(getClass().getName(), "parseMessage", "Invalid InputStream Found.");
 			throw new SiminovException(getClass().getName(), "parseMessage", "Invalid InputStream Found.");
 		}
 		
@@ -54,7 +54,7 @@ public class SiminovSAXDefaultHandler extends DefaultHandler {
 		try {
 			saxParserFactory = SAXParserFactory.newInstance();			
 		} catch(FactoryConfigurationError factoryConfigurationError) {
-			Log.logd(getClass().getName(), "parseMessage", "FactoryConfigurationError caught while creating new instance of sax parser factory.");
+			Log.debug(getClass().getName(), "parseMessage", "FactoryConfigurationError caught while creating new instance of sax parser factory.");
 			throw new SiminovException(getClass().getName(), "parseMessage", "FactoryConfigurationError caught while creating new instance of sax parser factory, " + factoryConfigurationError.getMessage());
 		}
 
@@ -63,28 +63,28 @@ public class SiminovSAXDefaultHandler extends DefaultHandler {
 		try {
 			saxParser = saxParserFactory.newSAXParser();
 		} catch(ParserConfigurationException parserConfigurationException) {
-			Log.loge(getClass().getName(), "parseMessage", "ParserConfigurationException caught while creating new instance of sax parser.");
+			Log.error(getClass().getName(), "parseMessage", "ParserConfigurationException caught while creating new instance of sax parser.");
 			throw new SiminovException(getClass().getName(), "parseMessage", "ParserConfigurationException caught while creating new instance of sax parser, " + parserConfigurationException.getMessage());
 		} catch(SAXException saxException) {
-			Log.loge(getClass().getName(), "parseMessage", "SAXException caught while creating new instance of sax parser.");
+			Log.error(getClass().getName(), "parseMessage", "SAXException caught while creating new instance of sax parser.");
 			throw new SiminovException(getClass().getName(), "parseMessage", "SAXException caught while creating new instance of sax parser, " + saxException.getMessage());
 		}
 		
 		try {
 			saxParser.parse(inputStream, this);			
 		} catch(IllegalArgumentException illegalArgumentException) {
-			Log.loge(getClass().getName(), "parserMessage", "IllegalArgumentException caught while parsing input stream, " + illegalArgumentException.getMessage());
+			Log.error(getClass().getName(), "parserMessage", "IllegalArgumentException caught while parsing input stream, " + illegalArgumentException.getMessage());
 			throw new SiminovException(getClass().getName(), "parseMessage", "IllegalArgumentException caught while parsing input stream, " + illegalArgumentException.getMessage());
 		} catch(IOException ioException) {
-			Log.loge(getClass().getName(), "parserMessage", "IOException caught while parsing input stream, " + ioException.getMessage());
+			Log.error(getClass().getName(), "parserMessage", "IOException caught while parsing input stream, " + ioException.getMessage());
 			throw new SiminovException(getClass().getName(), "parseMessage", "IOException caught while parsing input stream, " + ioException.getMessage());
 		} catch(PrematureEndOfParseException prematureEndOfParseException) {
-			Log.logi(getClass().getName(), "parserMessage", "PrematureEndOfParseException caught while parsing input stream, " + prematureEndOfParseException.getMessage());
+			Log.important(getClass().getName(), "parserMessage", "PrematureEndOfParseException caught while parsing input stream, " + prematureEndOfParseException.getMessage());
 		} catch(SAXException saxException) {
-			Log.loge(getClass().getName(), "parserMessage", "SAXException caught while parsing input stream, " + saxException.getMessage());
+			Log.error(getClass().getName(), "parserMessage", "SAXException caught while parsing input stream, " + saxException.getMessage());
 			throw new SiminovException(getClass().getName(), "parserMessage", "SAXException caught while parsing input stream, " + saxException.getMessage());
 		} catch(Exception exception) {
-			Log.loge(getClass().getName(), "parserMessage", "Exception caught while parsing input stream, " + exception.getMessage());
+			Log.error(getClass().getName(), "parserMessage", "Exception caught while parsing input stream, " + exception.getMessage());
 			throw new SiminovException(getClass().getName(), "parserMessage", "Exception caught while parsing input stream, " + exception.getMessage());
 		}
 	}

@@ -39,7 +39,7 @@ public class Utils {
 	 */
 	public static String toString(final InputStream inputStream) throws SiminovException {
 		if(inputStream == null) {
-			Log.loge(Utils.class.getName(), "getString", "Invalid InputStream Found.");
+			Log.error(Utils.class.getName(), "getString", "Invalid InputStream Found.");
 			throw new SiminovException(Utils.class.getName(), "getString", "Invalid InputStream Found.");
 		}
 		
@@ -53,13 +53,13 @@ public class Utils {
 			    x.append(new String(bytes, 0, numRead));
 			}
 		} catch(Exception exception) {
-			Log.loge(Utils.class.getName(), "getString", "Exception caught while getting string from inputstream, " + exception.getMessage());
+			Log.error(Utils.class.getName(), "getString", "Exception caught while getting string from inputstream, " + exception.getMessage());
 		}
 
 		try {
 			inputStream.close();			
 		} catch(Exception exception) {
-			Log.loge(Utils.class.getName(), "getString", "Exception caught while closing inputstream, " + exception.getMessage());
+			Log.error(Utils.class.getName(), "getString", "Exception caught while closing inputstream, " + exception.getMessage());
 		}
 		
 		return x.toString();
@@ -73,7 +73,7 @@ public class Utils {
 	 */
 	public static InputStream toInputStream(final String string) throws SiminovException {
 		if(string == null || string.length() <= 0) {
-			Log.loge(Utils.class.getName(), "getInputStream", "Invalid String Found.");
+			Log.error(Utils.class.getName(), "getInputStream", "Invalid String Found.");
 			throw new SiminovException(Utils.class.getName(), "getInputStream", "Invalid String Found.");
 		}
 		
@@ -82,7 +82,7 @@ public class Utils {
 		try {
 			bytes = string.getBytes("UTF-8");
 		} catch(Exception exception) {
-			Log.loge(Utils.class.getName(), "getInputStream", "Exception caught while getting bytes from string, " + exception.getMessage());
+			Log.error(Utils.class.getName(), "getInputStream", "Exception caught while getting bytes from string, " + exception.getMessage());
 			throw new SiminovException(Utils.class.getName(), "getInputStream", "Exception caught while getting bytes from string, " + exception.getMessage());
 		}
 		
@@ -97,7 +97,7 @@ public class Utils {
 	 */
 	public static InputStream toInputStream(final byte[] bytes) throws SiminovException {
 		if(bytes == null || bytes.length <= 0) {
-			Log.loge(Utils.class.getName(), "getInputStream", "Invalid ByteArray Found.");
+			Log.error(Utils.class.getName(), "getInputStream", "Invalid ByteArray Found.");
 			throw new SiminovException(Utils.class.getName(), "getInputStream", "Invalid ByteArray Found.");
 		}
 		

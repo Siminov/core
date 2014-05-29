@@ -29,7 +29,7 @@ public abstract class Log {
 	 * @param methodName Method Name.
 	 * @param message Message.
 	 */
-	public static void logi(final String className, final String methodName, final String message) {
+	public static void important(final String className, final String methodName, final String message) {
 		
 		if(isEmulator()) {
 			System.out.print(prepareMessage(className, methodName, message));
@@ -44,7 +44,7 @@ public abstract class Log {
 	 * @param methodName Method Name.
 	 * @param message Message.
 	 */
-	public static void loge(final String className, final String methodName, final String message) {
+	public static void error(final String className, final String methodName, final String message) {
 		
 		if(isEmulator()) {
 			System.out.print(prepareMessage(className, methodName, message));
@@ -59,7 +59,7 @@ public abstract class Log {
 	 * @param methodName Method Name.
 	 * @param message Message.
 	 */
-	public static void logd(final String className, final String methodName, final String message) {
+	public static void debug(final String className, final String methodName, final String message) {
 		
 		if(isEmulator()) {
 			System.out.print(prepareMessage(className, methodName, message));

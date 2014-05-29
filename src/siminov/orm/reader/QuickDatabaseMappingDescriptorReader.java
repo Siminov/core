@@ -55,7 +55,7 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 	public QuickDatabaseMappingDescriptorReader(final String findDatabaseMappingBasedOnClassName) throws SiminovException {
 		
 		if(findDatabaseMappingBasedOnClassName == null || findDatabaseMappingBasedOnClassName.length() <= 0) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Database Mapping Class Name Which Needs To Be Searched.");
+			Log.error(getClass().getName(), "Constructor", "Invalid Database Mapping Class Name Which Needs To Be Searched.");
 			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Database Mapping Class Name Which Needs To Be Searched.");
 		}
 		
@@ -65,14 +65,14 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 	public void process() throws SiminovException {
 		context = resources.getApplicationContext();
 		if(context == null) {
-			Log.loge(getClass().getName(), "process", "Invalid Application Context found.");
+			Log.error(getClass().getName(), "process", "Invalid Application Context found.");
 			throw new SiminovException(getClass().getName(), "process", "Invalid Application Context found.");
 		}
 
 			
 		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
 		if(applicationDescriptor == null) {
-			Log.loge(getClass().getName(), "process", "Invalid Application Descriptor Found");
+			Log.error(getClass().getName(), "process", "Invalid Application Descriptor Found");
 			throw new DeploymentException(getClass().getName(), "process", "Invalid Application Descriptor Found.");
 		}
 		
@@ -99,14 +99,14 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 						databaseMappingDescriptorStream = context.getAssets().open(databaseMappingDescriptorPath);
 					}
 				} catch(IOException ioException) {
-					Log.loge(getClass().getName(), "process", "IOException caught while getting input stream of DATABASE-MAPPING: " + databaseMappingDescriptorPath + ", " + ioException.getMessage());
+					Log.error(getClass().getName(), "process", "IOException caught while getting input stream of DATABASE-MAPPING: " + databaseMappingDescriptorPath + ", " + ioException.getMessage());
 					throw new SiminovException(getClass().getName(), "process", "IOException caught while getting input stream of application descriptor: " + databaseMappingDescriptorPath + ", " + ioException.getMessage());
 				}
 				
 				try {
 					parseMessage(databaseMappingDescriptorStream);
 				} catch(Exception exception) {
-					Log.loge(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseMappingDescriptorPath + ", " + exception.getMessage());
+					Log.error(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseMappingDescriptorPath + ", " + exception.getMessage());
 					throw new SiminovException(getClass().getName(), "process", "Exception caught while parsing DATABASE-DESCRIPTOR: " + databaseMappingDescriptorPath + ", " + exception.getMessage());
 				}
 				

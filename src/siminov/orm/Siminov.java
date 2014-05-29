@@ -187,7 +187,7 @@ public class Siminov {
 			} catch(DatabaseException databaseException) {
 				failed = true;
 				
-				Log.loge(Siminov.class.getName(), "shutdown", "DatabaseException caught while closing database, " + databaseException.getMessage());
+				Log.error(Siminov.class.getName(), "shutdown", "DatabaseException caught while closing database, " + databaseException.getMessage());
 				continue;
 			}
 		}
@@ -221,7 +221,7 @@ public class Siminov {
 		
 		ApplicationDescriptor applicationDescriptor = applicationDescriptorParser.getApplicationDescriptor();
 		if(applicationDescriptor == null) {
-			Log.logd(Siminov.class.getName(), "processApplicationDescriptor", "Invalid Application Descriptor Found.");
+			Log.debug(Siminov.class.getName(), "processApplicationDescriptor", "Invalid Application Descriptor Found.");
 			throw new DeploymentException(Siminov.class.getName(), "processApplicationDescriptor", "Invalid Application Descriptor Found.");
 		}
 		
@@ -242,7 +242,7 @@ public class Siminov {
 			
 			DatabaseDescriptor databaseDescriptor = databaseDescriptorParser.getDatabaseDescriptor();
 			if(databaseDescriptor == null) {
-				Log.loge(Siminov.class.getName(), "processDatabaseDescriptors", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
+				Log.error(Siminov.class.getName(), "processDatabaseDescriptors", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
 				throw new DeploymentException(Siminov.class.getName(), "processDatabaseDescriptors", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
 			}
 
@@ -342,7 +342,7 @@ public class Siminov {
 			try {
 				databaseBundle = DatabaseHelper.createDatabase(databaseDescriptor);
 			} catch(DatabaseException databaseException) {
-				Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while getting database instance from database factory, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + databaseException.getMessage());
+				Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while getting database instance from database factory, DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + databaseException.getMessage());
 				throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 			}
 
@@ -371,7 +371,7 @@ public class Siminov {
 				try {
 					database.openOrCreate(databaseDescriptor);					
 				} catch(DatabaseException databaseException) {
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while opening database, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while opening database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 				
@@ -384,7 +384,7 @@ public class Siminov {
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
@@ -397,7 +397,7 @@ public class Siminov {
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
@@ -409,7 +409,7 @@ public class Siminov {
 				try {
 					DatabaseHelper.upgradeDatabase(databaseDescriptor);
 				} catch(DatabaseException databaseException) {
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while upgrading database, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while upgrading database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 			} else {
@@ -421,7 +421,7 @@ public class Siminov {
 				try {
 					file.mkdirs();
 				} catch(Exception exception) {
-					Log.loge(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "Exception caught while creating database directories, DATABASE-PATH: " + databasePath + ", DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName() + ", " + exception.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", exception.getMessage());
 				}
 				
@@ -434,7 +434,7 @@ public class Siminov {
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating database, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 				
@@ -451,7 +451,7 @@ public class Siminov {
 					String updateDatabaseVersionQuery = queryBuilder.formUpdateDatabaseVersionQuery(parameters);
 					database.executeQuery(databaseDescriptor, null, updateDatabaseVersionQuery);
 				} catch(DatabaseException databaseException) {
-					Log.loge(Siminov.class.getName(), "processDatabase", "Database Exception caught while updating database version, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "Database Exception caught while updating database version, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 				
@@ -471,7 +471,7 @@ public class Siminov {
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while executing query to enable foreign keys, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
@@ -484,7 +484,7 @@ public class Siminov {
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while enabling locking on database, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 
@@ -498,7 +498,7 @@ public class Siminov {
 				} catch(DatabaseException databaseException) {
 					new File(databasePath + databaseDescriptor.getDatabaseName()).delete();
 					
-					Log.loge(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating tables, " + databaseException.getMessage());
+					Log.error(Siminov.class.getName(), "processDatabase", "DatabaseException caught while creating tables, " + databaseException.getMessage());
 					throw new DeploymentException(Siminov.class.getName(), "processDatabase", databaseException.getMessage());
 				}
 				

@@ -17,7 +17,7 @@
 
 package siminov.orm.exception;
 
-public class SiminovCriticalException extends RuntimeException {
+public class SiminovCriticalException extends RuntimeException implements IException {
 
 	private String className = null;
 	private String methodName = null;

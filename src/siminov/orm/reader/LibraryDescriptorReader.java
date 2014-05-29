@@ -73,7 +73,7 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 	public LibraryDescriptorReader(final String libraryName) {
 
 		if(libraryName == null || libraryName.length() <= 0) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Library Name Found.");
+			Log.error(getClass().getName(), "Constructor", "Invalid Library Name Found.");
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Library Name Found.");
 		}
 		
@@ -85,14 +85,14 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 		libraryDescriptorStream = getClass().getClassLoader().getResourceAsStream(this.libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
 
 		if(libraryDescriptorStream == null) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
+			Log.error(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + File.separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
 		}
 		
 		try {
 			parseMessage(libraryDescriptorStream);
 		} catch(Exception exception) {
-			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing LIBRARY-DESCRIPTOR: " + this.libraryName + ", " + exception.getMessage());
+			Log.error(getClass().getName(), "Constructor", "Exception caught while parsing LIBRARY-DESCRIPTOR: " + this.libraryName + ", " + exception.getMessage());
 			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing LIBRARY-DESCRIPTOR: " + this.libraryName + ", " + exception.getMessage());
 		}
 		
@@ -141,7 +141,7 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 		 */
 		String name = libraryDescriptor.getName();
 		if(name == null || name.length() <= 0) {
-			Log.loge(getClass().getName(), "doValidation", "LIBRARY-NAME IS MANDATORY FIELD - LIBRARY-DESCRIPTOR: " + this.libraryName);
+			Log.error(getClass().getName(), "doValidation", "LIBRARY-NAME IS MANDATORY FIELD - LIBRARY-DESCRIPTOR: " + this.libraryName);
 			throw new DeploymentException(getClass().getName(), "doValidation", "LIBRARY-NAME IS MANDATORY FIELD - LIBRARY-DESCRIPTOR: " + this.libraryName);
 		}
 		
@@ -151,7 +151,7 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 			
 			if(databaseMappingPath.endsWith(XML_FILE_EXTENSION)) {
 				if(!databaseMappingPath.contains(SIMINOV_DESCRIPTOR_EXTENSION)) {
-					Log.loge(getClass().getName(), "doValidation", "INVALID LIBRARY DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
+					Log.error(getClass().getName(), "doValidation", "INVALID LIBRARY DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
 					throw new DeploymentException(getClass().getName(), "doValidation", "INVALID LIBRARY DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
 				}
 			}

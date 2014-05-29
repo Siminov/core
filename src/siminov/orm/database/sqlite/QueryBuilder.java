@@ -868,7 +868,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 				try {
 					foreignColumns = getForeignKeys(referedDatabaseMappingDescriptor);
 				} catch(DatabaseException databaseException) {
-					Log.loge(QueryBuilder.class.getName(), "formForeignKeys", "Database Exception caught while getting foreign columns, " + databaseException.getMessage());
+					Log.error(QueryBuilder.class.getName(), "formForeignKeys", "Database Exception caught while getting foreign columns, " + databaseException.getMessage());
 					throw new DeploymentException(QueryBuilder.class.getName(), "formForeignKeys", "Database Exception caught while getting foreign columns, " + databaseException.getMessage());
 				}
 				

@@ -107,13 +107,13 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		this.databaseMappingName = databaseMappingDescriptorName;
 		
 		if(databaseMappingDescriptorName == null || databaseMappingDescriptorName.length() <= 0) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
+			Log.error(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 		}
 		
 		Context context = resources.getApplicationContext();
 		if(context == null) {
-			Log.loge(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
+			Log.error(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 		}
 
@@ -127,7 +127,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 				databaseMappingStream = context.getAssets().open(this.databaseMappingName);
 			}
 		} catch(IOException ioException) {
-			Log.loge(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + ", " + ioException.getMessage());
+			Log.error(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + ", " + ioException.getMessage());
 			throw new DeploymentException(getClass().getName(), "Constructor", "IOException caught while getting input stream of database mapping descriptor,  DATABASE-MAPPING-MODEL: " + this.databaseMappingName + "," + ioException.getMessage());
 		}
 
@@ -135,7 +135,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		try {
 			parseMessage(databaseMappingStream);
 		} catch(Exception exception) {
-			Log.loge(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
+			Log.error(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
 			throw new DeploymentException(getClass().getName(), "Constructor", "Exception caught while parsing DATABASE-MAPPING: " + this.databaseMappingName + ", " + exception.getMessage());
 		}
 		
@@ -318,7 +318,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		 */
 		String tableName = databaseMappingDescriptor.getTableName();
 		if(tableName == null || tableName.length() <= 0) {
-			Log.loge(getClass().getName(), "doValidation", "TABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
+			Log.error(getClass().getName(), "doValidation", "TABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "doValidation", "TABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
 		}
 
@@ -327,7 +327,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 		 */
 		String className = databaseMappingDescriptor.getClassName();
 		if(className == null || className.length() <= 0) {
-			Log.loge(getClass().getName(), "doValidation", "CLASS-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
+			Log.error(getClass().getName(), "doValidation", "CLASS-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "doValidation", "CLASS-NAME IS MANDATORY FIELD - DATABASE-MAPPING: " + this.databaseMappingName);
 		}
 		
@@ -340,7 +340,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 			 */
 			String variableName = column.getVariableName();
 			if(variableName == null || variableName.length() <= 0) {
-				Log.loge(getClass().getName(), "doValidation", "VARIABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
+				Log.error(getClass().getName(), "doValidation", "VARIABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
 				throw new DeploymentException(getClass().getName(), "doValidation", "VARIABLE-NAME IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
 			}
 			
@@ -349,7 +349,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 			 */
 			String columnName = column.getColumnName();
 			if(columnName == null || columnName.length() <= 0) {
-				Log.loge(getClass().getName(), "doValidation", "COLUMN-NAME IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
+				Log.error(getClass().getName(), "doValidation", "COLUMN-NAME IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
 				throw new DeploymentException(getClass().getName(), "doValidation", "COLUMN-NAME IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
 			}
 			
@@ -358,7 +358,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 			 */
 			String type = column.getType();
 			if(type == null || type.length() <= 0) {
-				Log.loge(getClass().getName(), "doValidation", "COLUMN-TYPE IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
+				Log.error(getClass().getName(), "doValidation", "COLUMN-TYPE IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
 				throw new DeploymentException(getClass().getName(), "doValidation", "COLUMN-TYPE IS MANDATORY FIELD - DATABASE-MAPPING - COLUMN: " + this.databaseMappingName);
 			}
 		}
