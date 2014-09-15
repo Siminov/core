@@ -303,10 +303,6 @@ public class Siminov {
 		doesDatabaseExists();
 
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();
-		if(firstTimeProcessed) {
-		} else if(!applicationDescriptor.isLoadInitially()) {
-			return;
-		}
 		
 		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {

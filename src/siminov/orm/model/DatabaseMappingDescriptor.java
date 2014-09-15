@@ -84,8 +84,8 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	protected String tableName = null;
 	protected String className = null;
 	
-	protected Map<String, Column> columnsBasedOnColumnNames = new LinkedHashMap<String, Column>();
-	protected Map<String, Column> columnsBasedOnVariableNames = new LinkedHashMap<String, Column>();
+	protected Map<String, Attribute> attributeBasedOnColumnNames = new LinkedHashMap<String, Attribute>();
+	protected Map<String, Attribute> attributeBasedOnVariableNames = new LinkedHashMap<String, Attribute>();
 	
 	protected Map<String, Index> indexes = new LinkedHashMap<String, Index>();
 
@@ -130,8 +130,8 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param columnName Name of column.
 	 * @return TRUE: If column exists, FALSE: If column do not exists.
 	 */
-	public boolean containsColumnBasedOnColumnName(final String columnName) {
-		return this.columnsBasedOnColumnNames.containsKey(columnName);
+	public boolean containsAttributeBasedOnColumnName(final String columnName) {
+		return this.attributeBasedOnColumnNames.containsKey(columnName);
 	}
 	
 	/**
@@ -139,8 +139,8 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param variableName Name of variable.
 	 * @return TRUE: If column exists, FALSE: If column do not exists.
 	 */
-	public boolean containsColumnBasedOnVariableName(final String variableName) {
-		return this.columnsBasedOnVariableNames.containsKey(variableName);
+	public boolean containsAttributeBasedOnVariableName(final String variableName) {
+		return this.attributeBasedOnVariableNames.containsKey(variableName);
 	}
 	
 	/**
@@ -148,8 +148,8 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param columnName Name of column name.
 	 * @return Column object.
 	 */
-	public Column getColumnBasedOnColumnName(final String columnName) {
-		return this.columnsBasedOnColumnNames.get(columnName);
+	public Attribute getAttributeBasedOnColumnName(final String columnName) {
+		return this.attributeBasedOnColumnNames.get(columnName);
 	}
 
 	/**
@@ -157,8 +157,8 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param variableName Name of variable.
 	 * @return Column object.
 	 */
-	public Column getColumnBasedOnVariableName(final String variableName) {
-		return this.columnsBasedOnVariableNames.get(variableName);
+	public Attribute getAttributeBasedOnVariableName(final String variableName) {
+		return this.attributeBasedOnVariableNames.get(variableName);
 	}
 	
 	/**
@@ -166,48 +166,48 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @return Iterator of all column names.
 	 */
 	public Iterator<String> getColumnNames() {
-		return this.columnsBasedOnColumnNames.keySet().iterator();
+		return this.attributeBasedOnColumnNames.keySet().iterator();
 	}
 	
 	/**
 	 * Get all columns.
 	 * @return Iterator of all columns.
 	 */
-	public Iterator<Column> getColumns() {
-		return this.columnsBasedOnVariableNames.values().iterator();
+	public Iterator<Attribute> getAttributes() {
+		return this.attributeBasedOnVariableNames.values().iterator();
 	}
 
 	/**
 	 * Add column to DatabaseMapping object.
-	 * @param column Column object.
+	 * @param attribute Column object.
 	 */
-	public void addColumn(final Column column) {
-		this.columnsBasedOnVariableNames.put(column.getVariableName(), column);
-		this.columnsBasedOnColumnNames.put(column.getColumnName(), column);
+	public void addAttribute(final Attribute attribute) {
+		this.attributeBasedOnVariableNames.put(attribute.getVariableName(), attribute);
+		this.attributeBasedOnColumnNames.put(attribute.getColumnName(), attribute);
 	}
 	
 	/**
 	 * Remove column based on variable name.
 	 * @param variableName Name of variable.
 	 */
-	public void removeColumnBasedOnVariableName(final String variableName) {
-		removeColumn(getColumnBasedOnVariableName(variableName));
+	public void removeAttributeBasedOnVariableName(final String variableName) {
+		removeAttribute(getAttributeBasedOnVariableName(variableName));
 	}
 	
 	/**
 	 * Remove column based on column name.
 	 * @param columnName Name of column.
 	 */
-	public void removeColumnBasedOnColumnName(final String columnName) {
-		removeColumn(getColumnBasedOnColumnName(columnName));
+	public void removeAttributeBasedOnColumnName(final String columnName) {
+		removeAttribute(getAttributeBasedOnColumnName(columnName));
 	}
 	
 	/**
 	 * Remove column based on column object.
-	 * @param column Column object which need to be removed.
+	 * @param attribute Column object which need to be removed.
 	 */
-	public void removeColumn(final Column column) {
-		this.columnsBasedOnColumnNames.values().remove(column);
+	public void removeAttribute(final Attribute attribute) {
+		this.attributeBasedOnColumnNames.values().remove(attribute);
 	}
 	
 	/**
@@ -458,7 +458,7 @@ Example:
 	</p>
 	 *
 	 */
-	public static class Column implements IDescriptor {
+	public static class Attribute implements IDescriptor {
 		private String variableName = null;
 		private String columnName = null;
 

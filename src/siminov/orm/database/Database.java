@@ -16,6 +16,7 @@ import siminov.orm.database.design.ITotal;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
+import siminov.orm.resource.Resources;
 
 public class Database implements IDatabase {
 
@@ -29,6 +30,11 @@ public class Database implements IDatabase {
 		this.object = object;
 	}
 	
+	public static void dropDatabase(String databaseName) throws DatabaseException {
+		Resources resources = Resources.getInstance();
+		DatabaseHelper.dropDatabase(resources.getDatabaseDescriptorBasedOnName(databaseName));
+	}
+	
 	public void createTable() throws DatabaseException {
 		DatabaseHelper.createTable(getDatabaseMappingDescriptor());
 	}
@@ -37,6 +43,10 @@ public class Database implements IDatabase {
 		DatabaseHelper.dropTable(getDatabaseMappingDescriptor());
 	}
 
+	public void dropIndex(String indexName) throws DatabaseException {
+		DatabaseHelper.dropIndex(getDatabaseMappingDescriptor(), indexName);
+	}
+	
 	public ISelect select() throws DatabaseException {
 		return new Select(getDatabaseMappingDescriptor(), ISelect.class.getName());
 	}

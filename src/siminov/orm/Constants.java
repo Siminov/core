@@ -60,11 +60,6 @@ public interface Constants {
 	public String APPLICATION_DESCRIPTOR_VERSION = "version";
 
 	/**
-	 * ApplicationDescriptor.si.xml load_initially TAG.
-	 */
-	public String APPLICATION_DESCRIPTOR_LOAD_INITIALLY = "load_initially";
-
-	/**
 	 * ApplicationDescriptor.si.xml database-descriptors TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_DATABASE_DESCRIPTORS = "database-descriptors";
@@ -189,32 +184,32 @@ public interface Constants {
 	/**
 	 * DatabaseMappingDescriptor.si.xml table TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_TABLE = "table";
+	public String DATABASE_MAPPING_DESCRIPTOR_ENTITY = "entity";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml table_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_TABLE_NAME = "table_name";
+	public String DATABASE_MAPPING_DESCRIPTOR_ENTITY_TABLE_NAME = "table_name";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml class_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_CLASS_NAME = "class_name";
+	public String DATABASE_MAPPING_DESCRIPTOR_ENTITY_CLASS_NAME = "class_name";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml column TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_COLUMN = "column";
+	public String DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE = "attribute";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml variable_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_VARIABLE_NAME = "variable_name";
+	public String DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME = "variable_name";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml column_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_COLUMN_NAME = "column_name";
+	public String DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME = "column_name";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml property TAG.

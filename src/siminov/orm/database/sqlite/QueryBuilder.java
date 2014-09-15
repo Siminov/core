@@ -29,7 +29,7 @@ import siminov.orm.exception.DatabaseException;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.model.DatabaseMappingDescriptor.Column;
+import siminov.orm.model.DatabaseMappingDescriptor.Attribute;
 import siminov.orm.model.DatabaseMappingDescriptor.Relationship;
 import siminov.orm.resource.Resources;
 import android.text.TextUtils;
@@ -864,19 +864,19 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 
 				
 				String parentTable = referedDatabaseMappingDescriptor.getTableName();
-				Collection<Column> foreignColumns = null;
+				Collection<Attribute> foreignAttributes = null;
 				try {
-					foreignColumns = getForeignKeys(referedDatabaseMappingDescriptor);
+					foreignAttributes = getForeignKeys(referedDatabaseMappingDescriptor);
 				} catch(DatabaseException databaseException) {
 					Log.error(QueryBuilder.class.getName(), "formForeignKeys", "Database Exception caught while getting foreign columns, " + databaseException.getMessage());
 					throw new DeploymentException(QueryBuilder.class.getName(), "formForeignKeys", "Database Exception caught while getting foreign columns, " + databaseException.getMessage());
 				}
 				
-				Iterator<Column> foreignColumnsIterate = foreignColumns.iterator();
+				Iterator<Attribute> foreignAttributesIterate = foreignAttributes.iterator();
 				
 				Collection<String> foreignKeys = new ArrayList<String>();
-				while(foreignColumnsIterate.hasNext()) {
-					foreignKeys.add(foreignColumnsIterate.next().getColumnName());
+				while(foreignAttributesIterate.hasNext()) {
+					foreignKeys.add(foreignAttributesIterate.next().getColumnName());
 				}
 				
 				Iterator<String> foreignKeysIterate = foreignKeys.iterator();
@@ -953,17 +953,17 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return foreignKeysQuery.toString();
 	}
 	
-	private Collection<Column> getForeignKeys(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	private Collection<Attribute> getForeignKeys(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 		Iterator<Relationship> oneToManyRealtionships = databaseMappingDescriptor.getManyToOneRelationships();
 		Iterator<Relationship> manyToManyRealtionships = databaseMappingDescriptor.getManyToManyRelationships();
 		
-		Collection<Column> foreignColumns = new ArrayList<Column>();
+		Collection<Attribute> foreignAttributes = new ArrayList<Attribute>();
 		
-		Iterator<Column> columns = databaseMappingDescriptor.getColumns();
-		while(columns.hasNext()) {
-			Column column = columns.next();
-			if(column.isPrimaryKey()) {
-				foreignColumns.add(column);
+		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		while(attributes.hasNext()) {
+			Attribute attribute = attributes.next();
+			if(attribute.isPrimaryKey()) {
+				foreignAttributes.add(attribute);
 			}
 		}
 		
@@ -972,11 +972,11 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 			Relationship relationship = oneToManyRealtionships.next();
 			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
 			
-			Collection<Column> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
-			Iterator<Column> referedForeignKeysIterate = referedForeignKeys.iterator();
+			Collection<Attribute> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
+			Iterator<Attribute> referedForeignKeysIterate = referedForeignKeys.iterator();
 			
 			while(referedForeignKeysIterate.hasNext()) {
-				foreignColumns.add(referedForeignKeysIterate.next());
+				foreignAttributes.add(referedForeignKeysIterate.next());
 			}
 		}
 
@@ -985,15 +985,15 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 			Relationship relationship = manyToManyRealtionships.next();
 			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
 			
-			Collection<Column> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
-			Iterator<Column> referedForeignKeysIterate = referedForeignKeys.iterator();
+			Collection<Attribute> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
+			Iterator<Attribute> referedForeignKeysIterate = referedForeignKeys.iterator();
 			
 			while(referedForeignKeysIterate.hasNext()) {
-				foreignColumns.add(referedForeignKeysIterate.next());
+				foreignAttributes.add(referedForeignKeysIterate.next());
 			}
 		}
 
-		return foreignColumns;
+		return foreignAttributes;
 	}
 
 	

@@ -128,30 +128,6 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * It defines the behavior of SIMINOV. (Should core load all database mapping at initialization or on demand).
-	 * @return TRUE: If load initially is set to true, FALSE: If load initially is set to false.
-	 */
-	public boolean isLoadInitially() {
-		String isLoadInitially = this.properties.get(Constants.APPLICATION_DESCRIPTOR_LOAD_INITIALLY);
-		if(isLoadInitially == null || isLoadInitially.length() <= 0) {
-			return true;
-		} else if(isLoadInitially != null && isLoadInitially.length() > 0 && isLoadInitially.equalsIgnoreCase("true")) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Set load initially to true or false.
-	 * @param initialLoad (true/false) defined by ApplicationDescriptor.si.xml file.
-	 */
-	public void setLoadInitially(final boolean initialLoad) {
-		this.properties.put(Constants.APPLICATION_DESCRIPTOR_LOAD_INITIALLY, Boolean.toString(initialLoad));
-	}
-	
-
-	/**
 	 * Get all Properties defined in descriptor.
 	 * @return All Property Values.
 	 */

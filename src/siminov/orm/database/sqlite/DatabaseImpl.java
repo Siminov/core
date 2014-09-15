@@ -34,7 +34,7 @@ import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.model.DatabaseMappingDescriptor.Column;
+import siminov.orm.model.DatabaseMappingDescriptor.Attribute;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -203,7 +203,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		statement.close();
 	}
 	
-	public Iterator<Map<String, Object>> executeFetchQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
+	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
 			SQLiteCursor sqliteCursor = (SQLiteCursor) sqliteDatabase.rawQuery(query, null);
 			Collection<Map<String, Object>> tuples = new ArrayList<Map<String,Object>>();
 			
@@ -227,16 +227,16 @@ public class DatabaseImpl implements IDatabaseImpl {
 
 						if(databaseMappingDescriptor != null) {
 							
-							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
-							if(column != null) {
+							Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
+							if(attribute != null) {
 	
-								if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_STRING_DATA_TYPE)) {
+								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_STRING_DATA_TYPE)) {
 									tuple.put(columnNames[i], (String) columnValue);
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_PRIMITIVE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? true : false);
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? Boolean.TRUE : Boolean.FALSE);
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_STRING_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_STRING_DATA_TYPE)) {
 									tuple.put(columnNames[i], (String) columnValue);
 								}
 							} else {
@@ -250,17 +250,17 @@ public class DatabaseImpl implements IDatabaseImpl {
 
 						if(databaseMappingDescriptor != null) {
 							
-							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
-							if(column != null) {
-								if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INT_PRIMITIVE_DATA_TYPE)) {
+							Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
+							if(attribute != null) {
+								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INT_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Integer.parseInt(Long.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INTEGER_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INTEGER_DATA_TYPE)) {
 									tuple.put(columnNames[i], Integer.getInteger(Long.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_PRIMITIVE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_DATA_TYPE)) {
 									tuple.put(columnNames[i], Long.valueOf(columnValue));
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
 									tuple.put(columnNames[i], Long.valueOf(columnValue));
 								}
 							} else {
@@ -274,17 +274,17 @@ public class DatabaseImpl implements IDatabaseImpl {
 						
 						if(databaseMappingDescriptor != null) {
 							
-							Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnNames[i]);
-							if(column != null) {
-								if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_PRIMITIVE_DATA_TYPE)) {
+							Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
+							if(attribute != null) {
+								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Double.parseDouble(Float.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Double.valueOf(Float.toString(columnValue)));
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_PRIMITIVE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_PRIMITIVE_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_DATA_TYPE)) {
 									tuple.put(columnNames[i], Float.valueOf(columnValue));
-								} else if(column.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
 									tuple.put(columnNames[i], Float.valueOf(columnValue));
 								}
 							} else {

@@ -128,8 +128,8 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 		
 		tempValue = new StringBuilder();
 
-		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_TABLE)) {
-			String className = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_CLASS_NAME);
+		if(localName.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_ENTITY)) {
+			String className = attributes.getValue(DATABASE_MAPPING_DESCRIPTOR_ENTITY_CLASS_NAME);
 
 			if(className.equalsIgnoreCase(finalDatabaseMappingBasedOnClassName)) {
 				doesMatch = true;

@@ -82,7 +82,7 @@ public interface IDatabaseImpl {
 	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
 	 	@throws DatabaseException If any error occur while getting tuples from a single table.
 	 */
-	public Iterator<Map<String, Object>> executeFetchQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException;
+	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException;
 
 	/**
 	 * Executes the method on database object.

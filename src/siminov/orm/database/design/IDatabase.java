@@ -31,6 +31,8 @@ public interface IDatabase {
 
 	public void dropTable() throws DatabaseException;
 
+	public void dropIndex(String indexName) throws DatabaseException;
+	
 	public ISelect select() throws DatabaseException;
 
 	public Object[] select(String query) throws DatabaseException;
