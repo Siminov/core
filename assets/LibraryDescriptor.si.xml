@@ -35,7 +35,7 @@
 	<!-- Database Mappings Needed Under This Library Descriptor -->
 	
 	<!-- Optional Field -->
-		<!-- Database Mappings -->
+		<!-- Database Mapping Descriptors -->
 	<database-mapping-descriptors>
 		<database-mapping-descriptor>name_of_database_descriptor.full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
 	</database-mapping-descriptors>
@@ -64,6 +64,5 @@ Type Of Properties:
 		
 		- Provide full database mapping descriptor file path if you have used xml format to define ORM.
 
-		- Provide full class path of database mapping descriptor POJO class if you have used annotation to define ORM.
-
+		- Put (dot). between database descriptor name and database descriptor file path.
  -->

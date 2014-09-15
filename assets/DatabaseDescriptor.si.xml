@@ -57,7 +57,7 @@
 
 <!-- 
 
-DatabaseDescriptor.si.xml is the one who shows database properties needed by application.
+DatabaseDescriptor.si.xml is the one in which you can define database properties needed by application.
 
 
 Type Of Properties: 
@@ -72,7 +72,7 @@ Type Of Properties:
 			
 		-> description: Description of database. It is optional field.
 		
-		-> is_locking_required: Control whether or not the database is made thread-safe by using locks around critical sections. This is pretty expensive, so if you know that your DB will only be used by a multi threads then you should set this to true. The default is false.
+		-> transaction_safe: Control whether or not the database is made thread-safe by using locks around critical sections. This is pretty expensive, so if you know that your DB will only be used by a multi threads then you should set this to true. The default is false.
 							It is optional field. 
 
 		-> external_storage: It specifies whether database resources needs to be saved on external storage or not (SDCard). It is optinal field. Default value is false.

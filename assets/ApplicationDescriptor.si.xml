@@ -34,14 +34,6 @@
 	<property name="version">application_version</property>
 
 
-	
-	<!-- Siminov Framework Performance Properties -->
-	
-		<!-- Optional Field (Default is true)-->
-	<property name="load_initially">true/false</property>
-
-
-	
 	<!-- Database Descriptors Used By Application (zero-to-many) -->	
 		<!-- Optional Field's -->
 	<database-descriptors>
@@ -83,29 +75,26 @@ Application Descriptor Elements:
 		-> version: Version of application. It is mandatory field. Default is 0.0.
 		
 
-		
-	ii. Framework Performance Properties.
-	
-		-> load_initially: true/false: ORM(Object Relational Mapping) to be done at start of application or at the time of need. 
-							It is optional field. By default its false, means mapping is done when its required. 
-							
-		
-		
-	iii. Database Descriptor Paths Used In Application 
+				
+	ii. Database Descriptor Paths Used In Application 
 			- Path of all database descriptor's used in application.
-			- Every database descriptor have its own database object.
+			- Every database descriptor has its own database object.
 
 
+	iii. Library Descriptors Used In Application
+			- Full path of library descriptor used in the application.
+			- Every library descriptor has its own library path.
+	
 	
 	iv. Event Handlers Implemented By Application.
 		- SIMINOV FRAMEWORK provides two type of event handlers
 	
-			-> ISiminovEvents: It contains events associated with life cycle of SIMINOV.
-				such as (coreInitialized, firstTimeSiminovInitialized, coreStoped).
+			-> ISiminovEvents: It contain events associated with life cycle of SIMINOV.
+				such as (OnSiminovInitialized, OnFirstTimeSiminovInitialized, OnCoreStoped).
 	
 		
-			-> IDatabaseEvents: It contains events associated with database operations.
-				such as (databaseCreated, databaseDroped, tableCreated, tableDroped, indexCreated).
+			-> IDatabaseEvents: It contain events associated with database operations.
+				such as (OnDatabaseCreated, OnDatabaseDroped, OnTableCreated, OnTableDroped, InIndexCreated).
 
 		- Application can have implementation of this two event listeners.
 

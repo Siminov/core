@@ -26,7 +26,7 @@
     
 	    <!-- TABLE_NAME: Mandatory Field -->
 	    <!-- CLASS_NAME: Mandatory Field -->
-	<table table_name="name_of_table" class_name="mapped_pojo_class_name">
+	<entity table_name="name_of_table" class_name="mapped_pojo_class_name">
 		
 	    <!-- Column Properties Required Under This Table -->
 	    
@@ -34,7 +34,7 @@
 		
 			<!-- VARIABLE_NAME: Mandatory Field -->
 			<!-- COLUMN_NAME: Mandatory Field -->
-		<column variable_name="class_variable_name" column_name="column_name_of_table">
+		<attribute column_name="column_name_of_table" variable_name="class_variable_name">
 		    
 			    <!-- Mandatory Field -->
 			<property name="type">java_variable_data_type</property>
@@ -54,7 +54,7 @@
 				<!-- Optional Field -->
 			<property name="default">default_value_of_column (Eg: 0.1)</property>
 		
-		</column>		
+		</attribute>		
 
 		
 		
@@ -108,7 +108,7 @@
 									
 		</relationships>
 
-	</table>
+	</entity>
 
 </database-mapping-descriptor>
 
