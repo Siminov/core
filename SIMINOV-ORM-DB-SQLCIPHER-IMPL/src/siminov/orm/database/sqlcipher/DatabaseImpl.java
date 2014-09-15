@@ -36,7 +36,7 @@ import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.model.DatabaseMappingDescriptor.Column;
+import siminov.orm.model.DatabaseMappingDescriptor.Attribute;
 import siminov.orm.resource.Resources;
 
 public class DatabaseImpl implements IDatabaseImpl {
@@ -189,7 +189,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		statement.close();
 	}
 	
-	public Iterator<Map<String, Object>> executeFetchQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
+	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
 			CrossProcessCursorWrapper sqliteCursor = (CrossProcessCursorWrapper) sqliteDatabase.rawQuery(query, null);
 			Collection<Map<String, Object>> tuples = new ArrayList<Map<String,Object>>();
 			
@@ -203,14 +203,14 @@ public class DatabaseImpl implements IDatabaseImpl {
 				
 				for(int i = 0;i < columnNames.length;i++) {
 					String columnName = sqliteCursor.getColumnName(i);
-					Column column = databaseMappingDescriptor.getColumnBasedOnColumnName(columnName);
+					Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnName);
 					
-					if(column == null) {
+					if(attribute == null) {
 						Log.error(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Object Found For Column Name: " + columnName);
 						throw new DatabaseException(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Object Found For Column Name: " + columnName);
 					}
 					
-					String columnType = column.getType();
+					String columnType = attribute.getType();
 					if(columnType == null || columnType.length() <= 0) {
 						Log.error(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
 						throw new DatabaseException(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
