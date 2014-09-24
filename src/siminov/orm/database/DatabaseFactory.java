@@ -1,6 +1,6 @@
 /** 
  * [SIMINOV FRAMEWORK]
- * Copyright [2013] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import siminov.orm.database.design.IDataTypeHandler;
-import siminov.orm.database.design.IDatabase;
 import siminov.orm.database.design.IDatabaseImpl;
 import siminov.orm.database.design.IQueryBuilder;
 import siminov.orm.exception.DatabaseException;
