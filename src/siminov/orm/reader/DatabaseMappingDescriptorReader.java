@@ -103,6 +103,10 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 	private boolean isRelationship = false;
 	
 	
+	/**
+	 * DatabaseMappingDescriptor Constructor
+	 * @param databaseMappingDescriptorName Name of the database mapping descriptor name
+	 */
 	public DatabaseMappingDescriptorReader(final String databaseMappingDescriptorName) {
 		this.databaseMappingName = databaseMappingDescriptorName;
 		

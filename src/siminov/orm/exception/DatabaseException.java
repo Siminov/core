@@ -22,6 +22,12 @@ package siminov.orm.exception;
  */
 public class DatabaseException extends SiminovException {
 
+	/**
+	 * Database Exception Constructor
+	 * @param className Name of class
+	 * @param methodName Name of method
+	 * @param message Exception Messsage
+	 */
 	public DatabaseException(final String className, final String methodName, final String message) {
 		super(className, methodName, message);
 	}

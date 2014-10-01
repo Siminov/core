@@ -503,6 +503,10 @@ public class Siminov {
 		}
 	}
 	
+	
+	/**
+	 * It is used to check whether database exists or not. 
+	 */
 	protected static void doesDatabaseExists() {
 		
 		ApplicationDescriptor applicationDescriptor = ormResources.getApplicationDescriptor();

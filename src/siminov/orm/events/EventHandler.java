@@ -22,7 +22,9 @@ import java.util.Iterator;
 import siminov.orm.resource.Resources;
 import siminov.orm.utils.ClassUtils;
 
-
+/**
+ * It provides the event handler instances.
+ */
 public class EventHandler {
 
 	private static EventHandler eventHandler = null;
@@ -32,6 +34,9 @@ public class EventHandler {
 	
 	private Resources resources = Resources.getInstance();
 	
+	/**
+	 * Event Handler Constructor
+	 */
 	private EventHandler() {
 		
 		Iterator<String> events = resources.getApplicationDescriptor().getEvents();
@@ -47,6 +52,10 @@ public class EventHandler {
 		}
 	}
 	
+	/**
+	 * Returns the singleton instance of Event Handler
+	 * @return EventHandler Singleton instance of Event Handler
+	 */
 	public static EventHandler getInstance() {
 		if(eventHandler == null) {
 			eventHandler = new EventHandler();

@@ -1035,7 +1035,5 @@ Example:
 		public void setReferedDatabaseMappingDescriptor(DatabaseMappingDescriptor referedDatabaseMappingDescriptor) {
 			this.referedDatabaseMappingDescriptor = referedDatabaseMappingDescriptor;
 		}
-		
 	}
-	
 }

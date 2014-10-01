@@ -86,6 +86,11 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	private StringBuilder tempValue = new StringBuilder();
 	private String propertyName = null;
 
+	
+	/**
+	 * DatabaseDescriptorReader Constructor
+	 * @param databaseDescriptorPath Path of the database descriptor
+	 */
 	public DatabaseDescriptorReader(final String databaseDescriptorPath) {
 		
 		if(databaseDescriptorPath == null || databaseDescriptorPath.length() <= 0) {

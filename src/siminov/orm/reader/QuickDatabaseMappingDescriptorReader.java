@@ -52,16 +52,25 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 	
 	private Resources resources = Resources.getInstance();
 	
-	public QuickDatabaseMappingDescriptorReader(final String findDatabaseMappingBasedOnClassName) throws SiminovException {
+	/**
+	 * QucikDatabaseMappingDescriptorReader Constructor
+	 * @param findDatabaseMappingDescriptorBasedOnClassName Name of the database mapping descriptor class name
+	 * @throws SiminovException
+	 */
+	public QuickDatabaseMappingDescriptorReader(final String findDatabaseMappingDescriptorBasedOnClassName) throws SiminovException {
 		
-		if(findDatabaseMappingBasedOnClassName == null || findDatabaseMappingBasedOnClassName.length() <= 0) {
+		if(findDatabaseMappingDescriptorBasedOnClassName == null || findDatabaseMappingDescriptorBasedOnClassName.length() <= 0) {
 			Log.error(getClass().getName(), "Constructor", "Invalid Database Mapping Class Name Which Needs To Be Searched.");
 			throw new SiminovException(getClass().getName(), "Constructor", "Invalid Database Mapping Class Name Which Needs To Be Searched.");
 		}
 		
-		this.finalDatabaseMappingBasedOnClassName = findDatabaseMappingBasedOnClassName;
+		this.finalDatabaseMappingBasedOnClassName = findDatabaseMappingDescriptorBasedOnClassName;
 	}
 	
+	/**
+	 * Parse the database mapping descriptor defined
+	 * @throws SiminovException Any exception during parsing the descriptor file
+	 */
 	public void process() throws SiminovException {
 		context = resources.getApplicationContext();
 		if(context == null) {

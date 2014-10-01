@@ -42,7 +42,9 @@ public class DatabaseFactory {
 	private String DATABASE_QUERY_BUILDER = "QueryBuilder";
 	private String DATABASE_DATA_TYPE_HANDLER = "DataTypeHandler";
 	
-	
+	/**
+	 * Database Factory Private Constructor
+	 */
 	private DatabaseFactory() {
 		
 	}
@@ -80,15 +82,28 @@ public class DatabaseFactory {
 	}
 
 	
+	/**
+	 * Returns all database bundles.
+	 * @return Iterator<DatabaseHandler> All Database Bundle instances.
+	 */
 	public Iterator<DatabaseBundle> getDatabaseBundles() {
 		return databaseBundles.values().iterator();
 	}
 
+	/**
+	 * Removes database bundle instance.
+	 * @param databaseDescriptor Database descriptor instance object.
+	 */
 	public void removeDatabaseBundle(final DatabaseDescriptor databaseDescriptor) {
 		this.databaseBundles.remove(databaseDescriptor.getDatabaseName());
 	}
 
 	
+	/**
+	 * Returns database bundle instance.
+	 * @param packageName Name of the package.
+	 * @return DatabaseBundle Instance of database bundle.
+	 */
 	private DatabaseBundle getDatabaseBundle(String packageName) {
 		
 		IDatabaseImpl database = (IDatabaseImpl) ClassUtils.createClassInstance(packageName + "." + DATABASE_CLASS_NAME);

@@ -31,7 +31,10 @@ import siminov.orm.database.design.ITotal;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseMappingDescriptor;
 
-public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, IMax, IMin, IGroupConcat {
+/**
+ * It is used to provide condition between where clause.
+ */
+public class Where implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, IMax, IMin, IGroupConcat {
 
 	private DatabaseMappingDescriptor databaseMappingDescriptor = null;
 	private String interfaceName = null;
@@ -58,27 +61,50 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 
 	private String delimiter = null;
 	
-	public Select() {
+	/**
+	 * Where Constructor
+	 */
+	public Where() {
 		
 	}
 	
-	public Select(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName) throws DatabaseException {
+	/**
+	 * Where Constructor
+	 * @param databaseMappingDescriptor Database Mapping Descriptor instance
+	 * @param interfaceName Name of interface
+	 */
+	public Where(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName) {
 		this.databaseMappingDescriptor = databaseMappingDescriptor;
 		this.interfaceName = interfaceName;
 	}
 
-	public Select(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName, final Object referObject) throws DatabaseException {
+	/**
+	 * Where Constructor
+	 * @param databaseMappingDescriptor Database Mapping Descriptor instance
+	 * @param interfaceName Name of interface
+	 * @param referObject Refered Object instance
+	 */
+	public Where(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName, final Object referObject) {
 		this.databaseMappingDescriptor = databaseMappingDescriptor;
 		this.interfaceName = interfaceName;
 		this.referObject = referObject;
 	}
 	
-
-	public Select distinct() {
+	
+	/**
+	 * Used to specify DISTINCT condition.
+	 * @return Where Where instance object.
+	 */
+	public Where distinct() {
 		this.distinct = true;
 		return this;
 	}
 	
+	/**
+	 * Column name of which condition will be specified.
+	 * @param column Name of column.
+	 * @return Clause Clause instance object.
+	 */
 	public Clause where(String column) {
 		
 		where = new Clause(this);
@@ -87,51 +113,96 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 		return where;
 	}
 	
-	public Select whereClause(String whereClause) {
+	/**
+	 * Used to provide manually created Where clause, instead of using API's.
+	 * @param whereClause Manually created where clause.
+	 * @return Where Where instance object.
+	 */
+	public Where whereClause(String whereClause) {
 		this.whereClause = whereClause;
 		return this;
 	}
 
+	/**
+	 * Used to specify AND condition between where clause.
+	 * @param column Name of column on which condition need to be specified.
+	 * @return Clause instance object.
+	 */
 	public Clause and(String column) {
 		this.where.and(column);
 		return this.where;
 	}
 	
+	/**
+	 * Used to specify OR condition between where clause.
+	 * @param column Name of column on which condition need to be specified.
+	 * @return Clause Clause instance object.
+	 */
 	public Clause or(String column) {
 		this.where.or(column);
 		return this.where;
 	}
 	
 	
-	public Select orderBy(String...columns) {
+	/**
+	 * Used to specify ORDER BY keyword to sort the result-set.
+	 * @param columns Name of columns which need to be sorted.
+	 * @return Where Where instance object.
+	 */
+	public Where orderBy(String...columns) {
 		this.orderBy = columns;
 		return this;
 	}
 	
-	public Select ascendingOrderBy(String...columns) {
+	/**
+	 * Used to specify ORDER BY ASC keyword to sort the result-set in ascending order.
+	 * @param columns Name of columns which need to be sorted.
+	 * @return Where Where instance object.
+	 */
+	public Where ascendingOrderBy(String...columns) {
 		this.orderBy = columns;
 		this.whichOrderBy = Clause.ASC_ORDER_BY;
 
 		return this;
 	}
 	
-	public Select descendingOrderBy(String...columns) {
+	/**
+	 * Used to specify ORDER BY DESC keyword to sort the result-set in descending order.
+	 * @param columns Name of columns which need to be sorted.
+	 * @return Where Where instance object.
+	 */
+	public Where descendingOrderBy(String...columns) {
 		this.orderBy = columns;
 		this.whichOrderBy = Clause.DESC_ORDER_BY;
 
 		return this;
 	}
 	
-	public Select limit(int limit) {
+	/**
+	 * Used to specify the range of data need to fetch from table.
+	 * @param limit LIMIT of data.
+	 * @return Where Where instance object.
+	 */
+	public Where limit(int limit) {
 		this.limit = limit;
 		return this;
 	}
 	
-	public Select groupBy(String...columns) {
+	/**
+	 * Used to specify GROUP BY statement in conjunction with the aggregate functions to group the result-set by one or more columns.
+	 * @param columns Name of columns.
+	 * @return Where Where instance object.
+	 */
+	public Where groupBy(String...columns) {
 		this.groupBy = columns;
 		return this;
 	}
 
+	/**
+	 * Used to specify HAVING clause to SQL because the WHERE keyword could not be used with aggregate functions.
+	 * @param column Name of column on which condition need to be applied.
+	 * @return Clause Clause instance object.
+	 */
 	public Clause having(String column) {
 		
 		having = new Clause(this);
@@ -140,22 +211,37 @@ public class Select implements ISelect, IDelete, ICount, ISum, ITotal, IAverage,
 		return having;
 	}
 	
-	public Select havingClause(String havingClause) {
+	/**
+	 * Used to provide manually created Where clause, instead of using API's.
+	 * @param havingClause Where clause.
+	 * @return Where Where instance object.
+	 */
+	public Where havingClause(String havingClause) {
 		this.havingClause = havingClause;
 		return this;
 	}
 	
-	public Select column(String column) {
+	public Where column(String column) {
 		this.column = column;
 		return this;
 	}
 	
-	public Select columns(String...columns) {
+	/**
+	 * Used to provide name of columns only for which data will be fetched.
+	 * @param column Name of columns.
+	 * @return Where Where instance object.
+	 */
+	public Where columns(String...columns) {
 		this.columns = columns;
 		return this;
 	}
 
-	public Select delimiter(String delimiter) {
+	/**
+	 * Used to provide name of column for which average will be calculated.
+	 * @param column Name of column.
+	 * @return Where Where instance object.
+	 */
+	public Where delimiter(String delimiter) {
 		this.delimiter = delimiter;
 		return this;
 	}

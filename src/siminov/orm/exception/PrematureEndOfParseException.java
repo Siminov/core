@@ -28,6 +28,13 @@ public class PrematureEndOfParseException extends SAXException implements IExcep
 	private String methodName = null;
 	private String message = null;
 	
+	
+	/**
+	 * PrematureEndOfParseException Constructor
+	 * @param className Name of class
+	 * @param methodName Name of method
+	 * @param message Exception message
+	 */
 	public PrematureEndOfParseException(final String className, final String methodName, final String message) {
 		this.className = className;
 		this.methodName = methodName;

@@ -22,6 +22,12 @@ package siminov.orm.exception;
  */
 public class DeploymentException extends SiminovCriticalException {
 
+	/**
+	 * Deployment Exception Constructor
+	 * @param className Name of class
+	 * @param methodName Name of method
+	 * @param message Exception Message
+	 */
 	public DeploymentException(final String className, final String methodName, final String message) {
 		super(className, methodName, message);
 	}

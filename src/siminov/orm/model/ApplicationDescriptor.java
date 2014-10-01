@@ -344,6 +344,10 @@ public class ApplicationDescriptor implements IDescriptor {
 		this.events.add(event);
 	}
 
+	/**
+	 * Remove event as per defined event name
+	 * @param event Name of the event
+	 */
 	public void removeEvent(final String event) {
 		this.events.remove(event);
 	}

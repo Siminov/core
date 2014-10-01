@@ -17,12 +17,21 @@
 
 package siminov.orm.exception;
 
+/**
+ * It is a superclass of runtime exception that can be thrown during the normal operation of the Java Virtual Machine.
+ */
 public class SiminovCriticalException extends RuntimeException implements IException {
 
 	private String className = null;
 	private String methodName = null;
 	private String message = null;
 	
+	/**
+	 * Siminov Critical Exception Constructor
+	 * @param className Name of the class
+	 * @param methodName Name of the method
+	 * @param message Message of exception
+	 */
 	public SiminovCriticalException(final String className, final String methodName, final String message) {
 		this.className = className;
 		this.methodName = methodName;

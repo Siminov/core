@@ -20,16 +20,45 @@ package siminov.orm.model;
 
 import java.util.Iterator;
 
+
+/**
+ * It exposes common API for all the descriptor
+ * It has method to get and set properties of descriptor
+ */
 public interface IDescriptor {
 
+	/**
+	 * Get all the properties of descriptor
+	 * @return All properties
+	 */
 	public Iterator<String> getProperties();
 	
+	/**
+	 * Get the property value based on the property name
+	 * @param name Name of the property
+	 * @return Value of the property
+	 */
 	public String getProperty(String name);
 
+	
+	/**
+	 * Check whether property exists or not 
+	 * @param name Name of the property
+	 * @return (true/false) TRUE: If property exists | FALSE: If property does not exists.
+	 */
 	public boolean containProperty(String name);
 	
+	/**
+	 * Add property to the descriptor
+	 * @param name Name of the property
+	 * @param value Value of the property
+	 */
 	public void addProperty(String name, String value);	
 	
+	/**
+	 * Remove property from the descriptor
+	 * @param name Name of the property
+	 */
 	public void removeProperty(String name);
 	
 }

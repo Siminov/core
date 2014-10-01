@@ -26,6 +26,13 @@ public class SiminovException extends Exception implements IException {
 	private String methodName = null;
 	private String message = null;
 	
+	
+	/**
+	 * SiminovException Constructor
+	 * @param className Name of class
+	 * @param methodName Name of method
+	 * @param message Exception message
+	 */
 	public SiminovException(final String className, final String methodName, final String message) {
 		this.className = className;
 		this.methodName = methodName;

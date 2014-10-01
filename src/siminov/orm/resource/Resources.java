@@ -55,6 +55,9 @@ public class Resources {
 	
 	private static Resources resources = null;
 	
+	/**
+	 * Resource Private Constructor
+	 */
 	private Resources() {
 
 		databaseFactory = DatabaseFactory.getInstance();
@@ -461,5 +464,4 @@ Example: DatabaseDescriptor.xml
 	public IDatabaseEvents getDatabaseEventHandler() {
 		return EventHandler.getInstance().getDatabaseEventHandler();
 	}
-	
 }

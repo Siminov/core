@@ -29,6 +29,10 @@ public interface IQueryBuilder {
 /*
  * Form Table Info Query	
  */
+	
+	/**
+	 * Table name parameter to create get table info query
+	 */
 	public String FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER;
 	
 	/**
@@ -56,6 +60,10 @@ public interface IQueryBuilder {
 /*
  * Form Update Database Version Query.	
  */
+	
+	/**
+	 * Database version parameter to create update database query
+	 */
 	public String FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER = Constants.FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER;
 	
 	/**
@@ -70,7 +78,15 @@ public interface IQueryBuilder {
 /*
  * Form Alter Add Column Query	
  */
+	
+	/**
+	 * Table name parameter to create alter add column query
+	 */
 	public String FORM_ALTER_ADD_COLUMN_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_ALTER_ADD_COLUMN_QUERY_TABLE_NAME_PARAMETER;
+	
+	/**
+	 * Column name parameter to create alter add column query
+	 */
 	public String FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER = Constants.FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER;
 
 	/**
@@ -98,14 +114,49 @@ public interface IQueryBuilder {
 /*
  * Form Create Table Query	
  */
+	/**
+	 * Table name parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_TABLE_NAME_PARAMETER;
+	
+	/**
+	 * Column names parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_COLUMN_NAMES_PARAMETER;
+	
+	/**
+	 * Column types parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_COLUMN_TYPES_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_COLUMN_TYPES_PARAMETER;
+	
+	/**
+	 * Default values parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_DEFAULT_VALUES_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_DEFAULT_VALUES_PARAMETER;
+	
+	/**
+	 * Checks parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_CHECKS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_CHECKS_PARAMETER;
+	
+	/**
+	 * Primary keys parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_PRIMARY_KEYS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_PRIMARY_KEYS_PARAMETER;
+	
+	/**
+	 * Not nulls parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_NOT_NULLS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_NOT_NULLS_PARAMETER;
+	
+	/**
+	 * Unique columns parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_UNIQUE_COLUMNS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_UNIQUE_COLUMNS_PARAMETER;
+	
+	/**
+	 * Foreign keys parameter to form create table query
+	 */
 	public String FORM_CREATE_TABLE_QUERY_FOREIGN_KEYS_PARAMETER = Constants.FORM_CREATE_TABLE_QUERY_FOREIGN_KEYS_PARAMETER;
 	
 	/**
@@ -120,9 +171,24 @@ public interface IQueryBuilder {
 /*
  * Form Create Index Query
  */
+	/**
+	 * Index name parameter to form create index query
+	 */
 	public String FORM_CREATE_INDEX_QUERY_INDEX_NAME_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_INDEX_NAME_PARAMETER;
+	
+	/**
+	 * Table name parameter to form create index query
+	 */
 	public String FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column names parameter to form create index query
+	 */
 	public String FORM_CREATE_INDEX_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_COLUMN_NAMES_PARAMETER;
+
+	/**
+	 * Is unique parameter to form create index query
+	 */
 	public String FORM_CREATE_INDEX_QUERY_IS_UNIQUE_PARAMETER = Constants.FORM_CREATE_INDEX_QUERY_IS_UNIQUE_PARAMETER;
 	
 	/**
@@ -137,6 +203,9 @@ public interface IQueryBuilder {
 /*
  * Form Drop Table Query
  */
+	/**
+	 * Table name parameter to create drop table query
+	 */
 	public String FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER;
 	
 	/**
@@ -150,7 +219,14 @@ public interface IQueryBuilder {
 /*
  * Form Drop Index Query
  */
+	/**
+	 * Table name parameter to create drop index query
+	 */
 	public String FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER;
+	
+	/**
+	 * Index name parameter to create drop index query
+	 */
 	public String FORM_DROP_INDEX_QUERY_INDEX_NAME_PARAMETER = Constants.FORM_DROP_INDEX_QUERY_INDEX_NAME_PARAMETER;
 	
 	/**
@@ -165,14 +241,50 @@ public interface IQueryBuilder {
 /*
  * Form Select Query	
  */
+	
+	/**
+	 * Table name parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER;
+	
+	/**
+	 * Distinct parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_DISTINCT_PARAMETER = Constants.FORM_SELECT_QUERY_DISTINCT_PARAMETER;
+	
+	/**
+	 * Where clause parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER;
+	
+	/**
+	 * Column names parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER;
+	
+	/**
+	 * Group bys parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_SELECT_QUERY_GROUP_BYS_PARAMETER;
+	
+	/**
+	 * Having parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_HAVING_PARAMETER = Constants.FORM_SELECT_QUERY_HAVING_PARAMETER;
+	
+	/**
+	 * Order by parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_ORDER_BYS_PARAMETER = Constants.FORM_SELECT_QUERY_ORDER_BYS_PARAMETER;
+	
+	/**
+	 * Which order by parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER = Constants.FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER;
+	
+	/**
+	 * Limit parameter to create select query
+	 */
 	public String FORM_SELECT_QUERY_LIMIT_PARAMETER = Constants.FORM_SELECT_QUERY_LIMIT_PARAMETER;
 	
 	/**
@@ -187,7 +299,14 @@ public interface IQueryBuilder {
 /*
  * Form Save Bind Query	
  */
+	/**
+	 * Table name parameter to create save bind query
+	 */
 	public String FORM_SAVE_BIND_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_SAVE_BIND_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column names parameter to create save bind query
+	 */
 	public String FORM_SAVE_BIND_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_SAVE_BIND_QUERY_COLUMN_NAMES_PARAMETER;
 	
 	/**
@@ -202,8 +321,19 @@ public interface IQueryBuilder {
 /*
  * Form Update Bind Query	
  */
+	/**
+	 * Table name parameter to create update bind query
+	 */
 	public String FORM_UPDATE_BIND_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_UPDATE_BIND_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column names parameter to create update bind query
+	 */
 	public String FORM_UPDATE_BIND_QUERY_COLUMN_NAMES_PARAMETER = Constants.FORM_UPDATE_BIND_QUERY_COLUMN_NAMES_PARAMETER;
+
+	/**
+	 * Where clause parameter to create update bind query
+	 */
 	public String FORM_UPDATE_BIND_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_UPDATE_BIND_QUERY_WHERE_CLAUSE_PARAMETER;
 	
 	/**
@@ -218,7 +348,14 @@ public interface IQueryBuilder {
 /*
  * Form Delete Query	
  */
+	/**
+	 * Table name parameter to create delete query
+	 */
 	public String FORM_DELETE_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_DELETE_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Where clause parameter to create delete query
+	 */
 	public String FORM_DELETE_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_DELETE_QUERY_WHERE_CLAUSE_PARAMETER;
 	
 	/**
@@ -233,11 +370,34 @@ public interface IQueryBuilder {
 /*
  * Form Count Query	
  */
+	/**
+	 * Table name parameter to create count query
+	 */
 	public String FORM_COUNT_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_COUNT_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column parameter to create count query
+	 */
 	public String FORM_COUNT_QUERY_COLUMN_PARAMETER = Constants.FORM_COUNT_QUERY_COLUMN_PARAMETER;
+
+	/**
+	 * Distinct parameter to create count query
+	 */
 	public String FORM_COUNT_QUERY_DISTINCT_PARAMETER = Constants.FORM_COUNT_QUERY_DISTINCT_PARAMETER;
+
+	/**
+	 * Where clause parameter to create count query
+	 */
 	public String FORM_COUNT_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_COUNT_QUERY_WHERE_CLAUSE_PARAMETER;
+	
+	/**
+	 * Group bys parameter to create count query
+	 */
 	public String FORM_COUNT_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_COUNT_QUERY_GROUP_BYS_PARAMETER;
+	
+	/**
+	 * Having parameter to create count query
+	 */
 	public String FORM_COUNT_QUERY_HAVING_PARAMETER = Constants.FORM_COUNT_QUERY_HAVING_PARAMETER;
 	
 	/**
@@ -251,10 +411,29 @@ public interface IQueryBuilder {
 /*
  * Form Average Query.
  */
+	/**
+	 * Table name parameter to create avg query
+	 */
 	public String FORM_AVG_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_AVG_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column parameter to create avg query
+	 */
 	public String FORM_AVG_QUERY_COLUMN_PARAMETER = Constants.FORM_AVG_QUERY_COLUMN_PARAMETER;
+
+	/**
+	 * Where clause parameter to create avg query
+	 */
 	public String FORM_AVG_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_AVG_QUERY_WHERE_CLAUSE_PARAMETER;
+
+	/**
+	 * Group bys parameter to create avg query
+	 */
 	public String FORM_AVG_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_AVG_QUERY_GROUP_BYS_PARAMETER;
+
+	/**
+	 * Having parameter to create avg query
+	 */
 	public String FORM_AVG_QUERY_HAVING_PARAMETER = Constants.FORM_AVG_QUERY_HAVING_PARAMETER;
 	
 	/**
@@ -269,10 +448,29 @@ public interface IQueryBuilder {
 /*
  * Form Sum Query.
  */
+	/**
+	 * Table name parameter to create sum query
+	 */
 	public String FORM_SUM_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_SUM_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column parameter to create sum query
+	 */
 	public String FORM_SUM_QUERY_COLUMN_PARAMETER = Constants.FORM_SUM_QUERY_COLUMN_PARAMETER;
+
+	/**
+	 * Where clause parameter to create sum query
+	 */
 	public String FORM_SUM_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_SUM_QUERY_WHERE_CLAUSE_PARAMETER;
+
+	/**
+	 * Group bys parameter to create sum query
+	 */
 	public String FORM_SUM_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_SUM_QUERY_GROUP_BYS_PARAMETER;
+
+	/**
+	 * Having parameter to create sum query
+	 */
 	public String FORM_SUM_QUERY_HAVING_PARAMETER = Constants.FORM_SUM_QUERY_HAVING_PARAMETER;
 	
 	/**
@@ -287,10 +485,29 @@ public interface IQueryBuilder {
 /*
  * Form Total Query	
  */
+	/**
+	 * parameter to create total query
+	 */
 	public String FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column parameter to create total query
+	 */
 	public String FORM_TOTAL_QUERY_COLUMN_PARAMETER = Constants.FORM_TOTAL_QUERY_COLUMN_PARAMETER;
+
+	/**
+	 * Where clause parameter to create total query
+	 */
 	public String FORM_TOTAL_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_TOTAL_QUERY_WHERE_CLAUSE_PARAMETER;
+
+	/**
+	 * Group Bys parameter to create total query
+	 */
 	public String FORM_TOTAL_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_TOTAL_QUERY_GROUP_BYS_PARAMETER;
+
+	/**
+	 * Having parameter to create total query
+	 */
 	public String FORM_TOTAL_QUERY_HAVING_PARAMETER = Constants.FORM_TOTAL_QUERY_HAVING_PARAMETER;
 	
 	/**
@@ -305,10 +522,29 @@ public interface IQueryBuilder {
 /*
  * Form Max Query.	
  */
+	/**
+	 * Table name parameter to create max query
+	 */
 	public String FORM_MAX_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_MAX_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column parameter to create max query
+	 */
 	public String FORM_MAX_QUERY_COLUMN_PARAMETER = Constants.FORM_MAX_QUERY_COLUMN_PARAMETER;
+
+	/**
+	 * Where clause parameter to create max query
+	 */
 	public String FORM_MAX_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_MAX_QUERY_WHERE_CLAUSE_PARAMETER;
+
+	/**
+	 * Group bys parameter to create max query
+	 */
 	public String FORM_MAX_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_MAX_QUERY_GROUP_BYS_PARAMETER;
+	
+	/**
+	 * Having parameter to create max query
+	 */
 	public String FORM_MAX_QUERY_HAVING_PARAMETER = Constants.FORM_MAX_QUERY_HAVING_PARAMETER;
 	
 	/**
@@ -323,10 +559,29 @@ public interface IQueryBuilder {
 /*
  * Form Minimum Query	
  */
+	/**
+	 * Table name parameter to create min query
+	 */
 	public String FORM_MIN_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_MIN_QUERY_TABLE_NAME_PARAMETER;
+
+	/**
+	 * Column parameter to create min query
+	 */
 	public String FORM_MIN_QUERY_COLUMN_PARAMETER = Constants.FORM_MIN_QUERY_COLUMN_PARAMETER;
+
+	/**
+	 * Where clause parameter to create min query
+	 */
 	public String FORM_MIN_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_MIN_QUERY_WHERE_CLAUSE_PARAMETER;
+
+	/**
+	 * Group bys parameter to create min query
+	 */
 	public String FORM_MIN_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_MIN_QUERY_GROUP_BYS_PARAMETER;
+
+	/**
+	 * Having parameter to create min query
+	 */
 	public String FORM_MIN_QUERY_HAVING_PARAMETER = Constants.FORM_MIN_QUERY_HAVING_PARAMETER;
 	
 	/**
@@ -341,11 +596,35 @@ public interface IQueryBuilder {
 /*
  * Form Group Concat Query	
  */
+	
+	/**
+	 * Table name parameter to create group concat query
+	 */
 	public String FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER;
+	
+	/**
+	 * Column parameter to create group concat query
+	 */
 	public String FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER;
+	
+	/**
+	 * Where clause parameter to create group concat query
+	 */
 	public String FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER;
+	
+	/**
+	 * Group bys parameter to create group concat query
+	 */
 	public String FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER;
+	
+	/**
+	 * Having parameter to create group concat query
+	 */
 	public String FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER;
+	
+	/**
+	 * Delimiter parameter to create group concat query
+	 */
 	public String FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER = Constants.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER;
 	
 	/**
@@ -359,6 +638,9 @@ public interface IQueryBuilder {
 /*
  * Form Foreign Keys Query	
  */
+	/**
+	 * Database descriptor parameter to create foreign keys
+	 */
 	public String FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER = Constants.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER;
 	
 	/**

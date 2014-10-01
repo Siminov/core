@@ -18,6 +18,10 @@
 package siminov.orm;
 
 
+/**
+ * Contains Constant values used in the framework
+ * All constants referred in the framework are defined in this class
+ */
 public interface Constants {
 
 	// SIMINOV Descriptor Extension
@@ -27,7 +31,7 @@ public interface Constants {
 	 */
 	public String SIMINOV_DESCRIPTOR_EXTENSION = ".si";
 
-	// ApplicationDescriptor Constants.
+	// Application Descriptor Constants.
 
 	/**
 	 * ApplicationDescriptor.si.xml core TAG.
@@ -60,25 +64,19 @@ public interface Constants {
 	public String APPLICATION_DESCRIPTOR_VERSION = "version";
 
 	/**
-	 * ApplicationDescriptor.si.xml database-descriptors TAG.
-	 */
-	public String APPLICATION_DESCRIPTOR_DATABASE_DESCRIPTORS = "database-descriptors";
-
-	/**
 	 * ApplicationDescriptor.si.xml database-descriptor TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_DATABASE_DESCRIPTOR = "database-descriptor";
-
-	/**
-	 * ApplicationDescriptor.si.xml event-handlers TAG.
-	 */
-	public String APPLICATION_DESCRIPTOR_EVENT_HANDLERS = "event-handlers";
 
 	/**
 	 * ApplicationDescriptor.si.xml event-handler TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_EVENT_HANDLER = "event-handler";
 
+	
+	/**
+	 * ApplicationDescriptor.si.xml library descriptor TAG.
+	 */
 	public String APPLICATION_DESCRIPTOR_LIBRARY_DESCRIPTOR = "library-descriptor";
  	
 	
@@ -89,13 +87,14 @@ public interface Constants {
 	 */
 	public String DATABASE_DESCRIPTOR = "database-descriptor";
 
-	public String DATABASE_DESCRIPTOR_FILE_NAME = "DescriptorDescriptor.si.xml";
-	
 	/**
 	 * DatabaseDescriptor.si.xml property TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_PROPERTY = "property";
 
+	/**
+	 * DatabaseDescriptor.si.xml property name TAG.
+	 */
 	public String DATABASE_DESCRIPTOR_PROPERTY_NAME = "name";
 
 	/**
@@ -108,14 +107,16 @@ public interface Constants {
 	 */
 	public String DATABASE_DESCRIPTOR_DATABASE_NAME = "database_name";
 	
+	/**
+	 * DatabaseDescriptor.si.xml type TAG.
+	 */
 	public String DATABASE_DESCRIPTOR_TYPE = "type";
 
+	/**
+	 * DatabaseDescriptor.si.xml version TAG.
+	 */
 	public String DATABASE_DESCRIPTOR_VERSION = "version";
 	
-	/**
-	 * DatabaseDescriptor.si.xml database-mappings TAG.
-	 */
-	public String DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTORS = "database-mapping-descriptors";
 
 	/**
 	 * DatabaseDescriptor.si.xml database-mapping TAG.
@@ -133,7 +134,7 @@ public interface Constants {
 	public String DATABASE_DESCRIPTOR_EXTERNAL_STORAGE = "external_storage";
 
 
-	// LibraryDescriptor Constants.
+	// Library Descriptor Constants.
 
 	/**
 	 * LibraryDescriptor.si.xml File Name.
@@ -161,20 +162,18 @@ public interface Constants {
 	public String LIBRARY_DESCRIPTOR_DESCRIPTION = "description";
 
 	/**
-	 * LibraryDescriptor.si.xml database-mappings TAG.
-	 */
-	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTORS = "database-mapping-descriptors";
-
-	/**
 	 * LibraryDescriptor.si.xml database-mapping TAG.
 	 */
 	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR = "database-mapping-descriptor";
 
 	
+	/**
+	 * LibraryDescriptor.si.xml database mapping seprator.
+	 */
 	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR = ".";
 	
 
-	// DatabaseMappingDescriptor Constants.
+	// Database Mapping Descriptor Constants.
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml database-mapping TAG.
@@ -237,16 +236,6 @@ public interface Constants {
 	public String DATABASE_MAPPING_DESCRIPTOR_UNIQUE = "unique";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml true TAG.
-	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_UNIQUE_TRUE = "true";
-
-	/**
-	 * DatabaseMappingDescriptor.si.xml false TAG.
-	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_UNIQUE_FALSE = "false";
-
-	/**
 	 * DatabaseMappingDescriptor.si.xml index TAG.
 	 */
 	public String DATABASE_MAPPING_DESCRIPTOR_INDEX = "index";
@@ -255,16 +244,6 @@ public interface Constants {
 	 * DatabaseMappingDescriptor.si.xml not_null TAG.
 	 */
 	public String DATABASE_MAPPING_DESCRIPTOR_NOT_NULL = "not_null";
-
-	/**
-	 * DatabaseMappingDescriptor.si.xml true TAG.
-	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_NOT_NULL_TRUE = "true";
-
-	/**
-	 * DatabaseMappingDescriptor.si.xml false TAG.
-	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_NOT_NULL_FALSE = "false";
 
 	/**
 	 * DatabaseMappingDescriptor.si.xml default TAG.
@@ -329,16 +308,6 @@ public interface Constants {
 	/**
 	 * DatabaseMappingDescriptor.si.xml
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD_TRUE = "true";
-
-	/**
-	 * DatabaseMappingDescriptor.si.xml
-	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD_FALSE = "false";
-
-	/**
-	 * DatabaseMappingDescriptor.si.xml
-	 */
 	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE = "cascade";
 
 	/**
@@ -361,130 +330,9 @@ public interface Constants {
 	 */
 	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT = "set_default";
 
-	// Annotations Constants.
 
-	// DatabaseMapping Constants.
-
-	/**
-	 * Annotation DatabaseMapping tableName TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_METHOD_GET_TABLE_NAME = "tableName";
-
-	// DatabaseMappingColumn Constants.
-
-	/**
-	 * Annotation DatabaseMapping columnName TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_METHOD_GET_COLUMN_NAME = "columnName";
-
-	/**
-	 * Annotation DatabaseMapping properties TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTIES_METHOD_GET_PROPERTIES = "properties";
-
-	// DatabaseMappingIndex Constants.
-
-	/**
-	 * Annotation DatabaseMapping name TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_INDEX_METHOD_GET_NAME = "name";
-
-	/**
-	 * Annotation DatabaseMapping value TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_INDEX_METHOD_GET_VALUE = "value";
-
-	/**
-	 * Annotation DatabaseMapping unique TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_INDEX_METHOD_GET_IS_UNIQUE = DATABASE_MAPPING_DESCRIPTOR_UNIQUE;
-
-	// DatabaseMappingIndexColumn Constants,
-
-	/**
-	 * Annotation DatabaseMapping column TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_INDEX_COLUMN_METHOD_GET_COLUMN = "column";
-
-	// DatabaseMappingIndexes Constants.
-
-	/**
-	 * Annotation DatabaseMapping value TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_INDEXES_METHOD_GET_VALUES = "value";
-
-	// DatabaseMappingColumnProperty Constants.
-
-	/**
-	 * Annotation DatabaseMapping name TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTY_METHOD_GET_NAME = "name";
-
-	/**
-	 * Annotation DatabaseMapping value TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTY_METHOD_GET_VALUE = "value";
-
-	/**
-	 * Annotation DatabaseMapping primary_key TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTY_PRIMARY_KEY = DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY;
-
-	/**
-	 * Annotation DatabaseMapping unique TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTY_UNIQUE = DATABASE_MAPPING_DESCRIPTOR_UNIQUE;
-
-	/**
-	 * Annotation DatabaseMapping not_null TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTY_NOT_NULL = DATABASE_MAPPING_DESCRIPTOR_NOT_NULL;
-
-	/**
-	 * Annotation DatabaseMapping default TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTY_DEFAULT = DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE;
-
-	/**
-	 * Annotation DatabaseMapping check TYPE.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_COLUMN_PROPERTY_CHECK = DATABASE_MAPPING_DESCRIPTOR_CHECK;
-
-	// DatabaseMappingRelationshipProperty Constants.
-
-	/**
-	 * Annotation DatabaseMapping Relationship Property Get Name.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_RELATIONSHIP_PROPERTY_METHOD_GET_NAME = "name";
-
-	/**
-	 * Annotation DatabaseMapping Relationship Property Get Value.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_RELATIONSHIP_PROPERTY_METHOD_GET_VALUE = "value";
-
-	/**
-	 * Annotation DatabaseMapping Relationship Property Load.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_RELATIONSHIP_PROPERTY_LOAD = "load";
-
-	// DatabaseMappingOneToOneRelationship Constants.
-
-	/**
-	 * Annotation DatabaseMapping Relationship On Update Attribute.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_RELATIONSHIP_ON_UPDATE_ATTRIBUTE = "onUpdate";
-
-	/**
-	 * Annotation DatabaseMapping Relationship On Delete Attribute.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_RELATIONSHIP_ON_DELETE_ATTRIBUTE = "onDelete";
-
-	/**
-	 * Annotation DatabaseMapping Relationship Get Properties.
-	 */
-	public String ANNOTATION_DATABASE_MAPPING_RELATIONSHIP_PROPERTIES_METHOD_GET_PROPERTIES = "properties";
-
-	// QueryBuilder Constants.
+	
+	// Query Builder Constants.
 
 	/**
 	 * Query Builder ON DELETE Constant.
@@ -521,10 +369,6 @@ public interface Constants {
 	 */
 	public String QUERY_BUILDER_SET_DEFAULT = "SET DEFAULT";
 
-	/**
-	 * Query Builder ISNULL Constant.
-	 */
-	public String QUERY_BUILDER_IS_NULL = "ISNULL";
 
 	// SQLite Database Method Names.
 
@@ -548,17 +392,13 @@ public interface Constants {
 	 */
 	public String SQLITE_DATABASE_END_TRANSACTION = "endTransaction";
 
-	/**
-	 * SQLite Database File Extension.
-	 */
-	public String SQLITE_DATABASE_EXTENSION = ".db";
 
 	/**
 	 * SQLite Enable Foreign Key Query.
 	 */
 	public String SQLITE_DATABASE_QUERY_TO_ENABLE_FOREIGN_KEYS_MAPPING = "PRAGMA foreign_keys=ON;";
 
-	// DatabaseUtils Path Constants.
+	// Database Utils Path Constants.
 
 	/**
 	 * Database Path Data.
@@ -575,15 +415,6 @@ public interface Constants {
 	 */
 	public String XML_FILE_EXTENSION = ".xml";
 
-	/**
-	 * TRUE Values
-	 */
-	public String TRUE = "true";
-
-	/**
-	 * FALSE Values
-	 */
-	public String FALSE = "false";
 
 	/**
 	 * Database Constants.
@@ -1009,10 +840,12 @@ public interface Constants {
 
 	
 	/**
-	 * Android Metadata Table Name
+	 * Android Meta data Table Name
 	 */
 	public String ANDROID_METADATA_TABLE_NAME = "android_metadata";
 	
-	
+	/**
+	 * New Line 
+	 */
 	public String NEW_LINE = "\n";
 }

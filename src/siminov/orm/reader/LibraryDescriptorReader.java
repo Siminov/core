@@ -70,6 +70,10 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 	private String propertyName = null;
 	
 	
+	/**
+	 * LibraryDescriptorReader Constructor
+	 * @param libraryName Name of the library
+	 */
 	public LibraryDescriptorReader(final String libraryName) {
 
 		if(libraryName == null || libraryName.length() <= 0) {

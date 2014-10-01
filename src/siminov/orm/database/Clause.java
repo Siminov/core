@@ -27,6 +27,11 @@ import siminov.orm.database.design.ISelectClause;
 import siminov.orm.database.design.ISumClause;
 import siminov.orm.database.design.ITotalClause;
 
+
+/**
+ * It is used to create where clause used in database query.
+ * It implements all the Clauses which are used to in the where clause.	
+ */
 public class Clause implements ISelectClause, IDeleteClause, ICountClause, ISumClause, ITotalClause, IAverageClause, IMaxClause, IMinClause, IGroupConcatClause {
 
 	static final String EQUAL_TO = "=";
@@ -44,87 +49,161 @@ public class Clause implements ISelectClause, IDeleteClause, ICountClause, ISumC
 	static final String ASC_ORDER_BY = "ASC";
 	static final String DESC_ORDER_BY = "DESC"; 
 	
-	private StringBuilder where = new StringBuilder();
+	private StringBuilder whereClause = new StringBuilder();
 	
-	private Select select = null;
+	private Where where = null;
 	
-	public Clause(Select select) {
-		this.select = select;
+	/**
+	 * Clause Constructor
+	 * @param where Where clause
+	 */
+	public Clause(Where where) {
+		this.where = where;
 	}
 	
+	/**
+	 * Add column
+	 * @param column Name of column
+	 */
 	void addCol(String column) {
-		where.append(column);
+		whereClause.append(column);
 	}
 	
-	public Select equalTo(Object value) {
-		where.append(EQUAL_TO + " '" + value.toString() + "' ");
-		return this.select;
+	/**
+	 * Used to specify EQUAL TO (=) condition.
+	 * @param value Value for which EQUAL TO (=) condition will be applied.
+	 * @return Where object.
+	 */
+	public Where equalTo(Object value) {
+		whereClause.append(EQUAL_TO + " '" + value.toString() + "' ");
+		return this.where;
 	}
 
-	public Select notEqualTo(Object value) {
-		where.append(NOT_EQUAL_TO + " '" + value + "' ");
-		return this.select;
+	/**
+	 * Used to specify NOT EQUAL TO (!=) condition.
+	 * @param value Value for which NOT EQUAL TO (=) condition will be applied.
+	 * @return Where object.
+	 */
+	public Where notEqualTo(Object value) {
+		whereClause.append(NOT_EQUAL_TO + " '" + value + "' ");
+		return this.where;
 	}
 	
-	public Select greaterThan(Object value) {
-		where.append(GREATER_THAN + " '" + value + "' ");
-		return this.select;
+	
+	/**
+	 * Used to specify GREATER THAN (>) condition.
+	 * @param value Value for while GREATER THAN (>) condition will be specified.
+	 * @return Where object.
+	 */
+	public Where greaterThan(Object value) {
+		whereClause.append(GREATER_THAN + " '" + value + "' ");
+		return this.where;
 	}
 	
-	public Select greaterThanEqual(Object value) {
-		where.append(GREATER_THAN_EQUAL + " '" + value + "' ");
-		return this.select;
+	
+	/**
+	 * Used to specify GREATER THAN EQUAL (>=) condition.
+	 * @param value Value for which GREATER THAN EQUAL (>=) condition will be specified.
+	 * @return Where object.
+	 */
+	public Where greaterThanEqual(Object value) {
+		whereClause.append(GREATER_THAN_EQUAL + " '" + value + "' ");
+		return this.where;
 	}
 	
-	public Select lessThan(Object value) {
-		where.append(LESS_THAN + " '" + value + "' ");
-		return this.select;
+	
+	/**
+	 * Used to specify LESS THAN (<) condition.
+	 * @param value Value for which LESS THAN (<) condition will be specified.
+	 * @return Where object.
+	 */
+	public Where lessThan(Object value) {
+		whereClause.append(LESS_THAN + " '" + value + "' ");
+		return this.where;
 	}
 	
-	public Select lessThanEqual(Object value) {
-		where.append(LESS_THAN_EQUAL + " '" + value + "' ");
-		return this.select;
+	
+	/**
+	 * Used to specify LESS THAN EQUAL (<=) condition.
+	 * @param value Value for which LESS THAN EQUAL (<=) condition will be specified.
+	 * @return Where object.
+	 */
+	public Where lessThanEqual(Object value) {
+		whereClause.append(LESS_THAN_EQUAL + " '" + value + "' ");
+		return this.where;
 	}
 
-	public Select between(Object start, Object end) {
-		where.append(BETWEEN + " '" + start + "' " + AND + " '" + end + "' ");
-		return this.select;
+	/**
+	 * Used to specify BETWEEN condition.
+	 * @param start Start Range.
+	 * @param end End Range.
+	 * @return Where object.
+	 */
+	public Where between(Object start, Object end) {
+		whereClause.append(BETWEEN + " '" + start + "' " + AND + " '" + end + "' ");
+		return this.where;
 	}
 	
-	public Select like(Object like) {
-		where.append(LIKE + " '" + like + "' ");
-		return this.select;
+	
+	/**
+	 * Used to specify LIKE condition.
+	 * @param like LIKE condition.
+	 * @return Where object.
+	 */
+	public Where like(Object like) {
+		whereClause.append(LIKE + " '" + like + "' ");
+		return this.where;
 	}
 	
-	public Select in(Object...values) {
-		where.append(IN + "(");
+	
+	/**
+	 * Used to specify IN condition.
+	 * @param values Values for IN condition.
+	 * @return Where object.
+	 */
+	public Where in(Object...values) {
+		whereClause.append(IN + "(");
 		
 		if(values != null && values.length > 0) {
 			for(int i = 0;i < values.length;i++) {
 				if(i == 0) {
-					where.append("'" + values[i] + "'");
+					whereClause.append("'" + values[i] + "'");
 					continue;
 				}
 				
-				where.append(" ,'" + values[i] + "'");
+				whereClause.append(" ,'" + values[i] + "'");
 			}
 		} 
 		
-		where.append(")");
+		whereClause.append(")");
 		
-		return this.select;
+		return this.where;
 	}
 	
+	
+	/**
+	 * Used to specify AND condition between where clause.
+	 * @param column Name of column on which condition need to be specified.
+	 */
 	void and(String column) {
-		where.append(" " + AND + " " + column);
+		whereClause.append(" " + AND + " " + column);
 	}
 	
+	/**
+	 * Used to specify OR condition between where clause.
+	 * @param column Name of column on which condition need to be specified.
+	 */
 	void or(String column) {
-		where.append(" " + OR + " " + column);
+		whereClause.append(" " + OR + " " + column);
 	}
 	
+	
+	/**
+	 * It returns the where clause.
+	 * @return String where clause.
+	 */
 	public String toString() {
-		return where.toString();
+		return whereClause.toString();
 	}
 	
 }

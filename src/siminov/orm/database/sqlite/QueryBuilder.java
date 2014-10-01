@@ -35,6 +35,9 @@ import siminov.orm.resource.Resources;
 import android.text.TextUtils;
 
 
+/**
+ * Provides the IQueryBuilder implementation for SQLite
+ */
 public class QueryBuilder implements Constants, IQueryBuilder {
 
 	

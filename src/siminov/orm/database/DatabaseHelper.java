@@ -47,7 +47,7 @@ import siminov.orm.utils.ClassUtils;
 
 
 /**
- * Exposes methods to deal with database. 
+ * It provides utility methods to deal with database. 
  * It has methods to create, delete, and perform other common database management tasks.
  */
 public abstract class DatabaseHelper implements Constants {
@@ -58,7 +58,7 @@ public abstract class DatabaseHelper implements Constants {
 	/**
 	 * It is used to create instance of IDatabase implementation.
 	 * @param databaseDescriptor
-	 * @return
+	 * @return DatabaseBundle Database Bundle instance object.
 	 * @throws DatabaseException
 	 */
 	public static DatabaseBundle createDatabase(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
@@ -213,7 +213,7 @@ public abstract class DatabaseHelper implements Constants {
 	/**
 	 * Upgrade Table.
 	 * @param databaseMappingDescriptor object related to table.
-	 * @throws DatabaseException If any exception thrown while upgrating table.
+	 * @throws DatabaseException If any exception thrown while upgrading table.
 	 */
 	public static void upgradeTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
 
@@ -305,289 +305,63 @@ SIMINOV will parse each DATABASE-MAPPING-DESCRIPTOR XML defined by developer and
 Example:
 	{@code
 		
-	<database-mapping>
-	
-		<table table_name="LIQUOR" class_name="com.core.template.model.Liquor">
-			
-			<column variable_name="liquorType" column_name="LIQUOR_TYPE">
-				<property name="type">TEXT</property>
-				<property name="primary_key">true</property>
-				<property name="not_null">true</property>
-				<property name="unique">true</property>
-			</column>		
-	
-			<column variable_name="description" column_name="DESCRIPTION">
-				<property name="type">TEXT</property>
-			</column>
-	
-			<column variable_name="history" column_name="HISTORY">
-				<property name="type">TEXT</property>
-			</column>
-	
-			<column variable_name="link" column_name="LINK">
-				<property name="type">TEXT</property>
-				<property name="default">www.wikipedia.org</property>
-			</column>
-	
-			<column variable_name="alcholContent" column_name="ALCHOL_CONTENT">
-				<property name="type">TEXT</property>
-			</column>
-	
-			<maps>
-				<map map="liquorBrands" map_to="com.core.template.model.LiquorBrand">
-					<property name="load">false</property>
-					<property name="relationship_type">ONE-TO-MANY</property>
-				</map>
-			</maps>
-			
-			<index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true">
-				<column>HISTORY</column>
-			</index>
-										
-		</table>
-	
-	</database-mapping>		
+		<database-mapping-descriptor>
+		
+			<entity table_name="LIQUOR" class_name="siminov.orm.template.model.Liquor">
+				
+				<attribute variable_name="liquorType" column_name="LIQUOR_TYPE">
+					<property name="type">java.lang.String</property>
+					<property name="primary_key">true</property>
+					<property name="not_null">true</property>
+					<property name="unique">true</property>
+				</attribute>		
+		
+				<attribute variable_name="description" column_name="DESCRIPTION">
+					<property name="type">java.lang.String</property>
+				</attribute>
+		
+				<attribute variable_name="history" column_name="HISTORY">
+					<property name="type">java.lang.String</property>
+				</attribute>
+		
+				<attribute variable_name="link" column_name="LINK">
+					<property name="type">java.lang.String</property>
+					<property name="default">www.wikipedia.org</property>
+				</attribute>
+		
+				<attribute variable_name="alcholContent" column_name="ALCHOL_CONTENT">
+					<property name="type">java.lang.String</property>
+				</attribute>
+		
+				<index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true">
+					<attribute>HISTORY</attribute>
+				</index>
+		
+				<relationships>
+		
+				    <one-to-many refer="liquorBrands" refer_to="siminov.orm.template.model.LiquorBrand" on_update="cascade" on_delete="cascade">
+						<property name="load">true</property>
+					</one-to-many>		
+				    
+				</relationships>
+													
+			</entity>
+		
+		</database-mapping-descriptor>		
 			}
 					</p>
-	  			</li>
-
-	  			<li> Describing table through Defining Annotations in Java POJO. And creation of table will be handled by SIMINOV.
-	  			  	<p>	
-SIMINOV will read each class Annotations defined by developer and create table's in database.
-	
-	Example: 
-		
-		@Table(tableName=Liquor.TABLE_NAME)
-		@Indexes({
-			@Index(name="LIQUOR_INDEX_BASED_ON_LINK", unique=true, value={
-				@IndexColumn(column=Liquor.LINK)
-			}), 
-		})
-		public class Liquor extends Database implements Serializable {
-		
-			//Table Name
-			transient public static final String TABLE_NAME = "LIQUOR";	
-			
-			//Column Names
-			transient public static final String LIQUOR_TYPE = "LIQUOR_TYPE";
-			transient public static final String DESCRIPTION = "DESCRIPTION";
-			transient public static final String HISTORY = "HISTORY";
-			transient public static final String LINK = "LINK";
-			transient public static final String ALCHOL_CONTENT = "ALCHOL_CONTENT";
-			
-			//Liquor Types 
-			transient public static final String LIQUOR_TYPE_GIN = "Gin"; 
-			transient public static final String LIQUOR_TYPE_RUM = "Rum"; 
-			transient public static final String LIQUOR_TYPE_TEQUILA = "Tequila"; 
-			transient public static final String LIQUOR_TYPE_VODKA = "Vodka"; 
-			transient public static final String LIQUOR_TYPE_WHISKEY = "Whiskey"; 
-			transient public static final String LIQUOR_TYPE_BEER = "Beer"; 
-			transient public static final String LIQUOR_TYPE_WINE = "Wine";
-			
-			
-			//Variables
-			{@code
-			@Column(columnName=LIQUOR_TYPE,
-					properties={
-						@Property(name=Property.PRIMARY_KEY, value=Property.PRIMARY_KEY_TRUE),
-						@Property(name=Property.NOT_NULL, value=Property.NOT_NULL_TRUE), 
-						@Property(name=Property.UNIQUE, value=Property.UNIQUE_TRUE)
-						}
-					)
-			}
-			private String liquorType = null;
-			
-			{@code
-			@Column(columnName=DESCRIPTION)
-			}
-			private String description = null;
-			
-			{@code
-			@Column(columnName=HISTORY)
-			}
-			private String history = null;
-		
-			{@code
-			@Column(columnName=LINK,
-					properties={
-						@Property(name=Property.DEFAULT, value="www.wikipedia.org")
-						}
-					)
-			}
-			private String link = null;
-			
-			{@code
-			@Column(columnName=ALCHOL_CONTENT)
-			}
-			private String alcholContent = null;
-		
-			{@code
-			@Map(mapTo="com.core.template.model.LiquorBrand",
-					properties={
-						@Property(name=Property.LOAD, value=Property.LOAD_FALSE),
-						@Property(name=Property.RELATIONSHIP_TYPE, value=Property.RELATIONSHIP_ONE_TO_MANY),
-						}
-				)
-			}
-			private Collection<LiquorBrand> liquorBrands = null;
-			
-			//Methods
-			
-			public String getLiquorType() {
-				return this.liquorType;
-			}
-			
-			public void setLiquorType(String liquorType) {
-				this.liquorType = liquorType;
-			}
-			
-			public String getDescription() {
-				return this.description;
-			}
-			
-			public void setDescription(String description) {
-				this.description = description;
-			}
-			
-			public String getHistory() {
-				return this.history;
-			}
-			
-			public void setHistory(String history) {
-				this.history = history;
-			}
-			
-			public String getLink() {
-				return this.link;
-			}
-			
-			public void setLink(String link) {
-				this.link = link;
-			}
-			
-			public String getAlcholContent() {
-				return this.alcholContent;
-			}
-			
-			public void setAlcholContent(String alcholContent) {
-				this.alcholContent = alcholContent;
-			}
-		
-			public Collection<LiquorBrand> getLiquorBrands() {
-				return this.liquorBrands;
-			}
-			
-			public void setLiquorBrands(Collection<LiquorBrand> liquorBrands) {
-				this.liquorBrands = liquorBrands;
-			}
-		}
-					</p>
-	  			</li>
-	  			
-	  			<li> Manually creating table structure using DatabaseMapping POJO class. 
-	  				
-	Example: 
-	
-		//Defines structure for Beer table.
-		DatabaseMapping databaseMapping = new DatabaseMapping();
-		databaseMapping.setTableName("LIQUOR");
-		databaseMapping.setClassName(Liquor.class.getName());
-	
-		//Add Liquor Type.
-		DatabaseMapping.Column liquorType = databaseMapping.new Column();
-		liquorType.setVariableName("liquorType");
-		liquorType.setColumnName("LIQUOR_TYPE");
-	
-		liquorType.setType("TEXT");
-		
-		liquorType.setPrimaryKey(true);
-		liquorType.setNotNull(true);
-		liquorType.setUnique(false);
-	
-		liquorType.setGetterMethodName("getLiquorType");
-		liquorType.setSetterMethodName("setLiquorType");
-		
-		databaseMapping.addColumn(liquorType);
-	
-		//Add Liquor Description.
-		DatabaseMapping.Column description = databaseMapping.new Column();
-		description.setVariableName("description");
-		description.setColumnName("DESCRIPTION");
-	
-		description.setType("TEXT");
-		
-		description.setGetterMethodName("getDescription");
-		description.setSetterMethodName("setDescription");
-		
-		databaseMapping.addColumn(description);
-	
-		//Add History.
-		DatabaseMapping.Column history = databaseMapping.new Column();
-		history.setVariableName("history");
-		history.setColumnName("HISTORY");
-	
-		history.setType("TEXT");
-		
-		history.setGetterMethodName("getHistory");
-		history.setSetterMethodName("setHistory");
-		
-		databaseMapping.addColumn(history);
-	
-		//Add Link.
-		DatabaseMapping.Column link = databaseMapping.new Column();
-		link.setVariableName("history");
-		link.setColumnName("HISTORY");
-	
-		link.setType("TEXT");
-		link.setDefault("www.wikipedia.org");
-		
-		link.setGetterMethodName("getLink");
-		link.setSetterMethodName("setLink");
-		
-		databaseMapping.addColumn(link);
-	
-		//Add Alchol Content.
-		DatabaseMapping.Column alcholContent = databaseMapping.new Column();
-		alcholContent.setVariableName("alcholContent");
-		alcholContent.setColumnName("ALCHOL_CONTENT");
-	
-		alcholContent.setType("TEXT");
-		
-		alcholContent.setGetterMethodName("getAlcholContent");
-		alcholContent.setSetterMethodName("setAlcholContent");
-		
-		databaseMapping.addColumn(alcholContent);
-	
-		//Create Index On Liquor table.
-		DatabaseMapping.Index indexOnLiquor = databaseMapping.new Index();
-		indexOnLiquor.setName("LIQUOR_INDEX_BASED_ON_LINK");
-		indexOnLiquor.setUnique(true);
-		
-		//Add Columns on which we need index.
-		indexOnLiquor.addColumn("LINK");
-		
-		databaseMapping.addIndex(indexOnLiquor);
-		
-		Collection<DatabaseMapping> databaseMappings = new ArrayList<DatabaseMapping> ();
-		databaseMappings.add(databaseMapping);
-		
-		try {
-			Database.createTables(databaseMappings.iterator());
-		} catch(DatabaseException databaseException) {
-			//Log It.
-		}
 	  			</li>
 	  		</ul> 
 	  	</pre>
 	  </p>
 	  
-	 * @param databaseMappings Database-mapping objects which defines the structure of each table.
+	 * @param databaseMappingDescriptors Database-mapping objects which defines the structure of each table.
 	 * @throws DatabaseException If not able to create table in SQLite.
 	 */
-	public static void createTables(final Iterator<DatabaseMappingDescriptor> databaseMappings) throws DatabaseException {
+	public static void createTables(final Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors) throws DatabaseException {
 
-		while(databaseMappings.hasNext()) {
-			createTable(databaseMappings.next());
+		while(databaseMappingDescriptors.hasNext()) {
+			createTable(databaseMappingDescriptors.next());
 		}
 	}
 
@@ -600,88 +374,10 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	
 		{@code
 	
-		//Defines structure for Liquor table.
-		DatabaseMapping databaseMapping = new DatabaseMapping();
-		databaseMapping.setTableName("LIQUOR");
-		databaseMapping.setClassName(Liquor.class.getName());
-	
-		//Add Liquor Type.
-		DatabaseMapping.Column liquorType = databaseMapping.new Column();
-		liquorType.setVariableName("liquorType");
-		liquorType.setColumnName("LIQUOR_TYPE");
-	
-		liquorType.setType("TEXT");
-		
-		liquorType.setPrimaryKey(true);
-		liquorType.setNotNull(true);
-		liquorType.setUnique(false);
-	
-		liquorType.setGetterMethodName("getLiquorType");
-		liquorType.setSetterMethodName("setLiquorType");
-		
-		databaseMapping.addColumn(liquorType);
-	
-		//Add Liquor Description.
-		DatabaseMapping.Column description = databaseMapping.new Column();
-		description.setVariableName("description");
-		description.setColumnName("DESCRIPTION");
-	
-		description.setType("TEXT");
-		
-		description.setGetterMethodName("getDescription");
-		description.setSetterMethodName("setDescription");
-		
-		databaseMapping.addColumn(description);
-	
-		//Add History.
-		DatabaseMapping.Column history = databaseMapping.new Column();
-		history.setVariableName("history");
-		history.setColumnName("HISTORY");
-	
-		history.setType("TEXT");
-		
-		history.setGetterMethodName("getHistory");
-		history.setSetterMethodName("setHistory");
-		
-		databaseMapping.addColumn(history);
-	
-		//Add Link.
-		DatabaseMapping.Column link = databaseMapping.new Column();
-		link.setVariableName("history");
-		link.setColumnName("HISTORY");
-	
-		link.setType("TEXT");
-		link.setDefault("www.wikipedia.org");
-		
-		link.setGetterMethodName("getLink");
-		link.setSetterMethodName("setLink");
-		
-		databaseMapping.addColumn(link);
-	
-		//Add Alchol Content.
-		DatabaseMapping.Column alcholContent = databaseMapping.new Column();
-		alcholContent.setVariableName("alcholContent");
-		alcholContent.setColumnName("ALCHOL_CONTENT");
-	
-		alcholContent.setType("TEXT");
-		
-		alcholContent.setGetterMethodName("getAlcholContent");
-		alcholContent.setSetterMethodName("setAlcholContent");
-		
-		databaseMapping.addColumn(alcholContent);
-	
-		//Create Index On Liquor table.
-		DatabaseMapping.Index indexOnLiquor = databaseMapping.new Index();
-		indexOnLiquor.setName("LIQUOR_INDEX_BASED_ON_LINK");
-		indexOnLiquor.setUnique(true);
-		
-		//Add Columns on which we need index.
-		indexOnLiquor.addColumn("LINK");
-		
-		databaseMapping.addIndex(indexOnLiquor);
+		Liquor liquor = new Liquor();
 		
 		try {
-			Database.createTables(databaseMapping);
+			Database.createTables(liquor.getDatabaseMappingDescriptor());
 		} catch(DatabaseException databaseException) {
 			//Log It.
 		}
@@ -893,16 +589,16 @@ SIMINOV will read each class Annotations defined by developer and create table's
 	}
 
 	/**
-	 * It drop's the table from database based on database-mapping.
+	 * It drop's the table from database based on database mapping descriptor.
 	  	<p>
 			<pre> Drop the Liquor table.
 	
 	{@code
 	
-	DatabaseMapping databaseMapping = new Liquor().getDatabaseMapping();
+	DatabaseMappingDescriptor databaseMappingDescriptor = new Liquor().getDatabaseMappingDescriptor();
 	
 	try {
-		Database.dropTable(databaseMapping);
+		Database.dropTable(databaseMappingDescriptor);
 	} catch(DatabaseException databaseException) {
 		//Log It.
 	}

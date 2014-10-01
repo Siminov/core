@@ -76,6 +76,9 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 	private StringBuilder tempValue = new StringBuilder();
 	private String propertyName = null;
 	
+	/**
+	 * ApplicationDescriptorReader Constructor
+	 */
 	public ApplicationDescriptorReader() {
 		
 		Context context = resources.getApplicationContext();

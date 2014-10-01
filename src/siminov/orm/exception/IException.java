@@ -18,22 +18,51 @@
 
 package siminov.orm.exception;
 
+
+/**
+ * Exposes method to deal with exception
+ * It has methods to set exception class name, exception method name, exception message.
+ */
 public interface IException {
 
+	
+	/**
+	 * Get exception class name
+	 * @return Exception Class Name
+	 */
 	public String getClassName();
 
-		
+	/**
+	 * Set exception class name	
+	 * @param className Name of exception class
+	 */
 	public void setClassName(final String className);
 	
 	
+	/**
+	 * Get exception method name
+	 * @return Name of exception method
+	 */
 	public String getMethodName();
 	
 	
+	/**
+	 * Set exception method name
+	 * @param methodName Name of method
+	 */
 	public void setMethodName(final String methodName);
 
 	
+	/**
+	 * Get exception message
+	 * @return Exception message
+	 */
 	public String getMessage();
 	
 	
+	/**
+	 * Set exception message
+	 * @param message Exception message
+	 */
 	public void setMessage(final String message);
 }
