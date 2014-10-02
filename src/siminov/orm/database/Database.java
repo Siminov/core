@@ -33,7 +33,8 @@ import siminov.orm.database.design.ITotal;
 import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.resource.Resources;
+import siminov.orm.resource.ResourceManager;
+import android.content.res.Resources;
 
 /**
  * Exposes methods to interact with database. 
@@ -76,8 +77,8 @@ public class Database implements IDatabase {
 	 * @throws DatabaseException If not able to drop database.
 	 */
 	public static void dropDatabase(String databaseName) throws DatabaseException {
-		Resources resources = Resources.getInstance();
-		DatabaseHelper.dropDatabase(resources.getDatabaseDescriptorBasedOnName(databaseName));
+		ResourceManager resourceManager = ResourceManager.getInstance();
+		DatabaseHelper.dropDatabase(resourceManager.getDatabaseDescriptorBasedOnName(databaseName));
 	}
 	
 	/**

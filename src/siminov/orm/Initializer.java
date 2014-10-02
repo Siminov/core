@@ -21,30 +21,29 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import siminov.orm.resource.Resources;
-
+import siminov.orm.resource.ResourceManager;
 import android.content.Context;
 
 /**
  * It implements IInitializer Interface.
- * It handle initialization on Siminov Framework.
+ * It handle initialization of framework.
  *
  */
 public class Initializer implements IInitializer {
 
-	private Resources resources = Resources.getInstance();
+	private ResourceManager resourceManager = ResourceManager.getInstance();
 	
 	private List<Object> parameters = new ArrayList<Object> ();
 	
 	/**
-	 * Add Initilization Parameter.
+	 * Add Initialization Parameter.
 	 */
 	public void addParameter(Object object) {
 		parameters.add(object);
 	}
 	
 	/**
-	 * Start Siminov Framework.
+	 * It is used to initialize and start the framework
 	 */
 	public void initialize() {
 		
@@ -60,10 +59,9 @@ public class Initializer implements IInitializer {
 			
 		}
 		
-		resources.setApplicationContext(context);
+		resourceManager.setApplicationContext(context);
 		
 		Siminov.start();
 		
 	}
-	
 }

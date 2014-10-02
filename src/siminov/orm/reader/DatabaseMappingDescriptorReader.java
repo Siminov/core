@@ -29,7 +29,7 @@ import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor.Attribute;
-import siminov.orm.resource.Resources;
+import siminov.orm.resource.ResourceManager;
 import android.content.Context;
 
 
@@ -90,7 +90,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 	
 	private String databaseMappingName = null;
 
-	private Resources resources = Resources.getInstance();
+	private ResourceManager resourceManager = ResourceManager.getInstance();
 
 	private DatabaseMappingDescriptor databaseMappingDescriptor = null;
 
@@ -115,7 +115,7 @@ public class DatabaseMappingDescriptorReader extends SiminovSAXDefaultHandler im
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid name found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 		}
 		
-		Context context = resources.getApplicationContext();
+		Context context = resourceManager.getApplicationContext();
 		if(context == null) {
 			Log.error(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found. DATABASE-MAPPING-MODEL: " + this.databaseMappingName);

@@ -43,7 +43,7 @@ import android.content.Context;
  * <p>
  * Such As: Provides Application Descriptor, Database Descriptor, Library Descriptor, Database Mapping.
  */
-public class Resources {
+public class ResourceManager {
 
 	/*
 	 * Resources.
@@ -53,12 +53,12 @@ public class Resources {
 	private ApplicationDescriptor applicationDescriptor = null;
 	private DatabaseFactory databaseFactory = null;
 	
-	private static Resources resources = null;
+	private static ResourceManager resources = null;
 	
 	/**
 	 * Resource Private Constructor
 	 */
-	private Resources() {
+	private ResourceManager() {
 
 		databaseFactory = DatabaseFactory.getInstance();
 	}
@@ -68,9 +68,9 @@ public class Resources {
 	 * 
 	 * @return Resources instance.
 	 */
-	public static Resources getInstance() {
+	public static ResourceManager getInstance() {
 		if(resources == null) {
-			resources = new Resources();
+			resources = new ResourceManager();
 		}
 		
 		return resources;
@@ -132,7 +132,7 @@ Example: ApplicationDescriptor.si.xml
 	 */
 	public Iterator<String> getDatabaseDescriptorPaths() {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorsPaths", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptorsPaths", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
 		}
 
 		return this.applicationDescriptor.getDatabaseDescriptorPaths();
@@ -163,7 +163,7 @@ Example: ApplicationDescriptor.si.xml
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnPath(final String databaseDescriptorPath) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnPath", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptorBasedOnPath", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
 		}
 
 		return this.applicationDescriptor.getDatabaseDescriptorBasedOnPath(databaseDescriptorPath);
@@ -194,7 +194,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnName(final String databaseDescriptorName) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptorBasedOnName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND.");
 		}
 
 		return this.applicationDescriptor.getDatabaseDescriptorBasedOnName(databaseDescriptorName);
@@ -206,7 +206,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public Iterator<DatabaseDescriptor> getDatabaseDescriptors() {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptors", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptors", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		return this.applicationDescriptor.getDatabaseDescriptors();
@@ -220,7 +220,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnClassName(final String className) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptorBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
@@ -244,7 +244,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public String getDatabaseDescriptorNameBasedOnClassName(final String className) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptorNameBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
@@ -269,7 +269,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnTableName(final String tableName) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptorBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
@@ -293,7 +293,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public String getDatabaseDescriptorNameBasedOnTableName(final String tableName) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseDescriptorNameBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseDescriptorNameBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
@@ -317,7 +317,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public DatabaseMappingDescriptor getDatabaseMappingDescriptorBasedOnClassName(final String className) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseMappingBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseMappingBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
@@ -342,7 +342,7 @@ Example: DatabaseDescriptor.xml
 	 */
 	public DatabaseMappingDescriptor getDatabaseMappingDescriptorBasedOnTableName(final String tableName) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(Resources.class.getName(), "getDatabaseMappingBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseMappingBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();

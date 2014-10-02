@@ -32,7 +32,7 @@ import siminov.orm.log.Log;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.resource.Resources;
+import siminov.orm.resource.ResourceManager;
 import android.content.Context;
 
 
@@ -50,7 +50,7 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 	
 	private boolean doesMatch = false;
 	
-	private Resources resources = Resources.getInstance();
+	private ResourceManager resourceManager = ResourceManager.getInstance();
 	
 	/**
 	 * QucikDatabaseMappingDescriptorReader Constructor
@@ -72,14 +72,14 @@ public class QuickDatabaseMappingDescriptorReader extends SiminovSAXDefaultHandl
 	 * @throws SiminovException Any exception during parsing the descriptor file
 	 */
 	public void process() throws SiminovException {
-		context = resources.getApplicationContext();
+		context = resourceManager.getApplicationContext();
 		if(context == null) {
 			Log.error(getClass().getName(), "process", "Invalid Application Context found.");
 			throw new SiminovException(getClass().getName(), "process", "Invalid Application Context found.");
 		}
 
 			
-		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
+		ApplicationDescriptor applicationDescriptor = resourceManager.getApplicationDescriptor();
 		if(applicationDescriptor == null) {
 			Log.error(getClass().getName(), "process", "Invalid Application Descriptor Found");
 			throw new DeploymentException(getClass().getName(), "process", "Invalid Application Descriptor Found.");

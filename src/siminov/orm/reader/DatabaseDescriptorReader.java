@@ -28,7 +28,7 @@ import siminov.orm.Constants;
 import siminov.orm.exception.DeploymentException;
 import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseDescriptor;
-import siminov.orm.resource.Resources;
+import siminov.orm.resource.ResourceManager;
 import android.content.Context;
 
 
@@ -81,7 +81,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	
 	private DatabaseDescriptor databaseDescriptor = null;
 	
-	private Resources resources = Resources.getInstance();
+	private ResourceManager resourceManager = ResourceManager.getInstance();
 
 	private StringBuilder tempValue = new StringBuilder();
 	private String propertyName = null;
@@ -100,7 +100,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		
 		this.databaseDescriptorPath = databaseDescriptorPath;
 		
-		Context context = resources.getApplicationContext();
+		Context context = resourceManager.getApplicationContext();
 		if(context == null) {
 			Log.error(getClass().getName(), "Constructor", "Invalid Application Context found.");
 			throw new DeploymentException(getClass().getName(), "Constructor", "Invalid Application Context found.");

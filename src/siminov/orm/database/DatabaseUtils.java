@@ -22,8 +22,9 @@ import java.io.File;
 import siminov.orm.Constants;
 import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
-import siminov.orm.resource.Resources;
+import siminov.orm.resource.ResourceManager;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Environment;
 
 
@@ -47,9 +48,9 @@ public class DatabaseUtils {
 	 * @return
 	 */
 	public String internalMemoryDatabasePath(final DatabaseDescriptor databaseDescriptor) {
-		Resources resources = Resources.getInstance();
-		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
-		Context context = resources.getApplicationContext();
+		ResourceManager resourceManager = ResourceManager.getInstance();
+		ApplicationDescriptor applicationDescriptor = resourceManager.getApplicationDescriptor();
+		Context context = resourceManager.getApplicationContext();
 		
 		String databaseDirName = databaseDescriptor.getDatabaseName();
 		
@@ -66,8 +67,8 @@ public class DatabaseUtils {
 		File externalStorage = Environment.getExternalStorageDirectory();
 		String externalStoragePath = externalStorage.getAbsolutePath();
 		
-		Resources resources = Resources.getInstance();
-		ApplicationDescriptor applicationDescriptor = resources.getApplicationDescriptor();
+		ResourceManager resourceManager = ResourceManager.getInstance();
+		ApplicationDescriptor applicationDescriptor = resourceManager.getApplicationDescriptor();
 
 		String databaseDirName = databaseDescriptor.getDatabaseName();
 

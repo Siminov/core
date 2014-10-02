@@ -19,7 +19,7 @@ package siminov.orm.events;
 
 import java.util.Iterator;
 
-import siminov.orm.resource.Resources;
+import siminov.orm.resource.ResourceManager;
 import siminov.orm.utils.ClassUtils;
 
 /**
@@ -32,14 +32,14 @@ public class EventHandler {
 	private ISiminovEvents coreEventHandler = null;
 	private IDatabaseEvents databaseEventHandler = null;
 	
-	private Resources resources = Resources.getInstance();
+	private ResourceManager resourceManager = ResourceManager.getInstance();
 	
 	/**
 	 * Event Handler Constructor
 	 */
 	private EventHandler() {
 		
-		Iterator<String> events = resources.getApplicationDescriptor().getEvents();
+		Iterator<String> events = resourceManager.getApplicationDescriptor().getEvents();
 		while(events.hasNext()) {
 			String event = events.next();
 			

@@ -31,7 +31,7 @@ import siminov.orm.log.Log;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor.Attribute;
 import siminov.orm.model.DatabaseMappingDescriptor.Relationship;
-import siminov.orm.resource.Resources;
+import siminov.orm.resource.ResourceManager;
 import android.text.TextUtils;
 
 
@@ -859,7 +859,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 				
 				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
 				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
+					referedDatabaseMappingDescriptor = ResourceManager.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
 					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
 					
 					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
