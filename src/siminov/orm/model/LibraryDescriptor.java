@@ -35,23 +35,29 @@ import siminov.orm.Constants;
 		
 Example:
 	{@code
-	<library>
 	
-		<property name="name">SIMINOV LIBRARY TEMPLATE</property>
-		<property name="description">Siminov Library Template</property>
+	<library-descriptor>
 	
-		<!-- Database Mappings -->
-			<database-mappings>
-				<database-mapping path="Credential.si.xml" />
-			</database-mappings>
+	    <!-- General Properties Of Library -->
+	    
+	    <!-- Mandatory Field -->
+		<property name="name">name_of_library</property>
+		
+		<!-- Optional Field -->
+		<property name="description">description_of_library</property>
 	
-			 	<!-- OR -->
-			 
-			<database-mappings>
-				<database-mapping path="siminov.orm.library.template.model.Credential" />
-			</database-mappings>
+		
+		
+		<!-- Database Mappings Needed Under This Library Descriptor -->
+		
+		<!-- Optional Field -->
+			<!-- Database Mapping Descriptors -->
+		<database-mapping-descriptors>
+			<database-mapping-descriptor>name_of_database_descriptor.full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
+		</database-mapping-descriptors>
 		 
-	</library>
+	</library-descriptor>
+	
 	}
 	
 		</pre>

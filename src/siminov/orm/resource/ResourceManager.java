@@ -64,7 +64,7 @@ public class ResourceManager {
 	}
 
 	/**
-	 * It provides an instance of Resources class.
+	 * It provides an singleton instance of ResourceManager class.
 	 * 
 	 * @return Resources instance.
 	 */

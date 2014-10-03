@@ -34,40 +34,38 @@ import siminov.orm.Constants;
 		
 Example:
 	{@code
-
+	
 	<database-descriptor>
 	
-		<property name="database_name">SIMINOV-TEMPLATE</property>
-		<property name="description">Siminov Template Database Config</property>
-		<property name="is_locking_required">true</property>
-		<property name="external_storage">false</property>
-
-		<!-- Attributes Are Used To Pass Additional Parameters To Database -->
-			<!-- Optional Field -->
-		<attributes>
-		    <attribute name="name_of_attribute">value_of_attribute</attribute>
-		</attributes>
-
-		
-		<!-- Database Mappings -->
-			<database-mappings>
-				<database-mapping path="Liquor-Mappings/Liquor.si.xml" />
-				<database-mapping path="Liquor-Mappings/LiquorBrand.si.xml" />
-			</database-mappings>
+	    <!-- General Database Descriptor Properties -->
+	    
+		    <!-- Mandatory Field -->
+		<property name="database_name">name_of_database_file</property>
 	
-			 	<!-- OR -->
-
-			<database-mappings>
-				<database-mapping path="siminov.orm.template.model.Liquor" />
-				<database-mapping path="siminov.orm.template.model.LiquorBrand" />
-			</database-mappings>
-		
-
-		<!-- Libraries -->
-		<libraries>
-			<library>siminov.orm.template.resources</library>
-		</libraries>
+			<!-- Optional Field (Default is sqlite)-->
+		<property name="type">type_of_database</property>
+	
+			<!-- Mandatory Field -->
+		<property name="version">database_version</property>
 				
+			<!-- Optional Field -->
+		<property name="description">database_description</property>
+	
+			<!-- Optional Field (Default is false) -->
+		<property name="transaction_safe">true/false</property>
+		
+			<!-- Optional Field (Default is false) -->
+		<property name="external_storage">true/false</property>
+			
+	
+	
+		<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
+		
+			<!-- Optional Field -->
+		<database-mapping-descriptors>
+			<database-mapping-descriptor>full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
+		</database-mapping-descriptors>
+		
 	</database-descriptor>
 
 	}
