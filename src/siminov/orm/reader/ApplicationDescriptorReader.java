@@ -40,27 +40,44 @@ import android.content.Context;
 		
 Example:
 	{@code
-	<core>
 	
-		<property name="name">SIMINOV TEMPLATE</property>	
-		<property name="description">Siminov Template Application</property>
-		<property name="version">0.9</property>
-	
-		<property name="load_initially">true</property>
-	
-		<!-- DATABASE-DESCRIPTORS -->
-		<database-descriptors>
-			<database-descriptor>DatabaseDescriptor.si.xml</database-descriptor>
-		</database-descriptors>
-	
+	<siminov>
+	    
+		<!-- General Application Description Properties -->
 		
-		<!-- SIMINOV EVENTS -->
-		<event-handlers>
-		    <event-handler>com.core.template.events.SiminovEventHandler</event-handler>
-		    <event-handler>com.core.template.events.DatabaseEventHandler</event-handler>
-		</event-handlers>
+			<!-- Mandatory Field -->
+		<property name="name">application_name</property>	
+		
+			<!-- Optional Field -->
+		<property name="description">application_description</property>
+		
+			<!-- Mandatory Field (Default is 0.0) -->
+		<property name="version">application_version</property>
+	
+	
+		<!-- Database Descriptors Used By Application (zero-to-many) -->	
+			<!-- Optional Field's -->
+		<database-descriptors>
+			<database-descriptor>full_path_of_database_descriptor_file</database-descriptor>
+		</database-descriptors>
 			
-	</core>
+	
+		<!-- Library Descriptors Used By Application (zero-to-many) -->
+			<!-- Optional Field's -->
+		<library-descriptors>
+		 	<library-descriptor>full_path_of_library_descriptor_file</library-descriptor>   
+		</library-descriptors>
+		
+			
+		<!-- Event Handlers Implemented By Application (zero-to-many) -->
+		
+			<!-- Optional Field's -->
+		<event-handlers>
+			<event-handler>full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)</event-handler>
+		</event-handlers>
+	
+	</siminov>
+
 	}
 	
 		</pre>
