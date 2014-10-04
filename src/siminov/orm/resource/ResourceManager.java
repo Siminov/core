@@ -41,7 +41,7 @@ import android.content.Context;
 /**
  * It handles and provides all resources needed by SIMINOV.
  * <p>
- * Such As: Provides Application Descriptor, Database Descriptor, Library Descriptor, Database Mapping.
+ * Such As: Provides Application Descriptor, Database Descriptor, Library Descriptor, Database Mapping Descriptor.
  */
 public class ResourceManager {
 
