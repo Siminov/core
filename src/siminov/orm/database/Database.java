@@ -34,7 +34,6 @@ import siminov.orm.exception.DatabaseException;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.model.DatabaseMappingDescriptor;
 import siminov.orm.resource.ResourceManager;
-import android.content.res.Resources;
 
 /**
  * Exposes methods to interact with database. 
