@@ -99,14 +99,26 @@ public class DatabaseDescriptor implements IDescriptor {
 		this.properties.put(Constants.DATABASE_DESCRIPTOR_DATABASE_NAME, databaseName);
 	}
 	
+	/**
+	 * Get type of database
+	 * @return Type of database
+	 */
 	public String getType() {
 		return this.properties.get(Constants.DATABASE_DESCRIPTOR_TYPE);
 	}
 	
+	/**
+	 * Set type of database
+	 * @param type Type of database
+	 */
 	public void setType(String type) {
 		this.properties.put(Constants.DATABASE_DESCRIPTOR_TYPE, type);
 	}
 
+	/**
+	 * Get version of database 
+	 * @return Version of database
+	 */
 	public double getVersion() {
 		String version = this.properties.get(Constants.DATABASE_DESCRIPTOR_VERSION);
 		if(version == null || version.length() <= 0) {
