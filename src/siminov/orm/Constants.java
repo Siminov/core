@@ -19,7 +19,7 @@ package siminov.orm;
 
 
 /**
- * Contains Constant values used in the framework
+ * Contains constant values used in the framework
  * All constants referred in the framework are defined in this class
  */
 public interface Constants {
