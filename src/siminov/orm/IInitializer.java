@@ -21,7 +21,6 @@ package siminov.orm;
 /**
  * It exposes APIs to deal with Siminov Initialization.
  * Using this application developer can pass parameters needed by Siminov Framework to work functionally.
- *
  */
 public interface IInitializer {
 
@@ -35,5 +34,4 @@ public interface IInitializer {
 	 * Start Siminov Framework.
 	 */
 	public void initialize();
-	
 }
