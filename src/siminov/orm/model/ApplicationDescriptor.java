@@ -88,7 +88,7 @@ public class ApplicationDescriptor implements IDescriptor {
 
 	protected Collection<String> events = new ConcurrentLinkedQueue<String> ();
 
-	protected Collection<String> libraries = new ConcurrentLinkedQueue<String>();
+	protected Collection<String> libraryDescriptorPaths = new ConcurrentLinkedQueue<String>();
 	
 	
 	/**
@@ -328,20 +328,38 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	
-	public void addLibrary(final String library) {
-		this.libraries.add(library);
+	/**
+	 * Add library descriptor path
+	 * @param libraryDescriptorPath Library Descriptor Path 
+	 */
+	public void addLibraryDescriptorPath(final String libraryDescriptorPath) {
+		this.libraryDescriptorPaths.add(libraryDescriptorPath);
 	}
 	
-	public Iterator<String> getLibraries() {
-		return this.libraries.iterator();
+	/**
+	 * Get all library descriptor paths
+	 * @return Library Descriptor Paths
+	 */
+	public Iterator<String> getLibraryDescriptorPaths() {
+		return this.libraryDescriptorPaths.iterator();
 	}
 	
-	public boolean containLibrary(final String library) {
-		return this.libraries.contains(library);
+	/**
+	 * Check whether it contains library descriptor path or not
+	 * @param libraryDescriptorPath Path of Library Descriptor
+	 * @return (true/false) TRUE: If library descriptor path exists | FALSE: If library descriptor path does not exists.
+	 */
+	public boolean containLibraryDescriptorPath(final String libraryDescriptorPath) {
+		return this.libraryDescriptorPaths.contains(libraryDescriptorPath);
 	}
 	
-	public void removeLibrary(final String library) {
-		this.libraries.add(library);
+	
+	/**
+	 * Remove library descriptor path
+	 * @param libraryDescriptorPath Path of library descriptor 
+	 */
+	public void removeLibraryDescriptorPath(final String libraryDescriptorPath) {
+		this.libraryDescriptorPaths.add(libraryDescriptorPath);
 	}
 	
 	
