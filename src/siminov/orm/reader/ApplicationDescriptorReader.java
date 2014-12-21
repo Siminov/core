@@ -167,7 +167,7 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 				return;
 			}
 			
-			applicationDescriptor.addLibrary(tempValue.toString());
+			applicationDescriptor.addLibraryDescriptorPath(tempValue.toString());
 		}
 	}
 	
