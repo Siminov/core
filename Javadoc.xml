@@ -17,7 +17,7 @@
  
  
  
- <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
     <target name="javadoc">
     	<javadoc access="public" destdir="docs"    bootclasspath="C:/Program Files (x86)/Android/android-sdk/platforms/android-7/android.jar"
