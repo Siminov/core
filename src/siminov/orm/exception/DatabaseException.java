@@ -17,6 +17,7 @@
 
 package siminov.orm.exception;
 
+
 /**
  * This is general exception, which is thrown through core database API's, if any exception occur which doing any database operations.
  */
