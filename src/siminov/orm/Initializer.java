@@ -27,7 +27,6 @@ import android.content.Context;
 /**
  * It implements IInitializer Interface.
  * It handle initialization of framework.
- *
  */
 public class Initializer implements IInitializer {
 
@@ -62,6 +61,5 @@ public class Initializer implements IInitializer {
 		resourceManager.setApplicationContext(context);
 		
 		Siminov.start();
-		
 	}
 }
