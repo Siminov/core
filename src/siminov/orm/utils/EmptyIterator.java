@@ -35,5 +35,4 @@ public class EmptyIterator<T> implements Iterator<T> {
 	public void remove() {
 		
 	}
-
 }
