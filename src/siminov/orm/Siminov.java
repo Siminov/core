@@ -261,7 +261,7 @@ public class Siminov {
 	protected static void processLibraries() {
 		
 		ApplicationDescriptor applicationDescriptor = ormResourceManager.getApplicationDescriptor();
-		Iterator<String> libraries = applicationDescriptor.getLibraries();
+		Iterator<String> libraries = applicationDescriptor.getLibraryDescriptorPaths();
 		
 		while(libraries.hasNext()) {
 			
