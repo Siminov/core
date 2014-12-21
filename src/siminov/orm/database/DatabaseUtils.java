@@ -24,7 +24,6 @@ import siminov.orm.model.ApplicationDescriptor;
 import siminov.orm.model.DatabaseDescriptor;
 import siminov.orm.resource.ResourceManager;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Environment;
 
 
@@ -98,5 +97,4 @@ public class DatabaseUtils {
 
 		return databasePath;
 	}
-	
 }
