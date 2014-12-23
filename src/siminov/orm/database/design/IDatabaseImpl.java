@@ -37,7 +37,7 @@ public interface IDatabaseImpl {
 	 * <p>
 	 * By default add CREATE_IF_NECESSARY flag so that if database does not exist it will create.
 
-	 * @param databaseMappings Database-Descriptor object which defines the schema of database.
+	 * @param databaseDescriptor Database-Descriptor object which defines the schema of database.
 	 * @throws DatabaseException If the database cannot be opened or create.
 	 */
 	public void openOrCreate(final DatabaseDescriptor databaseDescriptor) throws DatabaseException;
@@ -45,7 +45,7 @@ public interface IDatabaseImpl {
 	/**
 	 * Close the existing opened database through Database Descriptor.
 	 *
-	 * @param databaseMappings Database-Descriptor object which defines the schema of database.
+	 * @param databaseDescriptor Database-Descriptor object which defines the schema of database.
 	 * @throws DatabaseException If the database cannot be closed.
 	 */
 	public void close(final DatabaseDescriptor databaseDescriptor) throws DatabaseException;
@@ -55,7 +55,7 @@ public interface IDatabaseImpl {
 		<p>
 		It has no means to return any data (such as the number of affected rows). Instead, you're encouraged to use insert, update, delete, when possible. 
 	 	
-	 	@param databaseMappings Database-Descriptor object which defines the schema of database.
+	 	@param databaseDescriptor Database-Descriptor object which defines the schema of database.
 	 	@param databaseMappingDescriptor Database-Mapping-Descriptor object which defines the structure of table.
 		@param query Query which needs to be executed.
 	 	@throws DatabaseException If any error occur while executing query provided.
@@ -65,7 +65,7 @@ public interface IDatabaseImpl {
 	/**
 	 	A pre-compiled statement that can be reused. The statement cannot return multiple rows, but 1x1 result sets are allowed.
 	 	
-	 	@param databaseMappings Database-Descriptor object which defines the schema of database.
+	 	@param databaseDescriptor Database-Descriptor object which defines the schema of database.
 	 	@param databaseMappingDescriptor Database-Mapping-Descriptor object which defines the structure of table.
 	 	@param query A pre-compiled statement.
 	 	@param columnValues Column values
@@ -76,7 +76,7 @@ public interface IDatabaseImpl {
 	/**
 	 	Query the given table, returning a Cursor over the result set.
 		
-	 	@param databaseMappings Database-Descriptor object which defines the schema of database.
+	 	@param databaseDescriptor Database-Descriptor object which defines the schema of database.
 	 	@param databaseMappingDescriptor Database-Mapping-Descriptor object which defines the structure of table.
 		@param query Query based on which tuples will be fetched from database.
 	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
