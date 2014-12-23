@@ -212,12 +212,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return query.toString();
 	}
 	
-	/**
-	 * It generates query to drop table from database.
-	 * 
-	 * @param tableName Name of table.
-	 * @return Generated query.
-	 */
 	public String formDropTableQuery(final Map<String, Object> parameters) {
 
 		final String tableName = (String) parameters.get(IQueryBuilder.FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER);
@@ -229,13 +223,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return query.toString();
 	}
 
-	/**
-	 * It generates query to drop index from table.
-	 * 
-	 * @param tableName Name of table.
-	 * @param indexName Name of index.
-	 * @return Generated query.
-	 */
 	public String formDropIndexQuery(final Map<String, Object> parameters) {
 		
 		final String tableName = (String) parameters.get(IQueryBuilder.FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER);
@@ -248,18 +235,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return query.toString();
 	}
 	
-	/**
-	 * It generated query to fetch tuples from table.
-	 * 
-	 * @param tableName Name of table.
-	 * @param whereClause Condition based on tuples need to fetch.
-	 * @param columnNames Column names.
-	 * @param groupBys Group by clause.
-	 * @param having Having clause.
-	 * @param orderBy Order by column names.
-	 * @param limit Limit of tuples needed.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formSelectQuery(final Map<String, Object> parameters) {
 
@@ -376,13 +351,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
         s.append(' ');
     }
 
-	/**
-	 * It generates bind query to insert tuple in table.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnNames Column names.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formSaveBindQuery(final Map<String, Object> parameters) {
 		
@@ -418,14 +386,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 
 	
-	/**
-	 * It generates bind query to update tuple in table.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnNames Column names.
-	 * @param whereClause Condition of which tuple need to be update.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formUpdateBindQuery(final Map<String, Object> parameters) {
 		
@@ -456,13 +416,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 
 	
-	/**
-	 * It generates query to delete tuple from table.
-	 * 
-	 * @param tableName Name of table.
-	 * @param whereClause Condition on which tuples need to delete.
-	 * @return Generated query.
-	 */
 	public String formDeleteQuery(final Map<String, Object> parameters) {
 		
 		final String tableName = (String) parameters.get(IQueryBuilder.FORM_DELETE_QUERY_TABLE_NAME_PARAMETER);
@@ -480,13 +433,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 
 	
-	/**
-	 * It generated query to get count of tuples from table based on condition provided.
-	 * 
-	 * @param tableName Name of table.
-	 * @param whereClause Condition on which count needed.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formCountQuery(final Map<String, Object> parameters) {
 		
@@ -535,13 +481,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 
 	
-	/**
-	 * It generates query to get average of column.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which average needed.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formAvgQuery(final Map<String, Object> parameters) {
 
@@ -580,13 +519,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return query.toString();
 	}
 	
-	/**
-	 * It generates query to get sum of column values.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which sum needed.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formSumQuery(final Map<String, Object> parameters) {
 		
@@ -627,13 +559,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 	
 
-	/**
-	 * It generates query to get total of a column.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which total needed.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formTotalQuery(final Map<String, Object> parameters) {
 
@@ -673,14 +598,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return query.toString();
 	}
 
-	/**
-	 * It generates query to get maximum value of column based on group.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which maximum value needed.
-	 * @param groupBy Group by clause.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formMaxQuery(final Map<String, Object> parameters) {
 		
@@ -721,14 +638,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 
 	
-	/**
-	 * It generates query to get minimum value of column based on group by clause.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which minimum value needed.
-	 * @param groupBy Group by clause.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formMinQuery(final Map<String, Object> parameters) {
 		
@@ -769,15 +678,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 	}
 
 	
-	/**
-	 * It generates query to get group concat value.
-	 * 
-	 * @param tableName Name of table.
-	 * @param columnName Column name of which group concat needed.
-	 * @param delimiter Delimiter value.
-	 * @param whereClause Condition on which group concat needed.
-	 * @return Generated query.
-	 */
 	@SuppressWarnings("unchecked")
 	public String formGroupConcatQuery(final Map<String, Object> parameters) {
 
@@ -823,12 +723,6 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 
 
 
-	/**
-	 * It generates query to create foreign keys in table.
-	 * 
-	 * @param relationships References provided to create foreign key.
-	 * @return  Generated query.
-	 */
 	public String formForeignKeyQuery(final Map<String, Object> parameters) {
 		
 		final DatabaseMappingDescriptor child = (DatabaseMappingDescriptor) parameters.get(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER);
@@ -998,6 +892,4 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 
 		return foreignAttributes;
 	}
-
-	
 }

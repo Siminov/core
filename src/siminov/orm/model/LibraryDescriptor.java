@@ -77,7 +77,6 @@ public class LibraryDescriptor implements IDescriptor {
 
 	/**
 	 * Get library name.
-	 * @return
 	 */
 	public String getName() {
 		return this.properties.get(Constants.LIBRARY_DESCRIPTOR_NAME);
@@ -93,7 +92,6 @@ public class LibraryDescriptor implements IDescriptor {
 	
 	/**
 	 * Get descriptor as per defined in LibraryDescriptor.si.xml
-	 * @return
 	 */
 	public String getDescription() {
 		return this.properties.get(Constants.LIBRARY_DESCRIPTOR_DESCRIPTION);
@@ -229,7 +227,7 @@ EXAMPLE:
 
 	/**
 	 * Get database mapping object based on path.
-	 * @param databaseMappingPath Database Mapping path as per defined in Database Descriptor.xml file.
+	 * @param libraryDatabaseMappingPath Library Database path as per defined in Database Descriptor.xml file.
 	 * @return Database Mapping object.
 	 */
 	public DatabaseMappingDescriptor getDatabseMappingBasedOnPath(final String libraryDatabaseMappingPath) {
@@ -238,13 +236,13 @@ EXAMPLE:
 	
 	/**
 	 * Add database mapping object in respect to database mapping path.
-	 * @param databaseMappingPath Database Mapping Path.
-	 * @param databaseMapping Database Mapping object.
+	 * @param libraryDatabaseMappingPath Library Database Mapping Path.
+	 * @param databaseMappingDescriptor Database Mapping object.
 	 */
-	public void addDatabaseMapping(final String libraryDatabaseMappingPath, final DatabaseMappingDescriptor databaseMapping) {
-		this.databaseMappingsBasedOnPath.put(libraryDatabaseMappingPath, databaseMapping);
-		this.databaseMappingsBasedOnTableName.put(databaseMapping.getTableName(), databaseMapping);
-		this.databaseMappingsBasedOnClassName.put(databaseMapping.getClassName(), databaseMapping);
+	public void addDatabaseMapping(final String libraryDatabaseMappingPath, final DatabaseMappingDescriptor databaseMappingDescriptor) {
+		this.databaseMappingsBasedOnPath.put(libraryDatabaseMappingPath, databaseMappingDescriptor);
+		this.databaseMappingsBasedOnTableName.put(databaseMappingDescriptor.getTableName(), databaseMappingDescriptor);
+		this.databaseMappingsBasedOnClassName.put(databaseMappingDescriptor.getClassName(), databaseMappingDescriptor);
 	}
 
 	/**

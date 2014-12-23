@@ -29,7 +29,7 @@ public interface IDatabaseEvents {
 
 	/**
 	 * This event is fired when database gets created as per database descriptor.
-	 * @param databaseDescripton contains meta data associated with database.
+	 * @param databaseDescriptor contains meta data associated with database.
 	 */
 	public void onDatabaseCreated(final DatabaseDescriptor databaseDescriptor);
 	

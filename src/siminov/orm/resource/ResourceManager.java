@@ -190,7 +190,6 @@ Example: DatabaseDescriptor.xml
 	 
 	 * 
 	 * @param databaseDescriptorName Database Descriptor object based on database descriptor name provided.
-	 * @return
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnName(final String databaseDescriptorName) {
 		if(this.applicationDescriptor == null) {

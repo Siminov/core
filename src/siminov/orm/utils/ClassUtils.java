@@ -205,8 +205,10 @@ public class ClassUtils {
 	 * Invoke method based on class object, method name and parameter provided.
 	 * @param classObject Class Object.
 	 * @param methodName Name Of Method.
-	 * @param parameter Parameters To Method.
+	 * @param parameterTypes Type of parameters.
+	 * @param parameters Parameters To Method.
 	 * @throws DatabaseException If any exception occur while invoking method.
+	 * @return Object
 	 */
 	public static Object invokeMethod(final Object classObject, final String methodName, final Class<?>[] parameterTypes,final Object[] parameters) throws SiminovException {
 
@@ -231,7 +233,7 @@ public class ClassUtils {
 	
 	/**
 	 * Get new object created and filled with values provided.
-	 * @param databaseMappingDescriptor Database Mapping Object.
+	 * @param className Class Name.
 	 * @param data Column Values.
 	 * @return Class Object.
 	 * @throws DatabaseException If any exception occur while create and inflating class object.

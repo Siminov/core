@@ -526,7 +526,6 @@ Example:
 		
 		/**
 		 * Get variable name.
-		 * @return
 		 */
 		public String getVariableName() {
 			return this.variableName;
