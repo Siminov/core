@@ -44,7 +44,6 @@ public class DatabaseUtils {
 	/**
 	 * Get internal memory database path.
 	 * @param databaseDescriptor Database Descriptor Object.
-	 * @return
 	 */
 	public String internalMemoryDatabasePath(final DatabaseDescriptor databaseDescriptor) {
 		ResourceManager resourceManager = ResourceManager.getInstance();
@@ -60,7 +59,6 @@ public class DatabaseUtils {
 	/**
 	 * Get sdcard database path.
 	 * @param databaseDescriptor Database Descriptor Object.
-	 * @return
 	 */
 	public String sdcardMemoryDatabasePath(final DatabaseDescriptor databaseDescriptor) {
 		File externalStorage = Environment.getExternalStorageDirectory();
@@ -78,7 +76,6 @@ public class DatabaseUtils {
 	/**
 	 * Get database path based on which storage needed.
 	 * @param databaseDescriptor Database Descriptor Object.
-	 * @return
 	 */
 	public String getDatabasePath(final DatabaseDescriptor databaseDescriptor) {
 		DatabaseUtils databaseUtils = new DatabaseUtils();
