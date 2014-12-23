@@ -109,7 +109,7 @@ public interface ISelect {
 	
 	/**
 	 * Used to provide name of columns only for which data will be fetched.
-	 * @param column Name of columns.
+	 * @param columns Name of columns.
 	 * @return ISelect Interface.
 	 */
 	public ISelect columns(String...columns);
