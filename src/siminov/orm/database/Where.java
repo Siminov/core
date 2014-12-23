@@ -228,7 +228,7 @@ public class Where implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, 
 	
 	/**
 	 * Used to provide name of columns only for which data will be fetched.
-	 * @param column Name of columns.
+	 * @param columns Name of columns.
 	 * @return Where Where instance object.
 	 */
 	public Where columns(String...columns) {
@@ -238,7 +238,7 @@ public class Where implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, 
 
 	/**
 	 * Used to provide name of column for which average will be calculated.
-	 * @param column Name of column.
+	 * @param delimiter Name of Delimiter.
 	 * @return Where Where instance object.
 	 */
 	public Where delimiter(String delimiter) {
