@@ -117,7 +117,7 @@
 
 <!-- 
 
-DatabaseMapping.si.xml is the one who does the ORM (Object Relationship Modelling).
+DatabaseMapping.si.xml is the one who does the Core (Object Relationship Modelling).
 
 	i. TABLE TAG: This tag defines the relationship between database table and its mapped POJO class name.
 	

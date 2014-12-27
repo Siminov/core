@@ -63,7 +63,7 @@ Type Of Properties:
 		
 		- Name of database descriptor associated to.
 		
-		- Provide full database mapping descriptor file path if you have used xml format to define ORM.
+		- Provide full database mapping descriptor file path if you have used xml format to define Core.
 
 		- Put (dot). between database descriptor name and database descriptor file path.
  -->

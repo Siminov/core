@@ -81,8 +81,8 @@ Type Of Properties:
 	
 	iii. Database Mapping Descriptor Paths Needed Under This Database Descriptor.  
 		
-		- Provide full database mapping descriptor file path if you have used xml format to define ORM.
+		- Provide full database mapping descriptor file path if you have used xml format to define Core.
 
-		- Provide full class path of database mapping descriptor POJO class if you have used annotation to define ORM.
+		- Provide full class path of database mapping descriptor POJO class if you have used annotation to define Core.
 
 -->
