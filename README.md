@@ -1,15 +1,15 @@
-Siminov ORM (Object Relationship Mapping) - Android
+Siminov Core (Object Relationship Mapping) - Android
 ===================================================
 
-Siminov ORM is a open source Object/Relational Mapping solution for Android environments. It maps data from an object model representation to a relational data model representation (and visa versa). 
+Siminov Core is a open source Object/Relational Mapping solution for Android environments. It maps data from an object model representation to a relational data model representation (and visa versa). 
 
-Siminov ORM not only takes care of the mapping from Java classes to database tables (and from Java data types to SQL data types), but also provides data query and retrieval facilities. 
+Siminov Core not only takes care of the mapping from Java classes to database tables (and from Java data types to SQL data types), but also provides data query and retrieval facilities. 
 
 Get Started
 -----------
 Get the source
 
-  git clone git://github.com/siminov/android-orm.git
+  git clone git://github.com/siminov/android-core.git
   
 	
 Features
@@ -24,7 +24,7 @@ Siminov provides a easy set of defined descriptors which can be broadly classifi
 	|- DatabaseMappingDescriptor.si.xml.
 
 ###### 2. Handle Application Initialization
-All resources required by application are created and managed by siminov orm. (Eg: Creating Database, Deploying Application).
+All resources required by application are created and managed by siminov core. (Eg: Creating Database, Deploying Application).
 
 ###### 3. Handle Multiple Schema's
 It also supports multiple schema's if required by application.
@@ -77,7 +77,7 @@ Siminov provides implementation for SQLCipher to protect application database fr
 ###### 9. Handling Libraries
 An android library project is a development project that holds shared android source code and resources. Other android application projects can reference the library project and, at build time, include its compiled sources in their .apk files.
 
-Siminov provides mechanism to configure ORM for your library projects.
+Siminov provides mechanism to configure Core for your library projects.
 
 
 LICENSE
@@ -102,4 +102,4 @@ LICENSE
 
 
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/e250ed9305868c42000edc051b0c1078 "githalytics.com")](http://githalytics.com/Siminov/android-orm)
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/e250ed9305868c42000edc051b0c1078 "githalytics.com")](http://githalytics.com/Siminov/android-core)
