@@ -15,7 +15,7 @@
  * limitations under the License.
  **/
 
-package siminov.orm.database.sqlcipher;
+package siminov.core.database.sqlcipher;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,15 +23,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import siminov.orm.Constants;
-import siminov.orm.database.design.IQueryBuilder;
-import siminov.orm.exception.DatabaseException;
-import siminov.orm.exception.DeploymentException;
-import siminov.orm.log.Log;
-import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.model.DatabaseMappingDescriptor.Attribute;
-import siminov.orm.model.DatabaseMappingDescriptor.Relationship;
-import siminov.orm.resource.Resources;
+import siminov.core.Constants;
+import siminov.core.database.design.IQueryBuilder;
+import siminov.core.exception.DatabaseException;
+import siminov.core.exception.DeploymentException;
+import siminov.core.log.Log;
+import siminov.core.model.DatabaseMappingDescriptor;
+import siminov.core.model.DatabaseMappingDescriptor.Attribute;
+import siminov.core.model.DatabaseMappingDescriptor.Relationship;
+import siminov.core.resource.ResourceManager;
 import android.text.TextUtils;
 
 
@@ -856,7 +856,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 				
 				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
 				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = Resources.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
+					referedDatabaseMappingDescriptor = ResourceManager.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
 					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
 					
 					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);

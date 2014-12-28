@@ -15,7 +15,7 @@
  * limitations under the License.
  **/
 
-package siminov.orm.database.sqlcipher;
+package siminov.core.database.sqlcipher;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -30,14 +30,15 @@ import net.sqlcipher.CrossProcessCursorWrapper;
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteException;
 import net.sqlcipher.database.SQLiteStatement;
-import siminov.orm.database.design.IDatabaseImpl;
-import siminov.orm.exception.DatabaseException;
-import siminov.orm.exception.DeploymentException;
-import siminov.orm.log.Log;
-import siminov.orm.model.DatabaseDescriptor;
-import siminov.orm.model.DatabaseMappingDescriptor;
-import siminov.orm.model.DatabaseMappingDescriptor.Attribute;
-import siminov.orm.resource.Resources;
+import siminov.core.database.design.IDatabaseImpl;
+import siminov.core.exception.DatabaseException;
+import siminov.core.exception.DeploymentException;
+import siminov.core.log.Log;
+import siminov.core.model.DatabaseDescriptor;
+import siminov.core.model.DatabaseMappingDescriptor;
+import siminov.core.model.DatabaseMappingDescriptor.Attribute;
+import siminov.core.resource.ResourceManager;
+
 
 public class DatabaseImpl implements IDatabaseImpl {
 
@@ -47,7 +48,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 	
 	public void openOrCreate(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
 		
-		String databasePath = new siminov.orm.database.DatabaseUtils().getDatabasePath(databaseDescriptor);
+		String databasePath = new siminov.core.database.DatabaseUtils().getDatabasePath(databaseDescriptor);
 
 		File file = new File(databasePath);
 		if(!file.exists()) {
@@ -59,7 +60,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 			}
 		}
 
-		SQLiteDatabase.loadLibs(Resources.getInstance().getApplicationContext());
+		SQLiteDatabase.loadLibs(ResourceManager.getInstance().getApplicationContext());
 		
 		String databaseName = databaseDescriptor.getDatabaseName();
 		if(databaseName == null || databaseName.length() <= 0) {
@@ -203,55 +204,59 @@ public class DatabaseImpl implements IDatabaseImpl {
 				
 				for(int i = 0;i < columnNames.length;i++) {
 					String columnName = sqliteCursor.getColumnName(i);
-					Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnName);
 					
-					if(attribute == null) {
-						Log.error(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Object Found For Column Name: " + columnName);
-						throw new DatabaseException(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Object Found For Column Name: " + columnName);
-					}
-					
-					String columnType = attribute.getType();
-					if(columnType == null || columnType.length() <= 0) {
-						Log.error(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
-						throw new DatabaseException(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
-					}
-					
-					boolean isString = false;
-					boolean isLong = false;
-					boolean isFloat = false;
-					boolean isBlob = false;
-					
-					DataTypeHandler dataTypeHandler = new DataTypeHandler();
-					
-					String SQLITE_DATA_TYPE_INTEGER = "INTEGER";
-					String SQLITE_DATA_TYPE_TEXT = "TEXT";
-					String SQLITE_DATA_TYPE_REAL = "REAL";
-					String SQLITE_DATA_TYPE_NONE = "NONE";
-					String SQLITE_DATA_TYPE_NUMERIC = "NUMERIC";
-
-					
-					String sqliteDataType = dataTypeHandler.convert(columnType);
-					
-					if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_INTEGER)) {
-						isLong = true;
-					} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_TEXT)) {
-						isString = true;
-					} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_REAL)) {
-						isFloat = true;
-					} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_NUMERIC)) {
+					if(databaseMappingDescriptor != null) {
+						Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnName);
 						
-					} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_NONE)) {
-						isBlob = true;
-					}
-					
-					if(isString) {
-						tuple.put(columnNames[i], sqliteCursor.getString(i));
-					} else if(isLong) {
-						tuple.put(columnNames[i], sqliteCursor.getLong(i));
-					} else if(isFloat) {
-						tuple.put(columnNames[i], sqliteCursor.getFloat(i));
-					} else if(isBlob) {
-						tuple.put(columnNames[i], sqliteCursor.getBlob(i));
+						if(attribute != null) {
+							String columnType = attribute.getType();
+							if(columnType == null || columnType.length() <= 0) {
+								Log.error(DatabaseImpl.class.getName(), "executeSelectQuery", "No Column Type Found For Column Name: " + columnName);
+								throw new DatabaseException(DatabaseImpl.class.getName(), "executeFetchQuery", "No Column Type Found For Column Name: " + columnName);
+							}
+							
+							boolean isString = false;
+							boolean isLong = false;
+							boolean isFloat = false;
+							boolean isBlob = false;
+							
+							DataTypeHandler dataTypeHandler = new DataTypeHandler();
+							
+							String SQLITE_DATA_TYPE_INTEGER = "INTEGER";
+							String SQLITE_DATA_TYPE_TEXT = "TEXT";
+							String SQLITE_DATA_TYPE_REAL = "REAL";
+							String SQLITE_DATA_TYPE_NONE = "NONE";
+							String SQLITE_DATA_TYPE_NUMERIC = "NUMERIC";
+
+							
+							String sqliteDataType = dataTypeHandler.convert(columnType);
+							
+							if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_INTEGER)) {
+								isLong = true;
+							} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_TEXT)) {
+								isString = true;
+							} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_REAL)) {
+								isFloat = true;
+							} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_NUMERIC)) {
+								
+							} else if(sqliteDataType.equalsIgnoreCase(SQLITE_DATA_TYPE_NONE)) {
+								isBlob = true;
+							}
+							
+							if(isString) {
+								tuple.put(columnNames[i], sqliteCursor.getString(i));
+							} else if(isLong) {
+								tuple.put(columnNames[i], sqliteCursor.getLong(i));
+							} else if(isFloat) {
+								tuple.put(columnNames[i], sqliteCursor.getFloat(i));
+							} else if(isBlob) {
+								tuple.put(columnNames[i], sqliteCursor.getBlob(i));
+							}
+						} else {
+							tuple.put(columnName, sqliteCursor.getString(i));
+						}
+					} else {
+						tuple.put(columnName, sqliteCursor.getString(i));
 					}
 				}
 				

@@ -15,9 +15,9 @@
  * limitations under the License.
  **/
 
-package siminov.orm.database.sqlcipher;
+package siminov.core.database.sqlcipher;
 
-import siminov.orm.database.design.IDataTypeHandler;
+import siminov.core.database.design.IDataTypeHandler;
 
 public class DataTypeHandler implements IDataTypeHandler {
 
