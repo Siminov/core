@@ -498,7 +498,7 @@ Example:
 
 	<database-mapping>
 	
-		<table table_name="LIQUOR" class_name="siminov.core.template.model.Liquor">
+		<table table_name="LIQUOR" class_name="siminov.core.sample.model.Liquor">
 			
 			<column variable_name="liquorType" column_name="LIQUOR_TYPE">
 				<property name="type">TEXT</property>

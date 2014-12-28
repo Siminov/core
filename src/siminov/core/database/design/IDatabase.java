@@ -47,7 +47,7 @@ Example:
 
 		<database-mapping-descriptor>
 		
-			<entity table_name="LIQUOR" class_name="siminov.core.template.model.Liquor">
+			<entity table_name="LIQUOR" class_name="siminov.core.sample.model.Liquor">
 				
 				<attribute variable_name="liquorType" column_name="LIQUOR_TYPE">
 					<property name="type">java.lang.String</property>
@@ -79,7 +79,7 @@ Example:
 		
 				<relationships>
 		
-				    <one-to-many refer="liquorBrands" refer_to="siminov.core.template.model.LiquorBrand" on_update="cascade" on_delete="cascade">
+				    <one-to-many refer="liquorBrands" refer_to="siminov.core.sample.model.LiquorBrand" on_update="cascade" on_delete="cascade">
 						<property name="load">true</property>
 					</one-to-many>		
 				    

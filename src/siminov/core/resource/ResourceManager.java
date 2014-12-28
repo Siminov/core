@@ -180,7 +180,7 @@ Example: DatabaseDescriptor.xml
 	{@code
 	<database-descriptor>
 	
-		<property name="database_name">SIMINOV-TEMPLATE</property>
+		<property name="database_name">SIMINOV-CORE-SAMPLE</property>
 		
 	</database-descriptor>
 	}
