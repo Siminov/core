@@ -101,7 +101,19 @@ public abstract class DatabaseHelper implements Constants {
 
 			Iterator<Object> values = parse.iterator();
 			while(values.hasNext()) {
-				currentDatabaseVersion = ((Long) values.next()).doubleValue();
+				
+				Object value = values.next();
+				if(value instanceof String) {
+					currentDatabaseVersion = Double.valueOf((String) value);
+				} else if(value instanceof Integer) {
+					currentDatabaseVersion = Double.valueOf(((Integer) value).doubleValue());
+				} else if(value instanceof Long) {
+					currentDatabaseVersion = Double.valueOf(((Long) value).doubleValue());
+				} else if(value instanceof Float) {
+					currentDatabaseVersion = Double.valueOf(((Float) value).doubleValue());
+				} else if(value instanceof Double) {
+					currentDatabaseVersion = Double.valueOf(((Double) value).doubleValue());
+				}
 			}
 		}
 
