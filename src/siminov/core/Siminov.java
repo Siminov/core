@@ -62,7 +62,7 @@ public class Siminov {
 	protected static boolean isActive = false;
 	protected static boolean firstTimeProcessed = false;
 
-	protected static ResourceManager ormResourceManager = ResourceManager.getInstance();
+	protected static ResourceManager coreResourceManager = ResourceManager.getInstance();
 	
 	
 	/**
@@ -149,8 +149,8 @@ public class Siminov {
 		
 		isActive = true;
 
-		ISiminovEvents coreEventHandler = ormResourceManager.getSiminovEventHandler();
-		if(ormResourceManager.getSiminovEventHandler() != null) {
+		ISiminovEvents coreEventHandler = coreResourceManager.getSiminovEventHandler();
+		if(coreResourceManager.getSiminovEventHandler() != null) {
 			if(firstTimeProcessed) {
 				coreEventHandler.onFirstTimeSiminovInitialized();
 			} else {
@@ -178,12 +178,12 @@ public class Siminov {
 	public static void shutdown() {
 		isActive();
 		
-		Iterator<DatabaseDescriptor> databaseDescriptors = ormResourceManager.getDatabaseDescriptors();
+		Iterator<DatabaseDescriptor> databaseDescriptors = coreResourceManager.getDatabaseDescriptors();
 
 		boolean failed = false;
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			DatabaseBundle databaseBundle = ormResourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
+			DatabaseBundle databaseBundle = coreResourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 			IDatabaseImpl database = databaseBundle.getDatabase();
 			
 			try {
@@ -200,8 +200,8 @@ public class Siminov {
 			throw new SiminovCriticalException(Siminov.class.getName(), "shutdown", "DatabaseException caught while closing database.");			
 		}
 		
-		ISiminovEvents coreEventHandler = ormResourceManager.getSiminovEventHandler();
-		if(ormResourceManager.getSiminovEventHandler() != null) {
+		ISiminovEvents coreEventHandler = coreResourceManager.getSiminovEventHandler();
+		if(coreResourceManager.getSiminovEventHandler() != null) {
 			coreEventHandler.onSiminovStopped();
 		}
 	}
@@ -229,7 +229,7 @@ public class Siminov {
 			throw new DeploymentException(Siminov.class.getName(), "processApplicationDescriptor", "Invalid Application Descriptor Found.");
 		}
 		
-		ormResourceManager.setApplicationDescriptor(applicationDescriptor);
+		coreResourceManager.setApplicationDescriptor(applicationDescriptor);
 	}
 	
 	
@@ -237,7 +237,7 @@ public class Siminov {
 	 * It process all DatabaseDescriptor.si.xml files defined by Application and stores in Resource Manager.
 	 */
 	protected static void processDatabaseDescriptors() {
-		Iterator<String> databaseDescriptorPaths = ormResourceManager.getApplicationDescriptor().getDatabaseDescriptorPaths();
+		Iterator<String> databaseDescriptorPaths = coreResourceManager.getApplicationDescriptor().getDatabaseDescriptorPaths();
 		while(databaseDescriptorPaths.hasNext()) {
 
 			String databaseDescriptorPath = databaseDescriptorPaths.next();
@@ -250,7 +250,7 @@ public class Siminov {
 				throw new DeploymentException(Siminov.class.getName(), "processDatabaseDescriptors", "Invalid Database Descriptor Path Found, DATABASE-DESCRIPTOR: " + databaseDescriptorPath);
 			}
 
-			ormResourceManager.getApplicationDescriptor().addDatabaseDescriptor(databaseDescriptorPath, databaseDescriptor);
+			coreResourceManager.getApplicationDescriptor().addDatabaseDescriptor(databaseDescriptorPath, databaseDescriptor);
 		}
 	}
 	
@@ -260,7 +260,7 @@ public class Siminov {
 	 */
 	protected static void processLibraries() {
 		
-		ApplicationDescriptor applicationDescriptor = ormResourceManager.getApplicationDescriptor();
+		ApplicationDescriptor applicationDescriptor = coreResourceManager.getApplicationDescriptor();
 		Iterator<String> libraries = applicationDescriptor.getLibraryDescriptorPaths();
 		
 		while(libraries.hasNext()) {
@@ -306,7 +306,7 @@ public class Siminov {
 	protected static void processDatabaseMappingDescriptors() {
 		doesDatabaseExists();
 
-		ApplicationDescriptor applicationDescriptor = ormResourceManager.getApplicationDescriptor();
+		ApplicationDescriptor applicationDescriptor = coreResourceManager.getApplicationDescriptor();
 		
 		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
@@ -329,7 +329,7 @@ public class Siminov {
 	 */
 	protected static void processDatabase() {
 		
-		ApplicationDescriptor applicationDescriptor = ormResourceManager.getApplicationDescriptor();
+		ApplicationDescriptor applicationDescriptor = coreResourceManager.getApplicationDescriptor();
 		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
 				
 		while(databaseDescriptors.hasNext()) {
@@ -457,7 +457,7 @@ public class Siminov {
 				
 				
 				
-				IDatabaseEvents databaseEventHandler = ormResourceManager.getDatabaseEventHandler();
+				IDatabaseEvents databaseEventHandler = coreResourceManager.getDatabaseEventHandler();
 				if(databaseEventHandler != null) {
 					databaseEventHandler.onDatabaseCreated(databaseDescriptor);
 				}
@@ -513,7 +513,7 @@ public class Siminov {
 	 */
 	protected static void doesDatabaseExists() {
 		
-		ApplicationDescriptor applicationDescriptor = ormResourceManager.getApplicationDescriptor();
+		ApplicationDescriptor applicationDescriptor = coreResourceManager.getApplicationDescriptor();
 		Iterator<DatabaseDescriptor> databaseDescriptors = applicationDescriptor.getDatabaseDescriptors();
 		
 		boolean databaseExists = true;
