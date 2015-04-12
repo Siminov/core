@@ -727,19 +727,19 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		
 		final DatabaseMappingDescriptor child = (DatabaseMappingDescriptor) parameters.get(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER);
 		
-		Iterator<Relationship> oneToManyRealtionships = child.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRealtionships = child.getManyToManyRelationships();
+		Iterator<Relationship> oneToManyRelationships = child.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRelationships = child.getManyToManyRelationships();
 		
 		Collection<Relationship> relationships = new ArrayList<Relationship>();
 		
-		while(oneToManyRealtionships.hasNext()) {
-			Relationship relationship = oneToManyRealtionships.next();
+		while(oneToManyRelationships.hasNext()) {
+			Relationship relationship = oneToManyRelationships.next();
 			
 			relationships.add(relationship);
 		}
 		
-		while(manyToManyRealtionships.hasNext()) {
-			Relationship relationship = manyToManyRealtionships.next();
+		while(manyToManyRelationships.hasNext()) {
+			Relationship relationship = manyToManyRelationships.next();
 			
 			relationships.add(relationship);
 		}

@@ -441,7 +441,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 */
 	public void addRelationship(Relationship relationship) {
 		this.relationshipsBasedOnRefer.put(relationship.getRefer(), relationship);
-		this.relationshipsBasedOnReferTo.put(relationship.getRefer(), relationship);
+		this.relationshipsBasedOnReferTo.put(relationship.getReferTo(), relationship);
 	}
 
 	

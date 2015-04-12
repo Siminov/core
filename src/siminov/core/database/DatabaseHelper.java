@@ -478,10 +478,47 @@ Example:
 		
 		
 		/*
-		 * Add ONE-TO-MANY And MANY-TO-MANY Relationship Columns.
+		 * Add All Relationships
 		 */
+		Iterator<Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
 		Iterator<Relationship> oneToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
 		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+
+		
+		while(oneToOneRelationships.hasNext()) {
+			Relationship oneToOneRelationship = oneToOneRelationships.next();
+			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
+			if(referedDatabaseMappingDescriptor == null) {
+				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
+				oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			}
+			
+			
+			Collection<Attribute> foreignAttributes = getForeignKeys(referedDatabaseMappingDescriptor);
+			Iterator<Attribute> foreignAttributesIterator = foreignAttributes.iterator();
+			
+			while(foreignAttributesIterator.hasNext()) {
+				Attribute foreignAttribute = foreignAttributesIterator.next();
+				
+				columnNames.add(foreignAttribute.getColumnName());
+				columnTypes.add(dataTypeHandler.convert(foreignAttribute.getType()));
+				isNotNull.add(foreignAttribute.isNotNull());
+
+				defaultValues.add(foreignAttribute.getDefaultValue());
+				checks.add(foreignAttribute.getCheck());
+					
+				boolean isPrimary = foreignAttribute.isPrimaryKey();
+				if(isPrimary) {
+					primaryKeys.add(foreignAttribute.getColumnName());
+				}
+				
+				boolean isUnique = foreignAttribute.isUnique();
+				if(isUnique) {
+					uniqueKeys.add(foreignAttribute.getColumnName());
+				}
+			}
+		}
+		
 		
 		while(oneToManyRelationships.hasNext()) {
 			Relationship oneToManyRelationship = oneToManyRelationships.next();
@@ -518,9 +555,13 @@ Example:
 		
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor parentDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-			
-			Iterator<Attribute> parentAttributes = parentDatabaseMappingDescriptor.getAttributes();
+			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+			if(referedDatabaseMappingDescriptor == null) {
+				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
+				manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			}
+
+			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -1026,7 +1067,7 @@ Example:
 	}
 	
 	
-	static Object[] select(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
+	static Object[] select(final Object object, final Object parentObject, final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1088,11 +1129,14 @@ Example:
 			
 			tuplesCollection.add(tuple);
 			
-			processOneToOneRelationship(tuple);
-			processOneToManyRelationship(tuple);
+			//processOneToOneRelationship(tuple, parentObject);
+			//processOneToManyRelationship(tuple, parentObject);
 
-			processManyToOneRelationship(tuple, data);
-			processManyToManyRelationship(tuple, data);
+			//processManyToOneRelationship(tuple, parentObject, data);
+			//processManyToManyRelationship(tuple, parentObject, data);
+			
+			RelationshipHelper.processRelationship(tuple, parentObject);
+			RelationshipHelper.processRelationship(tuple, parentObject, data);
 			
 		}
 		
@@ -1117,7 +1161,7 @@ Example:
 		return returnTypes;
 	}
 
-	static Object[] lazyFetch(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
+	/*static Object[] lazyFetch(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1125,13 +1169,13 @@ Example:
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
 		 * 6. Check for relationship's if any, IF EXISTS: process it, ELSE: return all objects.
-		 */
+		 *
 		
 		Siminov.isActive();
 		
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
-		 */
+		 *
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
@@ -1145,7 +1189,7 @@ Example:
 		
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
-		 */
+		 *
 		
 		Map<String, Object> parameters = new HashMap<String, Object> ();
 		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
@@ -1164,7 +1208,7 @@ Example:
 			
 		/*
 		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
-		 */
+		 *
 		
 		Collection<Object> tuplesCollection = new LinkedList<Object> ();
 		while(tuples.hasNext()) {
@@ -1190,7 +1234,7 @@ Example:
 		
 		Object[] returnTypes = (Object[]) returnType;
 		return returnTypes;
-	}
+	}*/
 	
 	/**
 	 	Returns all tuples based on manual query from mapped table for invoked class object.
@@ -1300,6 +1344,11 @@ Example: Make Liquor Object
 	   	@throws DatabaseException If any error occurs while saving tuples in database.
 	 */
 	static void save(final Object object) throws DatabaseException {
+		save(object, null);
+	}
+	
+	
+	private static void save(final Object object, final Object parentObject) throws DatabaseException {
 		Siminov.isActive();
 		
 		/*
@@ -1352,8 +1401,12 @@ Example: Make Liquor Object
 			} 
 		}
 		
-		processManyToOneRelationship(object, columnNames, columnValues);
-		processManyToManyRelationship(object, columnNames, columnValues);
+		
+		//processOneToOneRelationship(object, parentObject, columnNames, columnValues);
+		//processManyToOneRelationship(object, parentObject, columnNames, columnValues);
+		//processManyToManyRelationship(object, parentObject, columnNames, columnValues);
+
+		RelationshipHelper.processRelationship(object, null, columnNames, columnValues);
 		
 		
 		/*
@@ -1391,20 +1444,43 @@ Example: Make Liquor Object
 			}
 			
 			if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
-				Object value = null;
+				
+				if(parentObject != null && relationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
+				
+				
+				/*
+				 * Get Refer Object
+				 */
+				Object referedObject = null;
 				try {
-					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
+					referedObject = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
 					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
 				
-				if(value == null) {
+				if(referedObject == null) {
 					continue;
 				}
 
-				saveOrUpdate(value);
+				/*
+				 * Inflate Dependent Object
+				 */
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(referedObject.getClass().getName());
+				Relationship referedRelationship = referedDatabaseMappingDescriptor.getRelationshipBasedOnReferTo(object.getClass().getName());
+				
+				
+				try {
+					ClassUtils.invokeMethod(referedObject, referedRelationship.getSetterReferMethodName(), new Class[] {object.getClass()}, new Object[] {object});
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while setting up one to one relationship mapping, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
+				}
+				
+				saveOrUpdate(referedObject, object);
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
 				Iterator<?> values = null;
 				try {
@@ -1423,26 +1499,34 @@ Example: Make Liquor Object
 					saveOrUpdate(values.next());
 				}
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
-				Iterator<?> values = null;
+				
+				if(parentObject != null && relationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
+				
+				
+				/*
+				 * Get Refer Object
+				 */
+				Object referedObject = null;
 				try {
-					values = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
+					referedObject = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
 					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
 				
-				if(values == null) {
+				if(referedObject == null) {
 					continue;
 				}
 				
-				while(values.hasNext()) {
-					saveOrUpdate(values.next());
-				}
+				saveOrUpdate(referedObject, object);
 			}
 		}
 	}
 
+	
 	/**
 		It updates a record to any single table in a relational database.
 	
@@ -1471,6 +1555,10 @@ Example: Make Beer Object
 	   	@throws DatabaseException If any error occurs while saving tuples in database.
 	 */
 	static void update(final Object object) throws DatabaseException {
+		update(object, null);
+	}
+	
+	private static void update(final Object object, final Object parentObject) throws DatabaseException {
 		Siminov.isActive();
 	
 		/*
@@ -1535,13 +1623,17 @@ Example: Make Beer Object
 			}
 		}
 		
-		processManyToOneRelationship(object, whereClause);
-		processManyToManyRelationship(object, whereClause);
-
-		processManyToOneRelationship(object, columnNames, columnValues);
-		processManyToManyRelationship(object, columnNames, columnValues);
 		
+		//processManyToOneRelationship(object, parentObject, whereClause);
+		//processManyToManyRelationship(object, parentObject, whereClause);
 
+		//processManyToOneRelationship(object, parentObject, columnNames, columnValues);
+		//processManyToManyRelationship(object, parentObject, columnNames, columnValues);
+		
+		RelationshipHelper.processRelationship(object, parentObject, whereClause);
+		RelationshipHelper.processRelationship(object, parentObject, columnNames, columnValues);
+		
+		
 		/*
 		 * 4. Using QueryBuilder form update bind query.
 		 */
@@ -1610,22 +1702,20 @@ Example: Make Beer Object
 					saveOrUpdate(relationshipValues.next());
 				}
 			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
-				Iterator<?> relationshipValues = null;
+				Object value = null;
 				try {
-					relationshipValues = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
+					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
 					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 				} 
 
 				
-				if(relationshipValues == null) {
+				if(value == null) {
 					continue;
 				}
 
-				while(relationshipValues.hasNext()) {
-					saveOrUpdate(relationshipValues.next());
-				}
+				saveOrUpdate(value);
 			}
 		}
 	}
@@ -1664,6 +1754,11 @@ Example: Make Beer Object
 	   	@throws DatabaseException If any error occurs while saving tuples in database.
 	 */
 	static void saveOrUpdate(final Object object) throws DatabaseException {
+		saveOrUpdate(object, null);
+	}
+	
+	
+	private static void saveOrUpdate(final Object object, final Object parentObject) throws DatabaseException {
 		Siminov.isActive();
 		
 		/*
@@ -1719,11 +1814,15 @@ Example: Make Beer Object
 			}
 		}
 		
-		processManyToOneRelationship(object, whereClause);
-		processManyToManyRelationship(object, whereClause);
-
+		
+		//processOneToOneRelationship(object, null, whereClause);
+		//processManyToOneRelationship(object, null, whereClause);
+		//processManyToManyRelationship(object, null, whereClause);
+		RelationshipHelper.processRelationship(object, null, whereClause);
+		
+		
 		if(whereClause == null || whereClause.length() <= 0) {
-			save(object);
+			save(object, parentObject);
 			return;
 		}
 
@@ -1733,9 +1832,9 @@ Example: Make Beer Object
 		 */
 		int count = count(databaseMappingDescriptor, null, false, whereClause.toString(), null, null);
 		if(count <= 0) {
-			save(object);
+			save(object, parentObject);
 		} else {
-			update(object);
+			update(object, parentObject);
 		}
 	}
 	
@@ -1799,9 +1898,9 @@ Example: Make Beer Object
 				}
 			}
 
-			processManyToOneRelationship(object, where);
-			processManyToManyRelationship(object, where);
-			
+			//processManyToOneRelationship(object, null, where);
+			//processManyToManyRelationship(object, null, where);
+			RelationshipHelper.processRelationship(object, null, where);
 		} else {
 			where.append(whereClause);
 		}
@@ -2843,479 +2942,697 @@ Example:
 		return tuples.iterator();
 	}
 
-	static void processOneToOneRelationship(final Object object) throws DatabaseException {
-
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<DatabaseMappingDescriptor.Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
+	
+	private static class RelationshipHelper {
 		
-		while(oneToOneRelationships.hasNext()) {
+		public static void processRelationship(final Object object, final Object parentObject) throws DatabaseException {
 			
-			DatabaseMappingDescriptor.Relationship oneToOneRelationship = oneToOneRelationships.next();
-
-			boolean isLoad = oneToOneRelationship.isLoad();
-			if(!isLoad) {
-				continue;
-			}
-
+			processOneToOneRelationship(object, parentObject);
+			processOneToManyRelationship(object, parentObject);
+			processManyToOneRelationship(object, parentObject);
+			processManyToManyRelationship(object, parentObject);
+		}
+		
+		
+		public static void processRelationship(final Object object, final Object parentObject, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
 			
-			StringBuilder whereClause = new StringBuilder();
-			Iterator<String> foreignKeys = getPrimaryKeys(object);
-			while(foreignKeys.hasNext()) {
-				String foreignKey = foreignKeys.next();
-				Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
-				Object columnValue = null;
+			processOneToOneRelationship(object, parentObject, columnNames, columnValues);
+			processOneToManyRelationship(object, parentObject, columnNames, columnValues);
+			processManyToOneRelationship(object, parentObject, columnNames, columnValues);
+			processManyToManyRelationship(object, parentObject, columnNames, columnValues);
+		}
+		
+		
+		public static void processRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
+			
+			processOneToOneRelationship(object, parentObject, whereClause);
+			processOneToManyRelationship(object, parentObject, whereClause);
+			processManyToOneRelationship(object, parentObject, whereClause);
+			processManyToManyRelationship(object, parentObject, whereClause);
+		}		
+		
+		public static void processRelationship(final Object object, final Object parentObject, Map<String, Object> data) throws DatabaseException {
+			
+			processOneToOneRelationship(object, parentObject, data);
+			processOneToManyRelationship(object, parentObject, data);
+			processManyToOneRelationship(object, parentObject, data);
+			processManyToManyRelationship(object, parentObject, data);
+		}
+		
+		
+		/*
+		 * Process One To One Relationship
+		 */
+
+		private static void processOneToOneRelationship(final Object object, final Object parentObject) throws DatabaseException {
+
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<DatabaseMappingDescriptor.Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
+			
+			while(oneToOneRelationships.hasNext()) {
+				
+				DatabaseMappingDescriptor.Relationship oneToOneRelationship = oneToOneRelationships.next();
+
+				boolean isLoad = oneToOneRelationship.isLoad();
+				if(!isLoad) {
+					continue;
+				}
+
+				
+				StringBuilder whereClause = new StringBuilder();
+				Iterator<String> foreignKeys = getPrimaryKeys(object);
+				while(foreignKeys.hasNext()) {
+					String foreignKey = foreignKeys.next();
+					Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+					Object columnValue = null;
+					
+					try {
+						columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
+					} catch(SiminovException siminovException) {
+						Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
+					}
+
+					if(whereClause.length() <= 0) {
+						whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
+					} else {
+						whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+					}
+				}
+
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
+					oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+
+				
+				Object referedObject = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+				Object[] referedObjects = (Object[]) referedObject;
+
+				if(referedObjects == null || referedObjects.length <= 0) {
+					return;
+				}
+				
+				if(referedObjects[0] == null) {
+					return;
+				}
 				
 				try {
-					columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
+					ClassUtils.invokeMethod(object, oneToOneRelationship.getSetterReferMethodName(), new Class[] {referedObjects[0].getClass()}, new Object[] {referedObjects[0]});
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
+				}
+			}
+		}
+
+
+		private static void processOneToOneRelationship(final Object object, final Object parentObject, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
+			
+			while(oneToOneRelationships.hasNext()) {
+				Relationship oneToOneRelationship = oneToOneRelationships.next();
+				if(parentObject != null && oneToOneRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
+				
+				
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
+					oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+
+				Object referedObject = null;
+				try {
+					referedObject = ClassUtils.getValue(object, oneToOneRelationship.getGetterReferMethodName());
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 				}
 
-				if(whereClause.length() <= 0) {
-					whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
-				} else {
-					whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + oneToOneRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + oneToOneRelationship.getReferTo());
+				}
+				
+				
+				processRelationship(referedObject, object, columnNames, columnValues);
+				//processOneToOneRelationship(referedObject, object, columnNames, columnValues);
+				//processManyToOneRelationship(referedObject, object, columnNames, columnValues);
+				
+				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				while(parentAttributes.hasNext()) {
+					Attribute attribute = parentAttributes.next();
+					
+					boolean isPrimary = attribute.isPrimaryKey();
+					if(isPrimary) {
+						try {
+							columnNames.add(attribute.getColumnName());
+							columnValues.add(ClassUtils.getValue(referedObject, attribute.getGetterMethodName()));
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + referedObject.getClass().getName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
+						} 
+					}
 				}
 			}
-
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
-				oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-
+		}	
+		
+		
+		private static void processOneToManyRelationship(final Object object, final Object parentObject, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
 			
-			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
-			Object[] referedObjects = (Object[]) referedObject;
-
-			if(referedObjects == null || referedObjects.length <= 0) {
-				return;
-			}
-			
-			if(referedObjects[0] == null) {
-				return;
-			}
-			
-			try {
-				ClassUtils.invokeMethod(object, oneToOneRelationship.getSetterReferMethodName(), new Class[] {referedObjects[0].getClass()}, new Object[] {referedObjects[0]});
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
-			}
 			
 		}
-	}
 
-	static void processOneToManyRelationship(final Object object) throws DatabaseException {
+		private static void processOneToOneRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
 
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<DatabaseMappingDescriptor.Relationship> oneToManyRelationships = databaseMappingDescriptor.getOneToManyRelationships();
-		
-		while(oneToManyRelationships.hasNext()) {
-			
-			DatabaseMappingDescriptor.Relationship oneToManyRelationship = oneToManyRelationships.next();
-			
-			boolean isLoad = oneToManyRelationship.isLoad();
-			if(!isLoad) {
-				continue;
+			while(oneToOneRelationships.hasNext()) {
+				Relationship oneToOneRelationship = oneToOneRelationships.next();
+				if(parentObject != null && oneToOneRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
+				
+				
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
+					oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+
+				Object referedObject = null;
+				try {
+					referedObject = ClassUtils.getValue(object, oneToOneRelationship.getGetterReferMethodName());
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
+				}
+
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + oneToOneRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + oneToOneRelationship.getReferTo());
+				}
+
+				
+				processRelationship(referedObject, object, whereClause);
+				//processOneToOneRelationship(referedObject, object, whereClause);
+				
+				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				while(parentAttributes.hasNext()) {
+					Attribute attribute = parentAttributes.next();
+					
+					boolean isPrimary = attribute.isPrimaryKey();
+					if(isPrimary) {
+						Object columnValue = null;
+						try {
+							columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
+						} 
+
+						
+						if(whereClause.length() <= 0) {
+							whereClause.append(attribute.getColumnName() + "= '" + columnValue + "'");
+						} else {
+							whereClause.append(" AND " + attribute.getColumnName() + "= '" + columnValue + "'");
+						}
+					}
+				}
 			}
-
+		}
+		
+		private static void processOneToManyRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
 			
-			StringBuilder whereClause = new StringBuilder();
-			Iterator<String> foreignKeys = getPrimaryKeys(object);
-			while(foreignKeys.hasNext()) {
-				String foreignKey = foreignKeys.next();
-				Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
-				Object columnValue = null;
+		}
+		
+
+		private static void processOneToManyRelationship(final Object object, final Object parentObject) throws DatabaseException {
+
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<DatabaseMappingDescriptor.Relationship> oneToManyRelationships = databaseMappingDescriptor.getOneToManyRelationships();
+			
+			while(oneToManyRelationships.hasNext()) {
+				
+				DatabaseMappingDescriptor.Relationship oneToManyRelationship = oneToManyRelationships.next();
+				
+				boolean isLoad = oneToManyRelationship.isLoad();
+				if(!isLoad) {
+					continue;
+				}
+
+				
+				StringBuilder whereClause = new StringBuilder();
+				Iterator<String> foreignKeys = getPrimaryKeys(object);
+				while(foreignKeys.hasNext()) {
+					String foreignKey = foreignKeys.next();
+					Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+					Object columnValue = null;
+					
+					try {
+						columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
+					} catch(SiminovException siminovException) {
+						Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+						throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToManyRelationship", siminovException.getMessage());
+					}
+
+					if(whereClause.length() <= 0) {
+						whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
+					} else {
+						whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+					}
+				}
+
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
+					oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+
+				
+				Object referedObject = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+				Object[] referedObjects = (Object[]) referedObject;
+
+				Collection<Object> referedCollection = new ArrayList<Object>();
+				if(referedObjects != null && referedObjects.length > 0) {
+					for(int i = 0;i < referedObjects.length;i++) {
+						referedCollection.add(referedObjects[i]);
+					}
+				}
 				
 				try {
-					columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
+					ClassUtils.invokeMethod(object, oneToManyRelationship.getSetterReferMethodName(), new Class[] {Iterator.class}, new Object[] {referedCollection.iterator()});
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToManyRelationship", siminovException.getMessage());
 				}
+			}
+		}
 
-				if(whereClause.length() <= 0) {
-					whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
+		
+		private static void processManyToOneRelationship(final Object object, final Object parentObject) throws DatabaseException {
+
+		}
+		
+		private static void processManyToManyRelationship(final Object object, final Object parentObject) throws DatabaseException {
+
+		}
+		
+		
+		private static void processManyToOneRelationship(final Object object, final Object parentObject, final Collection<String> columnNames, final Collection<Object> columnValues) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+			
+			while(manyToOneRelationships.hasNext()) {
+				Relationship manyToOneRelationship = manyToOneRelationships.next();
+				if(parentObject != null && manyToOneRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
+				
+				
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
+					manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+
+				Object referedObject = null;
+				try {
+					referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
+				}
+
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				}
+				
+				
+				processRelationship(referedObject, object, columnNames, columnValues);
+				//processManyToOneRelationship(referedObject, object, columnNames, columnValues);
+				
+				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				while(parentAttributes.hasNext()) {
+					Attribute attribute = parentAttributes.next();
+					
+					boolean isPrimary = attribute.isPrimaryKey();
+					if(isPrimary) {
+						try {
+							columnNames.add(attribute.getColumnName());
+							columnValues.add(ClassUtils.getValue(referedObject, attribute.getGetterMethodName()));
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + referedObject.getClass().getName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
+						} 
+					}
+				}
+			}
+		}
+		
+		private static void processManyToOneRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+
+			while(manyToOneRelationships.hasNext()) {
+				Relationship manyToOneRelationship = manyToOneRelationships.next();
+				if(parentObject != null && manyToOneRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
+				
+				
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
+					manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+
+				Object referedObject = null;
+				try {
+					referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
+				}
+
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				}
+
+				
+				processRelationship(referedObject, object, whereClause);
+				//processManyToOneRelationship(referedObject, object, whereClause);
+				
+				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				while(parentAttributes.hasNext()) {
+					Attribute attribute = parentAttributes.next();
+					
+					boolean isPrimary = attribute.isPrimaryKey();
+					if(isPrimary) {
+						Object columnValue = null;
+						try {
+							columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
+						} 
+
+						
+						if(whereClause.length() <= 0) {
+							whereClause.append(attribute.getColumnName() + "= '" + columnValue + "'");
+						} else {
+							whereClause.append(" AND " + attribute.getColumnName() + "= '" + columnValue + "'");
+						}
+					}
+				}
+			}
+		}
+		
+		private static void processOneToOneRelationship(final Object object, final Object parentObject, Map<String, Object> data) throws DatabaseException {
+			
+		}
+		
+		private static void processOneToManyRelationship(final Object object, final Object parentObject, Map<String, Object> data) throws DatabaseException {
+			
+		}
+		
+		private static void processManyToOneRelationship(final Object object, final Object parentObject, Map<String, Object> data) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+
+			while(manyToOneRelationships.hasNext()) {
+				Relationship manyToOneRelationship = manyToOneRelationships.next();
+				if(parentObject != null && manyToOneRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
+				
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
+					manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+
+				Object referedObject = ClassUtils.createClassInstance(manyToOneRelationship.getReferedDatabaseMappingDescriptor().getClassName());
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				}
+
+				
+				processRelationship(referedObject, object, data);
+				//processManyToOneRelationship(referedObject, object, data);
+
+				if(manyToOneRelationship.isLoad()) {
+
+					StringBuilder whereClause = new StringBuilder();
+
+					Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
+					while(foreignKeys.hasNext()) {
+						String foreignKey = foreignKeys.next();
+						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+						Object columnValue = data.get(attribute.getColumnName());
+
+						if(whereClause.length() <= 0) {
+							whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
+						} else {
+							whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+						}
+					}
+					
+					Object[] fetchedObjects = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					referedObject = fetchedObjects[0];
+					
 				} else {
-					whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+					Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
+					while(foreignKeys.hasNext()) {
+						String foreignKey = foreignKeys.next();
+						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+
+						Object columnValue = data.get(attribute.getColumnName());
+						if(columnValue == null) {
+							continue;
+						}
+						
+						try {
+							ClassUtils.invokeMethod(referedObject, attribute.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+						}
+					}
 				}
-			}
-
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-
-			
-			Object referedObject = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
-			Object[] referedObjects = (Object[]) referedObject;
-
-			Collection<Object> referedCollection = new ArrayList<Object>();
-			if(referedObjects != null && referedObjects.length > 0) {
-				for(int i = 0;i < referedObjects.length;i++) {
-					referedCollection.add(referedObjects[i]);
-				}
-			}
-			
-			try {
-				ClassUtils.invokeMethod(object, oneToManyRelationship.getSetterReferMethodName(), new Class[] {Iterator.class}, new Object[] {referedCollection.iterator()});
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToManyRelationship", siminovException.getMessage());
-			}
-		}
-		
-	}
-	
-	static void processManyToOneRelationship(final Object object, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-		
-		while(manyToOneRelationships.hasNext()) {
-			Relationship manyToOneRelationship = manyToOneRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
-				manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-
-			Object referedObject = null;
-			try {
-				referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
-			}
-
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-			}
-			
-			processManyToOneRelationship(referedObject, columnNames, columnValues);
-			
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
-			while(parentAttributes.hasNext()) {
-				Attribute attribute = parentAttributes.next();
 				
-				boolean isPrimary = attribute.isPrimaryKey();
-				if(isPrimary) {
-					try {
-						columnNames.add(attribute.getColumnName());
-						columnValues.add(ClassUtils.getValue(referedObject, attribute.getGetterMethodName()));
-					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + referedObject.getClass().getName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
-					} 
+
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				}
+
+				
+				try {
+					ClassUtils.invokeMethod(object, manyToOneRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 				}
 			}
+
 		}
-	}
-	
-	static void processManyToOneRelationship(final Object object, final StringBuilder whereClause) throws DatabaseException {
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
 
-		while(manyToOneRelationships.hasNext()) {
-			Relationship manyToOneRelationship = manyToOneRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
-				manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-
-			Object referedObject = null;
-			try {
-				referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
-			}
-
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-			}
-
-			processManyToOneRelationship(referedObject, whereClause);
+		private static void processManyToManyRelationship(final Object object, final Object parentObject, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
 			
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
-			while(parentAttributes.hasNext()) {
-				Attribute attribute = parentAttributes.next();
+			while(manyToManyRelationships.hasNext()) {
+				Relationship manyToManyRelationship = manyToManyRelationships.next();
+				if(parentObject != null && manyToManyRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
+				}
 				
-				boolean isPrimary = attribute.isPrimaryKey();
-				if(isPrimary) {
-					Object columnValue = null;
-					try {
-						columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
-					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
-					} 
+				
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
+					manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+				
+				Object referedObject = null;
+				try {
+					referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
+				}
 
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				}
+
+				
+				processRelationship(referedObject, object, columnNames, columnValues);
+				//processManyToManyRelationship(referedObject, object, columnNames, columnValues);
+
+				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				while(parentAttributes.hasNext()) {
+					Attribute attribute = parentAttributes.next();
 					
-					if(whereClause.length() <= 0) {
-						whereClause.append(attribute.getColumnName() + "= '" + columnValue + "'");
-					} else {
-						whereClause.append(" AND " + attribute.getColumnName() + "= '" + columnValue + "'");
+					boolean isPrimary = attribute.isPrimaryKey();
+					if(isPrimary) {
+						try {
+							columnNames.add(attribute.getColumnName());
+							columnValues.add(ClassUtils.getValue(referedObject, attribute.getGetterMethodName()));
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
+						} 
 					}
 				}
 			}
 		}
-
-	}
-	
-	static void processManyToOneRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-
-		while(manyToOneRelationships.hasNext()) {
-			Relationship manyToOneRelationship = manyToOneRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
-				manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-
-			Object referedObject = ClassUtils.createClassInstance(manyToOneRelationship.getReferedDatabaseMappingDescriptor().getClassName());
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-			}
-
+		
+		private static void processManyToManyRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
 			
-			processManyToOneRelationship(referedObject, data);
-
-			if(manyToOneRelationship.isLoad()) {
-
-				StringBuilder whereClause = new StringBuilder();
-
-				Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
-				while(foreignKeys.hasNext()) {
-					String foreignKey = foreignKeys.next();
-					Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
-					Object columnValue = data.get(attribute.getColumnName());
-
-					if(whereClause.length() <= 0) {
-						whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
-					} else {
-						whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
-					}
+			while(manyToManyRelationships.hasNext()) {
+				Relationship manyToManyRelationship = manyToManyRelationships.next();
+				if(parentObject != null && manyToManyRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
 				}
 				
-				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
-				referedObject = fetchedObjects[0];
 				
-			} else {
-				Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
-				while(foreignKeys.hasNext()) {
-					String foreignKey = foreignKeys.next();
-					Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
+					manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
+				
+				Object referedObject = null;
+				try {
+					referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
+				}
 
-					Object columnValue = data.get(attribute.getColumnName());
-					if(columnValue == null) {
-						continue;
-					}
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				}
+
+				processRelationship(referedObject, object, whereClause);
+				//processManyToManyRelationship(referedObject, object, whereClause);
+
+				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				while(parentAttributes.hasNext()) {
+					Attribute attribute = parentAttributes.next();
 					
-					try {
-						ClassUtils.invokeMethod(referedObject, attribute.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
-					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
-					}
-				}
-			}
-			
+					boolean isPrimary = attribute.isPrimaryKey();
+					if(isPrimary) {
+						Object columnValue = null;
+						try {
+							columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
+						} 
 
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-			}
-
-			
-			try {
-				ClassUtils.invokeMethod(object, manyToOneRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
-			}
-		}
-
-	}
-
-	static void processManyToManyRelationship(final Object object, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
-		
-		while(manyToManyRelationships.hasNext()) {
-			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
-				manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-			
-			Object referedObject = null;
-			try {
-				referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
-			}
-
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-			}
-
-			processManyToManyRelationship(referedObject, columnNames, columnValues);
-
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
-			while(parentAttributes.hasNext()) {
-				Attribute attribute = parentAttributes.next();
-				
-				boolean isPrimary = attribute.isPrimaryKey();
-				if(isPrimary) {
-					try {
-						columnNames.add(attribute.getColumnName());
-						columnValues.add(ClassUtils.getValue(object, attribute.getGetterMethodName()));
-					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
-					} 
-				}
-			}
-		}
-	}
-	
-	static void processManyToManyRelationship(final Object object, final StringBuilder whereClause) throws DatabaseException {
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
-		
-		while(manyToManyRelationships.hasNext()) {
-			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
-				manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-			
-			Object referedObject = null;
-			try {
-				referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
-			}
-
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-			}
-
-			processManyToManyRelationship(referedObject, whereClause);
-
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
-			while(parentAttributes.hasNext()) {
-				Attribute attribute = parentAttributes.next();
-				
-				boolean isPrimary = attribute.isPrimaryKey();
-				if(isPrimary) {
-					Object columnValue = null;
-					try {
-						columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
-					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
-					} 
-
-					
-					if(whereClause.length() <= 0) {
-						whereClause.append(attribute.getColumnName() + "= '" + columnValue + "'");
-					} else {
-						whereClause.append(" AND " + attribute.getColumnName() + "= '" + columnValue + "'");
+						
+						if(whereClause.length() <= 0) {
+							whereClause.append(attribute.getColumnName() + "= '" + columnValue + "'");
+						} else {
+							whereClause.append(" AND " + attribute.getColumnName() + "= '" + columnValue + "'");
+						}
 					}
 				}
 			}
 		}
-
 		
-	}
-	
-	static void processManyToManyRelationship(final Object object, Map<String, Object> data) throws DatabaseException {
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+		private static void processManyToManyRelationship(final Object object, final Object parentObject, Map<String, Object> data) throws DatabaseException {
+			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
 
-		while(manyToManyRelationships.hasNext()) {
-			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
-				manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
-			}
-
-			Object referedObject = ClassUtils.createClassInstance(manyToManyRelationship.getReferedDatabaseMappingDescriptor().getClassName());
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-			}
-
-			
-			processManyToManyRelationship(referedObject, data);
-			
-			if(manyToManyRelationship.isLoad()) {
-
-				StringBuilder whereClause = new StringBuilder();
-
-				Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
-				while(foreignKeys.hasNext()) {
-					String foreignKey = foreignKeys.next();
-					Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
-					Object columnValue = data.get(attribute.getColumnName());
-
-					if(whereClause.length() <= 0) {
-						whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
-					} else {
-						whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
-					}
+			while(manyToManyRelationships.hasNext()) {
+				Relationship manyToManyRelationship = manyToManyRelationships.next();
+				if(parentObject != null && manyToManyRelationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
+					continue;
 				}
 				
-				Object[] fetchedObjects = lazyFetch(referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
-				referedObject = fetchedObjects[0];
+				
+				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+				if(referedDatabaseMappingDescriptor == null) {
+					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
+					manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				}
 
-			} else {
-				Iterator<String> primaryKeys = getPrimaryKeys(referedObject);
-				while(primaryKeys.hasNext()) {
-					String foreignKey = primaryKeys.next();
-					Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+				Object referedObject = ClassUtils.createClassInstance(manyToManyRelationship.getReferedDatabaseMappingDescriptor().getClassName());
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				}
 
-					Object columnValue = data.get(attribute.getColumnName());
-					if(columnValue == null) {
-						continue;
+				
+				processRelationship(referedObject, object, data);
+				//processManyToManyRelationship(referedObject, object, data);
+				
+				if(manyToManyRelationship.isLoad()) {
+
+					StringBuilder whereClause = new StringBuilder();
+
+					Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
+					while(foreignKeys.hasNext()) {
+						String foreignKey = foreignKeys.next();
+						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+						Object columnValue = data.get(attribute.getColumnName());
+
+						if(whereClause.length() <= 0) {
+							whereClause.append(foreignKey + "='" + columnValue.toString() + "'"); 
+						} else {
+							whereClause.append(" AND " + foreignKey + "='" + columnValue.toString() + "'");  
+						}
 					}
 					
-					try {
-						ClassUtils.invokeMethod(referedObject, attribute.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
-					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
-						throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+					Object[] fetchedObjects = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					referedObject = fetchedObjects[0];
+
+				} else {
+					Iterator<String> primaryKeys = getPrimaryKeys(referedObject);
+					while(primaryKeys.hasNext()) {
+						String foreignKey = primaryKeys.next();
+						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+
+						Object columnValue = data.get(attribute.getColumnName());
+						if(columnValue == null) {
+							continue;
+						}
+						
+						try {
+							ClassUtils.invokeMethod(referedObject, attribute.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
+						} catch(SiminovException siminovException) {
+							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+						}
 					}
 				}
-			}
 
-			if(referedObject == null) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-			}
-			
-			try {
-				ClassUtils.invokeMethod(object, manyToManyRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
-			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
-				throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				if(referedObject == null) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				}
+				
+				try {
+					ClassUtils.invokeMethod(object, manyToManyRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
+				} catch(SiminovException siminovException) {
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+				}
 			}
 		}
 	}
