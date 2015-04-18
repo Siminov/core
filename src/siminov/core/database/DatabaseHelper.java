@@ -1115,7 +1115,7 @@ Example:
 			datasBundle.add(datas.next());
 		}
 		
-		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, datasBundle.iterator());
+		Iterator<Object> tuples = parseAndInflateData(object, databaseMappingDescriptor, datasBundle.iterator());
 		datas = datasBundle.iterator();	
 		
 		/*
@@ -1268,21 +1268,27 @@ Example:
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
+		//DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		query.trim();
+		String tableName = query.substring(query.indexOf(Constants.DATABASE_QUERY_FROM_TABLE_INDEX) + 5, query.length());
+		if(tableName.indexOf(" ") != -1) {
+			tableName = tableName.substring(0, tableName.indexOf(" "));
+		}
+		
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptorBasedOnTableName(tableName);
 		
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "fetchManual", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "fetchManual", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + tableName);
+			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + tableName);
 		}
 		
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, database.executeSelectQuery(getDatabaseDescriptor(object.getClass().getName()), databaseMappingDescriptor, query));
+		Iterator<Object> tuples = parseAndInflateData(object, null, database.executeSelectQuery(databaseDescriptor, null, query));
 			
 		/*
 		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
@@ -1296,10 +1302,10 @@ Example:
 
 		Class<?> classObject = null;
 		try {
-			classObject = Class.forName(databaseMappingDescriptor.getClassName());
+			classObject = Class.forName(object.getClass().getName());
 		} catch(Exception exception) {
-			Log.error(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DatabaseException(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + object.getClass().getName());
+			throw new DatabaseException(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + object.getClass().getName());
 		}
 		
 		Object returnType = Array.newInstance(classObject, tuplesCollection.size());
@@ -2289,6 +2295,10 @@ Example:
 		return resourceManager.getDatabaseDescriptorBasedOnClassName(className);
 	}
 	
+	static DatabaseDescriptor getDatabaseDescriptorBasedOnTableName(final String tableName) throws DatabaseException {
+		return resourceManager.getDatabaseDescriptorBasedOnTableName(tableName);
+	}
+	
 	/**
 	 	Returns the actual database mapping object mapped for invoked class object.
 	 
@@ -2907,7 +2917,7 @@ Example:
 	/**
  		Iterates the provided cursor, and returns tuples in form of actual objects.
 	 */
-	static Iterator<Object> parseAndInflateData(final DatabaseMappingDescriptor databaseMappingDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
+	static Iterator<Object> parseAndInflateData(final Object object, final DatabaseMappingDescriptor databaseMappingDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
 		Siminov.isActive();
 
 		Collection<Object> tuples = new LinkedList<Object>();
@@ -2922,21 +2932,45 @@ Example:
 			while(columnNamesIterate.hasNext()) {
 				String columnName = columnNamesIterate.next();
 				
-				if(databaseMappingDescriptor.containsAttributeBasedOnColumnName(columnName)) {
+				if(databaseMappingDescriptor != null && databaseMappingDescriptor.containsAttributeBasedOnColumnName(columnName)) {
 					data.put(databaseMappingDescriptor.getAttributeBasedOnColumnName(columnName).getSetterMethodName(), value.get(columnName));
+				} else {
+					Log.debug(Database.class.getName(), "parseAndInflateData", "COLUMN NAME: " + columnName);
+						
+					StringBuilder setterMethodName = new StringBuilder();
+					setterMethodName.append("set");
+						
+					String gotColumnName = columnName.toLowerCase();
+						
+					boolean isUnderScore = false;
+					for(int i = 0;i < gotColumnName.length();i++) {	
+						
+						if(i == 0) {
+							setterMethodName.append(Character.toUpperCase(gotColumnName.charAt(i)));
+						} else if(gotColumnName.charAt(i) == '_') {
+							isUnderScore = true;
+						} else if(isUnderScore) {
+							setterMethodName.append(Character.toUpperCase(gotColumnName.charAt(i)));
+							isUnderScore = false;
+						} else {
+							setterMethodName.append(gotColumnName.charAt(i));
+						}
+					}
+
+					data.put(setterMethodName.toString(), value.get(columnName));
 				}
 			}
 
-			Object object = null;
+			Object inflatedObject = null;
 			
 			try {
-				object = ClassUtils.createAndInflateObject(databaseMappingDescriptor.getClassName(), data);
+				inflatedObject = ClassUtils.createAndInflateObject(object.getClass().getName(), data);
 			} catch(SiminovException siminovException) {
 				Log.error(DatabaseHelper.class.getName(), "parseAndInflateData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "parseAndInflateData", siminovException.getMessage());
 			} 
 			
-			tuples.add(object);
+			tuples.add(inflatedObject);
 		}
 		
 		return tuples.iterator();

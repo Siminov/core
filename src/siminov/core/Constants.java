@@ -848,4 +848,9 @@ public interface Constants {
 	 * New Line 
 	 */
 	public String NEW_LINE = "\n";
+	
+	/**
+	 * Database Query From Table Index
+	 */
+	public String DATABASE_QUERY_FROM_TABLE_INDEX = "FROM";
 }
