@@ -1115,31 +1115,32 @@ Example:
 			datasBundle.add(datas.next());
 		}
 		
-		Iterator<Object> tuples = parseAndInflateData(object, databaseMappingDescriptor, datasBundle.iterator());
+		Iterator<Object> tuples = parseAndInflateData(object, parentObject, databaseMappingDescriptor, datasBundle.iterator());
 		datas = datasBundle.iterator();	
 		
 		/*
 		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
 		 */
-		
 		Collection<Object> tuplesCollection = new LinkedList<Object> ();
-		while(tuples.hasNext() && datas.hasNext()) {
-			Object tuple = tuples.next();
-			Map<String, Object> data = datas.next();
+		if(object != null) {
 			
-			tuplesCollection.add(tuple);
-			
-			//processOneToOneRelationship(tuple, parentObject);
-			//processOneToManyRelationship(tuple, parentObject);
+			while(tuples.hasNext() && datas.hasNext()) {
+				Object tuple = tuples.next();
+				Map<String, Object> data = datas.next();
+				
+				tuplesCollection.add(tuple);
+				
+				//processOneToOneRelationship(tuple, parentObject);
+				//processOneToManyRelationship(tuple, parentObject);
 
-			//processManyToOneRelationship(tuple, parentObject, data);
-			//processManyToManyRelationship(tuple, parentObject, data);
-			
-			RelationshipHelper.processRelationship(tuple, parentObject);
-			RelationshipHelper.processRelationship(tuple, parentObject, data);
-			
+				//processManyToOneRelationship(tuple, parentObject, data);
+				//processManyToManyRelationship(tuple, parentObject, data);
+				
+				RelationshipHelper.processRelationship(tuple, parentObject);
+				RelationshipHelper.processRelationship(tuple, parentObject, data);
+				
+			}
 		}
-		
 		
 		Class<?> classObject = null;
 		try {
@@ -1288,7 +1289,7 @@ Example:
 		/*
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
 		 */
-		Iterator<Object> tuples = parseAndInflateData(object, null, database.executeSelectQuery(databaseDescriptor, null, query));
+		Iterator<Object> tuples = parseAndInflateData(object, null, null, database.executeSelectQuery(databaseDescriptor, null, query));
 			
 		/*
 		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
@@ -2917,7 +2918,7 @@ Example:
 	/**
  		Iterates the provided cursor, and returns tuples in form of actual objects.
 	 */
-	static Iterator<Object> parseAndInflateData(final Object object, final DatabaseMappingDescriptor databaseMappingDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
+	static Iterator<Object> parseAndInflateData(final Object object, final Object parentObject, final DatabaseMappingDescriptor databaseMappingDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
 		Siminov.isActive();
 
 		Collection<Object> tuples = new LinkedList<Object>();
@@ -2934,7 +2935,7 @@ Example:
 				
 				if(databaseMappingDescriptor != null && databaseMappingDescriptor.containsAttributeBasedOnColumnName(columnName)) {
 					data.put(databaseMappingDescriptor.getAttributeBasedOnColumnName(columnName).getSetterMethodName(), value.get(columnName));
-				} else {
+				} /*else {
 					Log.debug(Database.class.getName(), "parseAndInflateData", "COLUMN NAME: " + columnName);
 						
 					StringBuilder setterMethodName = new StringBuilder();
@@ -2958,13 +2959,21 @@ Example:
 					}
 
 					data.put(setterMethodName.toString(), value.get(columnName));
-				}
+				}*/
 			}
 
 			Object inflatedObject = null;
+			String className;
+			
+			if(databaseMappingDescriptor == null) {
+				className = object.getClass().getName();				
+			} else {
+				className = databaseMappingDescriptor.getClassName();
+			}
+			
 			
 			try {
-				inflatedObject = ClassUtils.createAndInflateObject(object.getClass().getName(), data);
+				inflatedObject = ClassUtils.createAndInflateObject(className, data);
 			} catch(SiminovException siminovException) {
 				Log.error(DatabaseHelper.class.getName(), "parseAndInflateData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "parseAndInflateData", siminovException.getMessage());
@@ -3061,7 +3070,11 @@ Example:
 				}
 
 				
-				Object referedObject = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+				if(object != null && object.getClass().getName().equalsIgnoreCase(referedDatabaseMappingDescriptor.getClassName())) {
+					return;
+				}
+				
+				Object referedObject = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 				Object[] referedObjects = (Object[]) referedObject;
 
 				if(referedObjects == null || referedObjects.length <= 0) {
@@ -3113,9 +3126,11 @@ Example:
 				}
 				
 				
-				processRelationship(referedObject, object, columnNames, columnValues);
-				//processOneToOneRelationship(referedObject, object, columnNames, columnValues);
-				//processManyToOneRelationship(referedObject, object, columnNames, columnValues);
+				//processRelationship(referedObject, object, columnNames, columnValues);
+				processOneToManyRelationship(referedObject, object, columnNames, columnValues);
+				processManyToOneRelationship(referedObject, object, columnNames, columnValues);
+				processManyToManyRelationship(referedObject, object, columnNames, columnValues);
+				
 				
 				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
@@ -3172,8 +3187,10 @@ Example:
 				}
 
 				
-				processRelationship(referedObject, object, whereClause);
-				//processOneToOneRelationship(referedObject, object, whereClause);
+				//processRelationship(referedObject, object, whereClause);
+				processOneToManyRelationship(referedObject, object, whereClause);
+				processManyToOneRelationship(referedObject, object, whereClause);
+				processManyToManyRelationship(referedObject, object, whereClause);
 				
 				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
@@ -3248,7 +3265,7 @@ Example:
 				}
 
 				
-				Object referedObject = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+				Object referedObject = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 				Object[] referedObjects = (Object[]) referedObject;
 
 				Collection<Object> referedCollection = new ArrayList<Object>();
@@ -3308,8 +3325,10 @@ Example:
 				}
 				
 				
-				processRelationship(referedObject, object, columnNames, columnValues);
-				//processManyToOneRelationship(referedObject, object, columnNames, columnValues);
+				//processRelationship(referedObject, object, columnNames, columnValues);
+				processOneToOneRelationship(referedObject, object, columnNames, columnValues);
+				processManyToOneRelationship(referedObject, object, columnNames, columnValues);
+				processManyToManyRelationship(referedObject, object, columnNames, columnValues);
 				
 				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
@@ -3360,8 +3379,10 @@ Example:
 				}
 
 				
-				processRelationship(referedObject, object, whereClause);
-				//processManyToOneRelationship(referedObject, object, whereClause);
+				//processRelationship(referedObject, object, whereClause);
+				processOneToOneRelationship(referedObject, object, whereClause);
+				processManyToOneRelationship(referedObject, object, whereClause);
+				processManyToManyRelationship(referedObject, object, whereClause);
 				
 				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
@@ -3415,13 +3436,17 @@ Example:
 				Object referedObject = ClassUtils.createClassInstance(manyToOneRelationship.getReferedDatabaseMappingDescriptor().getClassName());
 				if(referedObject == null) {
 					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+					//throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
+				
+					return;
 				}
 
 				
-				processRelationship(referedObject, object, data);
-				//processManyToOneRelationship(referedObject, object, data);
-
+				//processRelationship(referedObject, object, data);
+				processOneToOneRelationship(referedObject, object, data);
+				processManyToOneRelationship(referedObject, object, data);
+				processManyToManyRelationship(referedObject, object, data);
+				
 				if(manyToOneRelationship.isLoad()) {
 
 					StringBuilder whereClause = new StringBuilder();
@@ -3439,7 +3464,11 @@ Example:
 						}
 					}
 					
-					Object[] fetchedObjects = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					Object[] fetchedObjects = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					if(fetchedObjects == null || fetchedObjects.length <= 0) {
+						return;
+					}
+					
 					referedObject = fetchedObjects[0];
 					
 				} else {
@@ -3506,13 +3535,16 @@ Example:
 
 				if(referedObject == null) {
 					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+					//throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				
+					return;
 				}
 
 				
 				processRelationship(referedObject, object, columnNames, columnValues);
 				//processManyToManyRelationship(referedObject, object, columnNames, columnValues);
-
+					
+				
 				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
 					Attribute attribute = parentAttributes.next();
@@ -3558,7 +3590,9 @@ Example:
 
 				if(referedObject == null) {
 					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+					//throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				
+					return;
 				}
 
 				processRelationship(referedObject, object, whereClause);
@@ -3609,7 +3643,9 @@ Example:
 				Object referedObject = ClassUtils.createClassInstance(manyToManyRelationship.getReferedDatabaseMappingDescriptor().getClassName());
 				if(referedObject == null) {
 					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+					//throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
+				
+					return;
 				}
 
 				
@@ -3633,7 +3669,11 @@ Example:
 						}
 					}
 					
-					Object[] fetchedObjects = select(object, parentObject, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					Object[] fetchedObjects = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					if(fetchedObjects == null || fetchedObjects.length <= 0) {
+						return;
+					}
+					
 					referedObject = fetchedObjects[0];
 
 				} else {

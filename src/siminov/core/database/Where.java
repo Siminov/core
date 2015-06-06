@@ -302,7 +302,7 @@ public class Where implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, 
 		} else if(interfaceName.equalsIgnoreCase(IGroupConcat.class.getName())) {
 			return (T) DatabaseHelper.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ISelect.class.getName())) {
-			return (T) DatabaseHelper.select(null, null, databaseMappingDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
+			return (T) DatabaseHelper.select(referObject, null, databaseMappingDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
 		}
 
 		return null;

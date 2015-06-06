@@ -227,7 +227,7 @@ try {
 	 	@throws DatabaseException If any error occur while getting tuples from a single table.
 	 */
 	public ISelect select() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), ISelect.class.getName());
+		return new Where(getDatabaseMappingDescriptor(), ISelect.class.getName(), this);
 	}
 
 	/**
