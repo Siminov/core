@@ -28,9 +28,9 @@ import siminov.core.database.design.IQueryBuilder;
 import siminov.core.exception.DatabaseException;
 import siminov.core.exception.DeploymentException;
 import siminov.core.log.Log;
-import siminov.core.model.DatabaseMappingDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor.Attribute;
-import siminov.core.model.DatabaseMappingDescriptor.Relationship;
+import siminov.core.model.EntityDescriptor;
+import siminov.core.model.EntityDescriptor.Attribute;
+import siminov.core.model.EntityDescriptor.Relationship;
 import siminov.core.resource.ResourceManager;
 import android.text.TextUtils;
 
@@ -725,7 +725,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 
 	public String formForeignKeyQuery(final Map<String, Object> parameters) {
 		
-		final DatabaseMappingDescriptor child = (DatabaseMappingDescriptor) parameters.get(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER);
+		final EntityDescriptor child = (EntityDescriptor) parameters.get(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER);
 		
 		Iterator<Relationship> oneToManyRelationships = child.getManyToOneRelationships();
 		Iterator<Relationship> manyToManyRelationships = child.getManyToManyRelationships();
@@ -751,19 +751,19 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 				StringBuilder foreignKeyQuery = new StringBuilder(); 
 				Relationship relationship = relationshipsIterator.next();
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = ResourceManager.getInstance().requiredDatabaseMappingDescriptorBasedOnClassName(relationship.getReferTo());
-					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = relationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = ResourceManager.getInstance().requiredEntityDescriptorBasedOnClassName(relationship.getReferTo());
+					relationship.setReferedEntityDescriptor(referedEntityDescriptor);
 					
-					relationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+					relationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
 				
-				String parentTable = referedDatabaseMappingDescriptor.getTableName();
+				String parentTable = referedEntityDescriptor.getTableName();
 				Collection<Attribute> foreignAttributes = null;
 				try {
-					foreignAttributes = getForeignKeys(referedDatabaseMappingDescriptor);
+					foreignAttributes = getForeignKeys(referedEntityDescriptor);
 				} catch(DatabaseException databaseException) {
 					Log.error(QueryBuilder.class.getName(), "formForeignKeys", "Database Exception caught while getting foreign columns, " + databaseException.getMessage());
 					throw new DeploymentException(QueryBuilder.class.getName(), "formForeignKeys", "Database Exception caught while getting foreign columns, " + databaseException.getMessage());
@@ -811,29 +811,29 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 				String onUpdateAction = relationship.getOnUpdate();
 				
 				if(onDeleteAction != null && onDeleteAction.length() > 0) {
-					if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE)) {
+					if(onDeleteAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_CASCADE)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_DELETE + " " + QUERY_BUILDER_CASCADE);	
-					} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_RESTRICT)) {
+					} else if(onDeleteAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_RESTRICT)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_DELETE + " " + QUERY_BUILDER_RESTRICT);
-					} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_NO_ACTION)) {
+					} else if(onDeleteAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_NO_ACTION)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_DELETE + " " + QUERY_BUILDER_NO_ACTION);
-					} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_NULL)) {
+					} else if(onDeleteAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_SET_NULL)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_DELETE + " " + QUERY_BUILDER_SET_NULL);
-					} else if(onDeleteAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT)) {
+					} else if(onDeleteAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_SET_DEFAULT)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_DELETE + " " + QUERY_BUILDER_SET_DEFAULT);
 					}
 				}
 				
 				if(onUpdateAction != null && onUpdateAction.length() > 0) {
-					if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE)) {
+					if(onUpdateAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_CASCADE)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_UPDATE + " " + QUERY_BUILDER_CASCADE);	
-					} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_RESTRICT)) {
+					} else if(onUpdateAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_RESTRICT)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_UPDATE + " " + QUERY_BUILDER_RESTRICT);
-					} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_NO_ACTION)) {
+					} else if(onUpdateAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_NO_ACTION)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_UPDATE + " " + QUERY_BUILDER_NO_ACTION);
-					} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_NULL)) {
+					} else if(onUpdateAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_SET_NULL)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_UPDATE + " " + QUERY_BUILDER_SET_NULL);
-					} else if(onUpdateAction.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT)) {
+					} else if(onUpdateAction.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_SET_DEFAULT)) {
 						foreignKeyQuery.append(" " + QUERY_BUILDER_ON_UPDATE + " " + QUERY_BUILDER_SET_DEFAULT);
 					}
 				}
@@ -850,13 +850,13 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		return foreignKeysQuery.toString();
 	}
 	
-	private Collection<Attribute> getForeignKeys(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
-		Iterator<Relationship> oneToManyRealtionships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRealtionships = databaseMappingDescriptor.getManyToManyRelationships();
+	private Collection<Attribute> getForeignKeys(EntityDescriptor entityDescriptor) throws DatabaseException {
+		Iterator<Relationship> oneToManyRealtionships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRealtionships = entityDescriptor.getManyToManyRelationships();
 		
 		Collection<Attribute> foreignAttributes = new ArrayList<Attribute>();
 		
-		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 		while(attributes.hasNext()) {
 			Attribute attribute = attributes.next();
 			if(attribute.isPrimaryKey()) {
@@ -867,9 +867,9 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		while(oneToManyRealtionships.hasNext()) {
 			
 			Relationship relationship = oneToManyRealtionships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor referedEntityDescriptor = relationship.getReferedEntityDescriptor();
 			
-			Collection<Attribute> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
+			Collection<Attribute> referedForeignKeys = getForeignKeys(referedEntityDescriptor);
 			Iterator<Attribute> referedForeignKeysIterate = referedForeignKeys.iterator();
 			
 			while(referedForeignKeysIterate.hasNext()) {
@@ -880,9 +880,9 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		while(manyToManyRealtionships.hasNext()) {
 			
 			Relationship relationship = manyToManyRealtionships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor referedEntityDescriptor = relationship.getReferedEntityDescriptor();
 			
-			Collection<Attribute> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
+			Collection<Attribute> referedForeignKeys = getForeignKeys(referedEntityDescriptor);
 			Iterator<Attribute> referedForeignKeysIterate = referedForeignKeys.iterator();
 			
 			while(referedForeignKeysIterate.hasNext()) {

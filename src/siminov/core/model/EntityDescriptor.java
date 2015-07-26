@@ -37,22 +37,38 @@ import siminov.core.utils.EmptyIterator;
 Example:
 	{@code
 	
-	<database-mapping-descriptor>
+	
+	<!-- Design Of EntityDescriptor.si.xml -->
+	
+	<entity-descriptor>
 	
 	    <!-- General Properties Of Table And Class -->
 	    
-		    <!-- TABLE_NAME: Mandatory Field -->
-		    <!-- CLASS_NAME: Mandatory Field -->
-		<entity table_name="name_of_table" class_name="mapped_pojo_class_name">
-			
+	    	<!-- Mandatory Field -->
+	    		<!-- NAME OF TABLE -->
+	    <property name="table_name">name_of_table</property>
+	    
+	    	<!-- Mandatory Field -->
+	    		<!-- MAPPED CLASS NAME -->
+	    <property name="class_name">mapped_class_name</property>
+	    
+	    
+	    	<!-- Optional Field -->
+	    <attributes>
+	        
 		    <!-- Column Properties Required Under This Table -->
 		    
-			<!-- Optional Field -->
-			
-				<!-- VARIABLE_NAME: Mandatory Field -->
-				<!-- COLUMN_NAME: Mandatory Field -->
-			<attribute column_name="column_name_of_table" variable_name="class_variable_name">
+				<!-- Optional Field -->
+			<attribute>
 			    
+				    <!-- Mandatory Field -->
+						<!-- COLUMN_NAME: Mandatory Field -->
+	   		    <property name="column_name">column_name_of_table</property>
+			    			
+	    		    <!-- Mandatory Field -->
+						<!-- VARIABLE_NAME: Mandatory Field -->
+			    <property name="variable_name">class_variable_name</property>
+			    		    
 				    <!-- Mandatory Field -->
 				<property name="type">java_variable_data_type</property>
 				
@@ -73,72 +89,76 @@ Example:
 			
 			</attribute>		
 	
+	    </attributes>
 			
 			
-			<!-- Index Properties -->
-					
 			<!-- Optional Field -->
-				<!-- NAME: Mandatory Field -->
-				<!-- UNIQUE: Optional Field (Default is false) -->
-			<index name="name_of_index" unique="true/false">
-				<column>column_name_needs_to_add</column>
+	    <indexes>
+	        
+			<!-- Index Properties -->
+			<index>
+			    
+				    <!-- Mandatory Field -->
+				    	<!-- NAME OF INDEX -->
+			    <property name="name">name_of_index</property>
+			    
+				    <!-- Mandatory Field -->
+						<!-- UNIQUE: Optional Field (Default is false) -->
+			    <property name="unique">true/false</property>
+			    
+			    	<!-- Optional Field -->
+			    		<!-- Name of the column -->
+			    <property name="column">column_name_needs_to_add</property>
+			    
 			</index>
+	        
+	    </indexes>
+	    
 			
-			
-			
-			<!-- Map Relationship Properties -->
+		<!-- Map Relationship Properties -->
 					
 			<!-- Optional Field's -->	
-			<relationships>
+		<relationships>
 			    
-				    <!-- REFER: Mandatory Field -->
-				    <!-- REFER_TO: Mandatory Field -->
-				<one-to-one refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
-						
-						<!-- Optional Field (Default is false) -->
-					<property name="load">true/false</property>
-				</one-to-one>		
-				
-					<!-- REFER: Mandatory Field -->
-				    <!-- REFER_TO: Mandatory Field -->
-				<one-to-many refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
-						
-						<!-- Optional Field (Default is false) -->
-					<property name="load">true/false</property>
-				</one-to-many>		
+		    <relationship>
+		        
+		        	<!-- Mandatory Field -->
+		        		<!-- Type of Relationship -->
+		        <property name="type">one-to-one|one-to-many|many-to-one|many-to-many</property>
+		        
+		        	<!-- Mandatory Field -->
+		        		<!-- REFER -->
+		        <property name="refer">class_variable_name</property>
+		        
+		        	<!-- Mandatory Field -->
+		        		<!-- REFER TO -->
+		        <property name="refer_to">map_to_class_name</property>
+		            
+		        	<!-- Optional Field -->
+		        <property name="on_update">cascade/restrict/no_action/set_null/set_default</property>    
+		            
+		        	<!-- Optional Field -->    
+		        <property name="on_delete">cascade/restrict/no_action/set_null/set_default</property>    
+		            
+					<!-- Optional Field (Default is false) -->
+		       	<property name="load">true/false</property>	            
+		        
+		    </relationship>
+		    
+		</relationships>
 	
-					<!-- REFER: Mandatory Field -->
-				    <!-- REFER_TO: Mandatory Field -->
-				<many-to-one refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
-						
-						<!-- Optional Field (Default is false) -->
-					<property name="load">true/false</property>
-				</many-to-one>		
+	</entity-descriptor>
 	
-					<!-- REFER: Mandatory Field -->
-				    <!-- REFER_TO: Mandatory Field -->
-				<many-to-many refer="class_variable_name" refer_to="map_to_pojo_class_name" on_update="cascade/restrict/no_action/set_null/set_default" on_delete="cascade/restrict/no_action/set_null/set_default">
-						
-						<!-- Optional Field (Default is false) -->
-					<property name="load">true/false</property>
-				</many-to-many>		
-										
-			</relationships>
-	
-		</entity>
-	
-	</database-mapping-descriptor>	
-		
+
 		}
 	
 		</pre>
 	</p>
  *
  */
-public class DatabaseMappingDescriptor implements IDescriptor {
+public class EntityDescriptor implements IDescriptor {
 
-	protected String tableName = null;
-	protected String className = null;
+	private Map<String, String> properties = new HashMap<String, String> ();
 	
 	protected Map<String, Attribute> attributeBasedOnColumnNames = new LinkedHashMap<String, Attribute>();
 	protected Map<String, Attribute> attributeBasedOnVariableNames = new LinkedHashMap<String, Attribute>();
@@ -154,7 +174,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @return Name of table.
 	 */
 	public String getTableName() {
-		return this.tableName;
+		return this.properties.get(Constants.ENTITY_DESCRIPTOR_TABLE_NAME);
 	}
 	
 	/**
@@ -162,7 +182,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param tableName Name of table.
 	 */
 	public void setTableName(final String tableName) {
-		this.tableName = tableName;
+		this.properties.put(Constants.ENTITY_DESCRIPTOR_TABLE_NAME, tableName);
 	}
 	
 	/**
@@ -170,7 +190,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @return POJO class name.
 	 */
 	public String getClassName() {
-		return this.className;
+		return this.properties.get(Constants.ENTITY_DESCRIPTOR_CLASS_NAME);
 	}
 	
 	/**
@@ -178,7 +198,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param className POJO class name.
 	 */
 	public void setClassName(final String className) {
-		this.className = className;
+		this.properties.put(Constants.ENTITY_DESCRIPTOR_CLASS_NAME, className);
 	}
 
 	/**
@@ -364,7 +384,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(Constants.DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
+			if(relationship.getType().equalsIgnoreCase(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_ONE)) {
 				oneToOneRelationships.add(relationship);
 			}
 		}
@@ -385,7 +405,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(Constants.DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
+			if(relationship.getType().equalsIgnoreCase(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_MANY)) {
 				oneToManyRelationships.add(relationship);
 			}
 		}
@@ -406,7 +426,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(Constants.DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_ONE)) {
+			if(relationship.getType().equalsIgnoreCase(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_ONE)) {
 				manyToOneRelationships.add(relationship);
 			}
 		}
@@ -427,7 +447,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 		while(relationshipsIterator.hasNext()) {
 			Relationship relationship = relationshipsIterator.next();
 			
-			if(relationship.getRelationshipType().equalsIgnoreCase(Constants.DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
+			if(relationship.getType().equalsIgnoreCase(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_MANY)) {
 				manyToManyRelationships.add(relationship);
 			}
 		}
@@ -450,7 +470,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @return All Property Values.
 	 */
 	public Iterator<String> getProperties() {
-		return new EmptyIterator<String>();
+		return this.properties.keySet().iterator();
 	}
 	
 	/**
@@ -459,7 +479,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @return Property value.
 	 */
 	public String getProperty(String name) {
-		return null;
+		return this.properties.get(name);
 	}
 
 	/**
@@ -468,7 +488,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @return true/false, TRUE if property exist, FALSE if property does not exist.
 	 */
 	public boolean containProperty(String name) {
-		return false;
+		return this.properties.containsKey(name);
 	}
 	
 	/**
@@ -477,7 +497,7 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param value value of Property.
 	 */
 	public void addProperty(String name, String value) {
-		
+		this.properties.put(name, value);
 	}
 	
 	/**
@@ -485,8 +505,10 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 	 * @param name Name of Property.
 	 */
 	public void removeProperty(String name) {
-		
+		this.properties.remove(name);
 	}
+	
+	
 	
 	/**
 	 * Exposes methods to GET and SET Column information as per define in DatabaseMappingDescriptor.si.xml file by application.
@@ -496,18 +518,43 @@ public class DatabaseMappingDescriptor implements IDescriptor {
 Example:
 	{@code
 
-	<database-mapping>
-	
-		<table table_name="LIQUOR" class_name="siminov.core.sample.model.Liquor">
+    	<!-- Optional Field -->
+    <attributes>
+        
+	    <!-- Column Properties Required Under This Table -->
+	    
+			<!-- Optional Field -->
+		<attribute>
+		    
+			    <!-- Mandatory Field -->
+					<!-- COLUMN_NAME: Mandatory Field -->
+   		    <property name="column_name">column_name_of_table</property>
+		    			
+    		    <!-- Mandatory Field -->
+					<!-- VARIABLE_NAME: Mandatory Field -->
+		    <property name="variable_name">class_variable_name</property>
+		    		    
+			    <!-- Mandatory Field -->
+			<property name="type">java_variable_data_type</property>
 			
-			<column variable_name="liquorType" column_name="LIQUOR_TYPE">
-				<property name="type">TEXT</property>
-				<property name="primary_key">true</property>
-				<property name="not_null">true</property>
-				<property name="unique">true</property>
-			</column>		
+				<!-- Optional Field (Default is false) -->
+			<property name="primary_key">true/false</property>
 			
-	</database-mapping>
+				<!-- Optional Field (Default is false) -->
+			<property name="not_null">true/false</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="unique">true/false</property>
+			
+				<!-- Optional Field -->
+			<property name="check">condition_to_be_checked (Eg: variable_name 'condition' value; variable_name > 0)</property>
+			
+				<!-- Optional Field -->
+			<property name="default">default_value_of_column (Eg: 0.1)</property>
+		
+		</attribute>		
+
+    </attributes>
 	}
 	
 		</pre>
@@ -515,9 +562,7 @@ Example:
 	 *
 	 */
 	public static class Attribute implements IDescriptor {
-		private String variableName = null;
-		private String columnName = null;
-
+		
 		private String getterMethodName = null;
 		private String setterMethodName = null;
 
@@ -528,7 +573,7 @@ Example:
 		 * Get variable name.
 		 */
 		public String getVariableName() {
-			return this.variableName;
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME);
 		}
 		
 		/**
@@ -536,7 +581,7 @@ Example:
 		 * @param variableName Name of variable.
 		 */
 		public void setVariableName(final String variableName) {
-			this.variableName = variableName;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME, variableName);
 		}
 		
 		/**
@@ -544,7 +589,7 @@ Example:
 		 * @return Name Of Column. 
 		 */
 		public String getColumnName() {
-			return this.columnName;
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME);
 		}
 		
 		/**
@@ -552,7 +597,7 @@ Example:
 		 * @param columnName Name of column name.
 		 */
 		public void setColumnName(final String columnName) {
-			this.columnName = columnName;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME, columnName);
 		}
 		
 		/**
@@ -560,7 +605,7 @@ Example:
 		 * @return Type of column.
 		 */
 		public String getType() {
-			return this.properties.get(Constants.DATABASE_MAPPING_DESCRIPTOR_TYPE);
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_TYPE);
 		}
 		
 		/**
@@ -568,7 +613,7 @@ Example:
 		 * @param type Type of column.
 		 */
 		public void setType(final String type) {
-			this.properties.put(Constants.DATABASE_MAPPING_DESCRIPTOR_TYPE, type);
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_TYPE, type);
 		}
 		
 		/**
@@ -608,7 +653,7 @@ Example:
 		 * @return Default value of column.
 		 */
 		public String getDefaultValue() {
-			return this.properties.get(Constants.DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE);
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_DEFAULT_VALUE);
 		}
 		
 		/**
@@ -616,7 +661,7 @@ Example:
 		 * @param defaultValue Default value of column.
 		 */
 		public void setDefaultValue(final String defaultValue) {
-			this.properties.put(Constants.DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE, defaultValue);
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_DEFAULT_VALUE, defaultValue);
 		}
 		
 		/**
@@ -624,7 +669,7 @@ Example:
 		 * @return Check constraint of column.
 		 */
 		public String getCheck() {
-			return this.properties.get(Constants.DATABASE_MAPPING_DESCRIPTOR_CHECK);
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_CHECK);
 		}
 		
 		/**
@@ -632,7 +677,7 @@ Example:
 		 * @param check Check constraint.
 		 */
 		public void setCheck(final String check) {
-			this.properties.put(Constants.DATABASE_MAPPING_DESCRIPTOR_CHECK, check);
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_CHECK, check);
 		}
 		
 		/**
@@ -640,7 +685,8 @@ Example:
 		 * @return TRUE: If column is primary key, FALSE: If column is not primary key.
 		 */
 		public boolean isPrimaryKey() {
-			String primaryKey = this.properties.get(Constants.DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY);
+			
+			String primaryKey = this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_PRIMARY_KEY);
 			if(primaryKey == null || primaryKey.length() <= 0) {
 				return false;
 			} else if(primaryKey != null && primaryKey.length() > 0 && primaryKey.equalsIgnoreCase("true")) {
@@ -655,7 +701,7 @@ Example:
 		 * @param primaryKey TRUE: If column is primary key, FALSE: If column is not primary key.
 		 */
 		public void setPrimaryKey(final boolean primaryKey) {
-			this.properties.put(Constants.DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY, Boolean.toString(primaryKey));
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_PRIMARY_KEY, Boolean.toString(primaryKey));
 		}
 		
 		/**
@@ -663,7 +709,8 @@ Example:
 		 * @return TRUE: If column is unique, FALSE: If column is not unique.
 		 */
 		public boolean isUnique() {
-			String unique = this.properties.get(Constants.DATABASE_MAPPING_DESCRIPTOR_UNIQUE);
+			
+			String unique = this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_UNIQUE);
 			if(unique == null || unique.length() <= 0) {
 				return false;
 			} else if(unique != null && unique.length() > 0 && unique.equalsIgnoreCase("true")) {
@@ -678,7 +725,7 @@ Example:
 		 * @param isUnique TRUE: If column is unique, FALSE: If column is not unique
 		 */
 		public void setUnique(final boolean isUnique) {
-			this.properties.put(Constants.DATABASE_MAPPING_DESCRIPTOR_UNIQUE, Boolean.toString(isUnique));
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_UNIQUE, Boolean.toString(isUnique));
 		}
 		
 		/**
@@ -686,7 +733,8 @@ Example:
 		 * @return TRUE: If column value can be null, FALSE: If column value can not be null.
 		 */
 		public boolean isNotNull() {
-			String notNull = this.properties.get(Constants.DATABASE_MAPPING_DESCRIPTOR_NOT_NULL);
+			
+			String notNull = this.properties.get(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_NOT_NULL);
 			if(notNull == null || notNull.length() <= 0) {
 				return false;
 			} else if(notNull != null && notNull.length() > 0 && notNull.equalsIgnoreCase("true")) {
@@ -701,7 +749,7 @@ Example:
 		 * @param isNotNull TRUE: If column value can be null, FALSE: If column value can not be null.
 		 */
 		public void setNotNull(final boolean isNotNull) {
-			this.properties.put(Constants.DATABASE_MAPPING_DESCRIPTOR_NOT_NULL, Boolean.toString(isNotNull));
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_ATTRIBUTE_NOT_NULL, Boolean.toString(isNotNull));
 		}
 		
 		/**
@@ -756,9 +804,27 @@ Example:
 	
 Example:
 	{@code
-	<index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true">
-		<column>HISTORY</column>
-	</index>
+		<!-- Optional Field -->
+    <indexes>
+        
+		<!-- Index Properties -->
+		<index>
+		    
+			    <!-- Mandatory Field -->
+			    	<!-- NAME OF INDEX -->
+		    <property name="name">name_of_index</property>
+		    
+			    <!-- Mandatory Field -->
+					<!-- UNIQUE: Optional Field (Default is false) -->
+		    <property name="unique">true/false</property>
+		    
+		    	<!-- Optional Field -->
+		    		<!-- Name of the column -->
+		    <property name="column">column_name_needs_to_add</property>
+		    
+		</index>
+        
+    </indexes>
 	}
 	
 		</pre>
@@ -766,7 +832,8 @@ Example:
 	 *
 	 */
 	public static class Index implements IDescriptor {
-		private String name = null;
+		
+		private Map<String, String> properties = new HashMap<String, String> ();
 		private Collection<String> columns = new LinkedList<String> ();
 
 		private boolean unique;
@@ -776,15 +843,15 @@ Example:
 		 * @return Index Name.
 		 */
 		public String getName() {
-			return this.name;
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_INDEX_NAME);
 		}
 		
 		/**
-		 * Set index name as per defined in DatabaseMapping.core.xml file.
+		 * Set index name as per defined in EntityDescriptor.si.xml file.
 		 * @param name Index Name.
 		 */
 		public void setName(final String name) {
-			this.name = name;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_INDEX_NAME, name);
 		}
 		
 		/**
@@ -792,7 +859,15 @@ Example:
 		 * @return TRUE: If index is unique, FALSE: If index is not unqiue.
 		 */
 		public boolean isUnique() {
-			return this.unique;
+			
+			String unique = this.properties.get(Constants.ENTITY_DESCRIPTOR_INDEX_UNIQUE);
+			if(unique == null || unique.length() <= 0) {
+				return false;
+			} else if(unique != null && unique.length() > 0 && unique.equalsIgnoreCase("true")) {
+				return true;
+			}
+			
+			return false;
 		}
 		
 		/**
@@ -800,7 +875,7 @@ Example:
 		 * @param unique TRUE: If index is unique, FALSE: If index is not unique.
 		 */
 		public void setUnique(final boolean unique) {
-			this.unique = unique;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_INDEX_UNIQUE, Boolean.toString(unique));
 		}	
 		
 		/**
@@ -837,7 +912,7 @@ Example:
 		}
 		
 		public Iterator<String> getProperties() {
-			return new EmptyIterator<String>();
+			return this.properties.keySet().iterator();
 		}
 
 		/**
@@ -846,7 +921,7 @@ Example:
 		 * @return Property value.
 		 */
 		public String getProperty(String name) {
-			return null;
+			return this.properties.get(name);
 		}
 
 		/**
@@ -855,7 +930,7 @@ Example:
 		 * @return true/false, TRUE if property exist, FALSE if property does not exist.
 		 */
 		public boolean containProperty(String name) {
-			return false;
+			return this.properties.containsKey(name);
 		}
 		
 		/**
@@ -864,7 +939,7 @@ Example:
 		 * @param value value of Property.
 		 */
 		public void addProperty(String name, String value) {
-			
+			this.properties.put(name, value);
 		}
 		
 		/**
@@ -872,44 +947,81 @@ Example:
 		 * @param name Name of Property.
 		 */
 		public void removeProperty(String name) {
-			
+			this.properties.remove(name);
 		}
 	}
 
+	
 	/**
 	 * Contains relationship details.
+	 * 
+		<p>
+		<pre>
+	
+Example:
+	{@code
+	
+	  	<!-- Map Relationship Properties -->
+				
+		<!-- Optional Field's -->	
+	<relationships>
+		    
+	    <relationship>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- Type of Relationship -->
+	        <property name="type">one-to-one|one-to-many|many-to-one|many-to-many</property>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- REFER -->
+	        <property name="refer">class_variable_name</property>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- REFER TO -->
+	        <property name="refer_to">map_to_class_name</property>
+	            
+	        	<!-- Optional Field -->
+	        <property name="on_update">cascade/restrict/no_action/set_null/set_default</property>    
+	            
+	        	<!-- Optional Field -->    
+	        <property name="on_delete">cascade/restrict/no_action/set_null/set_default</property>    
+	            
+				<!-- Optional Field (Default is false) -->
+	       	<property name="load">true/false</property>	            
+	        
+	    </relationship>
+	    
+	</relationships>
+	
+	}
+	
+		</pre>
+	</p>
+	 * 
 	 */
 	public static class Relationship implements IDescriptor {
 		
-		private String relationshipType = null;
-		
-		private String refer = null;
-		private String referTo = null;
-		
-		private String onUpdate = null;
-		private String onDelete = null;
-
 		private String getterReferMethodName = null;
 		private String setterReferMethodName = null;
 		
 		private Map<String, String> properties = new HashMap<String, String> ();
 		
-		private DatabaseMappingDescriptor referedDatabaseMappingDescriptor = null;
+		private EntityDescriptor referedEntityDescriptor = null;
 		
 		/**
 		 * Get relationship type.
 		 * @return Type of relationship.
 		 */
-		public String getRelationshipType() {
-			return this.relationshipType;
+		public String getType() {
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE);
 		}
 		
 		/**
 		 * Set relationship type.
-		 * @param relationshipType Type of relationship.
+		 * @param type Type of relationship.
 		 */
-		public void setRelationshipType(String relationshipType) {
-			this.relationshipType = relationshipType;
+		public void setType(String type) {
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE, type);
 		}
 		
 		/**
@@ -917,7 +1029,7 @@ Example:
 		 * @return Name of refer.
 		 */
 		public String getRefer() {
-			return this.refer;
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_REFER);
 		}
 		
 		/**
@@ -925,7 +1037,7 @@ Example:
 		 * @param refer Name of refer.
 		 */
 		public void setRefer(String refer) {
-			this.refer = refer;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_REFER, refer);
 		}
 		
 		/**
@@ -933,7 +1045,7 @@ Example:
 		 * @return Name of refer to.
 		 */
 		public String getReferTo() {
-			return this.referTo;
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_REFER_TO);
 		}
 
 		/**
@@ -941,7 +1053,7 @@ Example:
 		 * @param referTo Name of refer to.
 		 */
 		public void setReferTo(String referTo) {
-			this.referTo = referTo;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_REFER_TO, referTo);
 		}
 		
 		/**
@@ -949,7 +1061,7 @@ Example:
 		 * @return Action on update.
 		 */
 		public String getOnUpdate() {
-			return this.onUpdate;
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_ON_UPDATE);
 		}
 		
 		/**
@@ -957,7 +1069,7 @@ Example:
 		 * @param onUpdate Action on update.
 		 */
 		public void setOnUpdate(String onUpdate) {
-			this.onUpdate = onUpdate;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_ON_UPDATE, onUpdate);
 		}
 		
 		/**
@@ -965,7 +1077,7 @@ Example:
 		 * @return Action on delete.
 		 */
 		public String getOnDelete() {
-			return this.onDelete;
+			return this.properties.get(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_ON_DELETE);
 		}
 		
 		/**
@@ -973,7 +1085,7 @@ Example:
 		 * @param onDelete Action on delete.
 		 */
 		public void setOnDelete(String onDelete) {
-			this.onDelete = onDelete;
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_ON_DELETE, onDelete);
 		}
 		
 		/**
@@ -1013,7 +1125,8 @@ Example:
 		 * @return TRUE: If load property value is set to true; FALSE: If load property value is set to false.
 		 */
 		public boolean isLoad() {
-			String load = this.properties.get(Constants.DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD);
+			
+			String load = this.properties.get(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_LOAD);
 			if(load == null || load.length() <= 0) {
 				return false;
 			} else if(load != null && load.length() > 0 && load.equalsIgnoreCase("true")) {
@@ -1028,7 +1141,7 @@ Example:
 		 * @param load TRUE: If load property value is true; FALSE: If load property value is false.
 		 */
 		public void setLoad(boolean load) {
-			this.properties.put(Constants.DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD, Boolean.toString(load));
+			this.properties.put(Constants.ENTITY_DESCRIPTOR_RELATIONSHIP_LOAD, Boolean.toString(load));
 		}
 		
 		/**
@@ -1076,19 +1189,19 @@ Example:
 		
 		
 		/**
-		 * Get database mapping descriptor object.
-		 * @return DatabaseMappingDescriptor object.
+		 * Get entity descriptor object.
+		 * @return EntityDescriptor object.
 		 */
-		public DatabaseMappingDescriptor getReferedDatabaseMappingDescriptor() {
-			return this.referedDatabaseMappingDescriptor;
+		public EntityDescriptor getReferedEntityDescriptor() {
+			return this.referedEntityDescriptor;
 		}
 		
 		/**
-		 * Set refered database mapping descriptor object.
-		 * @param referedDatabaseMappingDescriptor DatabaseMappingDescriptor object.
+		 * Set refered entity descriptor object.
+		 * @param referedEntityDescriptor EntityDescriptor object.
 		 */
-		public void setReferedDatabaseMappingDescriptor(DatabaseMappingDescriptor referedDatabaseMappingDescriptor) {
-			this.referedDatabaseMappingDescriptor = referedDatabaseMappingDescriptor;
+		public void setReferedEntityDescriptor(EntityDescriptor referedEntityDescriptor) {
+			this.referedEntityDescriptor = referedEntityDescriptor;
 		}
 	}
 }

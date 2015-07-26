@@ -29,14 +29,14 @@ import siminov.core.database.design.ISelect;
 import siminov.core.database.design.ISum;
 import siminov.core.database.design.ITotal;
 import siminov.core.exception.DatabaseException;
-import siminov.core.model.DatabaseMappingDescriptor;
+import siminov.core.model.EntityDescriptor;
 
 /**
  * It is used to provide condition between where clause.
  */
 public class Where implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, IMax, IMin, IGroupConcat {
 
-	private DatabaseMappingDescriptor databaseMappingDescriptor = null;
+	private EntityDescriptor entityDescriptor = null;
 	private String interfaceName = null;
 	private Object referObject = null;
 	
@@ -70,22 +70,22 @@ public class Where implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, 
 	
 	/**
 	 * Where Constructor
-	 * @param databaseMappingDescriptor Database Mapping Descriptor instance
+	 * @param entityDescriptor Entity Descriptor instance
 	 * @param interfaceName Name of interface
 	 */
-	public Where(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName) {
-		this.databaseMappingDescriptor = databaseMappingDescriptor;
+	public Where(final EntityDescriptor entityDescriptor, final String interfaceName) {
+		this.entityDescriptor = entityDescriptor;
 		this.interfaceName = interfaceName;
 	}
 
 	/**
 	 * Where Constructor
-	 * @param databaseMappingDescriptor Database Mapping Descriptor instance
+	 * @param entityDescriptor Entity Descriptor instance
 	 * @param interfaceName Name of interface
 	 * @param referObject Refered Object instance
 	 */
-	public Where(final DatabaseMappingDescriptor databaseMappingDescriptor, final String interfaceName, final Object referObject) {
-		this.databaseMappingDescriptor = databaseMappingDescriptor;
+	public Where(final EntityDescriptor entityDescriptor, final String interfaceName, final Object referObject) {
+		this.entityDescriptor = entityDescriptor;
 		this.interfaceName = interfaceName;
 		this.referObject = referObject;
 	}
@@ -288,21 +288,21 @@ public class Where implements ISelect, IDelete, ICount, ISum, ITotal, IAverage, 
 		if(interfaceName.equalsIgnoreCase(IDelete.class.getName())) {
 			DatabaseHelper.delete(referObject, where);
 		} else if(interfaceName.equalsIgnoreCase(ICount.class.getName())) {
-			return (T) (Integer) DatabaseHelper.count(databaseMappingDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.count(entityDescriptor, column, distinct, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IAverage.class.getName())) {
-			return (T) (Integer) DatabaseHelper.avg(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.avg(entityDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ISum.class.getName())) {
-			return (T) (Integer) DatabaseHelper.sum(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.sum(entityDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ITotal.class.getName())) {
-			return (T) (Integer) DatabaseHelper.total(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.total(entityDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IMax.class.getName())) {
-			return (T) (Integer) DatabaseHelper.max(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.max(entityDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IMin.class.getName())) {
-			return (T) (Integer) DatabaseHelper.min(databaseMappingDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) (Integer) DatabaseHelper.min(entityDescriptor, column, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(IGroupConcat.class.getName())) {
-			return (T) DatabaseHelper.groupConcat(databaseMappingDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
+			return (T) DatabaseHelper.groupConcat(entityDescriptor, column, delimiter, where, Arrays.asList(groupBy).iterator(), having);
 		} else if(interfaceName.equalsIgnoreCase(ISelect.class.getName())) {
-			return (T) DatabaseHelper.select(referObject, null, databaseMappingDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
+			return (T) DatabaseHelper.select(referObject, null, entityDescriptor, distinct, where, Arrays.asList(columns).iterator(), Arrays.asList(groupBy).iterator(), having, Arrays.asList(orderBy).iterator(), whichOrderBy, limit);
 		}
 
 		return null;

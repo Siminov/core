@@ -22,7 +22,7 @@ import java.util.Map;
 
 import siminov.core.exception.DatabaseException;
 import siminov.core.model.DatabaseDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor;
+import siminov.core.model.EntityDescriptor;
 
 
 
@@ -56,33 +56,33 @@ public interface IDatabaseImpl {
 		It has no means to return any data (such as the number of affected rows). Instead, you're encouraged to use insert, update, delete, when possible. 
 	 	
 	 	@param databaseDescriptor Database-Descriptor object which defines the schema of database.
-	 	@param databaseMappingDescriptor Database-Mapping-Descriptor object which defines the structure of table.
+	 	@param entityDescriptor Entity-Descriptor object which defines the structure of table.
 		@param query Query which needs to be executed.
 	 	@throws DatabaseException If any error occur while executing query provided.
 	 */
-	public void executeQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException;
+	public void executeQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query) throws DatabaseException;
 
 	/**
 	 	A pre-compiled statement that can be reused. The statement cannot return multiple rows, but 1x1 result sets are allowed.
 	 	
 	 	@param databaseDescriptor Database-Descriptor object which defines the schema of database.
-	 	@param databaseMappingDescriptor Database-Mapping-Descriptor object which defines the structure of table.
+	 	@param entityDescriptor Entity-Descriptor object which defines the structure of table.
 	 	@param query A pre-compiled statement.
 	 	@param columnValues Column values
 	 	@throws DatabaseException If any error occur while inserting or updating tuple.
 	 */
-	public void executeBindQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query, final Iterator<Object> columnValues) throws DatabaseException;
+	public void executeBindQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query, final Iterator<Object> columnValues) throws DatabaseException;
 	
 	/**
 	 	Query the given table, returning a Cursor over the result set.
 		
 	 	@param databaseDescriptor Database-Descriptor object which defines the schema of database.
-	 	@param databaseMappingDescriptor Database-Mapping-Descriptor object which defines the structure of table.
+	 	@param entityDescriptor Entity-Descriptor object which defines the structure of table.
 		@param query Query based on which tuples will be fetched from database.
 	 	@return A Cursor object, which is positioned before the first entry. Note that Cursors are not synchronized, see the documentation for more details.
 	 	@throws DatabaseException If any error occur while getting tuples from a single table.
 	 */
-	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException;
+	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query) throws DatabaseException;
 
 	/**
 	 * Executes the method on database object.

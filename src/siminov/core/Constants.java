@@ -121,7 +121,7 @@ public interface Constants {
 	/**
 	 * DatabaseDescriptor.si.xml database-mapping TAG.
 	 */
-	public String DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR = "database-mapping-descriptor";
+	public String DATABASE_DESCRIPTOR_ENTITY_DESCRIPTOR = "entity-descriptor";
 
 	/**
 	 * DatabaseDescriptor.si.xml is_locking_required TAG.
@@ -164,171 +164,187 @@ public interface Constants {
 	/**
 	 * LibraryDescriptor.si.xml database-mapping TAG.
 	 */
-	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR = "database-mapping-descriptor";
+	public String LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR = "entity-descriptor";
 
 	
 	/**
 	 * LibraryDescriptor.si.xml database mapping seprator.
 	 */
-	public String LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR = ".";
+	public String LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR_SEPRATOR = ".";
 	
 
-	// Database Mapping Descriptor Constants.
+	// Entity Descriptor Constants.
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml database-mapping TAG.
+	 * EntityDescriptor.si.xml entity descriptor TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR = "database-mapping-descriptor";
+	public String ENTITY_DESCRIPTOR = "entity-descriptor";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml table TAG.
+	 * EntityDescriptor.si.xml table_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_ENTITY = "entity";
+	public String ENTITY_DESCRIPTOR_TABLE_NAME = "table_name";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml table_name TAG.
+	 * EntityDescriptor.si.xml class_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_ENTITY_TABLE_NAME = "table_name";
+	public String ENTITY_DESCRIPTOR_CLASS_NAME = "class_name";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml class_name TAG.
+	 * EntityDescriptor.si.xml column TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_ENTITY_CLASS_NAME = "class_name";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE = "attribute";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml column TAG.
+	 * EntityDescriptor.si.xml variable_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE = "attribute";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME = "variable_name";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml variable_name TAG.
+	 * EntityDescriptor.si.xml column_name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME = "variable_name";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME = "column_name";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml column_name TAG.
+	 * EntityDescriptor.si.xml property TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME = "column_name";
+	public String ENTITY_DESCRIPTOR_PROPERTY = "property";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml property TAG.
+	 * EntityDescriptor.si.xml name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_PROPERTY = "property";
+	public String ENTITY_DESCRIPTOR_NAME = "name";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml name TAG.
+	 * EntityDescriptor.si.xml type TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_NAME = "name";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_TYPE = "type";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml type TAG.
+	 * EntityDescriptor.si.xml primary_key TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_TYPE = "type";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_PRIMARY_KEY = "primary_key";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml primary_key TAG.
+	 * EntityDescriptor.si.xml unique TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY = "primary_key";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_UNIQUE = "unique";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml unique TAG.
+	 * EntityDescriptor.si.xml not_null TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_UNIQUE = "unique";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_NOT_NULL = "not_null";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml index TAG.
+	 * EntityDescriptor.si.xml default TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_INDEX = "index";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_DEFAULT_VALUE = "default";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml not_null TAG.
+	 * EntityDescriptor.si.xml check TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_NOT_NULL = "not_null";
+	public String ENTITY_DESCRIPTOR_ATTRIBUTE_CHECK = "check";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml default TAG.
+	 * EntityDescriptor.si.xml index TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE = "default";
+	public String ENTITY_DESCRIPTOR_INDEX = "index";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml check TAG.
+	 * EntityDescriptor.si.zml index name TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_CHECK = "check";
+	public String ENTITY_DESCRIPTOR_INDEX_NAME = "name";
+	
+	/**
+	 * EntityDescriptor.si.xml index unique TAG.
+	 */
+	public String ENTITY_DESCRIPTOR_INDEX_UNIQUE = "unique";
+	
+	/**
+	 * EntityDescriptor.si.xml index column TAG.
+	 */
+	public String ENTITY_DESCRIPTOR_INDEX_COLUMN = "column";
+	
+	
+	/**
+	 * EntityDescriptor.si.xml Relationship TAG.
+	 */
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP = "relationship";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml Relationships TAG.
+	 * EntityDescriptor.si.xml Relationship Type TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS = "relationships";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE = "type";
+	
+	/**
+	 * EntityDescriptor.si.xml Relationship Refer TAG.
+	 */
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_REFER = "refer";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Refer To TAG,
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER = "refer";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_REFER_TO = "refer_to";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship On Update TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER_TO = "refer_to";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_ON_UPDATE = "on_update";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship On Delete TAG,
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ON_UPDATE = "on_update";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_ON_DELETE = "on_delete";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Type One To One TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ON_DELETE = "on_delete";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_ONE = "one-to-one";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Type One To Many TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE = "one-to-one";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_MANY = "one-to-many";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Type Many To One TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY = "one-to-many";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_ONE = "many-to-one";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Type Many To Many TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_ONE = "many-to-one";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_MANY = "many-to-many";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Load TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY = "many-to-many";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_LOAD = "load";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Cascade TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD = "load";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_CASCADE = "cascade";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Restrict TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE = "cascade";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_RESTRICT = "restrict";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship No Action TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_RESTRICT = "restrict";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_NO_ACTION = "no_action";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Set Null TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_NO_ACTION = "no_action";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_SET_NULL = "set_null";
 
 	/**
-	 * DatabaseMappingDescriptor.si.xml
+	 * EntityDescriptor.si.xml Relationship Set Default TAG.
 	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_NULL = "set_null";
-
-	/**
-	 * DatabaseMappingDescriptor.si.xml
-	 */
-	public String DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT = "set_default";
+	public String ENTITY_DESCRIPTOR_RELATIONSHIP_SET_DEFAULT = "set_default";
 
 
 	

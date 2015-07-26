@@ -63,12 +63,12 @@ Example:
 			
 	
 	
-		<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
+		<!-- Entity Descriptor Paths Needed Under This Database Descriptor -->
 		
 			<!-- Optional Field -->
-		<database-mapping-descriptors>
-			<database-mapping-descriptor>full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
-		</database-mapping-descriptors>
+		<entity-descriptors>
+			<entity-descriptor>full_path_of_entity_descriptor_file</entity-descriptor>
+		</entity-descriptors>
 		
 	</database-descriptor>
 
@@ -167,8 +167,8 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		
 		if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_PROPERTY)) {
 			databaseDescriptor.addProperty(propertyName, tempValue.toString());
-		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR)) {
-			databaseDescriptor.addDatabaseMappingDescriptorPath(tempValue.toString());
+		} else if(localName.equalsIgnoreCase(DATABASE_DESCRIPTOR_ENTITY_DESCRIPTOR)) {
+			databaseDescriptor.addEntityDescriptorPath(tempValue.toString());
 		} 
 	}
 	
@@ -181,7 +181,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		/*
 		 * Validate Database Name field.
 		 */
-		Iterator<String> databaseMappingPaths = databaseDescriptor.getDatabaseMappingDescriptorPaths();
+		Iterator<String> databaseMappingPaths = databaseDescriptor.getEntityDescriptorPaths();
 		while(databaseMappingPaths.hasNext()) {
 			String databaseMappingPath = databaseMappingPaths.next();
 			

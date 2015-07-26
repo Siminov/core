@@ -33,8 +33,8 @@ import siminov.core.exception.DatabaseException;
 import siminov.core.exception.DeploymentException;
 import siminov.core.log.Log;
 import siminov.core.model.DatabaseDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor.Attribute;
+import siminov.core.model.EntityDescriptor;
+import siminov.core.model.EntityDescriptor.Attribute;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -84,7 +84,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		sqliteDatabase.close();
 	}
 
-	public void executeQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
+	public void executeQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query) throws DatabaseException {
 		Log.debug(DatabaseImpl.class.getName(), "executeQuery(" + query + ")", "QUERY: " + query);
 		
 		try {
@@ -95,7 +95,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		}
 	}
 	
-	public void executeBindQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query, final Iterator<Object> columnValues) throws DatabaseException {
+	public void executeBindQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query, final Iterator<Object> columnValues) throws DatabaseException {
 		Log.debug(DatabaseImpl.class.getName(), "executeBindQuery", "QUERY: " + query);
 		
 		SQLiteStatement statement =null;
@@ -203,7 +203,8 @@ public class DatabaseImpl implements IDatabaseImpl {
 		statement.close();
 	}
 	
-	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
+	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query) throws DatabaseException {
+		
 			SQLiteCursor sqliteCursor = (SQLiteCursor) sqliteDatabase.rawQuery(query, null);
 			Collection<Map<String, Object>> tuples = new ArrayList<Map<String,Object>>();
 			
@@ -225,19 +226,17 @@ public class DatabaseImpl implements IDatabaseImpl {
 
 						String columnValue = sqliteCursor.getString(i);
 
-						if(databaseMappingDescriptor != null) {
+						if(entityDescriptor != null) {
 							
-							Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
+							Attribute attribute = entityDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
 							if(attribute != null) {
 	
-								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_STRING_DATA_TYPE)) {
+								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.STRING_DATA_TYPE)) {
 									tuple.put(columnNames[i], (String) columnValue);
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_PRIMITIVE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.PRIMITIVE_BOOLEAN_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? true : false);
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_BOOLEAN_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.BOOLEAN_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue.equalsIgnoreCase(Boolean.TRUE.toString()) ? Boolean.TRUE : Boolean.FALSE);
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_STRING_DATA_TYPE)) {
-									tuple.put(columnNames[i], (String) columnValue);
 								}
 							} else {
 								tuple.put(columnNames[i], columnValue);
@@ -248,19 +247,17 @@ public class DatabaseImpl implements IDatabaseImpl {
 					} else if(isLong) {
 						long columnValue = sqliteCursor.getLong(i);
 
-						if(databaseMappingDescriptor != null) {
+						if(entityDescriptor != null) {
 							
-							Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
+							Attribute attribute = entityDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
 							if(attribute != null) {
-								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INT_PRIMITIVE_DATA_TYPE)) {
+								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.PRIMITIVE_INTEGER_DATA_TYPE)) {
 									tuple.put(columnNames[i], Integer.parseInt(Long.toString(columnValue)));
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_INTEGER_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.INTEGER_DATA_TYPE)) {
 									tuple.put(columnNames[i], Integer.getInteger(Long.toString(columnValue)));
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_PRIMITIVE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.PRIMITIVE_LONG_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_LONG_DATA_TYPE)) {
-									tuple.put(columnNames[i], Long.valueOf(columnValue));
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.LONG_DATA_TYPE)) {
 									tuple.put(columnNames[i], Long.valueOf(columnValue));
 								}
 							} else {
@@ -272,19 +269,17 @@ public class DatabaseImpl implements IDatabaseImpl {
 					} else if(isFloat) {
 						float columnValue = sqliteCursor.getFloat(i);
 						
-						if(databaseMappingDescriptor != null) {
+						if(entityDescriptor != null) {
 							
-							Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
+							Attribute attribute = entityDescriptor.getAttributeBasedOnColumnName(columnNames[i]);
 							if(attribute != null) {
-								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_PRIMITIVE_DATA_TYPE)) {
+								if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.PRIMITIVE_DOUBLE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Double.parseDouble(Float.toString(columnValue)));
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_DOUBLE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.DOUBLE_DATA_TYPE)) {
 									tuple.put(columnNames[i], Double.valueOf(Float.toString(columnValue)));
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_PRIMITIVE_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.PRIMITIVE_FLOAT_DATA_TYPE)) {
 									tuple.put(columnNames[i], columnValue);
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVA_FLOAT_DATA_TYPE)) {
-									tuple.put(columnNames[i], Float.valueOf(columnValue));
-								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE)) {
+								} else if(attribute.getType().equalsIgnoreCase(IDataTypeHandler.FLOAT_DATA_TYPE)) {
 									tuple.put(columnNames[i], Float.valueOf(columnValue));
 								}
 							} else {

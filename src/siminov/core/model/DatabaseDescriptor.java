@@ -59,12 +59,12 @@ Example:
 			
 	
 	
-		<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
+		<!-- Entity Descriptor Paths Needed Under This Database Descriptor -->
 		
 			<!-- Optional Field -->
-		<database-mapping-descriptors>
-			<database-mapping-descriptor>full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
-		</database-mapping-descriptors>
+		<entity-descriptors>
+			<entity-descriptor>full_path_of_entity_descriptor_file</entity-descriptor>
+		</entity-descriptors>
 		
 	</database-descriptor>
 
@@ -77,11 +77,11 @@ public class DatabaseDescriptor implements IDescriptor {
 	
 	protected Map<String, String> properties = new HashMap<String, String> ();
 	
-	protected Collection<String> databaseMappingDescriptorPaths = new ConcurrentLinkedQueue<String> ();
+	protected Collection<String> entityDescriptorPaths = new ConcurrentLinkedQueue<String> ();
 
-	protected Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnTableName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	protected Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnClassName = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
-	protected Map<String, DatabaseMappingDescriptor> databaseMappingDescriptorsBasedOnPath = new ConcurrentHashMap<String, DatabaseMappingDescriptor>();
+	protected Map<String, EntityDescriptor> entityDescriptorsBasedOnTableName = new ConcurrentHashMap<String, EntityDescriptor>();
+	protected Map<String, EntityDescriptor> entityDescriptorsBasedOnClassName = new ConcurrentHashMap<String, EntityDescriptor>();
+	protected Map<String, EntityDescriptor> entityDescriptorsBasedOnPath = new ConcurrentHashMap<String, EntityDescriptor>();
 	
 	/**
 	 * Get database descriptor name as defined in DatabaseDescriptor.si.xml file.
@@ -159,6 +159,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	 * @return TRUE: If external_storage defined as true in DatabaseDescriptor.si.xml file, FALSE: If external_storage defined as false in DatabaseDescritor.xml file.
 	 */
 	public boolean isExternalStorageEnable() {
+		
 		String externalStorage = this.properties.get(Constants.DATABASE_DESCRIPTOR_EXTERNAL_STORAGE);
 		if(externalStorage == null || externalStorage.length() <= 0) {
 			return false;
@@ -183,6 +184,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	 * @return TRUE: If locking is required as per defined in DatabaseDescriptor.si.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.si.xml file.
 	 */
 	public boolean isTransactionSafe() {
+		
 		String transactionSafe = this.properties.get(Constants.DATABASE_DESCRIPTOR_TRANSACTION_SAFE);
 		if(transactionSafe == null || transactionSafe.length() <= 0) {
 			return false;
@@ -247,128 +249,129 @@ public class DatabaseDescriptor implements IDescriptor {
 	
 	
 	/**
-	 * Check whether database mapping object exists or not, based on table name.
+	 * Check whether entity descriptor object exists or not, based on table name.
 	 * @param tableName Name of table.
-	 * @return TRUE: If database mapping exists, FALSE: If database mapping does not exists.
+	 * @return TRUE: If entity descriptor exists, FALSE: If entity descriptor does not exists.
 	 */
-	public boolean containsDatabaseMappingDescriptorBasedOnTableName(final String tableName) {
-		return this.databaseMappingDescriptorsBasedOnTableName.containsKey(tableName);
+	public boolean containsEntityDescriptorBasedOnTableName(final String tableName) {
+		return this.entityDescriptorsBasedOnTableName.containsKey(tableName);
 	}
 	
 	/**
-	 * Check whether database mapping object exists or not, based on POJO class name.
-	 * @param className POJO class name.
-	 * @return TRUE: If database mapping exists, FALSE: If database mapping does not exists.
+	 * Check whether entity descriptor object exists or not, based on mapped class name.
+	 * @param className Mapped class name.
+	 * @return TRUE: If entity descriptor exists, FALSE: If entity descriptor does not exists.
 	 */
-	public boolean containsDatabaseMappingDescriptorBasedOnClassName(final String className) {
-		return this.databaseMappingDescriptorsBasedOnClassName.containsKey(className);
+	public boolean containsEntityDescriptorBasedOnClassName(final String className) {
+		return this.entityDescriptorsBasedOnClassName.containsKey(className);
 	}
 	
 	/**
-	 * Get all database mapping paths as per defined in DatabaseDescriptor.si.xml file.
-	 * @return Iterator which contain all database mapping paths.
+	 * Get all entity descriptor paths as per defined in DatabaseDescriptor.si.xml file.
+	 * @return Iterator which contain all entity descriptor paths.
 	 */
-	public Iterator<String> getDatabaseMappingDescriptorPaths() {
-		return this.databaseMappingDescriptorPaths.iterator();
+	public Iterator<String> getEntityDescriptorPaths() {
+		return this.entityDescriptorPaths.iterator();
 	}
 
 	/**
-	 * Add database mapping path as per defined in DatabaseDescriptor.si.xml file.
+	 * Add entity descriptor path as per defined in DatabaseDescriptor.si.xml file.
 	 	<p>
 	 		<pre>
 	 		
 EXAMPLE:
 	{@code
 	<database-descriptor>
-		<database-mappings>
-			<database-mapping path="Liquor-Mappings/Liquor.xml" />
-			<database-mapping path="Liquor-Mappings/LiquorBrand.xml" />
-		</database-mappings>
+		<entity-descriptors>
+			<entity-descriptor>full_path_of_entity_descriptor_file</entity-descriptor>
+		</entity-descriptors>
 	</database-descriptor>
 	}
 	
 		</pre>
 	</p>
 	 
-	 * @param databaseMappingDescriptorPath Database Mapping Path.
+	 * @param entityDescriptorPath Database Mapping Path.
 	 */
-	public void addDatabaseMappingDescriptorPath(final String databaseMappingDescriptorPath) {
-		this.databaseMappingDescriptorPaths.add(databaseMappingDescriptorPath);
+	public void addEntityDescriptorPath(final String entityDescriptorPath) {
+		this.entityDescriptorPaths.add(entityDescriptorPath);
 	}
 
 	/**
-	 * Get all database mapping objects contained.
-	 * @return All database mapping objects.
+	 * Get all entity descriptor objects contained.
+	 * @return All entity descriptor objects.
 	 */
-	public Iterator<DatabaseMappingDescriptor> getDatabaseMappingDescriptors() {
-		return this.databaseMappingDescriptorsBasedOnClassName.values().iterator();
+	public Iterator<EntityDescriptor> getEntityDescriptors() {
+		return this.entityDescriptorsBasedOnClassName.values().iterator();
 	}
 
 	/**
-	 * Get database mapping object based on table name.
+	 * Get entity descriptor object based on table name.
 	 * @param tableName Name of table.
-	 * @return DatabaseMapping object based on table name.
+	 * @return Entity descriptor object based on table name.
 	 */
-	public DatabaseMappingDescriptor getDatabseMappingDescriptorBasedOnTableName(final String tableName) {
-		return this.databaseMappingDescriptorsBasedOnTableName.get(tableName);
+	public EntityDescriptor getEntityDescriptorBasedOnTableName(final String tableName) {
+		return this.entityDescriptorsBasedOnTableName.get(tableName);
 	}
 
 	/**
-	 * Get database mapping object based on POJO class name.
-	 * @param className POJO class name.
-	 * @return Database Mapping object.
+	 * Get entity descriptor object based on mapped class name.
+	 * @param className mapped class name.
+	 * @return Entity Descriptor.
 	 */
-	public DatabaseMappingDescriptor getDatabseMappingDescriptorBasedOnClassName(final String className) {
-		return this.databaseMappingDescriptorsBasedOnClassName.get(className);
+	public EntityDescriptor getEntityDescriptorBasedOnClassName(final String className) {
+		return this.entityDescriptorsBasedOnClassName.get(className);
 	}
 	
 	/**
-	 * Get database mapping object based on path.
-	 * @param databaseMappingDescriptorPath Database Mapping path as per defined in Database Descriptor.xml file.
-	 * @return Database Mapping object.
+	 * Get entity descriptor object based on path.
+	 * @param entityDescriptorPath Database Mapping path as per defined in Database Descriptor.xml file.
+	 * @return Entity Descriptor.
 	 */
-	public DatabaseMappingDescriptor getDatabseMappingDescriptorBasedOnPath(final String databaseMappingDescriptorPath) {
-		return this.databaseMappingDescriptorsBasedOnPath.get(databaseMappingDescriptorPath);
+	public EntityDescriptor getEntityDescriptorBasedOnPath(final String entityDescriptorPath) {
+		return this.entityDescriptorsBasedOnPath.get(entityDescriptorPath);
 	}
 	
 	/**
-	 * Add database mapping object in respect to database mapping path.
-	 * @param databaseMappingDescriptorPath Database Mapping Path.
-	 * @param databaseMappingDescriptor Database Mapping object.
+	 * Add entity descriptor object in respect to entity descriptor path.
+	 * @param entityDescriptorPath Entity Descriptor Path.
+	 * @param entityDescriptor Entity Descriptor.
 	 */
-	public void addDatabaseMappingDescriptor(final String databaseMappingDescriptorPath, final DatabaseMappingDescriptor databaseMappingDescriptor) {
-		this.databaseMappingDescriptorsBasedOnPath.put(databaseMappingDescriptorPath, databaseMappingDescriptor);
-		this.databaseMappingDescriptorsBasedOnTableName.put(databaseMappingDescriptor.getTableName(), databaseMappingDescriptor);
-		this.databaseMappingDescriptorsBasedOnClassName.put(databaseMappingDescriptor.getClassName(), databaseMappingDescriptor);
+	public void addEntityDescriptor(final String entityDescriptorPath, final EntityDescriptor entityDescriptor) {
+		this.entityDescriptorsBasedOnPath.put(entityDescriptorPath, entityDescriptor);
+		this.entityDescriptorsBasedOnTableName.put(entityDescriptor.getTableName(), entityDescriptor);
+		this.entityDescriptorsBasedOnClassName.put(entityDescriptor.getClassName(), entityDescriptor);
 	}
 
 	/**
-	 * Remove database mapping object based on database mapping path.
-	 * @param databaseMappingDescriptorPath Database Mapping Path.
+	 * Remove entity descriptor object based on database mapping path.
+	 * @param entityDescriptorPath Entity Descriptor Path.
 	 */
-	public void removeDatabaseMappingDescriptorBasedOnPath(final String databaseMappingDescriptorPath) {
-		this.databaseMappingDescriptorPaths.remove(databaseMappingDescriptorPath);
+	public void removeEntityDescriptorBasedOnPath(final String entityDescriptorPath) {
+		this.entityDescriptorPaths.remove(entityDescriptorPath);
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = this.databaseMappingDescriptorsBasedOnPath.get(databaseMappingDescriptorPath);
-		this.databaseMappingDescriptorsBasedOnPath.remove(databaseMappingDescriptorPath);
+		EntityDescriptor entityDescriptor = this.entityDescriptorsBasedOnPath.get(entityDescriptorPath);
+		this.entityDescriptorsBasedOnPath.remove(entityDescriptorPath);
 		
-		this.databaseMappingDescriptorsBasedOnClassName.values().remove(databaseMappingDescriptor);
-		this.databaseMappingDescriptorsBasedOnTableName.values().remove(databaseMappingDescriptor);
+		this.entityDescriptorsBasedOnClassName.values().remove(entityDescriptor);
+		this.entityDescriptorsBasedOnTableName.values().remove(entityDescriptor);
 	}
 	
 	/**
-	 * Remove database mapping object based on POJO class name.
-	 * @param className POJO class name.
+	 * Remove entity descriptor object based on POJO class name.
+	 * @param className Mapped class name.
 	 */
-	public void removeDatabaseMappingDescriptorBasedOnClassName(final String className) {
-		DatabaseMappingDescriptor databaseMappingDescriptor = this.databaseMappingDescriptorsBasedOnClassName.get(className);
-		Collection<String> keys = this.databaseMappingDescriptorsBasedOnPath.keySet();
+	public void removeEntityDescriptorBasedOnClassName(final String className) {
+		
+		EntityDescriptor entityDescriptor = this.entityDescriptorsBasedOnClassName.get(className);
+		Collection<String> keys = this.entityDescriptorsBasedOnPath.keySet();
 		
 		String keyMatched = null;
 		boolean found = false;
 		for(String key : keys) {
-			DatabaseMappingDescriptor mapping = this.databaseMappingDescriptorsBasedOnPath.get(key);
-			if(databaseMappingDescriptor == mapping) {
+			
+			EntityDescriptor mapping = this.entityDescriptorsBasedOnPath.get(key);
+			if(entityDescriptor == mapping) {
 				keyMatched = key;
 				found = true;
 				break;
@@ -376,39 +379,39 @@ EXAMPLE:
 		}
 		
 		if(found) {
-			removeDatabaseMappingDescriptorBasedOnPath(keyMatched);
+			removeEntityDescriptorBasedOnPath(keyMatched);
 		}
 	}
 	
 	/**
-	 * Remove database mapping object based on table name.
+	 * Remove entity descriptor object based on table name.
 	 * @param tableName Name of table.
 	 */
-	public void removeDatabaseMappingDescriptorBasedOnTableName(final String tableName) {
-		DatabaseMappingDescriptor databaseMappingDescriptor = this.databaseMappingDescriptorsBasedOnTableName.get(tableName);
-		removeDatabaseMappingDescriptorBasedOnClassName(databaseMappingDescriptor.getClassName());
+	public void removeEntityDescriptorBasedOnTableName(final String tableName) {
+		EntityDescriptor entityDescriptor = this.entityDescriptorsBasedOnTableName.get(tableName);
+		removeEntityDescriptorBasedOnClassName(entityDescriptor.getClassName());
 	}
 	
 	/**
-	 * Remove database mapping object based on database mapping object.
-	 * @param databaseMappingDescriptor Database Mapping object which needs to be removed.
+	 * Remove entity descriptor object based on database mapping object.
+	 * @param entityDescriptor Entity descriptor object which needs to be removed.
 	 */
-	public void removeDatabaseMappingDescriptor(final DatabaseMappingDescriptor databaseMappingDescriptor) {
-		removeDatabaseMappingDescriptorBasedOnClassName(databaseMappingDescriptor.getClassName());
+	public void removeEntityDescriptor(final EntityDescriptor entityDescriptor) {
+		removeEntityDescriptorBasedOnClassName(entityDescriptor.getClassName());
 	}
 	
 	/**
-	 * Get all database mapping objects in sorted order. The order will be as per defined in DatabaseDescriptor.si.xml file.
-	 * @return Iterator which contains all database mapping objects.
+	 * Get all entity descriptor objects in sorted order. The order will be as per defined in DatabaseDescriptor.si.xml file.
+	 * @return Iterator which contains all entity descriptor objects.
 	 */
-	public Iterator<DatabaseMappingDescriptor> orderedDatabaseMappingDescriptors() {
-		Collection<DatabaseMappingDescriptor> orderedDatabaseMappingDescriptors = new LinkedList<DatabaseMappingDescriptor> ();
+	public Iterator<EntityDescriptor> orderedEntityDescriptors() {
+		Collection<EntityDescriptor> orderedEntityDescriptors = new LinkedList<EntityDescriptor> ();
 		
-		for(String databaseMappingDescriptorPath : this.databaseMappingDescriptorPaths) {
-			orderedDatabaseMappingDescriptors.add(getDatabseMappingDescriptorBasedOnPath(databaseMappingDescriptorPath));
+		for(String entityDescriptorPath : this.entityDescriptorPaths) {
+			orderedEntityDescriptors.add(getEntityDescriptorBasedOnPath(entityDescriptorPath));
 		}
  		
-		return orderedDatabaseMappingDescriptors.iterator();
+		return orderedEntityDescriptors.iterator();
 	}
 	
 }

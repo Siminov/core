@@ -28,60 +28,32 @@ public class DataTypeHandler implements IDataTypeHandler {
 	public String convert(String dataType) {
 	
 		/*
-		 * Java Data Type Conversation
+		 * Data Type Conversation
 		 */
-		if(dataType.equalsIgnoreCase(JAVA_INT_PRIMITIVE_DATA_TYPE)) {
+		if(dataType.equalsIgnoreCase(INTEGER_DATA_TYPE)) {
 			return SQLITE_INTEGER_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_INTEGER_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(PRIMITIVE_INTEGER_DATA_TYPE)) {
 			return SQLITE_INTEGER_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_LONG_PRIMITIVE_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(LONG_DATA_TYPE)) {
 			return SQLITE_INTEGER_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_LONG_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(PRIMITIVE_LONG_DATA_TYPE)) {
 			return SQLITE_INTEGER_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_FLOAT_PRIMITIVE_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(FLOAT_DATA_TYPE)) {
 			return SQLITE_REAL_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_FLOAT_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(PRIMITIVE_FLOAT_DATA_TYPE)) {
 			return SQLITE_REAL_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_DOUBLE_PRIMITIVE_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(DOUBLE_DATA_TYPE)) {
 			return SQLITE_REAL_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_DOUBLE_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(PRIMITIVE_DOUBLE_DATA_TYPE)) {
 			return SQLITE_REAL_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_BOOLEAN_PRIMITIVE_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(BOOLEAN_DATA_TYPE)) {
 			return SQLITE_TEXT_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_BOOLEAN_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(PRIMITIVE_BOOLEAN_DATA_TYPE)) {
 			return SQLITE_TEXT_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_CHAR_PRIMITIVE_DATA_TYPE)) {
+		} else if(dataType.equalsIgnoreCase(STRING_DATA_TYPE)) {
 			return SQLITE_TEXT_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_CHARACTER_DATA_TYPE)) {
-			return SQLITE_TEXT_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_STRING_DATA_TYPE)) {
-			return SQLITE_TEXT_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_BYTE_PRIMITITVE_DATA_TYPE)) {
-			return SQLITE_NONE_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_BYTE_DATA_TYPE)) {
-			return SQLITE_NONE_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_VOID_PRIMITITVE_DATA_TYPE)) {
-			return SQLITE_NONE_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_VOID_DATA_TYPE)) {
-			return SQLITE_NONE_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_SHORT_PRIMITITVE_DATA_TYPE)) {
-			return SQLITE_INTEGER_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVA_SHORT_DATA_TYPE)) {
-			return SQLITE_INTEGER_DATA_TYPE;
 		}
 
-		
-		/*
-		 * JavaScript Data Type Conversation
-		 */
-		else if(dataType.equalsIgnoreCase(JAVASCRIPT_STRING_DATA_TYPE)) {
-			return SQLITE_REAL_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVASCRIPT_NUMBER_DATA_TYPE)) {
-			return SQLITE_REAL_DATA_TYPE;
-		} else if(dataType.equalsIgnoreCase(JAVASCRIPT_BOOLEAN_DATA_TYPE)) {
-			return SQLITE_TEXT_DATA_TYPE;
-		}
-		
 		
 		/*
 		 * Other Data Type

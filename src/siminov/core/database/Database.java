@@ -32,7 +32,7 @@ import siminov.core.database.design.ISum;
 import siminov.core.database.design.ITotal;
 import siminov.core.exception.DatabaseException;
 import siminov.core.model.DatabaseDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor;
+import siminov.core.model.EntityDescriptor;
 import siminov.core.resource.ResourceManager;
 
 /**
@@ -87,56 +87,125 @@ public class Database implements IDatabase {
 	   	
 	   	<pre> 
 	  		<ul>
-	  			<li> Describing table structure in form of DATABASE-MAPPING-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.
+	  			<li> Describing table structure in form of ENTITY-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.
 	  				<p>
-SIMINOV will parse each DATABASE-MAPPING-DESCRIPTOR XML defined by developer and create table's in database.
+SIMINOV will parse each ENTITY-DESCRIPTOR XML defined by developer and create table's in database.
 	  				
 Example:
 	{@code
 
-		<database-mapping-descriptor>
+
+<!-- Design Of EntityDescriptor.si.xml -->
+
+<entity-descriptor>
+
+    <!-- General Properties Of Table And Class -->
+    
+    	<!-- Mandatory Field -->
+    		<!-- NAME OF TABLE -->
+    <property name="table_name">name_of_table</property>
+    
+    	<!-- Mandatory Field -->
+    		<!-- MAPPED CLASS NAME -->
+    <property name="class_name">mapped_class_name</property>
+    
+    
+    	<!-- Optional Field -->
+    <attributes>
+        
+	    <!-- Column Properties Required Under This Table -->
+	    
+			<!-- Optional Field -->
+		<attribute>
+		    
+			    <!-- Mandatory Field -->
+					<!-- COLUMN_NAME: Mandatory Field -->
+   		    <property name="column_name">column_name_of_table</property>
+		    			
+    		    <!-- Mandatory Field -->
+					<!-- VARIABLE_NAME: Mandatory Field -->
+		    <property name="variable_name">class_variable_name</property>
+		    		    
+			    <!-- Mandatory Field -->
+			<property name="type">java_variable_data_type</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="primary_key">true/false</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="not_null">true/false</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="unique">true/false</property>
+			
+				<!-- Optional Field -->
+			<property name="check">condition_to_be_checked (Eg: variable_name 'condition' value; variable_name > 0)</property>
+			
+				<!-- Optional Field -->
+			<property name="default">default_value_of_column (Eg: 0.1)</property>
 		
-			<entity table_name="LIQUOR" class_name="siminov.core.sample.model.Liquor">
+		</attribute>		
+
+    </attributes>
+		
+		
+		<!-- Optional Field -->
+    <indexes>
+        
+		<!-- Index Properties -->
+		<index>
+		    
+			    <!-- Mandatory Field -->
+			    	<!-- NAME OF INDEX -->
+		    <property name="name">name_of_index</property>
+		    
+			    <!-- Mandatory Field -->
+					<!-- UNIQUE: Optional Field (Default is false) -->
+		    <property name="unique">true/false</property>
+		    
+		    	<!-- Optional Field -->
+		    		<!-- Name of the column -->
+		    <property name="column">column_name_needs_to_add</property>
+		    
+		</index>
+        
+    </indexes>
+    
+		
+	<!-- Map Relationship Properties -->
 				
-				<attribute variable_name="liquorType" column_name="LIQUOR_TYPE">
-					<property name="type">java.lang.String</property>
-					<property name="primary_key">true</property>
-					<property name="not_null">true</property>
-					<property name="unique">true</property>
-				</attribute>		
+		<!-- Optional Field's -->	
+	<relationships>
+		    
+	    <relationship>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- Type of Relationship -->
+	        <property name="type">one-to-one|one-to-many|many-to-one|many-to-many</property>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- REFER -->
+	        <property name="refer">class_variable_name</property>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- REFER TO -->
+	        <property name="refer_to">map_to_class_name</property>
+	            
+	        	<!-- Optional Field -->
+	        <property name="on_update">cascade/restrict/no_action/set_null/set_default</property>    
+	            
+	        	<!-- Optional Field -->    
+	        <property name="on_delete">cascade/restrict/no_action/set_null/set_default</property>    
+	            
+				<!-- Optional Field (Default is false) -->
+	       	<property name="load">true/false</property>	            
+	        
+	    </relationship>
+	    
+	</relationships>
+
+</entity-descriptor>
 		
-				<attribute variable_name="description" column_name="DESCRIPTION">
-					<property name="type">java.lang.String</property>
-				</attribute>
-		
-				<attribute variable_name="history" column_name="HISTORY">
-					<property name="type">java.lang.String</property>
-				</attribute>
-		
-				<attribute variable_name="link" column_name="LINK">
-					<property name="type">java.lang.String</property>
-					<property name="default">www.wikipedia.org</property>
-				</attribute>
-		
-				<attribute variable_name="alcholContent" column_name="ALCHOL_CONTENT">
-					<property name="type">java.lang.String</property>
-				</attribute>
-		
-				<index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true">
-					<attribute>HISTORY</attribute>
-				</index>
-		
-				<relationships>
-		
-				    <one-to-many refer="liquorBrands" refer_to="siminov.core.sample.model.LiquorBrand" on_update="cascade" on_delete="cascade">
-						<property name="load">true</property>
-					</one-to-many>		
-				    
-				</relationships>
-													
-			</entity>
-		
-		</database-mapping-descriptor>		
 	}
 					</p>
 	  			</li>
@@ -147,11 +216,11 @@ Example:
 	 * @throws DatabaseException If not able to create table in SQLite.
 	 */
 	public void createTable() throws DatabaseException {
-		DatabaseHelper.createTable(getDatabaseMappingDescriptor());
+		DatabaseHelper.createTable(getEntityDescriptor());
 	}
 
 	/**
-	 * It drop's the table from database based on database-mapping.
+	 * It drop's the table from database based on entity descriptor.
 	  	<p>
 			<pre> Drop the Liquor table.
 	
@@ -173,7 +242,7 @@ Example:
 	 * @throws DatabaseException If not able to drop table.
 	 */
 	public void dropTable() throws DatabaseException {
-		DatabaseHelper.dropTable(getDatabaseMappingDescriptor());
+		DatabaseHelper.dropTable(getEntityDescriptor());
 	}
 
 	/**
@@ -200,7 +269,7 @@ Example:
 	 * @throws DatabaseException If not able to drop index on table.
 	 */
 	public void dropIndex(String indexName) throws DatabaseException {
-		DatabaseHelper.dropIndex(getDatabaseMappingDescriptor(), indexName);
+		DatabaseHelper.dropIndex(getEntityDescriptor(), indexName);
 	}
 	
 
@@ -227,7 +296,7 @@ try {
 	 	@throws DatabaseException If any error occur while getting tuples from a single table.
 	 */
 	public ISelect select() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), ISelect.class.getName(), this);
+		return new Where(getEntityDescriptor(), ISelect.class.getName(), this);
 	}
 
 	/**
@@ -409,9 +478,9 @@ try {
 	public IDelete delete() throws DatabaseException {
 		
 		if(object != null) {
-			return new Where(getDatabaseMappingDescriptor(), IDelete.class.getName(), object);
+			return new Where(getEntityDescriptor(), IDelete.class.getName(), object);
 		} else {
-			return new Where(getDatabaseMappingDescriptor(), IDelete.class.getName(), this);
+			return new Where(getEntityDescriptor(), IDelete.class.getName(), this);
 		}
 	}
 
@@ -445,7 +514,7 @@ try {
    	@throws DatabaseException If any error occurs while getting count of tuples from database.
 	 */
 	public ICount count() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), ICount.class.getName());
+		return new Where(getEntityDescriptor(), ICount.class.getName());
 	}
 
 	/**
@@ -478,7 +547,7 @@ try {
    	@throws DatabaseException If any error occurs while getting average from database.
 	 */
 	public IAverage avg() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), IAverage.class.getName());
+		return new Where(getEntityDescriptor(), IAverage.class.getName());
 	}
 
 	/**
@@ -511,7 +580,7 @@ try {
    	@throws DatabaseException If any error occurs while getting sum from database.
 	 */
 	public ISum sum() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), ISum.class.getName());
+		return new Where(getEntityDescriptor(), ISum.class.getName());
 	}
 
 	/**
@@ -544,7 +613,7 @@ try {
    	@throws DatabaseException If any error occurs while getting total tuples from database.
 	 */
 	public ITotal total() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), ITotal.class.getName());
+		return new Where(getEntityDescriptor(), ITotal.class.getName());
 	}
 
 	/**
@@ -577,7 +646,7 @@ try {
    	@throws DatabaseException If any error occurs while getting min from database.
 	 */
 	public IMin min() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), IMin.class.getName());
+		return new Where(getEntityDescriptor(), IMin.class.getName());
 	}
 
 	/**
@@ -610,7 +679,7 @@ try {
    	@throws DatabaseException If any error occurs while getting max from database.
 	 */
 	public IMax max() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), IMax.class.getName());
+		return new Where(getEntityDescriptor(), IMax.class.getName());
 	}
 
 	/**
@@ -643,7 +712,7 @@ try {
    	@throws DatabaseException If any error occurs while getting group concat from database.
 	 */
 	public IGroupConcat groupConcat() throws DatabaseException {
-		return new Where(getDatabaseMappingDescriptor(), IGroupConcat.class.getName());
+		return new Where(getEntityDescriptor(), IGroupConcat.class.getName());
 	}
 
 	/**
@@ -675,16 +744,16 @@ Example:
 	}
 
 	/**
- 	Returns the actual database mapping object mapped for invoked class object.
+ 	Returns the actual entity descriptor object mapped for invoked class object.
  
  	<pre>
  	
 Example:
 {@code
  			
-DatabaseMapping databaseMapping = null;
+EntityDescriptor entityDescriptor = null;
 try {
-	databaseMapping = new Liquor().getDatabaseMapping();
+	databaseMapping = new Liquor().getEntityDescriptor();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -693,15 +762,15 @@ try {
 		
  	</pre>
  	
- 	@return DatabaseMapping Object
- 	@throws DatabaseException If database mapping object not mapped for invoked class object.
+ 	@return EntityDescriptor Object
+ 	@throws DatabaseException If entity descriptor object not mapped for invoked class object.
 	 */
-	public DatabaseMappingDescriptor getDatabaseMappingDescriptor() throws DatabaseException {
+	public EntityDescriptor getEntityDescriptor() throws DatabaseException {
 
 		if(object != null) {
-			return DatabaseHelper.getDatabaseMappingDescriptor(object.getClass().getName());
+			return DatabaseHelper.getEntityDescriptor(object.getClass().getName());
 		} else {
-			return DatabaseHelper.getDatabaseMappingDescriptor(this.getClass().getName());
+			return DatabaseHelper.getEntityDescriptor(this.getClass().getName());
 		}
 	}
 

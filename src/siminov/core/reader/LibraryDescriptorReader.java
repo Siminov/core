@@ -50,13 +50,13 @@ Example:
 	
 		
 		
-		<!-- Database Mappings Needed Under This Library Descriptor -->
+		<!-- Entity Descriptors Needed Under This Library Descriptor -->
 		
 		<!-- Optional Field -->
-			<!-- Database Mapping Descriptors -->
-		<database-mapping-descriptors>
-			<database-mapping-descriptor>name_of_database_descriptor.full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
-		</database-mapping-descriptors>
+			<!-- Entity Descriptors -->
+		<entity-descriptors>
+			<entity-descriptor>name_of_database_descriptor.full_path_of_entity_descriptor_file</entity-descriptor>
+		</entity-descriptors>
 		 
 	</library-descriptor>
 
@@ -135,8 +135,8 @@ public class LibraryDescriptorReader extends SiminovSAXDefaultHandler implements
 		
 		if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_PROPERTY)) {
 			libraryDescriptor.addProperty(propertyName, tempValue.toString());
-		} else if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR)) {
-			libraryDescriptor.addDatabaseMappingPath(tempValue.toString());
+		} else if(localName.equalsIgnoreCase(LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR)) {
+			libraryDescriptor.addEntityDescriptorPath(tempValue.toString());
 		}
 	}
 	

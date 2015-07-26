@@ -38,10 +38,10 @@ import siminov.core.exception.DeploymentException;
 import siminov.core.exception.SiminovException;
 import siminov.core.log.Log;
 import siminov.core.model.DatabaseDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor.Attribute;
-import siminov.core.model.DatabaseMappingDescriptor.Index;
-import siminov.core.model.DatabaseMappingDescriptor.Relationship;
+import siminov.core.model.EntityDescriptor;
+import siminov.core.model.EntityDescriptor.Attribute;
+import siminov.core.model.EntityDescriptor.Index;
+import siminov.core.model.EntityDescriptor.Relationship;
 import siminov.core.resource.ResourceManager;
 import siminov.core.utils.ClassUtils;
 
@@ -122,17 +122,17 @@ public abstract class DatabaseHelper implements Constants {
 			return;
 		}
 		
-		Collection<DatabaseMappingDescriptor> allDatabaseMappingDescriptor = new ArrayList<DatabaseMappingDescriptor>();
-		Iterator<DatabaseMappingDescriptor> allDatabaseMappingDescriptorIterator = resourceManager.getDatabaseMappingDescriptors();
-		while(allDatabaseMappingDescriptorIterator.hasNext()) {
-			allDatabaseMappingDescriptor.add(allDatabaseMappingDescriptorIterator.next());
+		Collection<EntityDescriptor> allEntityDescriptor = new ArrayList<EntityDescriptor>();
+		Iterator<EntityDescriptor> allEntityDescriptorIterator = resourceManager.getEntityDescriptors();
+		while(allEntityDescriptorIterator.hasNext()) {
+			allEntityDescriptor.add(allEntityDescriptorIterator.next());
 		}
 		
 		
 		
 		Collection<String> tableNames = new ArrayList<String>();
 
-		Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors = databaseDescriptor.getDatabaseMappingDescriptors();
+		Iterator<EntityDescriptor> entityDescriptors = databaseDescriptor.getEntityDescriptors();
 
 		/*
 		 * Get Table Names
@@ -158,22 +158,22 @@ public abstract class DatabaseHelper implements Constants {
 		/*
 		 * Create Or Upgrade Table
 		 */
-		while(databaseMappingDescriptors.hasNext()) {
-			DatabaseMappingDescriptor databaseMappingDescriptor = databaseMappingDescriptors.next();
+		while(entityDescriptors.hasNext()) {
+			EntityDescriptor entityDescriptor = entityDescriptors.next();
 			
 			boolean contain = false;
 			for(String tableName: tableNames) {
 				
-				if(tableName.equalsIgnoreCase(databaseMappingDescriptor.getTableName())) {
+				if(tableName.equalsIgnoreCase(entityDescriptor.getTableName())) {
 					contain = true;
 					break;
 				}
 			}
 			
 			if(contain) {
-				DatabaseHelper.upgradeTable(databaseMappingDescriptor);
+				DatabaseHelper.upgradeTable(entityDescriptor);
 			} else {
-				DatabaseHelper.createTable(databaseMappingDescriptor);
+				DatabaseHelper.createTable(entityDescriptor);
 			}
 		}
 		
@@ -189,9 +189,9 @@ public abstract class DatabaseHelper implements Constants {
 			
 			boolean contain = false;
 			
-			for(DatabaseMappingDescriptor databaseMappingDescriptor: allDatabaseMappingDescriptor) {
+			for(EntityDescriptor entityDescriptor: allEntityDescriptor) {
 				
-				if(tableName.equalsIgnoreCase(databaseMappingDescriptor.getTableName())) {
+				if(tableName.equalsIgnoreCase(entityDescriptor.getTableName())) {
 					contain = true;
 					break;
 				}
@@ -224,25 +224,25 @@ public abstract class DatabaseHelper implements Constants {
 	
 	/**
 	 * Upgrade Table.
-	 * @param databaseMappingDescriptor object related to table.
+	 * @param entityDescriptor object related to table.
 	 * @throws DatabaseException If any exception thrown while upgrading table.
 	 */
-	public static void upgradeTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	public static void upgradeTable(final EntityDescriptor entityDescriptor) throws DatabaseException {
 
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + databaseMappingDescriptor.getTableName());
-			throw new DatabaseException(DatabaseHelper.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + databaseMappingDescriptor.getTableName());
+			Log.error(DatabaseHelper.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + entityDescriptor.getTableName());
+			throw new DatabaseException(DatabaseHelper.class.getName(), "upgradeTable", "No Database Instance Found For, TABLE-NAME: " + entityDescriptor.getTableName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(IQueryBuilder.FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_TABLE_INFO_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		
 		String tableInfoQuery = queryBuilder.formTableInfoQuery(parameters);
 		Log.debug(DatabaseHelper.class.getName(), "upgradeTable", "Table Info Query: " + tableInfoQuery);
@@ -250,7 +250,7 @@ public abstract class DatabaseHelper implements Constants {
 		
 		Collection<Attribute> newAttributes = new ArrayList<Attribute>();
 		Collection<String> oldAttributes = new ArrayList<String>();
-		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 		
 
 		Iterator<Map<String, Object>> datas = database.executeSelectQuery(null, null, tableInfoQuery);
@@ -291,7 +291,7 @@ public abstract class DatabaseHelper implements Constants {
 			String columnName = column.getColumnName();
 			
 			parameters = new HashMap<String, Object>();
-			parameters.put(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+			parameters.put(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 			parameters.put(IQueryBuilder.FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER, columnName);
 			
 			String addColumnQuery = queryBuilder.formAlterAddColumnQuery(parameters);
@@ -310,56 +310,125 @@ public abstract class DatabaseHelper implements Constants {
 	   	
 	   	<pre> 
 	  		<ul>
-	  			<li> Describing table structure in form of DATABASE-MAPPING-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.
+	  			<li> Describing table structure in form of ENTITY-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.
 	  				<p>
-SIMINOV will parse each DATABASE-MAPPING-DESCRIPTOR XML defined by developer and create table's in database.
+SIMINOV will parse each ENTITY-DESCRIPTOR XML defined by developer and create table's in database.
 	  				
 Example:
 	{@code
 		
-		<database-mapping-descriptor>
+
+<!-- Design Of EntityDescriptor.si.xml -->
+
+<entity-descriptor>
+
+    <!-- General Properties Of Table And Class -->
+    
+    	<!-- Mandatory Field -->
+    		<!-- NAME OF TABLE -->
+    <property name="table_name">name_of_table</property>
+    
+    	<!-- Mandatory Field -->
+    		<!-- MAPPED CLASS NAME -->
+    <property name="class_name">mapped_class_name</property>
+    
+    
+    	<!-- Optional Field -->
+    <attributes>
+        
+	    <!-- Column Properties Required Under This Table -->
+	    
+			<!-- Optional Field -->
+		<attribute>
+		    
+			    <!-- Mandatory Field -->
+					<!-- COLUMN_NAME: Mandatory Field -->
+   		    <property name="column_name">column_name_of_table</property>
+		    			
+    		    <!-- Mandatory Field -->
+					<!-- VARIABLE_NAME: Mandatory Field -->
+		    <property name="variable_name">class_variable_name</property>
+		    		    
+			    <!-- Mandatory Field -->
+			<property name="type">java_variable_data_type</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="primary_key">true/false</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="not_null">true/false</property>
+			
+				<!-- Optional Field (Default is false) -->
+			<property name="unique">true/false</property>
+			
+				<!-- Optional Field -->
+			<property name="check">condition_to_be_checked (Eg: variable_name 'condition' value; variable_name > 0)</property>
+			
+				<!-- Optional Field -->
+			<property name="default">default_value_of_column (Eg: 0.1)</property>
 		
-			<entity table_name="LIQUOR" class_name="siminov.core.sample.model.Liquor">
+		</attribute>		
+
+    </attributes>
+		
+		
+		<!-- Optional Field -->
+    <indexes>
+        
+		<!-- Index Properties -->
+		<index>
+		    
+			    <!-- Mandatory Field -->
+			    	<!-- NAME OF INDEX -->
+		    <property name="name">name_of_index</property>
+		    
+			    <!-- Mandatory Field -->
+					<!-- UNIQUE: Optional Field (Default is false) -->
+		    <property name="unique">true/false</property>
+		    
+		    	<!-- Optional Field -->
+		    		<!-- Name of the column -->
+		    <property name="column">column_name_needs_to_add</property>
+		    
+		</index>
+        
+    </indexes>
+    
+		
+	<!-- Map Relationship Properties -->
 				
-				<attribute variable_name="liquorType" column_name="LIQUOR_TYPE">
-					<property name="type">java.lang.String</property>
-					<property name="primary_key">true</property>
-					<property name="not_null">true</property>
-					<property name="unique">true</property>
-				</attribute>		
-		
-				<attribute variable_name="description" column_name="DESCRIPTION">
-					<property name="type">java.lang.String</property>
-				</attribute>
-		
-				<attribute variable_name="history" column_name="HISTORY">
-					<property name="type">java.lang.String</property>
-				</attribute>
-		
-				<attribute variable_name="link" column_name="LINK">
-					<property name="type">java.lang.String</property>
-					<property name="default">www.wikipedia.org</property>
-				</attribute>
-		
-				<attribute variable_name="alcholContent" column_name="ALCHOL_CONTENT">
-					<property name="type">java.lang.String</property>
-				</attribute>
-		
-				<index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true">
-					<attribute>HISTORY</attribute>
-				</index>
-		
-				<relationships>
-		
-				    <one-to-many refer="liquorBrands" refer_to="siminov.core.sample.model.LiquorBrand" on_update="cascade" on_delete="cascade">
-						<property name="load">true</property>
-					</one-to-many>		
-				    
-				</relationships>
-													
-			</entity>
-		
-		</database-mapping-descriptor>		
+		<!-- Optional Field's -->	
+	<relationships>
+		    
+	    <relationship>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- Type of Relationship -->
+	        <property name="type">one-to-one|one-to-many|many-to-one|many-to-many</property>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- REFER -->
+	        <property name="refer">class_variable_name</property>
+	        
+	        	<!-- Mandatory Field -->
+	        		<!-- REFER TO -->
+	        <property name="refer_to">map_to_class_name</property>
+	            
+	        	<!-- Optional Field -->
+	        <property name="on_update">cascade/restrict/no_action/set_null/set_default</property>    
+	            
+	        	<!-- Optional Field -->    
+	        <property name="on_delete">cascade/restrict/no_action/set_null/set_default</property>    
+	            
+				<!-- Optional Field (Default is false) -->
+	       	<property name="load">true/false</property>	            
+	        
+	    </relationship>
+	    
+	</relationships>
+
+</entity-descriptor>
+	
 			}
 					</p>
 	  			</li>
@@ -367,20 +436,20 @@ Example:
 	  	</pre>
 	  </p>
 	  
-	 * @param databaseMappingDescriptors Database-mapping objects which defines the structure of each table.
+	 * @param entityDescriptors Entity Descriptor objects which defines the structure of each table.
 	 * @throws DatabaseException If not able to create table in SQLite.
 	 */
-	public static void createTables(final Iterator<DatabaseMappingDescriptor> databaseMappingDescriptors) throws DatabaseException {
+	public static void createTables(final Iterator<EntityDescriptor> entityDescriptors) throws DatabaseException {
 
-		while(databaseMappingDescriptors.hasNext()) {
-			createTable(databaseMappingDescriptors.next());
+		while(entityDescriptors.hasNext()) {
+			createTable(entityDescriptors.next());
 		}
 	}
 
 	/**
 	   Is used to create a new table in an database.
 	  	<p>
-			<pre> Manually creating table structure using DatabaseMapping POJO class. 
+			<pre> Manually creating table structure using Entity Descriptor mapped class. 
   					
 	Example: 
 	
@@ -389,7 +458,7 @@ Example:
 		Liquor liquor = new Liquor();
 		
 		try {
-			Database.createTables(liquor.getDatabaseMappingDescriptor());
+			Database.createTables(liquor.getEntityDescriptor());
 		} catch(DatabaseException databaseException) {
 			//Log It.
 		}
@@ -397,10 +466,10 @@ Example:
 		}
 			</pre>
 		</p>
-	 * @param databaseMappingDescriptor Database-mapping object which defines the structure of table.
+	 * @param entityDescriptor Entity Descriptor object which defines the structure of table.
 	 * @throws DatabaseException If not able to create table in SQLite.
 	 */
-	public static void createTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	public static void createTable(final EntityDescriptor entityDescriptor) throws DatabaseException {
 
 		/*
 		 * 1. Get IDatabase with respect to current database mapping class name.
@@ -423,7 +492,7 @@ Example:
 		 * 
 		 */
 
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 
 		IDatabaseImpl database = databaseBundle.getDatabase();
@@ -431,11 +500,11 @@ Example:
 		IDataTypeHandler dataTypeHandler = databaseBundle.getDataTypeHandler();
 		
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 		
-		String tableName = databaseMappingDescriptor.getTableName();
+		String tableName = entityDescriptor.getTableName();
 
 		/*
 		 * Get all attributes and properties from database mapping. 
@@ -452,7 +521,7 @@ Example:
 		Collection<String> primaryKeys = new LinkedList<String>();
 		Collection<String> uniqueKeys = new LinkedList<String>();
 		
-		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 
 		while(attributes.hasNext()) {
 			Attribute attribute = attributes.next();
@@ -480,21 +549,21 @@ Example:
 		/*
 		 * Add All Relationships
 		 */
-		Iterator<Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
-		Iterator<Relationship> oneToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+		Iterator<Relationship> oneToOneRelationships = entityDescriptor.getOneToOneRelationships();
+		Iterator<Relationship> oneToManyRelationships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 
 		
 		while(oneToOneRelationships.hasNext()) {
 			Relationship oneToOneRelationship = oneToOneRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
-				oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = oneToOneRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(oneToOneRelationship.getReferTo());
+				oneToOneRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 			
 			
-			Collection<Attribute> foreignAttributes = getForeignKeys(referedDatabaseMappingDescriptor);
+			Collection<Attribute> foreignAttributes = getForeignKeys(referedEntityDescriptor);
 			Iterator<Attribute> foreignAttributesIterator = foreignAttributes.iterator();
 			
 			while(foreignAttributesIterator.hasNext()) {
@@ -522,13 +591,13 @@ Example:
 		
 		while(oneToManyRelationships.hasNext()) {
 			Relationship oneToManyRelationship = oneToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
+				oneToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 
-			Collection<Attribute> foreignAttributes = getForeignKeys(referedDatabaseMappingDescriptor);
+			Collection<Attribute> foreignAttributes = getForeignKeys(referedEntityDescriptor);
 			Iterator<Attribute> foreignAttributesIterator = foreignAttributes.iterator();
 			
 			while(foreignAttributesIterator.hasNext()) {
@@ -555,13 +624,13 @@ Example:
 		
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
-				manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(manyToManyRelationship.getReferTo());
+				manyToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -594,7 +663,7 @@ Example:
 		String foreignKeys = "";
 		
 		Map<String, Object> parameters = new HashMap<String, Object> ();
-		parameters.put(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER, databaseMappingDescriptor);
+		parameters.put(IQueryBuilder.FORM_FOREIGN_KEYS_DATABASE_DESCRIPTOR_PARAMETER, entityDescriptor);
 		
 		foreignKeys = queryBuilder.formForeignKeyQuery(parameters);
 
@@ -616,13 +685,13 @@ Example:
 		parameters.put(IQueryBuilder.FORM_CREATE_TABLE_QUERY_FOREIGN_KEYS_PARAMETER, foreignKeys);
 		
 		String query = queryBuilder.formCreateTableQuery(parameters);
-		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		database.executeQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		
 		
 		/*
 		 * Create Index for table if its defined.
 		 */
-		Iterator<Index> indexes = databaseMappingDescriptor.getIndexes();
+		Iterator<Index> indexes = entityDescriptor.getIndexes();
 		while(indexes.hasNext()) {
 			
 			/*
@@ -632,26 +701,26 @@ Example:
 			 * After forming index query call executeQuery method to create index.
 			 */
 			
-			createIndex(databaseMappingDescriptor, indexes.next());
+			createIndex(entityDescriptor, indexes.next());
 		}
 
 		IDatabaseEvents databaseEventHandler = resourceManager.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
-			databaseEventHandler.onTableCreated(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor);
+			databaseEventHandler.onTableCreated(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor);
 		}
 	}
 
 	/**
-	 * It drop's the table from database based on database mapping descriptor.
+	 * It drop's the table from database based on entity descriptor.
 	  	<p>
 			<pre> Drop the Liquor table.
 	
 	{@code
 	
-	DatabaseMappingDescriptor databaseMappingDescriptor = new Liquor().getDatabaseMappingDescriptor();
+	EntityDescriptor entityDescriptor = new Liquor().getEntityDescriptor();
 	
 	try {
-		Database.dropTable(databaseMappingDescriptor);
+		Database.dropTable(entityDescriptor);
 	} catch(DatabaseException databaseException) {
 		//Log It.
 	}
@@ -660,36 +729,36 @@ Example:
 	
 			</pre>
 		</p>
-	 * @param databaseMappingDescriptor Database-mapping object which defines the structure of table.
+	 * @param entityDescriptor Entity Descriptor object which defines the structure of table.
 	 * @throws DatabaseException If not able to drop table.
 	 */
-	static void dropTable(final DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
+	static void dropTable(final EntityDescriptor entityDescriptor) throws DatabaseException {
 
 		Siminov.isActive();
 
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "dropTable", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "dropTable", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "dropTable", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 		
 
-		String tableName = databaseMappingDescriptor.getTableName();
+		String tableName = entityDescriptor.getTableName();
 		
 		Map<String, Object> parameters = new HashMap<String, Object> ();
 		parameters.put(IQueryBuilder.FORM_DROP_TABLE_QUERY_TABLE_NAME_PARAMETER, tableName);
 
-		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formDropTableQuery(parameters));
+		database.executeQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, queryBuilder.formDropTableQuery(parameters));
 		
 		IDatabaseEvents databaseEventHandler = resourceManager.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
-			databaseEventHandler.onTableDropped(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor);
+			databaseEventHandler.onTableDropped(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor);
 		}
 	}
 	
@@ -701,17 +770,17 @@ Example:
 	
 	{@code
 	
-	DatabaseMapping.Index indexOnLiquor = databaseMapping.new Index();
+	EntityDescriptor.Index indexOnLiquor = entityDescriptor.new Index();
 	indexOnLiquor.setName("LIQUOR_INDEX_BASED_ON_LINK");
 	indexOnLiquor.setUnique(true);
 	
 	//Add Columns on which we need index.
 	indexOnLiquor.addColumn("LINK");
 
-	DatabaseMapping databaseMapping = new Liquor().getDatabaseMapping();
+	EntityDescriptor entityDescriptor = new Liquor().getEntityDescriptor();
 
 	try {
-		Database.createIndex(databaseMapping, indexOnLiquor);
+		Database.createIndex(entityDescriptor, indexOnLiquor);
 	} catch(DatabaseException databaseException) {
 		//Log It.
 	}
@@ -719,17 +788,17 @@ Example:
 	}
 			</pre>
 		</p>
-	 * @param databaseMappingDescriptor Database-mapping object which defines the structure of table.
+	 * @param entityDescriptor Entity Descriptor object which defines the structure of table.
 	 * @param index Index object which defines the structure of index needs to create.
 	 * @throws DatabaseException If not able to create index on table.
 	 */
-	static void createIndex(final DatabaseMappingDescriptor databaseMappingDescriptor, final Index index) throws DatabaseException {
+	static void createIndex(final EntityDescriptor entityDescriptor, final Index index) throws DatabaseException {
 		
 		String indexName = index.getName();
 		Iterator<String> columnNames = index.getColumns();
 		boolean isUnique = index.isUnique();
 
-		createIndex(databaseMappingDescriptor, indexName, columnNames, isUnique);
+		createIndex(entityDescriptor, indexName, columnNames, isUnique);
 	}
 
 	/**
@@ -754,23 +823,23 @@ Example:
 	}
 			</pre>
 		</p>
-	 * @param databaseMappingDescriptor Database-mapping object which defines the structure of table.
+	 * @param entityDescriptor Entity Descriptor object which defines the structure of table.
 	 * @param indexName Name of index.
 	 * @param columnNames Iterator over column names.
 	 * @param isUnique true/false whether index needs to be unique or not. (A unique index guarantees that the index key contains no duplicate values and therefore every row in the table is in some way unique.)
 	 * @throws DatabaseException If not able to create index on table.
 	 */
-	static void createIndex(final DatabaseMappingDescriptor databaseMappingDescriptor, final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
+	static void createIndex(final EntityDescriptor entityDescriptor, final String indexName, final Iterator<String> columnNames, final boolean isUnique) throws DatabaseException {
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "createIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "createIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "createIndex", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "createIndex", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		final Collection<String> columnNamesCollection = new ArrayList<String> ();
@@ -782,13 +851,13 @@ Example:
 		
 		Map<String, Object> parameters = new HashMap<String, Object> ();
 		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_INDEX_NAME_PARAMETER, indexName);
-		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_COLUMN_NAMES_PARAMETER, columnNamesCollection.iterator());
 		parameters.put(IQueryBuilder.FORM_CREATE_INDEX_QUERY_IS_UNIQUE_PARAMETER, isUnique);
 		
 		
 		String query = queryBuilder.formCreateIndexQuery(parameters);
-		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		database.executeQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		
 		IDatabaseEvents databaseEventHandler = resourceManager.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
@@ -801,7 +870,7 @@ Example:
 				index.addColumn(columnNamesIterator.next());
 			}
 			
-			databaseEventHandler.onIndexCreated(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, index);
+			databaseEventHandler.onIndexCreated(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, index);
 		}
 	}
 
@@ -824,37 +893,37 @@ Example:
 	}
 			</pre>
 		</p>
-	 * @param databaseMappingDescriptor Database-mapping object which defines the structure of table.
+	 * @param entityDescriptor Entity Descriptor object which defines the structure of table.
 	 * @param indexName Name of a index needs to be drop.
 	 * @throws DatabaseException If not able to drop index on table.
 	 */
-	static void dropIndex(final DatabaseMappingDescriptor databaseMappingDescriptor, final String indexName) throws DatabaseException {
+	static void dropIndex(final EntityDescriptor entityDescriptor, final String indexName) throws DatabaseException {
 		Siminov.isActive();
 
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 		
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "dropIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
-			throw new DeploymentException(DatabaseHelper.class.getName(), "dropIndex", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
+			Log.error(DatabaseHelper.class.getName(), "dropIndex", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
+			throw new DeploymentException(DatabaseHelper.class.getName(), "dropIndex", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName() + ", " + " INDEX-NAME: " + indexName);
 		}
 
 		
 		
 		Map<String, Object> parameters = new HashMap<String, Object> ();
-		parameters.put(IQueryBuilder.FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_DROP_INDEX_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_DROP_INDEX_QUERY_INDEX_NAME_PARAMETER, indexName);
 
 		
 		String query = queryBuilder.formDropIndexQuery(parameters);
-		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		database.executeQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		
 		IDatabaseEvents databaseEventHandler = resourceManager.getDatabaseEventHandler();
 		if(databaseEventHandler != null) {
-			databaseEventHandler.onIndexDropped(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, databaseMappingDescriptor.getIndex(indexName));
+			databaseEventHandler.onIndexDropped(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, entityDescriptor.getIndex(indexName));
 		}
 	}
 	
@@ -877,7 +946,7 @@ Example:
 	}
 			</pre>
 		</p>
-	 * @param databaseMapping Database-mapping object which defines the structure of table.
+	 * @param databaseDescriptor Database Descriptor object which defines the structure of table.
 	 * @throws DatabaseException If not able to drop database.
 	 */
 	static void dropDatabase(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
@@ -1067,7 +1136,7 @@ Example:
 	}
 	
 	
-	static Object[] select(final Object object, final Object parentObject, final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
+	static Object[] select(final Object object, final Object parentObject, final EntityDescriptor entityDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
@@ -1082,15 +1151,15 @@ Example:
 		/*
 		 * 1. Get database mapping object for mapped invoked class object.
 		 */
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 		
 		/*
@@ -1098,7 +1167,7 @@ Example:
 		 */
 
 		Map<String, Object> parameters = new HashMap<String, Object> ();
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_DISTINCT_PARAMETER, distinct);
 		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
 		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER, columnNames);
@@ -1109,13 +1178,13 @@ Example:
 		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_LIMIT_PARAMETER, limit);
 		
 		
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, queryBuilder.formSelectQuery(parameters));
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, queryBuilder.formSelectQuery(parameters));
 		Collection<Map<String, Object>> datasBundle = new LinkedList<Map<String,Object>>();
 		while(datas.hasNext()) {
 			datasBundle.add(datas.next());
 		}
 		
-		Iterator<Object> tuples = parseAndInflateData(object, parentObject, databaseMappingDescriptor, datasBundle.iterator());
+		Iterator<Object> tuples = parseAndInflateData(object, parentObject, entityDescriptor, datasBundle.iterator());
 		datas = datasBundle.iterator();	
 		
 		/*
@@ -1144,10 +1213,10 @@ Example:
 		
 		Class<?> classObject = null;
 		try {
-			classObject = Class.forName(databaseMappingDescriptor.getClassName());
+			classObject = Class.forName(entityDescriptor.getClassName());
 		} catch(Exception exception) {
-			Log.error(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DatabaseException(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DatabaseException(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 		
 		Object returnType = Array.newInstance(classObject, tuplesCollection.size());
@@ -1162,80 +1231,6 @@ Example:
 		return returnTypes;
 	}
 
-	/*static Object[] lazyFetch(final DatabaseMappingDescriptor databaseMappingDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
-		/*
-		 * 1. Get database mapping object for mapped invoked class object.
-		 * 2. Traverse group by's and form a single string.
-		 * 3. Traverse order by'z and form a single string.
-		 * 4. Pass all parameters to executeFetchQuery and get cursor.
-		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
-		 * 6. Check for relationship's if any, IF EXISTS: process it, ELSE: return all objects.
-		 *
-		
-		Siminov.isActive();
-		
-		/*
-		 * 1. Get database mapping object for mapped invoked class object.
-		 *
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
-		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		
-		IDatabaseImpl database = databaseBundle.getDatabase();
-		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
-		
-		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "lazyFetch", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "lazyFetch", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-		}
-		
-		/*
-		 * 4. Pass all parameters to executeFetchQuery and get cursor.
-		 *
-		
-		Map<String, Object> parameters = new HashMap<String, Object> ();
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_DISTINCT_PARAMETER, distinct);
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_COLUMN_NAMES_PARAMETER, columnNames);
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_GROUP_BYS_PARAMETER, groupBy);
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_HAVING_PARAMETER, having);
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_ORDER_BYS_PARAMETER, orderBy);
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_WHICH_ORDER_BY_PARAMETER, whichOrderBy);
-		parameters.put(IQueryBuilder.FORM_SELECT_QUERY_LIMIT_PARAMETER, limit);
-		
-		
-		String query = queryBuilder.formSelectQuery(parameters);
-		Iterator<Object> tuples = parseAndInflateData(databaseMappingDescriptor, database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query));
-			
-		/*
-		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
-		 *
-		
-		Collection<Object> tuplesCollection = new LinkedList<Object> ();
-		while(tuples.hasNext()) {
-			Object tuple = tuples.next();
-			tuplesCollection.add(tuple);
-		}
-
-		Class<?> classObject = null;
-		try {
-			classObject = Class.forName(databaseMappingDescriptor.getClassName());
-		} catch(Exception exception) {
-			Log.error(DatabaseHelper.class.getName(), "lazyFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DatabaseException(DatabaseHelper.class.getName(), "lazyFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-		}
-		
-		Object returnType = Array.newInstance(classObject, tuplesCollection.size());
-		Iterator<Object> tuplesIterator = tuplesCollection.iterator();
-		
-		int index = 0;
-		while(tuplesIterator.hasNext()) {
-			Array.set(returnType, index++, tuplesIterator.next());
-		}
-		
-		Object[] returnTypes = (Object[]) returnType;
-		return returnTypes;
-	}*/
 	
 	/**
 	 	Returns all tuples based on manual query from mapped table for invoked class object.
@@ -1359,7 +1354,7 @@ Example: Make Liquor Object
 		Siminov.isActive();
 		
 		/*
-		 * 1. Get mapped database mapping object for object parameter class name.
+		 * 1. Get mapped entity descriptor object for object parameter class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, by parsing each fields.
 		 * 3. Using QueryBuilder form insert bind query.
 		 * 4. Pass query to executeBindQuery method for insertion.
@@ -1375,7 +1370,7 @@ Example: Make Liquor Object
 		 * 1. Get mapped database mapping object for invoked class object.
 		 */
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
@@ -1383,19 +1378,19 @@ Example: Make Liquor Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		/*
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, by parsing each fields.
 		 */
-		String tableName = databaseMappingDescriptor.getTableName();
+		String tableName = entityDescriptor.getTableName();
 		
 		Collection<String> columnNames = new LinkedList<String>();
 		Collection<Object> columnValues = new LinkedList<Object>();
 
-		Iterator<DatabaseMappingDescriptor.Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<EntityDescriptor.Attribute> attributes = entityDescriptor.getAttributes();
 		while(attributes.hasNext()) {
 			Attribute attribute = attributes.next();
 			
@@ -1403,16 +1398,12 @@ Example: Make Liquor Object
 				columnNames.add(attribute.getColumnName());
 				columnValues.add(ClassUtils.getValue(object, attribute.getGetterMethodName()));
 			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 			} 
 		}
 		
 		
-		//processOneToOneRelationship(object, parentObject, columnNames, columnValues);
-		//processManyToOneRelationship(object, parentObject, columnNames, columnValues);
-		//processManyToManyRelationship(object, parentObject, columnNames, columnValues);
-
 		RelationshipHelper.processRelationship(object, null, columnNames, columnValues);
 		
 		
@@ -1430,27 +1421,27 @@ Example: Make Liquor Object
 		/*
 		 * 4. Pass query to executeBindQuery method for insertion.
 		 */
-		database.executeBindQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query, columnValues.iterator());
+		database.executeBindQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query, columnValues.iterator());
 		
 		
 		/*
 		 * 5. Check for relationship's if any, IF EXISTS: process it, ELSE: return all objects.
 		 */
-		Iterator<DatabaseMappingDescriptor.Relationship> relationships = databaseMappingDescriptor.getRelationships();
+		Iterator<EntityDescriptor.Relationship> relationships = entityDescriptor.getRelationships();
 		while(relationships.hasNext()) {
-			DatabaseMappingDescriptor.Relationship relationship = relationships.next();
+			EntityDescriptor.Relationship relationship = relationships.next();
 			
 			boolean isLoad = relationship.isLoad();
 			if(!isLoad) {
 				continue;
 			}
 			
-			String relationshipType = relationship.getRelationshipType();
+			String relationshipType = relationship.getType();
 			if(relationshipType == null || relationshipType.length() <= 0) {
 				continue;
 			}
 			
-			if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
+			if(relationshipType.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_ONE)) {
 				
 				if(parentObject != null && relationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
 					continue;
@@ -1464,7 +1455,7 @@ Example: Make Liquor Object
 				try {
 					referedObject = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
@@ -1476,24 +1467,24 @@ Example: Make Liquor Object
 				/*
 				 * Inflate Dependent Object
 				 */
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(referedObject.getClass().getName());
-				Relationship referedRelationship = referedDatabaseMappingDescriptor.getRelationshipBasedOnReferTo(object.getClass().getName());
+				EntityDescriptor referedEntityDescriptor = getEntityDescriptor(referedObject.getClass().getName());
+				Relationship referedRelationship = referedEntityDescriptor.getRelationshipBasedOnReferTo(object.getClass().getName());
 				
 				
 				try {
 					ClassUtils.invokeMethod(referedObject, referedRelationship.getSetterReferMethodName(), new Class[] {object.getClass()}, new Object[] {object});
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while setting up one to one relationship mapping, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while setting up one to one relationship mapping, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				}
 				
 				saveOrUpdate(referedObject, object);
-			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
+			} else if(relationshipType.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_MANY)) {
 				Iterator<?> values = null;
 				try {
 					values = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
@@ -1505,7 +1496,7 @@ Example: Make Liquor Object
 				while(values.hasNext()) {
 					saveOrUpdate(values.next());
 				}
-			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
+			} else if(relationshipType.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_MANY)) {
 				
 				if(parentObject != null && relationship.getReferTo().equalsIgnoreCase(parentObject.getClass().getName())) {
 					continue;
@@ -1519,7 +1510,7 @@ Example: Make Liquor Object
 				try {
 					referedObject = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "save", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "save", siminovException.getMessage());
 				} 
 
@@ -1585,7 +1576,7 @@ Example: Make Beer Object
 		/*
 		 * 1. Get mapped database mapping object for invoked class object.
 		 */
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
@@ -1593,17 +1584,17 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "update", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "update", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "update", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "update", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		StringBuilder whereClause = new StringBuilder();
-		String tableName = databaseMappingDescriptor.getTableName();
+		String tableName = entityDescriptor.getTableName();
 
 		/*
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, All, Primary Keys, by parsing each fields.
 		 */
-		Iterator<DatabaseMappingDescriptor.Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<EntityDescriptor.Attribute> attributes = entityDescriptor.getAttributes();
 
 		Collection<String> columnNames = new LinkedList<String>();
 		Collection<Object> columnValues = new LinkedList<Object>();
@@ -1615,7 +1606,7 @@ Example: Make Beer Object
 				columnNames.add(attribute.getColumnName());
 				columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
 			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 			} 
 			
@@ -1630,12 +1621,6 @@ Example: Make Beer Object
 			}
 		}
 		
-		
-		//processManyToOneRelationship(object, parentObject, whereClause);
-		//processManyToManyRelationship(object, parentObject, whereClause);
-
-		//processManyToOneRelationship(object, parentObject, columnNames, columnValues);
-		//processManyToManyRelationship(object, parentObject, columnNames, columnValues);
 		
 		RelationshipHelper.processRelationship(object, parentObject, whereClause);
 		RelationshipHelper.processRelationship(object, parentObject, columnNames, columnValues);
@@ -1657,31 +1642,31 @@ Example: Make Beer Object
 		 */
 		
 		Iterator<Object> values = columnValues.iterator();
-		database.executeBindQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query, values);
+		database.executeBindQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query, values);
 		
 		/*
 		 * 6. Check for relationship's if any, IF EXISTS: process it, ELSE: return.
 		 */
-		Iterator<DatabaseMappingDescriptor.Relationship> relationships = databaseMappingDescriptor.getRelationships();
+		Iterator<EntityDescriptor.Relationship> relationships = entityDescriptor.getRelationships();
 		while(relationships.hasNext()) {
-			DatabaseMappingDescriptor.Relationship relationship = relationships.next();
+			EntityDescriptor.Relationship relationship = relationships.next();
 			
 			boolean isLoad = relationship.isLoad();
 			if(!isLoad) {
 				continue;
 			}
 			
-			String relationshipType = relationship.getRelationshipType();
+			String relationshipType = relationship.getType();
 			if(relationshipType == null || relationshipType.length() <= 0) {
 				continue;
 			}
 			
-			if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE)) {
+			if(relationshipType.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_ONE)) {
 				Object value = null;
 				try {
 					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 				} 
 
@@ -1691,12 +1676,12 @@ Example: Make Beer Object
 				}
 
 				saveOrUpdate(value);
-			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY)) {
+			} else if(relationshipType.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_MANY)) {
 				Iterator<?> relationshipValues = null;
 				try {
 					relationshipValues = (Iterator<?>) ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 				} 
 
@@ -1708,12 +1693,12 @@ Example: Make Beer Object
 				while(relationshipValues.hasNext()) {
 					saveOrUpdate(relationshipValues.next());
 				}
-			} else if(relationshipType.equalsIgnoreCase(DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY)) {
+			} else if(relationshipType.equalsIgnoreCase(ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_MANY)) {
 				Object value = null;
 				try {
 					value = ClassUtils.getValue(object, relationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "update", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "update", siminovException.getMessage());
 				} 
 
@@ -1783,15 +1768,15 @@ Example: Make Beer Object
 		/*
 		 * 1. Get mapped database mapping object for object class name.
 		 */
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "saveOrUpdate", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		/*
@@ -1799,7 +1784,7 @@ Example: Make Beer Object
 		 */
 		
 		StringBuilder whereClause = new StringBuilder();
-		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 		while(attributes.hasNext()) {
 			Attribute attribute = attributes.next();
 
@@ -1808,7 +1793,7 @@ Example: Make Beer Object
 				try {
 					columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "saveOrUpdate", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "saveOrUpdate", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "saveOrUpdate", siminovException.getMessage());
 				} 
 
@@ -1822,9 +1807,6 @@ Example: Make Beer Object
 		}
 		
 		
-		//processOneToOneRelationship(object, null, whereClause);
-		//processManyToOneRelationship(object, null, whereClause);
-		//processManyToManyRelationship(object, null, whereClause);
 		RelationshipHelper.processRelationship(object, null, whereClause);
 		
 		
@@ -1837,7 +1819,7 @@ Example: Make Beer Object
 		/*
 		 * 4. IF EXISTS: call update method, ELSE: call save method.
 		 */
-		int count = count(databaseMappingDescriptor, null, false, whereClause.toString(), null, null);
+		int count = count(entityDescriptor, null, false, whereClause.toString(), null, null);
 		if(count <= 0) {
 			save(object, parentObject);
 		} else {
@@ -1864,7 +1846,7 @@ Example: Make Beer Object
 		/*
 		 * 1. Get mapped database mapping object for object parameter class name.
 		 */
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
 		
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
@@ -1872,14 +1854,14 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "delete", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "delete", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "delete", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "delete", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 		
 		StringBuilder where = new StringBuilder();
 		
 		if(whereClause == null || whereClause.length() <= 0) {
-			Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 			
 			while(attributes.hasNext()) {
 				Attribute attribute = attributes.next();
@@ -1888,7 +1870,7 @@ Example: Make Beer Object
 				try {
 					columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "delete", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "delete", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "delete", siminovException.getMessage());
 				} 
 
@@ -1905,8 +1887,6 @@ Example: Make Beer Object
 				}
 			}
 
-			//processManyToOneRelationship(object, null, where);
-			//processManyToManyRelationship(object, null, where);
 			RelationshipHelper.processRelationship(object, null, where);
 		} else {
 			where.append(whereClause);
@@ -1917,7 +1897,7 @@ Example: Make Beer Object
 		 */
 		
 		Map<String, Object> parameters = new HashMap<String, Object> ();
-		parameters.put(IQueryBuilder.FORM_DELETE_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_DELETE_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_DELETE_QUERY_WHERE_CLAUSE_PARAMETER, where.toString());
 
 		
@@ -1925,28 +1905,28 @@ Example: Make Beer Object
 		/*
 		 * 5. Pass query to executeBindQuery method for deletion.
 		 */
-		database.executeQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		database.executeQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 	}
 	
 
-	static final int count(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
+	static final int count(final EntityDescriptor entityDescriptor, final String column, final boolean distinct, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.isActive();
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object> ();
-		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_COLUMN_PARAMETER, column);
 		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_DISTINCT_PARAMETER, distinct);
 		parameters.put(IQueryBuilder.FORM_COUNT_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
@@ -1956,7 +1936,7 @@ Example: Make Beer Object
 		
 		String query = queryBuilder.formCountQuery(parameters);
 
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		while(datas.hasNext()) {
 			Map<String, Object> data = datas.next();
 			Collection<Object> parse = data.values();
@@ -1980,24 +1960,24 @@ Example: Make Beer Object
 
 	}
 	
-	static final int avg(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
+	static final int avg(final EntityDescriptor entityDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.isActive();
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(IQueryBuilder.FORM_AVG_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_AVG_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_AVG_QUERY_COLUMN_PARAMETER, column);
 		parameters.put(IQueryBuilder.FORM_AVG_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
 		parameters.put(IQueryBuilder.FORM_AVG_QUERY_GROUP_BYS_PARAMETER, groupBys);
@@ -2006,7 +1986,7 @@ Example: Make Beer Object
 		
 		String query = queryBuilder.formAvgQuery(parameters);
 
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		while(datas.hasNext()) {
 			Map<String, Object> data = datas.next();
 			Collection<Object> parse = data.values();
@@ -2031,24 +2011,24 @@ Example: Make Beer Object
 	}
 	
 	
-	static final int sum(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
+	static final int sum(final EntityDescriptor entityDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.isActive();
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(IQueryBuilder.FORM_SUM_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_SUM_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_SUM_QUERY_COLUMN_PARAMETER, column);
 		parameters.put(IQueryBuilder.FORM_SUM_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
 		parameters.put(IQueryBuilder.FORM_SUM_QUERY_GROUP_BYS_PARAMETER, groupBys);
@@ -2057,7 +2037,7 @@ Example: Make Beer Object
 		
 		String query = queryBuilder.formSumQuery(parameters);
 
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		while(datas.hasNext()) {
 			Map<String, Object> data = datas.next();
 			Collection<Object> parse = data.values();
@@ -2081,24 +2061,24 @@ Example: Make Beer Object
 		
 	}
 	
-	static final int total(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
+	static final int total(final EntityDescriptor entityDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.isActive();
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_COLUMN_PARAMETER, column);
 		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
 		parameters.put(IQueryBuilder.FORM_TOTAL_QUERY_GROUP_BYS_PARAMETER, groupBys);
@@ -2107,7 +2087,7 @@ Example: Make Beer Object
 		
 		String query = queryBuilder.formTotalQuery(parameters);
 
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		while(datas.hasNext()) {
 			Map<String, Object> data = datas.next();
 			Collection<Object> parse = data.values();
@@ -2131,24 +2111,24 @@ Example: Make Beer Object
 		
 	}
 	
-	static final int min(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
+	static final int min(final EntityDescriptor entityDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.isActive();
 
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(IQueryBuilder.FORM_MIN_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_MIN_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_MIN_QUERY_COLUMN_PARAMETER, column);
 		parameters.put(IQueryBuilder.FORM_MIN_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
 		parameters.put(IQueryBuilder.FORM_MIN_QUERY_GROUP_BYS_PARAMETER, groupBys);
@@ -2157,7 +2137,7 @@ Example: Make Beer Object
 		
 		String query = queryBuilder.formMinQuery(parameters);
 
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		while(datas.hasNext()) {
 			Map<String, Object> data = datas.next();
 			Collection<Object> parse = data.values();
@@ -2181,24 +2161,24 @@ Example: Make Beer Object
 		
 	}
 	
-	static final int max(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
+	static final int max(final EntityDescriptor entityDescriptor, final String column, final String whereClause, final Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.isActive();
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(IQueryBuilder.FORM_MAX_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_MAX_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_MAX_QUERY_COLUMN_PARAMETER, column);
 		parameters.put(IQueryBuilder.FORM_MAX_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
 		parameters.put(IQueryBuilder.FORM_MAX_QUERY_GROUP_BYS_PARAMETER, groupBys);
@@ -2207,7 +2187,7 @@ Example: Make Beer Object
 		
 		String query = queryBuilder.formMaxQuery(parameters);
 
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		while(datas.hasNext()) {
 			Map<String, Object> data = datas.next();
 			Collection<Object> parse = data.values();
@@ -2231,24 +2211,24 @@ Example: Make Beer Object
 		
 	}
 	
-	static final String groupConcat(final DatabaseMappingDescriptor databaseMappingDescriptor, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having) throws DatabaseException {
+	static final String groupConcat(final EntityDescriptor entityDescriptor, final String column, final String delimiter, final String whereClause, Iterator<String> groupBys, final String having) throws DatabaseException {
 		
 		Siminov.isActive();
 		
-		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(databaseMappingDescriptor.getClassName());
+		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		
 		IDatabaseImpl database = databaseBundle.getDatabase();
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + databaseMappingDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
 		}
 
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER, databaseMappingDescriptor.getTableName());
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER, column);
 		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER, delimiter);
 		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER, whereClause);
@@ -2258,7 +2238,7 @@ Example: Make Beer Object
 		
 		String query = queryBuilder.formGroupConcatQuery(parameters);
 
-		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(databaseMappingDescriptor.getClassName()), databaseMappingDescriptor, query);
+		Iterator<Map<String, Object>> datas = database.executeSelectQuery(getDatabaseDescriptor(entityDescriptor.getClassName()), entityDescriptor, query);
 		while(datas.hasNext()) {
 			Map<String, Object> data = datas.next();
 			Collection<Object> parse = data.values();
@@ -2301,16 +2281,16 @@ Example:
 	}
 	
 	/**
-	 	Returns the actual database mapping object mapped for invoked class object.
+	 	Returns the actual entity descriptor object mapped for invoked class object.
 	 
 	 	<pre>
 	 	
 Example:
 	{@code
 	 			
-	DatabaseMapping databaseMapping = null;
+	EntityDescriptor entityDescriptor = null;
 	try {
-		databaseMapping = new Liquor().getDatabaseMapping();
+		entityDescriptor = new Liquor().getEntityDescriptor();
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -2320,10 +2300,10 @@ Example:
 	 	</pre>
 	 	
 	 	@return DatabaseMapping Object
-	 	@throws DatabaseException If database mapping object not mapped for invoked class object.
+	 	@throws DatabaseException If entity descriptor object not mapped for invoked class object.
 	 */
-	static DatabaseMappingDescriptor getDatabaseMappingDescriptor(final String className) throws DatabaseException {
-		return resourceManager.requiredDatabaseMappingDescriptorBasedOnClassName(className);
+	static EntityDescriptor getEntityDescriptor(final String className) throws DatabaseException {
+		return resourceManager.requiredEntityDescriptorBasedOnClassName(className);
 	}
 
 	/**
@@ -2352,8 +2332,8 @@ Example:
 	static String getTableName(final Object object) throws DatabaseException {
 		Siminov.isActive();
 
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		return databaseMappingDescriptor.getTableName();
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+		return entityDescriptor.getTableName();
 	}
 	
 	
@@ -2382,9 +2362,9 @@ Example:
 	static Iterator<String> getColumnNames(final Object object) throws DatabaseException {
 		Siminov.isActive();
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		
-		Iterator<DatabaseMappingDescriptor.Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<EntityDescriptor.Attribute> attributes = entityDescriptor.getAttributes();
 		Collection<String> columnNames = new ArrayList<String>();
 		
 		while(attributes.hasNext()) {
@@ -2394,18 +2374,18 @@ Example:
 		/*
 		 * Add ONE-TO-MANY And MANY-TO-MANY Relationship Columns.
 		 */
-		Iterator<Relationship> oneToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+		Iterator<Relationship> oneToManyRelationships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 		
 		while(oneToManyRelationships.hasNext()) {
 			Relationship oneToManyRelationship = oneToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
+				oneToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2418,9 +2398,9 @@ Example:
 		
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor parentDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor parentEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
 			
-			Iterator<Attribute> parentAttributes = parentDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = parentEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2461,10 +2441,10 @@ Example:
 	static Map<String, Object> getColumnValues(final Object object) throws DatabaseException {
 		Siminov.isActive();
 
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		
 		Map<String, Object> columnNameAndItsValues = new HashMap<String, Object>();
-		Iterator<DatabaseMappingDescriptor.Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<EntityDescriptor.Attribute> attributes = entityDescriptor.getAttributes();
 		
 		while(attributes.hasNext()) {
 			Attribute attribute = attributes.next();
@@ -2472,7 +2452,7 @@ Example:
 			try {
 				columnNameAndItsValues.put(attribute.getColumnName(), ClassUtils.getValue(object, attribute.getGetterMethodName()));
 			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "getColumnValues", siminovException.getMessage());
 			} 
 		}
@@ -2480,19 +2460,19 @@ Example:
 		/*
 		 * Add ONE-TO-MANY And MANY-TO-MANY Relationship Columns.
 		 */
-		Iterator<Relationship> oneToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+		Iterator<Relationship> oneToManyRelationships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 		
 		while(oneToManyRelationships.hasNext()) {
 			Relationship oneToManyRelationship = oneToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
+				oneToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 
 			
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2501,7 +2481,7 @@ Example:
 					try {
 						columnNameAndItsValues.put(attribute.getColumnName(), ClassUtils.getValue(object, attribute.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "getColumnValues", siminovException.getMessage());
 					} 
 				}
@@ -2510,9 +2490,9 @@ Example:
 		
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor parentDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor parentEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
 			
-			Iterator<Attribute> parentAttributes = parentDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = parentEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2521,7 +2501,7 @@ Example:
 					try {
 						columnNameAndItsValues.put(attribute.getColumnName(), ClassUtils.getValue(object, attribute.getGetterMethodName()));
 					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "getColumnValues", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "getColumnValues", siminovException.getMessage());
 					} 
 				}
@@ -2557,10 +2537,10 @@ Example:
 	static Map<String, String> getColumnTypes(final Object object) throws DatabaseException {
 		Siminov.isActive();
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		
 		Map<String, String> columnTypes = new HashMap<String, String> ();
-		Iterator<DatabaseMappingDescriptor.Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<EntityDescriptor.Attribute> attributes = entityDescriptor.getAttributes();
 		
 		while(attributes.hasNext()) {
 			Attribute attribute = attributes.next();
@@ -2570,19 +2550,19 @@ Example:
 		/*
 		 * Add ONE-TO-MANY And MANY-TO-MANY Relationship Columns.
 		 */
-		Iterator<Relationship> oneToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+		Iterator<Relationship> oneToManyRelationships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 		
 		while(oneToManyRelationships.hasNext()) {
 			Relationship oneToManyRelationship = oneToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
+				oneToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 
 			
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2595,9 +2575,9 @@ Example:
 		
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor parentDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor parentEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
 			
-			Iterator<Attribute> parentAttributes = parentDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = parentEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2637,9 +2617,9 @@ Example:
 	static Iterator<String> getPrimaryKeys(final Object object) throws DatabaseException {
 		Siminov.isActive();
 		
-		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 
-		Iterator<Attribute> attributes = databaseMapping.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 		Collection<String> primaryKeys = new ArrayList<String>();
 
 		while(attributes.hasNext()) {
@@ -2680,9 +2660,9 @@ Example:
 	static Iterator<String> getMandatoryFields(final Object object) throws DatabaseException {
 		Siminov.isActive();
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		
-		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 		Collection<String> isMandatoryFieldsVector = new ArrayList<String>();
 		
 		while(attributes.hasNext()) {
@@ -2697,19 +2677,19 @@ Example:
 		/*
 		 * Add ONE-TO-MANY And MANY-TO-MANY Relationship Columns.
 		 */
-		Iterator<Relationship> oneToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+		Iterator<Relationship> oneToManyRelationships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 		
 		while(oneToManyRelationships.hasNext()) {
 			Relationship oneToManyRelationship = oneToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
+				oneToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 
 			
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2724,9 +2704,9 @@ Example:
 		
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor parentDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor parentEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
 			
-			Iterator<Attribute> parentAttributes = parentDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = parentEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2767,9 +2747,9 @@ Example:
 	static Iterator<String> getUniqueFields(final Object object) throws DatabaseException {
 		Siminov.isActive();
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		
-		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 		Collection<String> isUniqueFieldsVector = new ArrayList<String>();
 		
 		while(attributes.hasNext()) {
@@ -2784,19 +2764,19 @@ Example:
 		/*
 		 * Add ONE-TO-MANY And MANY-TO-MANY Relationship Columns.
 		 */
-		Iterator<Relationship> oneToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+		Iterator<Relationship> oneToManyRelationships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 		
 		while(oneToManyRelationships.hasNext()) {
 			Relationship oneToManyRelationship = oneToManyRelationships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-			if(referedDatabaseMappingDescriptor == null) {
-				referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-				oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+			EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
+			if(referedEntityDescriptor == null) {
+				referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
+				oneToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 			}
 
 			
-			Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2813,9 +2793,9 @@ Example:
 		
 		while(manyToManyRelationships.hasNext()) {
 			Relationship manyToManyRelationship = manyToManyRelationships.next();
-			DatabaseMappingDescriptor parentDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor parentEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
 			
-			Iterator<Attribute> parentAttributes = parentDatabaseMappingDescriptor.getAttributes();
+			Iterator<Attribute> parentAttributes = parentEntityDescriptor.getAttributes();
 			while(parentAttributes.hasNext()) {
 				Attribute attribute = parentAttributes.next();
 				
@@ -2860,8 +2840,8 @@ Example:
 	static Iterator<String> getForeignKeys(final Object object) throws DatabaseException {
 		Siminov.isActive();
 		
-		DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-		Collection<Attribute> attributes = getForeignKeys(databaseMappingDescriptor);
+		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+		Collection<Attribute> attributes = getForeignKeys(entityDescriptor);
 		Iterator<Attribute> attributesIterate = attributes.iterator();
 		
 		Collection<String> foreignKeys = new ArrayList<String>();
@@ -2872,13 +2852,13 @@ Example:
 		return foreignKeys.iterator();
 	}
 
-	static Collection<Attribute> getForeignKeys(DatabaseMappingDescriptor databaseMappingDescriptor) throws DatabaseException {
-		Iterator<Relationship> oneToManyRealtionships = databaseMappingDescriptor.getManyToOneRelationships();
-		Iterator<Relationship> manyToManyRealtionships = databaseMappingDescriptor.getManyToManyRelationships();
+	static Collection<Attribute> getForeignKeys(EntityDescriptor entityDescriptor) throws DatabaseException {
+		Iterator<Relationship> oneToManyRealtionships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToManyRealtionships = entityDescriptor.getManyToManyRelationships();
 		
 		Collection<Attribute> foreignAttributes = new ArrayList<Attribute>();
 		
-		Iterator<Attribute> attributes = databaseMappingDescriptor.getAttributes();
+		Iterator<Attribute> attributes = entityDescriptor.getAttributes();
 		while(attributes.hasNext()) {
 			Attribute attribute = attributes.next();
 			if(attribute.isPrimaryKey()) {
@@ -2889,9 +2869,9 @@ Example:
 		while(oneToManyRealtionships.hasNext()) {
 			
 			Relationship relationship = oneToManyRealtionships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor referedEntityDescriptor = relationship.getReferedEntityDescriptor();
 			
-			Collection<Attribute> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
+			Collection<Attribute> referedForeignKeys = getForeignKeys(referedEntityDescriptor);
 			Iterator<Attribute> referedForeignKeysIterate = referedForeignKeys.iterator();
 			
 			while(referedForeignKeysIterate.hasNext()) {
@@ -2902,9 +2882,9 @@ Example:
 		while(manyToManyRealtionships.hasNext()) {
 			
 			Relationship relationship = manyToManyRealtionships.next();
-			DatabaseMappingDescriptor referedDatabaseMappingDescriptor = relationship.getReferedDatabaseMappingDescriptor();
+			EntityDescriptor referedEntityDescriptor = relationship.getReferedEntityDescriptor();
 			
-			Collection<Attribute> referedForeignKeys = getForeignKeys(referedDatabaseMappingDescriptor);
+			Collection<Attribute> referedForeignKeys = getForeignKeys(referedEntityDescriptor);
 			Iterator<Attribute> referedForeignKeysIterate = referedForeignKeys.iterator();
 			
 			while(referedForeignKeysIterate.hasNext()) {
@@ -2918,7 +2898,7 @@ Example:
 	/**
  		Iterates the provided cursor, and returns tuples in form of actual objects.
 	 */
-	static Iterator<Object> parseAndInflateData(final Object object, final Object parentObject, final DatabaseMappingDescriptor databaseMappingDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
+	static Iterator<Object> parseAndInflateData(final Object object, final Object parentObject, final EntityDescriptor entityDescriptor, Iterator<Map<String, Object>> values) throws DatabaseException {
 		Siminov.isActive();
 
 		Collection<Object> tuples = new LinkedList<Object>();
@@ -2933,49 +2913,25 @@ Example:
 			while(columnNamesIterate.hasNext()) {
 				String columnName = columnNamesIterate.next();
 				
-				if(databaseMappingDescriptor != null && databaseMappingDescriptor.containsAttributeBasedOnColumnName(columnName)) {
-					data.put(databaseMappingDescriptor.getAttributeBasedOnColumnName(columnName).getSetterMethodName(), value.get(columnName));
-				} /*else {
-					Log.debug(Database.class.getName(), "parseAndInflateData", "COLUMN NAME: " + columnName);
-						
-					StringBuilder setterMethodName = new StringBuilder();
-					setterMethodName.append("set");
-						
-					String gotColumnName = columnName.toLowerCase();
-						
-					boolean isUnderScore = false;
-					for(int i = 0;i < gotColumnName.length();i++) {	
-						
-						if(i == 0) {
-							setterMethodName.append(Character.toUpperCase(gotColumnName.charAt(i)));
-						} else if(gotColumnName.charAt(i) == '_') {
-							isUnderScore = true;
-						} else if(isUnderScore) {
-							setterMethodName.append(Character.toUpperCase(gotColumnName.charAt(i)));
-							isUnderScore = false;
-						} else {
-							setterMethodName.append(gotColumnName.charAt(i));
-						}
-					}
-
-					data.put(setterMethodName.toString(), value.get(columnName));
-				}*/
+				if(entityDescriptor != null && entityDescriptor.containsAttributeBasedOnColumnName(columnName)) {
+					data.put(entityDescriptor.getAttributeBasedOnColumnName(columnName).getSetterMethodName(), value.get(columnName));
+				}
 			}
 
 			Object inflatedObject = null;
 			String className;
 			
-			if(databaseMappingDescriptor == null) {
+			if(entityDescriptor == null) {
 				className = object.getClass().getName();				
 			} else {
-				className = databaseMappingDescriptor.getClassName();
+				className = entityDescriptor.getClassName();
 			}
 			
 			
 			try {
 				inflatedObject = ClassUtils.createAndInflateObject(className, data);
 			} catch(SiminovException siminovException) {
-				Log.error(DatabaseHelper.class.getName(), "parseAndInflateData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+				Log.error(DatabaseHelper.class.getName(), "parseAndInflateData", "SiminovException caught while create and inflate object through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 				throw new DatabaseException(DatabaseHelper.class.getName(), "parseAndInflateData", siminovException.getMessage());
 			} 
 			
@@ -3029,12 +2985,12 @@ Example:
 
 		private static void processOneToOneRelationship(final Object object, final Object parentObject) throws DatabaseException {
 
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<DatabaseMappingDescriptor.Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<EntityDescriptor.Relationship> oneToOneRelationships = entityDescriptor.getOneToOneRelationships();
 			
 			while(oneToOneRelationships.hasNext()) {
 				
-				DatabaseMappingDescriptor.Relationship oneToOneRelationship = oneToOneRelationships.next();
+				EntityDescriptor.Relationship oneToOneRelationship = oneToOneRelationships.next();
 
 				boolean isLoad = oneToOneRelationship.isLoad();
 				if(!isLoad) {
@@ -3046,13 +3002,13 @@ Example:
 				Iterator<String> foreignKeys = getPrimaryKeys(object);
 				while(foreignKeys.hasNext()) {
 					String foreignKey = foreignKeys.next();
-					Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+					Attribute attribute = entityDescriptor.getAttributeBasedOnColumnName(foreignKey);
 					Object columnValue = null;
 					
 					try {
 						columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
 					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 					}
 
@@ -3063,18 +3019,18 @@ Example:
 					}
 				}
 
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
-					oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = oneToOneRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(oneToOneRelationship.getReferTo());
+					oneToOneRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
 				
-				if(object != null && object.getClass().getName().equalsIgnoreCase(referedDatabaseMappingDescriptor.getClassName())) {
+				if(object != null && object.getClass().getName().equalsIgnoreCase(referedEntityDescriptor.getClassName())) {
 					return;
 				}
 				
-				Object referedObject = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+				Object referedObject = select(null, null, referedEntityDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 				Object[] referedObjects = (Object[]) referedObject;
 
 				if(referedObjects == null || referedObjects.length <= 0) {
@@ -3088,7 +3044,7 @@ Example:
 				try {
 					ClassUtils.invokeMethod(object, oneToOneRelationship.getSetterReferMethodName(), new Class[] {referedObjects[0].getClass()}, new Object[] {referedObjects[0]});
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 				}
 			}
@@ -3096,8 +3052,8 @@ Example:
 
 
 		private static void processOneToOneRelationship(final Object object, final Object parentObject, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> oneToOneRelationships = entityDescriptor.getOneToOneRelationships();
 			
 			while(oneToOneRelationships.hasNext()) {
 				Relationship oneToOneRelationship = oneToOneRelationships.next();
@@ -3106,17 +3062,17 @@ Example:
 				}
 				
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
-					oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = oneToOneRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(oneToOneRelationship.getReferTo());
+					oneToOneRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
 				Object referedObject = null;
 				try {
 					referedObject = ClassUtils.getValue(object, oneToOneRelationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 				}
 
@@ -3132,7 +3088,7 @@ Example:
 				processManyToManyRelationship(referedObject, object, columnNames, columnValues);
 				
 				
-				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
 					Attribute attribute = parentAttributes.next();
 					
@@ -3157,8 +3113,8 @@ Example:
 		}
 
 		private static void processOneToOneRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> oneToOneRelationships = databaseMappingDescriptor.getOneToOneRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> oneToOneRelationships = entityDescriptor.getOneToOneRelationships();
 
 			while(oneToOneRelationships.hasNext()) {
 				Relationship oneToOneRelationship = oneToOneRelationships.next();
@@ -3167,17 +3123,17 @@ Example:
 				}
 				
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToOneRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToOneRelationship.getReferTo());
-					oneToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = oneToOneRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(oneToOneRelationship.getReferTo());
+					oneToOneRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
 				Object referedObject = null;
 				try {
 					referedObject = ClassUtils.getValue(object, oneToOneRelationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 				}
 
@@ -3187,12 +3143,11 @@ Example:
 				}
 
 				
-				//processRelationship(referedObject, object, whereClause);
 				processOneToManyRelationship(referedObject, object, whereClause);
 				processManyToOneRelationship(referedObject, object, whereClause);
 				processManyToManyRelationship(referedObject, object, whereClause);
 				
-				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
 					Attribute attribute = parentAttributes.next();
 					
@@ -3202,7 +3157,7 @@ Example:
 						try {
 							columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
 						} catch(SiminovException siminovException) {
-							Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							Log.error(DatabaseHelper.class.getName(), "processOneToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 							throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToOneRelationship", siminovException.getMessage());
 						} 
 
@@ -3224,12 +3179,12 @@ Example:
 
 		private static void processOneToManyRelationship(final Object object, final Object parentObject) throws DatabaseException {
 
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<DatabaseMappingDescriptor.Relationship> oneToManyRelationships = databaseMappingDescriptor.getOneToManyRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<EntityDescriptor.Relationship> oneToManyRelationships = entityDescriptor.getOneToManyRelationships();
 			
 			while(oneToManyRelationships.hasNext()) {
 				
-				DatabaseMappingDescriptor.Relationship oneToManyRelationship = oneToManyRelationships.next();
+				EntityDescriptor.Relationship oneToManyRelationship = oneToManyRelationships.next();
 				
 				boolean isLoad = oneToManyRelationship.isLoad();
 				if(!isLoad) {
@@ -3241,13 +3196,13 @@ Example:
 				Iterator<String> foreignKeys = getPrimaryKeys(object);
 				while(foreignKeys.hasNext()) {
 					String foreignKey = foreignKeys.next();
-					Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+					Attribute attribute = entityDescriptor.getAttributeBasedOnColumnName(foreignKey);
 					Object columnValue = null;
 					
 					try {
 						columnValue = ClassUtils.getValue(object, attribute.getGetterMethodName());
 					} catch(SiminovException siminovException) {
-						Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
+						Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while getting column value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + attribute.getGetterMethodName() + ", " + siminovException.getMessage());
 						throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToManyRelationship", siminovException.getMessage());
 					}
 
@@ -3258,14 +3213,14 @@ Example:
 					}
 				}
 
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = oneToManyRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(oneToManyRelationship.getReferTo());
-					oneToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
+					oneToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
 				
-				Object referedObject = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+				Object referedObject = select(null, null, referedEntityDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 				Object[] referedObjects = (Object[]) referedObject;
 
 				Collection<Object> referedCollection = new ArrayList<Object>();
@@ -3278,7 +3233,7 @@ Example:
 				try {
 					ClassUtils.invokeMethod(object, oneToManyRelationship.getSetterReferMethodName(), new Class[] {Iterator.class}, new Object[] {referedCollection.iterator()});
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processOneToManyRelationship", "SiminovException caught while invoking method through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + oneToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processOneToManyRelationship", siminovException.getMessage());
 				}
 			}
@@ -3295,8 +3250,8 @@ Example:
 		
 		
 		private static void processManyToOneRelationship(final Object object, final Object parentObject, final Collection<String> columnNames, final Collection<Object> columnValues) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToOneRelationships = entityDescriptor.getManyToOneRelationships();
 			
 			while(manyToOneRelationships.hasNext()) {
 				Relationship manyToOneRelationship = manyToOneRelationships.next();
@@ -3305,17 +3260,17 @@ Example:
 				}
 				
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
-					manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = manyToOneRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(manyToOneRelationship.getReferTo());
+					manyToOneRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
 				Object referedObject = null;
 				try {
 					referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 				}
 
@@ -3325,12 +3280,11 @@ Example:
 				}
 				
 				
-				//processRelationship(referedObject, object, columnNames, columnValues);
 				processOneToOneRelationship(referedObject, object, columnNames, columnValues);
 				processManyToOneRelationship(referedObject, object, columnNames, columnValues);
 				processManyToManyRelationship(referedObject, object, columnNames, columnValues);
 				
-				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
 					Attribute attribute = parentAttributes.next();
 					
@@ -3349,8 +3303,8 @@ Example:
 		}
 		
 		private static void processManyToOneRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToOneRelationships = entityDescriptor.getManyToOneRelationships();
 
 			while(manyToOneRelationships.hasNext()) {
 				Relationship manyToOneRelationship = manyToOneRelationships.next();
@@ -3359,17 +3313,17 @@ Example:
 				}
 				
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
-					manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = manyToOneRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(manyToOneRelationship.getReferTo());
+					manyToOneRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
 				Object referedObject = null;
 				try {
 					referedObject = ClassUtils.getValue(object, manyToOneRelationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToOneRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 				}
 
@@ -3379,12 +3333,11 @@ Example:
 				}
 
 				
-				//processRelationship(referedObject, object, whereClause);
 				processOneToOneRelationship(referedObject, object, whereClause);
 				processManyToOneRelationship(referedObject, object, whereClause);
 				processManyToManyRelationship(referedObject, object, whereClause);
 				
-				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
 					Attribute attribute = parentAttributes.next();
 					
@@ -3394,7 +3347,7 @@ Example:
 						try {
 							columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
 						} catch(SiminovException siminovException) {
-							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", siminovException.getMessage());
 						} 
 
@@ -3418,8 +3371,8 @@ Example:
 		}
 		
 		private static void processManyToOneRelationship(final Object object, final Object parentObject, Map<String, Object> data) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> manyToOneRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToOneRelationships = entityDescriptor.getManyToOneRelationships();
 
 			while(manyToOneRelationships.hasNext()) {
 				Relationship manyToOneRelationship = manyToOneRelationships.next();
@@ -3427,22 +3380,19 @@ Example:
 					continue;
 				}
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToOneRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToOneRelationship.getReferTo());
-					manyToOneRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = manyToOneRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(manyToOneRelationship.getReferTo());
+					manyToOneRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
-				Object referedObject = ClassUtils.createClassInstance(manyToOneRelationship.getReferedDatabaseMappingDescriptor().getClassName());
+				Object referedObject = ClassUtils.createClassInstance(manyToOneRelationship.getReferedEntityDescriptor().getClassName());
 				if(referedObject == null) {
 					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-					//throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "Unable To Create Parent Relationship. REFER-TO: " + manyToOneRelationship.getReferTo());
-				
 					return;
 				}
 
 				
-				//processRelationship(referedObject, object, data);
 				processOneToOneRelationship(referedObject, object, data);
 				processManyToOneRelationship(referedObject, object, data);
 				processManyToManyRelationship(referedObject, object, data);
@@ -3454,7 +3404,7 @@ Example:
 					Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
 					while(foreignKeys.hasNext()) {
 						String foreignKey = foreignKeys.next();
-						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+						Attribute attribute = referedEntityDescriptor.getAttributeBasedOnColumnName(foreignKey);
 						Object columnValue = data.get(attribute.getColumnName());
 
 						if(whereClause.length() <= 0) {
@@ -3464,7 +3414,7 @@ Example:
 						}
 					}
 					
-					Object[] fetchedObjects = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					Object[] fetchedObjects = select(null, null, referedEntityDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 					if(fetchedObjects == null || fetchedObjects.length <= 0) {
 						return;
 					}
@@ -3475,7 +3425,7 @@ Example:
 					Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
 					while(foreignKeys.hasNext()) {
 						String foreignKey = foreignKeys.next();
-						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+						Attribute attribute = referedEntityDescriptor.getAttributeBasedOnColumnName(foreignKey);
 
 						Object columnValue = data.get(attribute.getColumnName());
 						if(columnValue == null) {
@@ -3485,8 +3435,8 @@ Example:
 						try {
 							ClassUtils.invokeMethod(referedObject, attribute.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
 						} catch(SiminovException siminovException) {
-							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
-							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+							Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedEntityDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedEntityDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
 						}
 					}
 				}
@@ -3501,16 +3451,16 @@ Example:
 				try {
 					ClassUtils.invokeMethod(object, manyToOneRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
-					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + entityDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToOneRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + entityDescriptor.getClassName() + ", METHOD-NAME: " + manyToOneRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 				}
 			}
 
 		}
 
 		private static void processManyToManyRelationship(final Object object, final Object parentObject, Collection<String> columnNames, Collection<Object> columnValues) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 			
 			while(manyToManyRelationships.hasNext()) {
 				Relationship manyToManyRelationship = manyToManyRelationships.next();
@@ -3519,17 +3469,17 @@ Example:
 				}
 				
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
-					manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(manyToManyRelationship.getReferTo());
+					manyToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 				
 				Object referedObject = null;
 				try {
 					referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 				}
 
@@ -3542,10 +3492,9 @@ Example:
 
 				
 				processRelationship(referedObject, object, columnNames, columnValues);
-				//processManyToManyRelationship(referedObject, object, columnNames, columnValues);
 					
 				
-				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
 					Attribute attribute = parentAttributes.next();
 					
@@ -3555,7 +3504,7 @@ Example:
 							columnNames.add(attribute.getColumnName());
 							columnValues.add(ClassUtils.getValue(referedObject, attribute.getGetterMethodName()));
 						} catch(SiminovException siminovException) {
-							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 						} 
 					}
@@ -3564,8 +3513,8 @@ Example:
 		}
 		
 		private static void processManyToManyRelationship(final Object object, final Object parentObject, final StringBuilder whereClause) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToManyRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 			
 			while(manyToManyRelationships.hasNext()) {
 				Relationship manyToManyRelationship = manyToManyRelationships.next();
@@ -3574,31 +3523,28 @@ Example:
 				}
 				
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
-					manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(manyToManyRelationship.getReferTo());
+					manyToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 				
 				Object referedObject = null;
 				try {
 					referedObject = ClassUtils.getValue(object, manyToManyRelationship.getGetterReferMethodName());
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method values through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + " METHOD-NAME: " + manyToManyRelationship.getGetterReferMethodName() + ", " + siminovException.getMessage());
 					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 				}
 
 				if(referedObject == null) {
 					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-					//throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-				
 					return;
 				}
 
 				processRelationship(referedObject, object, whereClause);
-				//processManyToManyRelationship(referedObject, object, whereClause);
 
-				Iterator<Attribute> parentAttributes = referedDatabaseMappingDescriptor.getAttributes();
+				Iterator<Attribute> parentAttributes = referedEntityDescriptor.getAttributes();
 				while(parentAttributes.hasNext()) {
 					Attribute attribute = parentAttributes.next();
 					
@@ -3608,7 +3554,7 @@ Example:
 						try {
 							columnValue = ClassUtils.getValue(referedObject, attribute.getGetterMethodName());
 						} catch(SiminovException siminovException) {
-							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", " + siminovException.getMessage());
+							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while get method value through reflection, CLASS-NAME: " + entityDescriptor.getClassName() + ", " + siminovException.getMessage());
 							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", siminovException.getMessage());
 						} 
 
@@ -3624,8 +3570,8 @@ Example:
 		}
 		
 		private static void processManyToManyRelationship(final Object object, final Object parentObject, Map<String, Object> data) throws DatabaseException {
-			DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
-			Iterator<Relationship> manyToManyRelationships = databaseMappingDescriptor.getManyToOneRelationships();
+			EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
+			Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToOneRelationships();
 
 			while(manyToManyRelationships.hasNext()) {
 				Relationship manyToManyRelationship = manyToManyRelationships.next();
@@ -3634,23 +3580,20 @@ Example:
 				}
 				
 				
-				DatabaseMappingDescriptor referedDatabaseMappingDescriptor = manyToManyRelationship.getReferedDatabaseMappingDescriptor();
-				if(referedDatabaseMappingDescriptor == null) {
-					referedDatabaseMappingDescriptor = getDatabaseMappingDescriptor(manyToManyRelationship.getReferTo());
-					manyToManyRelationship.setReferedDatabaseMappingDescriptor(referedDatabaseMappingDescriptor);
+				EntityDescriptor referedEntityDescriptor = manyToManyRelationship.getReferedEntityDescriptor();
+				if(referedEntityDescriptor == null) {
+					referedEntityDescriptor = getEntityDescriptor(manyToManyRelationship.getReferTo());
+					manyToManyRelationship.setReferedEntityDescriptor(referedEntityDescriptor);
 				}
 
-				Object referedObject = ClassUtils.createClassInstance(manyToManyRelationship.getReferedDatabaseMappingDescriptor().getClassName());
+				Object referedObject = ClassUtils.createClassInstance(manyToManyRelationship.getReferedEntityDescriptor().getClassName());
 				if(referedObject == null) {
 					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-					//throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "Parent Object Not Set, Please Provide Proper Relationship. REFER-TO: " + manyToManyRelationship.getReferTo());
-				
 					return;
 				}
 
 				
 				processRelationship(referedObject, object, data);
-				//processManyToManyRelationship(referedObject, object, data);
 				
 				if(manyToManyRelationship.isLoad()) {
 
@@ -3659,7 +3602,7 @@ Example:
 					Iterator<String> foreignKeys = getPrimaryKeys(referedObject);
 					while(foreignKeys.hasNext()) {
 						String foreignKey = foreignKeys.next();
-						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+						Attribute attribute = referedEntityDescriptor.getAttributeBasedOnColumnName(foreignKey);
 						Object columnValue = data.get(attribute.getColumnName());
 
 						if(whereClause.length() <= 0) {
@@ -3669,7 +3612,7 @@ Example:
 						}
 					}
 					
-					Object[] fetchedObjects = select(null, null, referedDatabaseMappingDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
+					Object[] fetchedObjects = select(null, null, referedEntityDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 					if(fetchedObjects == null || fetchedObjects.length <= 0) {
 						return;
 					}
@@ -3680,7 +3623,7 @@ Example:
 					Iterator<String> primaryKeys = getPrimaryKeys(referedObject);
 					while(primaryKeys.hasNext()) {
 						String foreignKey = primaryKeys.next();
-						Attribute attribute = referedDatabaseMappingDescriptor.getAttributeBasedOnColumnName(foreignKey);
+						Attribute attribute = referedEntityDescriptor.getAttributeBasedOnColumnName(foreignKey);
 
 						Object columnValue = data.get(attribute.getColumnName());
 						if(columnValue == null) {
@@ -3690,8 +3633,8 @@ Example:
 						try {
 							ClassUtils.invokeMethod(referedObject, attribute.getSetterMethodName(), new Class[] {columnValue.getClass()}, new Object[] {columnValue});
 						} catch(SiminovException siminovException) {
-							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
-							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedDatabaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+							Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedEntityDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
+							throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + referedEntityDescriptor.getClassName() + ", METHOD-NAME: " + attribute.getSetterMethodName() + ", " + siminovException.getMessage());
 						}
 					}
 				}
@@ -3704,8 +3647,8 @@ Example:
 				try {
 					ClassUtils.invokeMethod(object, manyToManyRelationship.getSetterReferMethodName(), new Class[] {referedObject.getClass()}, new Object[] {referedObject});
 				} catch(SiminovException siminovException) {
-					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
-					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + databaseMappingDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+					Log.error(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + entityDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
+					throw new DatabaseException(DatabaseHelper.class.getName(), "processManyToManyRelationship", "SiminovException caught while invoking method, CLASS-NAME: " + entityDescriptor.getClassName() + ", METHOD-NAME: " + manyToManyRelationship.getSetterReferMethodName() + ", " + siminovException.getMessage());
 				}
 			}
 		}

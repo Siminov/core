@@ -32,8 +32,8 @@ import siminov.core.exception.SiminovException;
 import siminov.core.log.Log;
 import siminov.core.model.ApplicationDescriptor;
 import siminov.core.model.DatabaseDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor;
-import siminov.core.reader.QuickDatabaseMappingDescriptorReader;
+import siminov.core.model.EntityDescriptor;
+import siminov.core.reader.QuickEntityDescriptorReader;
 import android.content.Context;
 
 
@@ -225,7 +225,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnClassName(className);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnClassName(className);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor;
@@ -249,7 +249,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnClassName(className);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnClassName(className);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
@@ -274,7 +274,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnTableName(tableName);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnTableName(tableName);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor;
@@ -298,7 +298,7 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnTableName(tableName);
+			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnTableName(tableName);
 
 			if(containsDatabaseMappingInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
@@ -309,23 +309,23 @@ Example: DatabaseDescriptor.xml
 	}
 
 	/**
-	 * Get Database Mapping based on POJO class name provided.
+	 * Get Entity Descriptor based on mapped class name provided.
 	 * 
-	 * @param className POJO class name.
-	 * @return Database Mapping object in respect to POJO class name.
+	 * @param className Mapped class name.
+	 * @return Entity Descriptor object in respect to mapped class name.
 	 */
-	public DatabaseMappingDescriptor getDatabaseMappingDescriptorBasedOnClassName(final String className) {
+	public EntityDescriptor getEntityDescriptorBasedOnClassName(final String className) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseMappingBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getEntityDescriptorBasedOnClassName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnClassName(className);
+			boolean containsEntityDescriptorInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnClassName(className);
 
-			if(containsDatabaseMappingInDatabaseDescriptor) {
-				return databaseDescriptor.getDatabseMappingDescriptorBasedOnClassName(className);
+			if(containsEntityDescriptorInDatabaseDescriptor) {
+				return databaseDescriptor.getEntityDescriptorBasedOnClassName(className);
 			}
 		}
 		
@@ -334,23 +334,23 @@ Example: DatabaseDescriptor.xml
 	
 	
 	/**
-	 * Get Database Mapping based on table name provided.
+	 * Get Entity Descriptor based on table name provided.
 	 * 
 	 * @param tableName Name of table.
 	 * @return Database Descriptor object in respect to table name.
 	 */
-	public DatabaseMappingDescriptor getDatabaseMappingDescriptorBasedOnTableName(final String tableName) {
+	public EntityDescriptor getEntityDescriptorBasedOnTableName(final String tableName) {
 		if(this.applicationDescriptor == null) {
-			throw new DeploymentException(ResourceManager.class.getName(), "getDatabaseMappingBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
+			throw new DeploymentException(ResourceManager.class.getName(), "getEntityDescriptorBasedOnTableName", "Siminov Not Active, INVALID APPLICATION-DESCRIPTOR FOUND");
 		}
 
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsDatabaseMappingDescriptorBasedOnTableName(tableName);
+			boolean containsEntityDescriptorInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnTableName(tableName);
 
-			if(containsDatabaseMappingInDatabaseDescriptor) {
-				return databaseDescriptor.getDatabseMappingDescriptorBasedOnTableName(tableName);
+			if(containsEntityDescriptorInDatabaseDescriptor) {
+				return databaseDescriptor.getEntityDescriptorBasedOnTableName(tableName);
 			}
 		}
 		
@@ -359,58 +359,58 @@ Example: DatabaseDescriptor.xml
 
 	
 	/**
-	 * Get all database mapping descriptors
-	 * @return Database Mapping Descriptors
+	 * Get all entity descriptors
+	 * @return Entity Descriptors
 	 */
-	public Iterator<DatabaseMappingDescriptor> getDatabaseMappingDescriptors() {
-		Collection<DatabaseMappingDescriptor> databaseMappingDescriptors = new LinkedList<DatabaseMappingDescriptor>();
+	public Iterator<EntityDescriptor> getEntityDescriptors() {
+		Collection<EntityDescriptor> entityDescriptorCollection = new LinkedList<EntityDescriptor>();
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 	
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
 			
-			Iterator<DatabaseMappingDescriptor> databaseMappings = databaseDescriptor.getDatabaseMappingDescriptors();
-			while(databaseMappings.hasNext()) {
-				DatabaseMappingDescriptor databaseMappingDescriptor = databaseMappings.next();
-				databaseMappingDescriptors.add(databaseMappingDescriptor);
+			Iterator<EntityDescriptor> entityDescriptors = databaseDescriptor.getEntityDescriptors();
+			while(entityDescriptors.hasNext()) {
+				EntityDescriptor entityDescriptor = entityDescriptors.next();
+				entityDescriptorCollection.add(entityDescriptor);
 			}
 		}
 		
-		return databaseMappingDescriptors.iterator();
+		return entityDescriptorCollection.iterator();
 	}
 
 	
 	/**
-	 * Get database mapping descriptor Object based on class name provided. If database mapping descriptor object not present in resource layer, it will parse DatabaseMappingDescriptor.si.xml file defined by application and will place it in resource layer.
+	 * Get entity descriptor Object based on class name provided. If entity descriptor object not present in resource layer, it will parse EntityDescriptor.si.xml file defined by application and will place it in resource layer.
 	 * @param className Full name of class.
-	 * @return DatabaseMappingDescriptor object.
-	 * @throws SiminovException If any exception occur while getting database mapping descriptor object.
+	 * @return EntityDescriptor object.
+	 * @throws SiminovException If any exception occur while getting entity descriptor object.
 	 */
-	public DatabaseMappingDescriptor requiredDatabaseMappingDescriptorBasedOnClassName(final String className) {
-		DatabaseMappingDescriptor databaseMapping = getDatabaseMappingDescriptorBasedOnClassName(className);
+	public EntityDescriptor requiredEntityDescriptorBasedOnClassName(final String className) {
+		EntityDescriptor entityDescriptor = getEntityDescriptorBasedOnClassName(className);
 
-		if(databaseMapping == null) {
-			Log.debug(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, MODEL: " + className);
+		if(entityDescriptor == null) {
+			Log.debug(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "Entity Mapping Model Not registered With Siminov, MODEL: " + className);
 			
-			QuickDatabaseMappingDescriptorReader quickDatabaseMappingDescriptorParser = null;
+			QuickEntityDescriptorReader quickEntityDescriptorParser = null;
 			try {
-				quickDatabaseMappingDescriptorParser = new QuickDatabaseMappingDescriptorReader(className);
-				quickDatabaseMappingDescriptorParser.process();
+				quickEntityDescriptorParser = new QuickEntityDescriptorReader(className);
+				quickEntityDescriptorParser.process();
 			} catch(SiminovException ce) {
-				Log.error(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className + ", " + ce.getMessage());
-				throw new SiminovCriticalException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, DATABASE-MAPPING-CLASS-NAME: " + className  + ", " + ce.getMessage());
+				Log.error(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, ENTITY-DESCRIPTOR-CLASS-NAME: " + className + ", " + ce.getMessage());
+				throw new SiminovCriticalException(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick entity descriptor parsing, ENTITY-DESCRIPTOR-CLASS-NAME: " + className  + ", " + ce.getMessage());
 			}
 			
-			DatabaseMappingDescriptor foundDatabaseMapping = quickDatabaseMappingDescriptorParser.getDatabaseMapping();
-			if(foundDatabaseMapping == null) {
-				Log.error(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
-				throw new SiminovCriticalException(getClass().getName(), "requiredDatabaseMappingDescriptorBasedOnClassName(" + className + ")", "Database Mapping Model Not registered With Siminov, DATABASE-MAPPING-MODEL: " + className);
+			EntityDescriptor foundEntityDescriptor = quickEntityDescriptorParser.getEntityDescriptor();
+			if(foundEntityDescriptor == null) {
+				Log.error(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "Entity Descriptor Model Not registered With Siminov, ENTITY-DESCRIPTOR-MODEL: " + className);
+				throw new SiminovCriticalException(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "Entity Descriptor Model Not registered With Siminov, ENTITY-DESCRIPTOR-MODEL: " + className);
 			}
 			
-			return foundDatabaseMapping;
+			return foundEntityDescriptor;
 		}
 		
-		return databaseMapping;
+		return entityDescriptor;
 	}
 
 	

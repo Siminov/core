@@ -48,9 +48,9 @@
 	<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
 	
 		<!-- Optional Field -->
-	<database-mapping-descriptors>
-		<database-mapping-descriptor>full_path_of_database_mapping_descriptor_file</database-mapping-descriptor>
-	</database-mapping-descriptors>
+	<entity-descriptors>
+		<entity-descriptor>full_path_of_entity_descriptor_file</entity-descriptor>
+	</entity-descriptors>
 	
 </database-descriptor>
 
@@ -79,10 +79,10 @@ Type Of Properties:
 		-> external_storage: It specifies whether database resources needs to be saved on external storage or not (SDCard). It is optinal field. Default value is false.
 
 	
-	iii. Database Mapping Descriptor Paths Needed Under This Database Descriptor.  
+	iii. Entity Descriptor Paths Needed Under This Database Descriptor.  
 		
-		- Provide full database mapping descriptor file path if you have used xml format to define Core.
+		- Provide full entity descriptor file path if you have used xml format to define Core.
 
-		- Provide full class path of database mapping descriptor POJO class if you have used annotation to define Core.
+		- Provide full class path of entity descriptor mapped class if you have used annotation to define Core.
 
 -->
