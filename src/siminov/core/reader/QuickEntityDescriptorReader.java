@@ -158,7 +158,7 @@ public class QuickEntityDescriptorReader extends SiminovSAXDefaultHandler implem
 
 		if(localName.equalsIgnoreCase(ENTITY_DESCRIPTOR_PROPERTY)) {
 
-			if(propertyName.equalsIgnoreCase(ENTITY_DESCRIPTOR_TABLE_NAME)) {
+			if(propertyName.equalsIgnoreCase(ENTITY_DESCRIPTOR_CLASS_NAME)) {
 				
 				if(tempValue.toString().equalsIgnoreCase(finalEntityDescriptorBasedOnClassName)) {
 					doesMatch = true;
