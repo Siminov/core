@@ -147,7 +147,7 @@ EntityDescriptor.si.xml is the one who does the Core (Object Relationship Modell
 		
 		-> variable_name*: Name of mapped class variable name.
 		
-		-> type*: Java Variable data type. It is mandatory field.
+		-> type*: Variable data type. It is mandatory field.
 					
 			Data Types*:
 				-> string

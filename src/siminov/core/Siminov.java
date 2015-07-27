@@ -277,7 +277,7 @@ public class Siminov {
 			/*
 			 * Map Database Mapping Descriptors
 			 */
-			Iterator<String> databaseMappingDescriptors = libraryDescriptor.getDatabaseMappingPaths();
+			Iterator<String> databaseMappingDescriptors = libraryDescriptor.getEntityDescriptorPaths();
 			while(databaseMappingDescriptors.hasNext()) {
 
 				String libraryDatabaseMappingDescriptorPath = databaseMappingDescriptors.next();

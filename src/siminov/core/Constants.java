@@ -869,4 +869,77 @@ public interface Constants {
 	 * Database Query From Table Index
 	 */
 	public String DATABASE_QUERY_FROM_TABLE_INDEX = "FROM";
+	
+	
+
+	/*
+	 * Data Types
+	 */
+	
+	/**
+	 * Integer Data Type
+	 */
+	public String INTEGER_DATA_TYPE = "integer";
+	
+	/**
+	 * Primitive Integer Data Type
+	 */
+	public String PRIMITIVE_INTEGER_DATA_TYPE = "primitive-integer";
+	
+	/** 
+	 * Long Data Type
+	 */
+	public String LONG_DATA_TYPE = "long";
+	
+	/** 
+	 * Primitive Long Data Type
+	 */
+	public String PRIMITIVE_LONG_DATA_TYPE = "primitive-long";
+	
+	/**
+	 * Float Data Type
+	 */
+	public String FLOAT_DATA_TYPE = "float";
+	
+	/**
+	 * Primitive Float Data Type
+	 */
+	public String PRIMITIVE_FLOAT_DATA_TYPE = "primitive-float";
+	
+	/**
+	 * Double Data Type
+	 */
+	public String DOUBLE_DATA_TYPE = "double";
+	
+	/**
+	 * Primitive Double Data Type
+	 */
+	public String PRIMITIVE_DOUBLE_DATA_TYPE = "primitive-double";
+	
+	/**
+	 * Boolean Data Type
+	 */
+	public String BOOLEAN_DATA_TYPE = "boolean";
+	
+	/**
+	 * Primitive Boolean Data Type
+	 */
+	public String PRIMITIVE_BOOLEAN_DATA_TYPE = "primitive-boolean";
+	
+	/**
+	 * String Data Type
+	 */
+	public String STRING_DATA_TYPE = "string";
+	
+	
+	/**
+	 * Byte Data Type
+	 */
+	public String BYTE_DATA_TYPE = "byte";
+	
+	/**
+	 * Primitive Byte Data Type
+	 */
+	public String PRIMITIVE_BYTE_DATA_TYPE = "primitive-byte";
+
 }

@@ -149,33 +149,33 @@ public class LibraryDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * Check whether database mapping object exists or not, based on table name.
+	 * Check whether entity descriptor object exists or not, based on table name.
 	 * @param tableName Name of table.
-	 * @return TRUE: If database mapping exists, FALSE: If database mapping does not exists.
+	 * @return TRUE: If entity descriptor exists, FALSE: If database mapping does not exists.
 	 */
-	public boolean containsDatabaseMappingBasedOnTableName(final String tableName) {
+	public boolean containsEntityDescriptorBasedOnTableName(final String tableName) {
 		return this.entityDescriptorBasedOnTableName.containsKey(tableName);
 	}
 	
 	/**
-	 * Check whether database mapping object exists or not, based on POJO class name.
-	 * @param className POJO class name.
-	 * @return TRUE: If database mapping exists, FALSE: If database mapping does not exists.
+	 * Check whether entity descriptor object exists or not, based on POJO class name.
+	 * @param className Mapped class name.
+	 * @return TRUE: If entity descriptor exists, FALSE: If database mapping does not exists.
 	 */
-	public boolean containsDatabaseMappingBasedOnClassName(final String className) {
+	public boolean containsEntityDescriptorBasedOnClassName(final String className) {
 		return this.entityDescriptorBasedOnClassName.containsKey(className);
 	}
 
 	/**
-	 * Get all database mapping paths as per defined in DatabaseDescriptor.si.xml file.
-	 * @return Iterator which contain all database mapping paths.
+	 * Get all entity descriptor paths as per defined in DatabaseDescriptor.si.xml file.
+	 * @return Iterator which contain all entity descriptor paths.
 	 */
-	public Iterator<String> getDatabaseMappingPaths() {
+	public Iterator<String> getEntityDescriptorPaths() {
 		return this.entityDescriptorPaths.iterator();
 	}
 
 	/**
-	 * Add database mapping path as per defined in DatabaseDescriptor.si.xml file.
+	 * Add entity descriptor path as per defined in EntityDescriptor.si.xml file.
 	 	<p>
 	 		<pre>
 	 		
@@ -296,7 +296,7 @@ EXAMPLE:
 	 * Remove entity descriptor object based on database mapping object.
 	 * @param entityDescriptor Entity descriptor object which needs to be removed.
 	 */
-	public void removeDatabaseMapping(final EntityDescriptor entityDescriptor) {
+	public void removeEntityDescriptor(final EntityDescriptor entityDescriptor) {
 		removeEntityDescriptorBasedOnClassName(entityDescriptor.getClassName());
 	}
 	
