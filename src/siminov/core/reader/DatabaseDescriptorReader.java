@@ -181,14 +181,14 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 		/*
 		 * Validate Database Name field.
 		 */
-		Iterator<String> databaseMappingPaths = databaseDescriptor.getEntityDescriptorPaths();
-		while(databaseMappingPaths.hasNext()) {
-			String databaseMappingPath = databaseMappingPaths.next();
+		Iterator<String> entityDescriptorPaths = databaseDescriptor.getEntityDescriptorPaths();
+		while(entityDescriptorPaths.hasNext()) {
+			String entityDescriptorPath = entityDescriptorPaths.next();
 			
-			if(databaseMappingPath.endsWith(XML_FILE_EXTENSION)) {
-				if(!databaseMappingPath.contains(SIMINOV_DESCRIPTOR_EXTENSION)) {
-					Log.error(getClass().getName(), "doValidation", "INVALID DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
-					throw new DeploymentException(getClass().getName(), "doValidation", "INVALID DATABASE MAPPING PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseMappingPath);
+			if(entityDescriptorPath.endsWith(XML_FILE_EXTENSION)) {
+				if(!entityDescriptorPath.contains(SIMINOV_DESCRIPTOR_EXTENSION)) {
+					Log.error(getClass().getName(), "doValidation", "INVALID ENTITY DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + entityDescriptorPath);
+					throw new DeploymentException(getClass().getName(), "doValidation", "INVALID ENTITY DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + entityDescriptorPath);
 				}
 			}
 		}

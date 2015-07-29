@@ -178,7 +178,7 @@ public class EntityDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set table name as per defined in DatabaseMappingDescriptor.si.xml file.
+	 * Set table name as per defined in EntityDescriptor.si.xml file.
 	 * @param tableName Name of table.
 	 */
 	public void setTableName(final String tableName) {
@@ -194,7 +194,7 @@ public class EntityDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set POJO class name as per defined in DatabaseMappingDescriptor.si.xml file.
+	 * Set POJO class name as per defined in EntityDescriptor.si.xml file.
 	 * @param className POJO class name.
 	 */
 	public void setClassName(final String className) {
@@ -254,7 +254,7 @@ public class EntityDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * Add column to DatabaseMapping object.
+	 * Add column to Entity Descriptor object.
 	 * @param attribute Column object.
 	 */
 	public void addAttribute(final Attribute attribute) {
@@ -321,7 +321,7 @@ public class EntityDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Add index to DatabaseMapping object.
+	 * Add index to Entity Descriptor object.
 	 * @param index Index object.
 	 */
 	public void addIndex(final Index index) {
@@ -511,7 +511,7 @@ public class EntityDescriptor implements IDescriptor {
 	
 	
 	/**
-	 * Exposes methods to GET and SET Column information as per define in DatabaseMappingDescriptor.si.xml file by application.
+	 * Exposes methods to GET and SET Column information as per define in EntityDescriptor.si.xml file by application.
 	<p>
 		<pre>
 		
@@ -577,7 +577,7 @@ Example:
 		}
 		
 		/**
-		 * Set variable name as per defined in DatabaseMapping.core.xml file.
+		 * Set variable name as per defined in EntityDescriptor.core.xml file.
 		 * @param variableName Name of variable.
 		 */
 		public void setVariableName(final String variableName) {
@@ -593,7 +593,7 @@ Example:
 		}
 		
 		/**
-		 * Set column name as per defined in DatabaseMapping.core.xml file.
+		 * Set column name as per defined in EntityDescriptor.core.xml file.
 		 * @param columnName Name of column name.
 		 */
 		public void setColumnName(final String columnName) {
@@ -609,7 +609,7 @@ Example:
 		}
 		
 		/**
-		 * Set type of column as per defined in DatabaseMapping.core.xml file.
+		 * Set type of column as per defined in EntityDescriptor.core.xml file.
 		 * @param type Type of column.
 		 */
 		public void setType(final String type) {
@@ -657,7 +657,7 @@ Example:
 		}
 		
 		/**
-		 * Set default value of column as per defined in DatabaseMapping.core.xml file.
+		 * Set default value of column as per defined in EntityDescriptor.core.xml file.
 		 * @param defaultValue Default value of column.
 		 */
 		public void setDefaultValue(final String defaultValue) {
@@ -673,7 +673,7 @@ Example:
 		}
 		
 		/**
-		 * Set check constraint of column as per defined in DatabaseMapping.core.xml file.
+		 * Set check constraint of column as per defined in EntityDescriptor.core.xml file.
 		 * @param check Check constraint.
 		 */
 		public void setCheck(final String check) {
@@ -798,7 +798,7 @@ Example:
 
 	
 	/**
-	 * Exposes methods to GET and SET Reference Map information as per define in DatabaseMappingDescriptor.si.xml file by application.
+	 * Exposes methods to GET and SET Reference Map information as per define in EntityDescriptor.si.xml file by application.
 	<p>
 		<pre>
 	

@@ -472,9 +472,9 @@ Example:
 	public static void createTable(final EntityDescriptor entityDescriptor) throws DatabaseException {
 
 		/*
-		 * 1. Get IDatabase with respect to current database mapping class name.
+		 * 1. Get IDatabase with respect to current entity descriptor class name.
 		 * 2. Get Table Name, and all columns.
-		 * 3. Get all attributes and properties from database mapping.
+		 * 3. Get all attributes and properties from entity descriptor.
 		 * 		LIKE(COLUMN NAMES, COLUMN TYPES, PRIMARY KEYS, UNIQUE's, NOT NULL, DEFAULT VALUES, CHECKS, ).
 		 * 
 		 * 4. If current version of OS is lower then 8 (FROYO) then we have to create triggers for all foreign keys defined, 
@@ -500,14 +500,14 @@ Example:
 		IDataTypeHandler dataTypeHandler = databaseBundle.getDataTypeHandler();
 		
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "createTable", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 		
 		String tableName = entityDescriptor.getTableName();
 
 		/*
-		 * Get all attributes and properties from database mapping. 
+		 * Get all attributes and properties from entity descriptor. 
 		 * LIKE(COLUMN NAMES, COLUMN TYPES, DEFAULT VALUES, CHECKS, NOT NULL, PRIMARY KEYS, UNIQUE's ).
 		 */
 		Collection<String> columnNames = new LinkedList<String>();
@@ -882,10 +882,10 @@ Example:
 	{@code
 	
 	String indexName = "LIQUOR_INDEX_BASED_ON_LINK";
-	DatabaseMapping databaseMapping = new Liquor().getDatabaseMapping();
+	EntityDescriptor entityDescriptor = new Liquor().getEntityDescriptor();
 	
 	try {
-		Database.dropIndex(databaseMapping, indexName);
+		Database.dropIndex(entityDescriptor, indexName);
 	} catch(DatabaseException databaseException) {
 		//Log It.
 	}
@@ -956,8 +956,8 @@ Example:
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For DATABASE-MAPPING: " + databaseDescriptor.getDatabaseName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For DATABASE-MAPPING: " + databaseDescriptor.getDatabaseName());
+			Log.error(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For ENTITY-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "dropDatabase", "No Database Instance Found For ENTITY-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
 		}
 
 		String databasePath = new DatabaseUtils().getDatabasePath(databaseDescriptor);
@@ -1016,7 +1016,7 @@ Example: Make Beer Object
 		Siminov.isActive();
 		
 		/*
-		 * 1. Get database mapping object for mapped invoked class object.
+		 * 1. Get entity descriptor object for mapped invoked class object.
 		 */
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		IDatabaseImpl database = databaseBundle.getDatabase();
@@ -1067,7 +1067,7 @@ Example: Make Beer Object
 		Siminov.isActive();
 		
 		/*
-		 * 1. Get database mapping object for mapped invoked class object.
+		 * 1. Get entity descriptor object for mapped invoked class object.
 		 */
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		IDatabaseImpl database = databaseBundle.getDatabase();
@@ -1118,7 +1118,7 @@ Example:
 		Siminov.isActive();
 		
 		/*
-		 * 1. Get database mapping object for mapped invoked class object.
+		 * 1. Get entity descriptor object for mapped invoked class object.
 		 */
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
 		IDatabaseImpl database = databaseBundle.getDatabase();
@@ -1138,18 +1138,18 @@ Example:
 	
 	static Object[] select(final Object object, final Object parentObject, final EntityDescriptor entityDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*
-		 * 1. Get database mapping object for mapped invoked class object.
+		 * 1. Get entity descriptor object for mapped invoked class object.
 		 * 2. Traverse group by's and form a single string.
 		 * 3. Traverse order by'z and form a single string.
 		 * 4. Pass all parameters to executeFetchQuery and get cursor.
-		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
+		 * 5. Pass got cursor and mapped entity descriptor object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
 		 * 6. Check for relationship's if any, IF EXISTS: process it, ELSE: return all objects.
 		 */
 		
 		Siminov.isActive();
 		
 		/*
-		 * 1. Get database mapping object for mapped invoked class object.
+		 * 1. Get entity descriptor object for mapped invoked class object.
 		 */
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(entityDescriptor.getClassName());
 		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
@@ -1158,8 +1158,8 @@ Example:
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 		
 		/*
@@ -1188,7 +1188,7 @@ Example:
 		datas = datasBundle.iterator();	
 		
 		/*
-		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
+		 * 5. Pass got cursor and mapped entity descriptor object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
 		 */
 		Collection<Object> tuplesCollection = new LinkedList<Object> ();
 		if(object != null) {
@@ -1215,8 +1215,8 @@ Example:
 		try {
 			classObject = Class.forName(entityDescriptor.getClassName());
 		} catch(Exception exception) {
-			Log.error(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DatabaseException(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DatabaseException(DatabaseHelper.class.getName(), "select", "Exception caught while making class object for return type, ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 		
 		Object returnType = Array.newInstance(classObject, tuplesCollection.size());
@@ -1261,10 +1261,10 @@ Example:
 		Siminov.isActive();
 		
 		/*
-		 * 1. Get database mapping object for mapped invoked class object.
+		 * 1. Get entity descriptor object for mapped invoked class object.
 		 */
 		
-		//DatabaseMappingDescriptor databaseMappingDescriptor = getDatabaseMappingDescriptor(object.getClass().getName());
+		//EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		query.trim();
 		String tableName = query.substring(query.indexOf(Constants.DATABASE_QUERY_FROM_TABLE_INDEX) + 5, query.length());
 		if(tableName.indexOf(" ") != -1) {
@@ -1277,8 +1277,8 @@ Example:
 		IDatabaseImpl database = databaseBundle.getDatabase();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + tableName);
-			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For DATABASE-MAPPING: " + tableName);
+			Log.error(DatabaseHelper.class.getName(), "select", "No Database Instance Found For ENTITY-DESCRIPTOR: " + tableName);
+			throw new DeploymentException(DatabaseHelper.class.getName(), "select", "No Database Instance Found For ENTITY-DESCRIPTOR: " + tableName);
 		}
 		
 		/*
@@ -1287,7 +1287,7 @@ Example:
 		Iterator<Object> tuples = parseAndInflateData(object, null, null, database.executeSelectQuery(databaseDescriptor, null, query));
 			
 		/*
-		 * 5. Pass got cursor and mapped database mapping object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
+		 * 5. Pass got cursor and mapped entity descriptor object for invoked class object, and pass it parseCursor method which will return all tuples in form of actual objects.
 		 */
 		
 		Collection<Object> tuplesCollection = new LinkedList<Object> ();
@@ -1300,8 +1300,8 @@ Example:
 		try {
 			classObject = Class.forName(object.getClass().getName());
 		} catch(Exception exception) {
-			Log.error(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + object.getClass().getName());
-			throw new DatabaseException(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, DATABASE-MAPPING: " + object.getClass().getName());
+			Log.error(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, ENTITY-DESCRIPTOR: " + object.getClass().getName());
+			throw new DatabaseException(DatabaseHelper.class.getName(), "manualFetch", "Exception caught while making class object for return type, ENTITY-DESCRIPTOR: " + object.getClass().getName());
 		}
 		
 		Object returnType = Array.newInstance(classObject, tuplesCollection.size());
@@ -1367,7 +1367,7 @@ Example: Make Liquor Object
 		}
 		
 		/*
-		 * 1. Get mapped database mapping object for invoked class object.
+		 * 1. Get mapped entity descriptor object for invoked class object.
 		 */
 		
 		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
@@ -1378,8 +1378,8 @@ Example: Make Liquor Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "save", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "save", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "save", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		/*
@@ -1560,7 +1560,7 @@ Example: Make Beer Object
 		Siminov.isActive();
 	
 		/*
-		 * 1. Get mapped database mapping object for object parameter class name.
+		 * 1. Get mapped entity descriptor object for object parameter class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, All, Primary Keys, by parsing each fields.
 		 * 3. Form where clause based on primary keys for updation purpose.
 		 * 4. Using QueryBuilder form update bind query.
@@ -1574,7 +1574,7 @@ Example: Make Beer Object
 		}
 
 		/*
-		 * 1. Get mapped database mapping object for invoked class object.
+		 * 1. Get mapped entity descriptor object for invoked class object.
 		 */
 		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
@@ -1754,7 +1754,7 @@ Example: Make Beer Object
 		Siminov.isActive();
 		
 		/*
-		 * 1. Get mapped database mapping object for object class name.
+		 * 1. Get mapped entity descriptor object for object class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, All, Primary Keys, by parsing each fields.
 		 * 3. Form where clause based on primary keys to fetch objects from database table. IF EXISTS: call update method, ELSE: class save method.
 		 * 4. IF EXISTS: call update method, ELSE: call save method.
@@ -1766,7 +1766,7 @@ Example: Make Beer Object
 		}
 		
 		/*
-		 * 1. Get mapped database mapping object for object class name.
+		 * 1. Get mapped entity descriptor object for object class name.
 		 */
 		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
@@ -1830,7 +1830,7 @@ Example: Make Beer Object
 
 	static void delete(final Object object, final String whereClause) throws DatabaseException {
 		/*
-		 * 1. Get mapped database mapping object for object parameter class name.
+		 * 1. Get mapped entity descriptor object for object parameter class name.
 		 * 2. Get Table Name, All Method Names, All Column Names, All Column Values, All Column Types, All, Primary Keys, by parsing each fields.
 		 * 3. Form where clause based on primary keys for deletion purpose.
 		 * 4. Using QueryBuilder form update bind query.
@@ -1844,7 +1844,7 @@ Example: Make Beer Object
 		}
 
 		/*
-		 * 1. Get mapped database mapping object for object parameter class name.
+		 * 1. Get mapped entity descriptor object for object parameter class name.
 		 */
 		EntityDescriptor entityDescriptor = getEntityDescriptor(object.getClass().getName());
 		DatabaseDescriptor databaseDescriptor = getDatabaseDescriptor(object.getClass().getName());
@@ -1920,8 +1920,8 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "count(" + whereClause + ")", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		
@@ -1971,8 +1971,8 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "avg(" + column + ")", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		
@@ -2022,8 +2022,8 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "sum", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		
@@ -2072,8 +2072,8 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "total", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "total", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "total", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		
@@ -2122,8 +2122,8 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "min", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "min", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "min", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		
@@ -2172,8 +2172,8 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "max", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "max", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "max", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		
@@ -2222,8 +2222,8 @@ Example: Make Beer Object
 		IQueryBuilder queryBuilder = databaseBundle.getQueryBuilder();
 
 		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For DATABASE-MAPPING: " + entityDescriptor.getClassName());
+			Log.error(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "groupConcat", "No Database Instance Found For ENTITY-DESCRIPTOR: " + entityDescriptor.getClassName());
 		}
 
 		
@@ -2299,7 +2299,7 @@ Example:
  		
 	 	</pre>
 	 	
-	 	@return DatabaseMapping Object
+	 	@return EntityDescriptor Object
 	 	@throws DatabaseException If entity descriptor object not mapped for invoked class object.
 	 */
 	static EntityDescriptor getEntityDescriptor(final String className) throws DatabaseException {

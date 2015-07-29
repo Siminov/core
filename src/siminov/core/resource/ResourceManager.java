@@ -41,7 +41,7 @@ import android.content.Context;
 /**
  * It handles and provides all resources needed by SIMINOV.
  * <p>
- * Such As: Provides Application Descriptor, Database Descriptor, Library Descriptor, Database Mapping Descriptor.
+ * Such As: Provides Application Descriptor, Database Descriptor, Library Descriptor, Entity Descriptor.
  */
 public class ResourceManager {
 
@@ -225,9 +225,9 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnClassName(className);
+			boolean containsEntityDescriptorInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnClassName(className);
 
-			if(containsDatabaseMappingInDatabaseDescriptor) {
+			if(containsEntityDescriptorInDatabaseDescriptor) {
 				return databaseDescriptor;
 			}
 		}
@@ -249,9 +249,9 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnClassName(className);
+			boolean containsEntityDescriptorInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnClassName(className);
 
-			if(containsDatabaseMappingInDatabaseDescriptor) {
+			if(containsEntityDescriptorInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
 			}
 		}
@@ -274,9 +274,9 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnTableName(tableName);
+			boolean containsEntityDescriptorInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnTableName(tableName);
 
-			if(containsDatabaseMappingInDatabaseDescriptor) {
+			if(containsEntityDescriptorInDatabaseDescriptor) {
 				return databaseDescriptor;
 			}
 		}
@@ -298,9 +298,9 @@ Example: DatabaseDescriptor.xml
 		Iterator<DatabaseDescriptor> databaseDescriptors = this.applicationDescriptor.getDatabaseDescriptors();
 		while(databaseDescriptors.hasNext()) {
 			DatabaseDescriptor databaseDescriptor = databaseDescriptors.next();
-			boolean containsDatabaseMappingInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnTableName(tableName);
+			boolean containsEntityDescriptorInDatabaseDescriptor = databaseDescriptor.containsEntityDescriptorBasedOnTableName(tableName);
 
-			if(containsDatabaseMappingInDatabaseDescriptor) {
+			if(containsEntityDescriptorInDatabaseDescriptor) {
 				return databaseDescriptor.getDatabaseName();
 			}
 		}
@@ -390,14 +390,14 @@ Example: DatabaseDescriptor.xml
 		EntityDescriptor entityDescriptor = getEntityDescriptorBasedOnClassName(className);
 
 		if(entityDescriptor == null) {
-			Log.debug(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "Entity Mapping Model Not registered With Siminov, MODEL: " + className);
+			Log.debug(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "Entity Descriptor Model Not registered With Siminov, MODEL: " + className);
 			
 			QuickEntityDescriptorReader quickEntityDescriptorParser = null;
 			try {
 				quickEntityDescriptorParser = new QuickEntityDescriptorReader(className);
 				quickEntityDescriptorParser.process();
 			} catch(SiminovException ce) {
-				Log.error(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick database mapping parsing, ENTITY-DESCRIPTOR-CLASS-NAME: " + className + ", " + ce.getMessage());
+				Log.error(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick entity descriptor parsing, ENTITY-DESCRIPTOR-CLASS-NAME: " + className + ", " + ce.getMessage());
 				throw new SiminovCriticalException(getClass().getName(), "requiredEntityDescriptorBasedOnClassName(" + className + ")", "SiminovException caught while doing quick entity descriptor parsing, ENTITY-DESCRIPTOR-CLASS-NAME: " + className  + ", " + ce.getMessage());
 			}
 			

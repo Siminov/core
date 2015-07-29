@@ -151,16 +151,16 @@ public class LibraryDescriptor implements IDescriptor {
 	/**
 	 * Check whether entity descriptor object exists or not, based on table name.
 	 * @param tableName Name of table.
-	 * @return TRUE: If entity descriptor exists, FALSE: If database mapping does not exists.
+	 * @return TRUE: If entity descriptor exists, FALSE: If entity descriptor does not exists.
 	 */
 	public boolean containsEntityDescriptorBasedOnTableName(final String tableName) {
 		return this.entityDescriptorBasedOnTableName.containsKey(tableName);
 	}
 	
 	/**
-	 * Check whether entity descriptor object exists or not, based on POJO class name.
+	 * Check whether entity descriptor object exists or not, based on mapped class name.
 	 * @param className Mapped class name.
-	 * @return TRUE: If entity descriptor exists, FALSE: If database mapping does not exists.
+	 * @return TRUE: If entity descriptor exists, FALSE: If entity descriptor does not exists.
 	 */
 	public boolean containsEntityDescriptorBasedOnClassName(final String className) {
 		return this.entityDescriptorBasedOnClassName.containsKey(className);
@@ -193,7 +193,7 @@ EXAMPLE:
 		</pre>
 	</p>
 	 
-	 * @param entityDescriptorPath Database Mapping Path.
+	 * @param entityDescriptorPath Entity Descriptor Path.
 	 */
 	public void addEntityDescriptorPath(final String entityDescriptorPath) {
 		this.entityDescriptorPaths.add(entityDescriptorPath);
@@ -270,8 +270,8 @@ EXAMPLE:
 		String keyMatched = null;
 		boolean found = false;
 		for(String key : keys) {
-			EntityDescriptor mapping = this.entityDescriptorBasedOnPath.get(key);
-			if(entityDescriptor == mapping) {
+			EntityDescriptor entityDescriptorBasedOnPath = this.entityDescriptorBasedOnPath.get(key);
+			if(entityDescriptor == entityDescriptorBasedOnPath) {
 				keyMatched = key;
 				found = true;
 				break;
@@ -293,7 +293,7 @@ EXAMPLE:
 	}
 	
 	/**
-	 * Remove entity descriptor object based on database mapping object.
+	 * Remove entity descriptor object based on entity descriptor object.
 	 * @param entityDescriptor Entity descriptor object which needs to be removed.
 	 */
 	public void removeEntityDescriptor(final EntityDescriptor entityDescriptor) {

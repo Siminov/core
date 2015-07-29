@@ -169,7 +169,7 @@ Example:
 	public void createTable() throws DatabaseException;
 
 	/**
-	 * It drop's the table from database based on database-mapping.
+	 * It drop's the table from database based on entity-descriptor.
 	  	<p>
 			<pre> Drop the Liquor table.
 	
@@ -629,7 +629,7 @@ Example:
 	public DatabaseDescriptor getDatabaseDescriptor() throws DatabaseException;
 
 	/**
- 	Returns the actual database mapping object mapped for invoked class object.
+ 	Returns the actual entity descriptor object mapped for invoked class object.
  
  	<pre>
  	
@@ -638,7 +638,7 @@ Example:
  			
 EntityDescriptor entityDescriptor = null;
 try {
-	databaseMapping = new Liquor().getEntityDescriptor();
+	entityDescriptor = new Liquor().getEntityDescriptor();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -647,7 +647,7 @@ try {
 		
  	</pre>
  	
- 	@return DatabaseMapping Object
+ 	@return EntityDescriptor Object
  	@throws DatabaseException If entity descriptor object not mapped for invoked class object.
 	 */
 	public EntityDescriptor getEntityDescriptor() throws DatabaseException;

@@ -72,7 +72,7 @@ public class Database implements IDatabase {
 	}
 			</pre>
 		</p>
-	 * @param databaseName Database-mapping object which defines the structure of table.
+	 * @param databaseName Entity Descriptor object which defines the structure of table.
 	 * @throws DatabaseException If not able to drop database.
 	 */
 	public static void dropDatabase(String databaseName) throws DatabaseException {
@@ -753,7 +753,7 @@ Example:
  			
 EntityDescriptor entityDescriptor = null;
 try {
-	databaseMapping = new Liquor().getEntityDescriptor();
+	entityDescriptor = new Liquor().getEntityDescriptor();
 } catch(DatabaseException de) {
 	//Log it.
 }

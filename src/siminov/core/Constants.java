@@ -119,7 +119,7 @@ public interface Constants {
 	
 
 	/**
-	 * DatabaseDescriptor.si.xml database-mapping TAG.
+	 * DatabaseDescriptor.si.xml entity-descriptor TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_ENTITY_DESCRIPTOR = "entity-descriptor";
 
@@ -162,13 +162,13 @@ public interface Constants {
 	public String LIBRARY_DESCRIPTOR_DESCRIPTION = "description";
 
 	/**
-	 * LibraryDescriptor.si.xml database-mapping TAG.
+	 * LibraryDescriptor.si.xml entity-descriptor TAG.
 	 */
 	public String LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR = "entity-descriptor";
 
 	
 	/**
-	 * LibraryDescriptor.si.xml database mapping seprator.
+	 * LibraryDescriptor.si.xml entity descriptor seprator.
 	 */
 	public String LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR_SEPRATOR = ".";
 	

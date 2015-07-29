@@ -45,7 +45,7 @@
 		
 
 
-	<!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor -->
+	<!-- Entity Descriptor Paths Needed Under This Database Descriptor -->
 	
 		<!-- Optional Field -->
 	<entity-descriptors>

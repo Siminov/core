@@ -291,7 +291,7 @@ EXAMPLE:
 		</pre>
 	</p>
 	 
-	 * @param entityDescriptorPath Database Mapping Path.
+	 * @param entityDescriptorPath Entity Descriptor Path.
 	 */
 	public void addEntityDescriptorPath(final String entityDescriptorPath) {
 		this.entityDescriptorPaths.add(entityDescriptorPath);
@@ -325,7 +325,7 @@ EXAMPLE:
 	
 	/**
 	 * Get entity descriptor object based on path.
-	 * @param entityDescriptorPath Database Mapping path as per defined in Database Descriptor.xml file.
+	 * @param entityDescriptorPath Entity Descriptor path as per defined in Database Descriptor.xml file.
 	 * @return Entity Descriptor.
 	 */
 	public EntityDescriptor getEntityDescriptorBasedOnPath(final String entityDescriptorPath) {
@@ -344,7 +344,7 @@ EXAMPLE:
 	}
 
 	/**
-	 * Remove entity descriptor object based on database mapping path.
+	 * Remove entity descriptor object based on entity descriptor path.
 	 * @param entityDescriptorPath Entity Descriptor Path.
 	 */
 	public void removeEntityDescriptorBasedOnPath(final String entityDescriptorPath) {
@@ -370,8 +370,8 @@ EXAMPLE:
 		boolean found = false;
 		for(String key : keys) {
 			
-			EntityDescriptor mapping = this.entityDescriptorsBasedOnPath.get(key);
-			if(entityDescriptor == mapping) {
+			EntityDescriptor entityDescriptorBasedOnPath = this.entityDescriptorsBasedOnPath.get(key);
+			if(entityDescriptor == entityDescriptorBasedOnPath) {
 				keyMatched = key;
 				found = true;
 				break;
@@ -393,7 +393,7 @@ EXAMPLE:
 	}
 	
 	/**
-	 * Remove entity descriptor object based on database mapping object.
+	 * Remove entity descriptor object based on entity descriptor object.
 	 * @param entityDescriptor Entity descriptor object which needs to be removed.
 	 */
 	public void removeEntityDescriptor(final EntityDescriptor entityDescriptor) {

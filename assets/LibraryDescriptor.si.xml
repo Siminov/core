@@ -33,10 +33,10 @@
 
 	
 	
-	<!-- Database Mappings Needed Under This Library Descriptor -->
+	<!-- Entity Descriptors Needed Under This Library Descriptor -->
 	
 	<!-- Optional Field -->
-		<!-- Database Mapping Descriptors -->
+		<!-- Entity Descriptors -->
 	<entity-descriptors>
 		<entity-descriptor>name_of_database_descriptor.full_path_of_entity_descriptor_file</entity-descriptor>
 	</entity-descriptors>
