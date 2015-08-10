@@ -550,7 +550,7 @@ Example:
 		 * Add All Relationships
 		 */
 		Iterator<Relationship> oneToOneRelationships = entityDescriptor.getOneToOneRelationships();
-		Iterator<Relationship> oneToManyRelationships = entityDescriptor.getManyToOneRelationships();
+		Iterator<Relationship> manyToOneRelationships = entityDescriptor.getManyToOneRelationships();
 		Iterator<Relationship> manyToManyRelationships = entityDescriptor.getManyToManyRelationships();
 
 		
@@ -589,8 +589,8 @@ Example:
 		}
 		
 		
-		while(oneToManyRelationships.hasNext()) {
-			Relationship oneToManyRelationship = oneToManyRelationships.next();
+		while(manyToOneRelationships.hasNext()) {
+			Relationship oneToManyRelationship = manyToOneRelationships.next();
 			EntityDescriptor referedEntityDescriptor = oneToManyRelationship.getReferedEntityDescriptor();
 			if(referedEntityDescriptor == null) {
 				referedEntityDescriptor = getEntityDescriptor(oneToManyRelationship.getReferTo());
@@ -3082,7 +3082,6 @@ Example:
 				}
 				
 				
-				//processRelationship(referedObject, object, columnNames, columnValues);
 				processOneToManyRelationship(referedObject, object, columnNames, columnValues);
 				processManyToOneRelationship(referedObject, object, columnNames, columnValues);
 				processManyToManyRelationship(referedObject, object, columnNames, columnValues);

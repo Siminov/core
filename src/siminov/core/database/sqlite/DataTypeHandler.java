@@ -18,6 +18,7 @@
 package siminov.core.database.sqlite;
 
 import siminov.core.database.design.IDataTypeHandler;
+import siminov.core.exception.DeploymentException;
 
 /**
  * Provides the IDataTypeHandler implementation for SQLite database
@@ -59,7 +60,7 @@ public class DataTypeHandler implements IDataTypeHandler {
 		 * Other Data Type
 		 */
 		else {
-			return SQLITE_NONE_DATA_TYPE;
+			throw new DeploymentException(DataTypeHandler.class.getName(), "convert", dataType + " Data Type Not Supported On Android");
 		}
 		
 	}
