@@ -1,0 +1,1 @@
+© 2015 Siminov Software Solution LLP. All Rights Reserved.
