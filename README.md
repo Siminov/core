@@ -1,9 +1,9 @@
 Siminov Core (Object Relationship Mapping) - Android
 ===================================================
 
-Siminov Core is a open source Object/Relational Mapping solution for Android environments. It maps data from an object model representation to a relational data model representation (and visa versa). 
+Siminov Core is a open source Object/Relational Mapping solution for all different environments - (Android - Java, iOS - Objective-C|Swift, Windows - C#, OS X - Objective-C|Swift). It maps data from an object model representation to a relational data table representation (and visa versa).
 
-Siminov Core not only takes care of the mapping from Java classes to database tables (and from Java data types to SQL data types), but also provides data query and retrieval facilities. 
+Siminov Core not only takes care of the mapping from model classes to database tables (and from Model data types to SQL data types), but also provides data query and retrieval facilities.
 
 Get Started
 -----------
@@ -21,7 +21,7 @@ Siminov provides a easy set of defined descriptors which can be broadly classifi
 	|- ApplicationDescriptor.si.xml 
 	|- DatabaseDescriptor.si.xml
 	|- LibraryDescriptor.si.xml
-	|- DatabaseMappingDescriptor.si.xml.
+	|- EntityDescriptor.si.xml.
 
 ###### 2. Handle Application Initialization
 All resources required by application are created and managed by siminov core. (Eg: Creating Database, Deploying Application).
@@ -86,7 +86,7 @@ LICENSE
  
 <b> SIMINOV FRAMEWORK </b>
  <p>
- Copyright [2013] [Siminov Software Solution LLP|support@siminov.com]
+ Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -101,5 +101,3 @@ LICENSE
  limitations under the License.
 
 
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/e250ed9305868c42000edc051b0c1078 "githalytics.com")](http://githalytics.com/Siminov/android-core)
