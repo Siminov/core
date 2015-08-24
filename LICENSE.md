@@ -1,8 +1,6 @@
 LICENSE
 =======
 
- [SIMINOV FRAMEWORK]
-
 
  Apache License
                            Version 2.0, January 2004
@@ -193,6 +191,8 @@ LICENSE
       identification within third-party archives.
 
 
+
+ [SIMINOV FRAMEWORK]
  <p>
  Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
  
