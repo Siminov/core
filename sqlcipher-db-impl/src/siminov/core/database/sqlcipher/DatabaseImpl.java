@@ -1,6 +1,6 @@
 /** 
  * [SIMINOV FRAMEWORK]
- * Copyright [2013] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,8 @@ import siminov.core.exception.DatabaseException;
 import siminov.core.exception.DeploymentException;
 import siminov.core.log.Log;
 import siminov.core.model.DatabaseDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor;
-import siminov.core.model.DatabaseMappingDescriptor.Attribute;
+import siminov.core.model.EntityDescriptor;
+import siminov.core.model.EntityDescriptor.Attribute;
 import siminov.core.resource.ResourceManager;
 
 
@@ -86,7 +86,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		sqliteDatabase.close();
 	}
 
-	public void executeQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
+	public void executeQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query) throws DatabaseException {
 		Log.debug(DatabaseImpl.class.getName(), "executeQuery(" + query + ")", "QUERY: " + query);
 		
 		try {
@@ -97,7 +97,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		}
 	}
 	
-	public void executeBindQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query, final Iterator<Object> columnValues) throws DatabaseException {
+	public void executeBindQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query, final Iterator<Object> columnValues) throws DatabaseException {
 		Log.debug(DatabaseImpl.class.getName(), "executeBindQuery", "QUERY: " + query);
 		
 		SQLiteStatement statement =null;
@@ -190,7 +190,7 @@ public class DatabaseImpl implements IDatabaseImpl {
 		statement.close();
 	}
 	
-	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final DatabaseMappingDescriptor databaseMappingDescriptor, final String query) throws DatabaseException {
+	public Iterator<Map<String, Object>> executeSelectQuery(final DatabaseDescriptor databaseDescriptor, final EntityDescriptor entityDescriptor, final String query) throws DatabaseException {
 			CrossProcessCursorWrapper sqliteCursor = (CrossProcessCursorWrapper) sqliteDatabase.rawQuery(query, null);
 			Collection<Map<String, Object>> tuples = new ArrayList<Map<String,Object>>();
 			
@@ -205,8 +205,8 @@ public class DatabaseImpl implements IDatabaseImpl {
 				for(int i = 0;i < columnNames.length;i++) {
 					String columnName = sqliteCursor.getColumnName(i);
 					
-					if(databaseMappingDescriptor != null) {
-						Attribute attribute = databaseMappingDescriptor.getAttributeBasedOnColumnName(columnName);
+					if(entityDescriptor != null) {
+						Attribute attribute = entityDescriptor.getAttributeBasedOnColumnName(columnName);
 						
 						if(attribute != null) {
 							String columnType = attribute.getType();
