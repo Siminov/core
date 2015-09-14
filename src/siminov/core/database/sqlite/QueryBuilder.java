@@ -683,8 +683,8 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 
 		final String tableName = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER);
 		final String column = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER);
-		final String delimiter = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER);
-		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER);
+		final String delimiter = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER);
+		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER);
 		final String having = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER);
 		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER);
 		

@@ -2230,10 +2230,10 @@ Example: Make Beer Object
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_TABLE_NAME_PARAMETER, entityDescriptor.getTableName());
 		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_COLUMN_PARAMETER, column);
-		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER, delimiter);
-		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER, whereClause);
-		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER, groupBys);
-		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER, having);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER, delimiter);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER, whereClause);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER, groupBys);
+		parameters.put(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER, having);
 		
 		
 		String query = queryBuilder.formGroupConcatQuery(parameters);
@@ -3027,18 +3027,18 @@ Example:
 
 				
 				if(object != null && object.getClass().getName().equalsIgnoreCase(referedEntityDescriptor.getClassName())) {
-					return;
+					continue;
 				}
 				
 				Object referedObject = select(null, null, referedEntityDescriptor, false, whereClause.toString(), null, null, null, null, null, null);
 				Object[] referedObjects = (Object[]) referedObject;
 
 				if(referedObjects == null || referedObjects.length <= 0) {
-					return;
+					continue;
 				}
 				
 				if(referedObjects[0] == null) {
-					return;
+					continue;
 				}
 				
 				try {
