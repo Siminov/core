@@ -299,13 +299,18 @@ public class QueryBuilder implements Constants, IQueryBuilder {
         if(distinct) {
             query.append("DISTINCT ");
         } else {
-        	query.append("* ");
-        }
-        
-        if(columnsNames != null) {
-            if (columnsNames.hasNext()) {
-                appendColumns(query, columnsNames);
+
+        	int columnNamesCount = 0;
+        	if(columnsNames != null) {
+                if (columnsNames.hasNext()) {
+                	++columnNamesCount;
+                    appendColumns(query, columnsNames);
+                }
             }
+        	
+        	if(columnNamesCount <= 0) {
+            	query.append("* ");
+        	}
         }
         
         query.append("FROM ");

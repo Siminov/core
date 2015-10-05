@@ -1078,63 +1078,15 @@ Example: Make Beer Object
 		}
 
 		database.executeMethod(SQLITE_DATABASE_COMMIT_TRANSACTION, null);
-	}
-
-	/**
-	 * End the current transaction.
-	
-	<pre>
-
-Example:
-	{@code
-
-	Liquor beer = new Liquor();
-	beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-	beer.setDescription(applicationContext.getString(R.string.beer_description));
-	beer.setHistory(applicationContext.getString(R.string.beer_history));
-	beer.setLink(applicationContext.getString(R.string.beer_link));
-	beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
-
-	DatabaseDescriptor databaseDescriptor = beer.getDatabaseDescriptor();
-  
-	try {
-		Database.beginTransaction(databaseDescriptor);
-  		
-		beer.save();
-  
-		Database.commitTransaction(databaseDescriptor);
-	} catch(DatabaseException de) {
-		//Log it.
-	} finally {
-		Database.endTransaction(databaseDescriptor);
-	}
-	
-	}
-	</pre>
-
-	 * @param databaseDescriptor Database Descriptor Object.
-	 */
-	static void endTransaction(final DatabaseDescriptor databaseDescriptor) {
-		Siminov.isActive();
-		
-		/*
-		 * 1. Get entity descriptor object for mapped invoked class object.
-		 */
-		DatabaseBundle databaseBundle = resourceManager.getDatabaseBundle(databaseDescriptor.getDatabaseName());
-		IDatabaseImpl database = databaseBundle.getDatabase();
-
-		if(database == null) {
-			Log.error(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
-			throw new DeploymentException(DatabaseHelper.class.getName(), "commitTransaction", "No Database Instance Found For DATABASE-DESCRIPTOR: " + databaseDescriptor.getDatabaseName());
-		}
 		
 		try {
-			database.executeMethod(SQLITE_DATABASE_END_TRANSACTION, null);
+			database.executeMethod(SQLITE_DATABASE_END_TRANSACTION, true);
 		} catch(DatabaseException databaseException) {
 			Log.error(DatabaseHelper.class.getName(), "commitTransaction", "DatabaseException caught while executing end transaction method, " + databaseException.getMessage());
+			throw new DeploymentException(DatabaseHelper.class.getName(), "commitTransaction", databaseException.getMessage());
 		}
 	}
-	
+
 	
 	static Object[] select(final Object object, final Object parentObject, final EntityDescriptor entityDescriptor, final boolean distinct, final String whereClause, final Iterator<String> columnNames, final Iterator<String> groupBy, final String having, final Iterator<String> orderBy, final String whichOrderBy, final String limit) throws DatabaseException {
 		/*

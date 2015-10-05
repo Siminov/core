@@ -1104,42 +1104,4 @@ Example: Make Beer Object
 	public static void commitTransaction(final DatabaseDescriptor databaseDescriptor) throws DatabaseException {
 		DatabaseHelper.commitTransaction(databaseDescriptor);
 	}
-	
-	/**
-	 * End the current transaction.
-	
-	<pre>
-
-Example:
-	{@code
-
-	Liquor beer = new Liquor();
-	beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-	beer.setDescription(applicationContext.getString(R.string.beer_description));
-	beer.setHistory(applicationContext.getString(R.string.beer_history));
-	beer.setLink(applicationContext.getString(R.string.beer_link));
-	beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
-
-	DatabaseDescriptor databaseDescriptor = beer.getDatabaseDescriptor();
-  
-	try {
-		Database.beginTransaction(databaseDescriptor);
-  		
-		beer.save();
-  
-		Database.commitTransaction(databaseDescriptor);
-	} catch(DatabaseException de) {
-		//Log it.
-	} finally {
-		Database.endTransaction(databaseDescriptor);
-	}
-	
-	}
-	</pre>
-
-	 * @param databaseDescriptor Database Descriptor Object.
-	 */
-	public static void endTransaction(final DatabaseDescriptor databaseDescriptor) {
-		DatabaseHelper.endTransaction(databaseDescriptor);
-	}
 }

@@ -48,10 +48,10 @@
 		    			
     		    <!-- Mandatory Field -->
 					<!-- VARIABLE_NAME: Mandatory Field -->
-		    <property name="variable_name">class_variable_name</property>
+		    <property name="variable_name">variable_name</property>
 		    		    
 			    <!-- Mandatory Field -->
-			<property name="type">java_variable_data_type</property>
+			<property name="type">variable_data_type</property>
 			
 				<!-- Optional Field (Default is false) -->
 			<property name="primary_key">true/false</property>

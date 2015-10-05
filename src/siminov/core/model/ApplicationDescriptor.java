@@ -47,6 +47,9 @@ Example:
 		
 			<!-- Mandatory Field (Default is 0.0) -->
 		<property name="version">application_version</property>
+		
+			<!-- Optional Field (Default is DEVELOPMENT) -->
+		<property name="deploy">application_deploy_level (PRODUCTION|BETA|DEVELOPMENT)</property>
 	
 	
 		<!-- Database Descriptors Used By Application (zero-to-many) -->	
@@ -144,6 +147,15 @@ public class ApplicationDescriptor implements IDescriptor {
 		this.properties.put(Constants.APPLICATION_DESCRIPTOR_VERSION, Double.toString(version));
 	}
 
+	public String getDeploy() {
+		return this.properties.get(Constants.APPLICATION_DESCRIPTOR_DEPLOY);
+	}
+	
+	public void setDeploy(String deploy) {
+		this.properties.put(Constants.APPLICATION_DESCRIPTOR_DEPLOY, deploy);
+	}
+	
+	
 	/**
 	 * Get all Properties defined in descriptor.
 	 * @return All Property Values.

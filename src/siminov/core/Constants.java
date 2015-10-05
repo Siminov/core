@@ -63,6 +63,16 @@ public interface Constants {
 	 */
 	public String APPLICATION_DESCRIPTOR_VERSION = "version";
 
+	public String APPLICATION_DESCRIPTOR_DEPLOY = "deploy";
+	
+	public String APPLICATION_DESCRIPTOR_DEPLOY_DEVELOPMENT = "development";
+
+	public String APPLICATION_DESCRIPTOR_DEPLOY_BETA = "beta";
+
+	public String APPLICATION_DESCRIPTOR_DEPLOY_PRODUCTION = "production";
+
+	
+	
 	/**
 	 * ApplicationDescriptor.si.xml database-descriptor TAG.
 	 */

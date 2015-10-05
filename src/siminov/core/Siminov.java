@@ -230,6 +230,18 @@ public class Siminov {
 		}
 		
 		coreResourceManager.setApplicationDescriptor(applicationDescriptor);
+		
+		/*
+		 * Setup Deploy Mode
+		 */
+		String deploy = applicationDescriptor.getDeploy();
+		if(deploy != null && deploy.equalsIgnoreCase(Constants.APPLICATION_DESCRIPTOR_DEPLOY_DEVELOPMENT)) {
+			Log.DEPLOY = Log.DEVELOPMENT;
+		} else if(deploy != null && deploy.equalsIgnoreCase(Constants.APPLICATION_DESCRIPTOR_DEPLOY_BETA)) {
+			Log.DEPLOY = Log.BETA;
+		} else if(deploy != null && deploy.equalsIgnoreCase(Constants.APPLICATION_DESCRIPTOR_DEPLOY_PRODUCTION)) {
+			Log.DEPLOY = Log.PRODUCTION;
+		}
 	}
 	
 	

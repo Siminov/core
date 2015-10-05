@@ -34,6 +34,9 @@
 		<!-- Mandatory Field (Default is 0.0) -->
 	<property name="version">application_version</property>
 
+		<!-- Optional Field (Default is DEVELOPMENT) -->
+	<property name="deploy">application_deploy_level (development|beta|production)</property>
+	
 
 	<!-- Database Descriptors Used By Application (zero-to-many) -->	
 		<!-- Optional Field's -->
@@ -75,6 +78,16 @@ Application Descriptor Elements:
 
 		-> version: Version of application. It is mandatory field. Default is 0.0.
 		
+		-> deploy: Deploy level of application. It is optional field. Default is DEVELOPMENT
+				It has 3 deploy levels:
+					- DEVELOPMENT: All logging modes (Important, Error, Debug) are enabled in this mode. 
+					- BETA: Only (Important, Error) logging modes are enabled.
+					- PRODUCTION: Only Error logging mode is enabled. 
+					
+				Logging Level:
+					- Important: It logs important messages of the application.
+					- Error: It logs error messages of the application.
+					- Debug: It logs debug messages of the application.
 
 				
 	ii. Database Descriptor Paths Used In Application 

@@ -23,6 +23,14 @@ public abstract class Log {
 
 	private static String TAG = "SIMINOV";
 	
+	public static int DEVELOPMENT = 0;
+	public static int BETA = 1;
+	public static int PRODUCTION = 2;
+	
+	public static int DEPLOY = DEVELOPMENT; 
+	
+	
+	
 	/**
 	 * Log info messages.
 	 * @param className Class Name.
@@ -30,6 +38,11 @@ public abstract class Log {
 	 * @param message Message.
 	 */
 	public static void important(final String className, final String methodName, final String message) {
+		
+		if(DEPLOY == PRODUCTION) {
+			return;
+		}
+
 		
 		if(isEmulator()) {
 			System.out.print(prepareMessage(className, methodName, message));
@@ -60,6 +73,10 @@ public abstract class Log {
 	 * @param message Message.
 	 */
 	public static void debug(final String className, final String methodName, final String message) {
+
+		if(DEPLOY == PRODUCTION || DEPLOY == BETA) {
+			return;
+		}
 		
 		if(isEmulator()) {
 			System.out.print(prepareMessage(className, methodName, message));
