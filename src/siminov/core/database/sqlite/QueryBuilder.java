@@ -691,7 +691,7 @@ public class QueryBuilder implements Constants, IQueryBuilder {
 		final String delimiter = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER);
 		final String whereClause = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_WHERE_CLAUSE_PARAMETER);
 		final String having = (String) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_HAVING_PARAMETER);
-		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_DELIMITER_PARAMETER);
+		final Iterator<String> groupBys = (Iterator<String>) parameters.get(IQueryBuilder.FORM_GROUP_CONCAT_QUERY_GROUP_BYS_PARAMETER);
 		
 		
 		StringBuilder query = new StringBuilder();
