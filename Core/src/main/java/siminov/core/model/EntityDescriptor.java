@@ -30,7 +30,7 @@ import siminov.core.utils.EmptyIterator;
 
 
 /**
- * Exposes methods to GET and SET Library Descriptor information as per define in DatabaseDescriptor.si.xml or LibraryDescriptor.si.xml  file by application.
+ * Exposes methods to GET and SET Library Descriptor information as per define in DatabaseDescriptor.xml or LibraryDescriptor.xml  file by application.
 	<p>
 		<pre>
 		
@@ -38,7 +38,7 @@ Example:
 	{@code
 	
 	
-	<!-- Design Of EntityDescriptor.si.xml -->
+	<!-- Design Of EntityDescriptor.xml -->
 	
 	<entity-descriptor>
 	
@@ -178,7 +178,7 @@ public class EntityDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set table name as per defined in EntityDescriptor.si.xml file.
+	 * Set table name as per defined in EntityDescriptor.xml file.
 	 * @param tableName Name of table.
 	 */
 	public void setTableName(final String tableName) {
@@ -194,7 +194,7 @@ public class EntityDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set POJO class name as per defined in EntityDescriptor.si.xml file.
+	 * Set POJO class name as per defined in EntityDescriptor.xml file.
 	 * @param className POJO class name.
 	 */
 	public void setClassName(final String className) {
@@ -511,7 +511,7 @@ public class EntityDescriptor implements IDescriptor {
 	
 	
 	/**
-	 * Exposes methods to GET and SET Column information as per define in EntityDescriptor.si.xml file by application.
+	 * Exposes methods to GET and SET Column information as per define in EntityDescriptor.xml file by application.
 	<p>
 		<pre>
 		
@@ -798,7 +798,7 @@ Example:
 
 	
 	/**
-	 * Exposes methods to GET and SET Reference Map information as per define in EntityDescriptor.si.xml file by application.
+	 * Exposes methods to GET and SET Reference Map information as per define in EntityDescriptor.xml file by application.
 	<p>
 		<pre>
 	
@@ -847,7 +847,7 @@ Example:
 		}
 		
 		/**
-		 * Set index name as per defined in EntityDescriptor.si.xml file.
+		 * Set index name as per defined in EntityDescriptor.xml file.
 		 * @param name Index Name.
 		 */
 		public void setName(final String name) {

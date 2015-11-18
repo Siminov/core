@@ -95,7 +95,7 @@ Example:
 	{@code
 
 
-<!-- Design Of EntityDescriptor.si.xml -->
+<!-- Design Of EntityDescriptor.xml -->
 
 <entity-descriptor>
 

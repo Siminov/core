@@ -26,40 +26,35 @@ public interface Constants {
 
 	// SIMINOV Descriptor Extension
 
-	/**
-	 * Siminov Descriptor Extension.
-	 */
-	public String SIMINOV_DESCRIPTOR_EXTENSION = ".si";
-
 	// Application Descriptor Constants.
 
 	/**
-	 * ApplicationDescriptor.si.xml core TAG.
+	 * ApplicationDescriptor.xml core TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_SIMINOV = "siminov";
 
 	/**
-	 * ApplicationDescriptor.si.xml File Name.
+	 * ApplicationDescriptor.xml File Name.
 	 */
-	public String APPLICATION_DESCRIPTOR_FILE_NAME = "ApplicationDescriptor.si.xml";
+	public String APPLICATION_DESCRIPTOR_FILE_NAME = "ApplicationDescriptor.xml";
 
 	/**
-	 * ApplicationDescriptor.si.xml property TAG.
+	 * ApplicationDescriptor.xml property TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_PROPERTY = "property";
 
 	/**
-	 * ApplicationDescriptor.si.xml name TAG.
+	 * ApplicationDescriptor.xml name TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_NAME = "name";
 
 	/**
-	 * ApplicationDescriptor.si.xml description TAG.
+	 * ApplicationDescriptor.xml description TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_DESCRIPTION = "description";
 
 	/**
-	 * ApplicationDescriptor.si.xml version TAG.
+	 * ApplicationDescriptor.xml version TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_VERSION = "version";
 
@@ -74,18 +69,18 @@ public interface Constants {
 	
 	
 	/**
-	 * ApplicationDescriptor.si.xml database-descriptor TAG.
+	 * ApplicationDescriptor.xml database-descriptor TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_DATABASE_DESCRIPTOR = "database-descriptor";
 
 	/**
-	 * ApplicationDescriptor.si.xml event-handler TAG.
+	 * ApplicationDescriptor.xml event-handler TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_EVENT_HANDLER = "event-handler";
 
 	
 	/**
-	 * ApplicationDescriptor.si.xml library descriptor TAG.
+	 * ApplicationDescriptor.xml library descriptor TAG.
 	 */
 	public String APPLICATION_DESCRIPTOR_LIBRARY_DESCRIPTOR = "library-descriptor";
  	
@@ -93,53 +88,53 @@ public interface Constants {
 	// DatabaseDescriptor Constants.
 
 	/**
-	 * DatabaseDescriptor.si.xml database-descriptor TAG.
+	 * DatabaseDescriptor.xml database-descriptor TAG.
 	 */
 	public String DATABASE_DESCRIPTOR = "database-descriptor";
 
 	/**
-	 * DatabaseDescriptor.si.xml property TAG.
+	 * DatabaseDescriptor.xml property TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_PROPERTY = "property";
 
 	/**
-	 * DatabaseDescriptor.si.xml property name TAG.
+	 * DatabaseDescriptor.xml property name TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_PROPERTY_NAME = "name";
 
 	/**
-	 * DatabaseDescriptor.si.xml description TAG.
+	 * DatabaseDescriptor.xml description TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_DESCRIPTION = "description";
 
 	/**
-	 * DatabaseDescriptor.si.xml database_name TAG.
+	 * DatabaseDescriptor.xml database_name TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_DATABASE_NAME = "database_name";
 	
 	/**
-	 * DatabaseDescriptor.si.xml type TAG.
+	 * DatabaseDescriptor.xml type TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_TYPE = "type";
 
 	/**
-	 * DatabaseDescriptor.si.xml version TAG.
+	 * DatabaseDescriptor.xml version TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_VERSION = "version";
 	
 
 	/**
-	 * DatabaseDescriptor.si.xml entity-descriptor TAG.
+	 * DatabaseDescriptor.xml entity-descriptor TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_ENTITY_DESCRIPTOR = "entity-descriptor";
 
 	/**
-	 * DatabaseDescriptor.si.xml is_locking_required TAG.
+	 * DatabaseDescriptor.xml is_locking_required TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_TRANSACTION_SAFE = "transaction_safe";
 
 	/**
-	 * DatabaseDescriptor.si.xml external_storage TAG.
+	 * DatabaseDescriptor.xml external_storage TAG.
 	 */
 	public String DATABASE_DESCRIPTOR_EXTERNAL_STORAGE = "external_storage";
 
@@ -147,38 +142,38 @@ public interface Constants {
 	// Library Descriptor Constants.
 
 	/**
-	 * LibraryDescriptor.si.xml File Name.
+	 * LibraryDescriptor.xml File Name.
 	 */
-	public String LIBRARY_DESCRIPTOR_FILE_NAME = "LibraryDescriptor.si.xml";
+	public String LIBRARY_DESCRIPTOR_FILE_NAME = "LibraryDescriptor.xml";
 
 	/**
-	 * LibraryDescriptor.si.xml library TAG.
+	 * LibraryDescriptor.xml library TAG.
 	 */
 	public String LIBRARY_DESCRIPTOR_LIBRARY_DESCRIPTOR = "library-descriptor";
 
 	/**
-	 * LibraryDescriptor.si.xml property TAG.
+	 * LibraryDescriptor.xml property TAG.
 	 */
 	public String LIBRARY_DESCRIPTOR_PROPERTY = "property";
 
 	/**
-	 * LibraryDescriptor.si.xml name TAG.
+	 * LibraryDescriptor.xml name TAG.
 	 */
 	public String LIBRARY_DESCRIPTOR_NAME = "name";
 
 	/**
-	 * LibraryDescriptor.si.xml description TAG.
+	 * LibraryDescriptor.xml description TAG.
 	 */
 	public String LIBRARY_DESCRIPTOR_DESCRIPTION = "description";
 
 	/**
-	 * LibraryDescriptor.si.xml entity-descriptor TAG.
+	 * LibraryDescriptor.xml entity-descriptor TAG.
 	 */
 	public String LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR = "entity-descriptor";
 
 	
 	/**
-	 * LibraryDescriptor.si.xml entity descriptor seprator.
+	 * LibraryDescriptor.xml entity descriptor seprator.
 	 */
 	public String LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR_SEPRATOR = ".";
 	
@@ -186,173 +181,173 @@ public interface Constants {
 	// Entity Descriptor Constants.
 
 	/**
-	 * EntityDescriptor.si.xml entity descriptor TAG.
+	 * EntityDescriptor.xml entity descriptor TAG.
 	 */
 	public String ENTITY_DESCRIPTOR = "entity-descriptor";
 
 	/**
-	 * EntityDescriptor.si.xml table_name TAG.
+	 * EntityDescriptor.xml table_name TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_TABLE_NAME = "table_name";
 
 	/**
-	 * EntityDescriptor.si.xml class_name TAG.
+	 * EntityDescriptor.xml class_name TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_CLASS_NAME = "class_name";
 
 	/**
-	 * EntityDescriptor.si.xml column TAG.
+	 * EntityDescriptor.xml column TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE = "attribute";
 
 	/**
-	 * EntityDescriptor.si.xml variable_name TAG.
+	 * EntityDescriptor.xml variable_name TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME = "variable_name";
 
 	/**
-	 * EntityDescriptor.si.xml column_name TAG.
+	 * EntityDescriptor.xml column_name TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME = "column_name";
 
 	/**
-	 * EntityDescriptor.si.xml property TAG.
+	 * EntityDescriptor.xml property TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_PROPERTY = "property";
 
 	/**
-	 * EntityDescriptor.si.xml name TAG.
+	 * EntityDescriptor.xml name TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_NAME = "name";
 
 	/**
-	 * EntityDescriptor.si.xml type TAG.
+	 * EntityDescriptor.xml type TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_TYPE = "type";
 
 	/**
-	 * EntityDescriptor.si.xml primary_key TAG.
+	 * EntityDescriptor.xml primary_key TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_PRIMARY_KEY = "primary_key";
 
 	/**
-	 * EntityDescriptor.si.xml unique TAG.
+	 * EntityDescriptor.xml unique TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_UNIQUE = "unique";
 
 	/**
-	 * EntityDescriptor.si.xml not_null TAG.
+	 * EntityDescriptor.xml not_null TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_NOT_NULL = "not_null";
 
 	/**
-	 * EntityDescriptor.si.xml default TAG.
+	 * EntityDescriptor.xml default TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_DEFAULT_VALUE = "default";
 
 	/**
-	 * EntityDescriptor.si.xml check TAG.
+	 * EntityDescriptor.xml check TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_ATTRIBUTE_CHECK = "check";
 
 	/**
-	 * EntityDescriptor.si.xml index TAG.
+	 * EntityDescriptor.xml index TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_INDEX = "index";
 
 	/**
-	 * EntityDescriptor.si.zml index name TAG.
+	 * EntityDescriptor.xml index name TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_INDEX_NAME = "name";
 	
 	/**
-	 * EntityDescriptor.si.xml index unique TAG.
+	 * EntityDescriptor.xml index unique TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_INDEX_UNIQUE = "unique";
 	
 	/**
-	 * EntityDescriptor.si.xml index column TAG.
+	 * EntityDescriptor.xml index column TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_INDEX_COLUMN = "column";
 	
 	
 	/**
-	 * EntityDescriptor.si.xml Relationship TAG.
+	 * EntityDescriptor.xml Relationship TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP = "relationship";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Type TAG.
+	 * EntityDescriptor.xml Relationship Type TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE = "type";
 	
 	/**
-	 * EntityDescriptor.si.xml Relationship Refer TAG.
+	 * EntityDescriptor.xml Relationship Refer TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_REFER = "refer";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Refer To TAG,
+	 * EntityDescriptor.xml Relationship Refer To TAG,
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_REFER_TO = "refer_to";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship On Update TAG.
+	 * EntityDescriptor.xml Relationship On Update TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_ON_UPDATE = "on_update";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship On Delete TAG,
+	 * EntityDescriptor.xml Relationship On Delete TAG,
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_ON_DELETE = "on_delete";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Type One To One TAG.
+	 * EntityDescriptor.xml Relationship Type One To One TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_ONE = "one-to-one";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Type One To Many TAG.
+	 * EntityDescriptor.xml Relationship Type One To Many TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_MANY = "one-to-many";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Type Many To One TAG.
+	 * EntityDescriptor.xml Relationship Type Many To One TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_ONE = "many-to-one";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Type Many To Many TAG.
+	 * EntityDescriptor.xml Relationship Type Many To Many TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_MANY = "many-to-many";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Load TAG.
+	 * EntityDescriptor.xml Relationship Load TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_LOAD = "load";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Cascade TAG.
+	 * EntityDescriptor.xml Relationship Cascade TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_CASCADE = "cascade";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Restrict TAG.
+	 * EntityDescriptor.xml Relationship Restrict TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_RESTRICT = "restrict";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship No Action TAG.
+	 * EntityDescriptor.xml Relationship No Action TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_NO_ACTION = "no_action";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Set Null TAG.
+	 * EntityDescriptor.xml Relationship Set Null TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_SET_NULL = "set_null";
 
 	/**
-	 * EntityDescriptor.si.xml Relationship Set Default TAG.
+	 * EntityDescriptor.xml Relationship Set Default TAG.
 	 */
 	public String ENTITY_DESCRIPTOR_RELATIONSHIP_SET_DEFAULT = "set_default";
 

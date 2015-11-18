@@ -45,7 +45,7 @@ SIMINOV will parse each ENTITY-DESCRIPTOR XML defined by developer and create ta
 Example:
 	{@code
 
-<!-- Design Of EntityDescriptor.si.xml -->
+<!-- Design Of EntityDescriptor.xml -->
 
 <entity-descriptor>
 

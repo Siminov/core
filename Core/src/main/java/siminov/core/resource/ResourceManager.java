@@ -114,13 +114,13 @@ public class ResourceManager {
 	 * Get iterator of all database descriptors provided in Application Descriptor file.
 		<p>
 			<pre>
-Example: ApplicationDescriptor.si.xml
+Example: ApplicationDescriptor.xml
 	
 	{@code
 	<siminov>
 	
 		<database-descriptors>
-			<database-descriptor>DatabaseDescriptor.si.xml</database-descriptor>
+			<database-descriptor>DatabaseDescriptor.xml</database-descriptor>
 		</database-descriptors>
 
 	</siminov>
@@ -143,13 +143,13 @@ Example: ApplicationDescriptor.si.xml
 		<p>
 			<pre>
 			
-Example: ApplicationDescriptor.si.xml
+Example: ApplicationDescriptor.xml
 	
 	{@code
 	<siminov>
 	
 		<database-descriptors>
-			<database-descriptor>DatabaseDescriptor.si.xml</database-descriptor>
+			<database-descriptor>DatabaseDescriptor.xml</database-descriptor>
 		</database-descriptors>
 
 	</siminov>
@@ -381,7 +381,7 @@ Example: DatabaseDescriptor.xml
 
 	
 	/**
-	 * Get entity descriptor Object based on class name provided. If entity descriptor object not present in resource layer, it will parse EntityDescriptor.si.xml file defined by application and will place it in resource layer.
+	 * Get entity descriptor Object based on class name provided. If entity descriptor object not present in resource layer, it will parse EntityDescriptor.xml file defined by application and will place it in resource layer.
 	 * @param className Full name of class.
 	 * @return EntityDescriptor object.
 	 * @throws SiminovException If any exception occur while getting entity descriptor object.

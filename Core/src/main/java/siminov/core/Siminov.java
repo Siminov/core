@@ -218,7 +218,7 @@ public class Siminov {
 	}
 	
 	/**
-	 * It process ApplicationDescriptor.si.xml file defined in Application, and stores in Resource Manager.
+	 * It process ApplicationDescriptor.xml file defined in Application, and stores in Resource Manager.
 	 */
 	protected static void processApplicationDescriptor() {
 		ApplicationDescriptorReader applicationDescriptorParser = new ApplicationDescriptorReader();
@@ -246,7 +246,7 @@ public class Siminov {
 	
 	
 	/**
-	 * It process all DatabaseDescriptor.si.xml files defined by Application and stores in Resource Manager.
+	 * It process all DatabaseDescriptor.xml files defined by Application and stores in Resource Manager.
 	 */
 	protected static void processDatabaseDescriptors() {
 		Iterator<String> databaseDescriptorPaths = coreResourceManager.getApplicationDescriptor().getDatabaseDescriptorPaths();
@@ -268,7 +268,7 @@ public class Siminov {
 	
 	
 	/**
-	 * It process all LibraryDescriptor.si.xml files defined by application, and stores in Resource Manager.
+	 * It process all LibraryDescriptor.xml files defined by application, and stores in Resource Manager.
 	 */
 	protected static void processLibraries() {
 		
@@ -313,7 +313,7 @@ public class Siminov {
 	
 	
 	/**
-	 * It process all EntityDescriptor.si.xml file defined in Application, and stores in Resource Manager.
+	 * It process all EntityDescriptor.xml file defined in Application, and stores in Resource Manager.
 	 */
 	protected static void processEntityDescriptors() {
 		doesDatabaseExists();
@@ -337,7 +337,7 @@ public class Siminov {
 
 
 	/**
-	 * It process all DatabaseDescriptor.si.xml and initialize Database and stores in Resource Manager.
+	 * It process all DatabaseDescriptor.xml and initialize Database and stores in Resource Manager.
 	 */
 	protected static void processDatabase() {
 		

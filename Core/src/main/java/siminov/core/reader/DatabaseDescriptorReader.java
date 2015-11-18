@@ -33,7 +33,7 @@ import android.content.Context;
 
 
 /**
- * Exposes methods to parse Database Descriptor information as per define in DatabaseDescriptor.si.xml file by application.
+ * Exposes methods to parse Database Descriptor information as per define in DatabaseDescriptor.xml file by application.
 	<p>
 		<pre>
 		
@@ -177,21 +177,7 @@ public class DatabaseDescriptorReader extends SiminovSAXDefaultHandler implement
 	}
 	
 	private void doValidation() throws DeploymentException {
-		
-		/*
-		 * Validate Database Name field.
-		 */
-		Iterator<String> entityDescriptorPaths = databaseDescriptor.getEntityDescriptorPaths();
-		while(entityDescriptorPaths.hasNext()) {
-			String entityDescriptorPath = entityDescriptorPaths.next();
-			
-			if(entityDescriptorPath.endsWith(XML_FILE_EXTENSION)) {
-				if(!entityDescriptorPath.contains(SIMINOV_DESCRIPTOR_EXTENSION)) {
-					Log.error(getClass().getName(), "doValidation", "INVALID ENTITY DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + entityDescriptorPath);
-					throw new DeploymentException(getClass().getName(), "doValidation", "INVALID ENTITY DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + entityDescriptorPath);
-				}
-			}
-		}
+
 
 	}
 

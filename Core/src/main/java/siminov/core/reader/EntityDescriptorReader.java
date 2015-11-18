@@ -34,14 +34,14 @@ import android.content.Context;
 
 
 /**
- * Exposes methods to parse Library Descriptor information as per define in DatabaseDescriptor.si.xml or LibraryDescriptor.si.xml  file by application.
+ * Exposes methods to parse Library Descriptor information as per define in DatabaseDescriptor.xml or LibraryDescriptor.xml  file by application.
 	<p>
 		<pre>
 		
 Example:
 	{@code
 	
-	<!-- Design Of EntityDescriptor.si.xml -->
+	<!-- Design Of EntityDescriptor.xml -->
 	
 	<entity-descriptor>
 	

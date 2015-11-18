@@ -34,7 +34,7 @@ import android.content.Context;
 
 
 /**
- * Exposes methods to parse Application Descriptor information as per define in ApplicationDescriptor.si.xml file by application.
+ * Exposes methods to parse Application Descriptor information as per define in ApplicationDescriptor.xml file by application.
 	<p>
 		<pre>
 		
@@ -184,16 +184,6 @@ public class ApplicationDescriptorReader extends SiminovSAXDefaultHandler implem
 		if(name == null || name.length() <= 0) {
 			Log.error(getClass().getName(), "doValidation", "NAME IS MANDATORY FIELD - APPLICATION-DESCRIPTOR");
 			throw new DeploymentException(getClass().getName(), "doValidation", "NAME IS MANDATORY FIELD - APPLICATION-DESCRIPTOR");
-		}
-		
-		Iterator<String> databaseDescriptorPaths = applicationDescriptor.getDatabaseDescriptorPaths();
-		while(databaseDescriptorPaths.hasNext()) {
-			String databaseDescriptorPath = databaseDescriptorPaths.next();
-			
-			if(!databaseDescriptorPath.contains(SIMINOV_DESCRIPTOR_EXTENSION)) {
-				Log.error(getClass().getName(), "doValidation", "INVALID DATABASE DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseDescriptorPath);
-				throw new DeploymentException(getClass().getName(), "doValidation", "INVALID DATABASE DESCRIPTOR PATH FOUND, it should contain .core extension in path, PATH-DEFINED: " + databaseDescriptorPath);
-			}
 		}
 	}
 

@@ -28,7 +28,7 @@ import siminov.core.Constants;
 
 
 /**
- * Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.si.xml file by application.
+ * Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.xml file by application.
 	<p>
 		<pre>
 		
@@ -95,7 +95,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	
 	
 	/**
-	 * Get Application Descriptor Name as per defined in ApplicationDescriptor.si.xml file.
+	 * Get Application Descriptor Name as per defined in ApplicationDescriptor.xml file.
 	 * @return Application Descriptor Name.
 	 */
 	public String getName() {
@@ -103,7 +103,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * Set Application Descriptor Name as per defined in ApplicationDescriptor.si.xml file.
+	 * Set Application Descriptor Name as per defined in ApplicationDescriptor.xml file.
 	 * @param name Name of Application Descriptor.
 	 */
 	public void setName(final String name) {
@@ -111,7 +111,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set Description of Application as per defined in ApplicationDescriptor.si.xml file.
+	 * Set Description of Application as per defined in ApplicationDescriptor.xml file.
 	 * @return Description of application.
 	 */
 	public String getDescription() {
@@ -119,7 +119,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set Description of Application as per defined in ApplicationDescriptor.si.xml file.
+	 * Set Description of Application as per defined in ApplicationDescriptor.xml file.
 	 * @param description Description of application.
 	 */
 	public void setDescription(final String description) {
@@ -127,7 +127,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Get Version of Application as per defined in ApplicationDescriptor.si.xml file.
+	 * Get Version of Application as per defined in ApplicationDescriptor.xml file.
 	 * @return Version of application.
 	 */
 	public double getVersion() {
@@ -140,7 +140,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set Version of Application as per defined in ApplicationDescriptor.si.xml file.
+	 * Set Version of Application as per defined in ApplicationDescriptor.xml file.
 	 * @param version Version of application.
 	 */
 	public void setVersion(final double version) {
@@ -253,7 +253,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Get all database descriptor paths as per contained in ApplicationDescriptor.si.xml file.
+	 * Get all database descriptor paths as per contained in ApplicationDescriptor.xml file.
 	 * @return Iterator which contains all database descriptor paths.
 	 */
 	public Iterator<String> getDatabaseDescriptorPaths() {
@@ -269,7 +269,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Add Database Descriptor path as per contained in ApplicationDescriptor.si.xml file.
+	 * Add Database Descriptor path as per contained in ApplicationDescriptor.xml file.
 	 * @param databaseDescriptorPath DatabaseDescriptor path.
 	 */
 	public void addDatabaseDescriptorPath(final String databaseDescriptorPath) {
@@ -295,7 +295,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * Remove Database Descriptor from Resources based on database path provided, as per defined in ApplicationDescriptor.si.xml file
+	 * Remove Database Descriptor from Resources based on database path provided, as per defined in ApplicationDescriptor.xml file
 	 * @param databaseDescriptorPath Database Descriptor Path.
 	 */
 	public void removeDatabaseDescriptorBasedOnPath(final String databaseDescriptorPath) {
@@ -308,7 +308,7 @@ public class ApplicationDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Remove Database Descriptor from Resources based in database name provided, as per defined in DatabaseDescriptor.si.xml file
+	 * Remove Database Descriptor from Resources based in database name provided, as per defined in DatabaseDescriptor.xml file
 	 * @param databaseDescriptorName DatabaseDescriptor Name.
 	 */
 	public void removeDatabaseDescriptorBasedOnName(final String databaseDescriptorName) {
@@ -376,15 +376,15 @@ public class ApplicationDescriptor implements IDescriptor {
 	
 	
 	/**
-	 * Get all event handlers as per defined in ApplicationDescriptor.si.xml file.
-	 * @return All event handlers defined in ApplicationDescriptor.si.xml file
+	 * Get all event handlers as per defined in ApplicationDescriptor.xml file.
+	 * @return All event handlers defined in ApplicationDescriptor.xml file
 	 */
 	public  Iterator<String> getEvents() {
 		return this.events.iterator();
 	}
 	
 	/**
-	 * Add event as per defined in ApplicationDescriptor.si.xml file.
+	 * Add event as per defined in ApplicationDescriptor.xml file.
 	 * @param event Event Handler class name.
 	 */
 	public void addEvent(final String event) {

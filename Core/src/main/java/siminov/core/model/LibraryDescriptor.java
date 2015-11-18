@@ -29,7 +29,7 @@ import siminov.core.Constants;
 
 
 /**
- * Exposes methods to GET and SET Library Descriptor information as per define in LibraryDescriptor.si.xml file by application.
+ * Exposes methods to GET and SET Library Descriptor information as per define in LibraryDescriptor.xml file by application.
 	<p>
 		<pre>
 		
@@ -82,7 +82,7 @@ public class LibraryDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set library name as per defined in LibraryDescriptor.si.xml
+	 * Set library name as per defined in LibraryDescriptor.xml
 	 * @param name
 	 */
 	public void setName(final String name) {
@@ -90,7 +90,7 @@ public class LibraryDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Get descriptor as per defined in LibraryDescriptor.si.xml
+	 * Get descriptor as per defined in LibraryDescriptor.xml
 	 */
 	public String getDescription() {
 		return this.properties.get(Constants.LIBRARY_DESCRIPTOR_DESCRIPTION);
@@ -167,7 +167,7 @@ public class LibraryDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * Get all entity descriptor paths as per defined in DatabaseDescriptor.si.xml file.
+	 * Get all entity descriptor paths as per defined in DatabaseDescriptor.xml file.
 	 * @return Iterator which contain all entity descriptor paths.
 	 */
 	public Iterator<String> getEntityDescriptorPaths() {
@@ -175,7 +175,7 @@ public class LibraryDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * Add entity descriptor path as per defined in EntityDescriptor.si.xml file.
+	 * Add entity descriptor path as per defined in EntityDescriptor.xml file.
 	 	<p>
 	 		<pre>
 	 		
@@ -301,7 +301,7 @@ EXAMPLE:
 	}
 	
 	/**
-	 * Get all entity descriptor objects in sorted order. The order will be as per defined in DatabaseDescriptor.si.xml file.
+	 * Get all entity descriptor objects in sorted order. The order will be as per defined in DatabaseDescriptor.xml file.
 	 * @return Iterator which contains all entity descriptor objects.
 	 */
 	public Iterator<EntityDescriptor> orderedEntityDescriptors() {

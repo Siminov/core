@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import siminov.core.Constants;
 
 /**
- * Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.si.xml file by application.
+ * Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.xml file by application.
 	<p>
 		<pre>
 		
@@ -84,7 +84,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	protected Map<String, EntityDescriptor> entityDescriptorsBasedOnPath = new ConcurrentHashMap<String, EntityDescriptor>();
 	
 	/**
-	 * Get database descriptor name as defined in DatabaseDescriptor.si.xml file.
+	 * Get database descriptor name as defined in DatabaseDescriptor.xml file.
 	 * @return Database Descriptor Name.
 	 */
 	public String getDatabaseName() {
@@ -92,7 +92,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set database descriptor name as per defined in DatabaseDescriptor.si.xml file.
+	 * Set database descriptor name as per defined in DatabaseDescriptor.xml file.
 	 * @param databaseName Database Descriptor Name.
 	 */
 	public void setDatabaseName(final String databaseName) {
@@ -129,7 +129,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set Version of Application as per defined in ApplicationDescriptor.si.xml file.
+	 * Set Version of Application as per defined in ApplicationDescriptor.xml file.
 	 * @param version Version of application.
 	 */
 	public void setVersion(final long version) {
@@ -138,8 +138,8 @@ public class DatabaseDescriptor implements IDescriptor {
 	
 	
 	/**
-	 * Get description as per defined in DatabaseDescriptor.si.xml file.
-	 * @return Description defined in DatabaseDescriptor.si.xml file.
+	 * Get description as per defined in DatabaseDescriptor.xml file.
+	 * @return Description defined in DatabaseDescriptor.xml file.
 	 */
 	public String getDescription() {
 		return this.properties.get(Constants.DATABASE_DESCRIPTOR_DESCRIPTION);
@@ -147,7 +147,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	
 	/**
 	 * Set description as per defined in DatabaseDescritor.xml file.
-	 * @param description Description defined in DatabaseDescriptor.si.xml file.
+	 * @param description Description defined in DatabaseDescriptor.xml file.
 	 */
 	public void setDescription(final String description) {
 		this.properties.put(Constants.DATABASE_DESCRIPTOR_DESCRIPTION, description);
@@ -156,7 +156,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	
 	/**
 	 * Check whether database needs to be stored on SDCard or not.
-	 * @return TRUE: If external_storage defined as true in DatabaseDescriptor.si.xml file, FALSE: If external_storage defined as false in DatabaseDescritor.xml file.
+	 * @return TRUE: If external_storage defined as true in DatabaseDescriptor.xml file, FALSE: If external_storage defined as false in DatabaseDescritor.xml file.
 	 */
 	public boolean isExternalStorageEnable() {
 		
@@ -172,7 +172,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set the external storage value as per defined in DatabaseDescriptor.si.xml file.
+	 * Set the external storage value as per defined in DatabaseDescriptor.xml file.
 	 * @param isExternalStorageEnable (true/false) External Storage Enable Or Not.
 	 */
 	public void setExternalStorageEnable(final boolean isExternalStorageEnable) {
@@ -181,7 +181,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	
 	/**
 	 * Check whether database transactions to make multi-threading safe or not.
-	 * @return TRUE: If locking is required as per defined in DatabaseDescriptor.si.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.si.xml file.
+	 * @return TRUE: If locking is required as per defined in DatabaseDescriptor.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.xml file.
 	 */
 	public boolean isTransactionSafe() {
 		
@@ -196,8 +196,8 @@ public class DatabaseDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Set database locking as per defined in DatabaseDescriptor.si.xml file.
-	 * @param transactionSafe (true/false) database locking as per defined in DatabaseDescriptor.si.xml file.
+	 * Set database locking as per defined in DatabaseDescriptor.xml file.
+	 * @param transactionSafe (true/false) database locking as per defined in DatabaseDescriptor.xml file.
 	 */
 	public void setTransactionSafe(final boolean transactionSafe) {
 		this.properties.put(Constants.DATABASE_DESCRIPTOR_TRANSACTION_SAFE, Boolean.toString(transactionSafe));
@@ -267,7 +267,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Get all entity descriptor paths as per defined in DatabaseDescriptor.si.xml file.
+	 * Get all entity descriptor paths as per defined in DatabaseDescriptor.xml file.
 	 * @return Iterator which contain all entity descriptor paths.
 	 */
 	public Iterator<String> getEntityDescriptorPaths() {
@@ -275,7 +275,7 @@ public class DatabaseDescriptor implements IDescriptor {
 	}
 
 	/**
-	 * Add entity descriptor path as per defined in DatabaseDescriptor.si.xml file.
+	 * Add entity descriptor path as per defined in DatabaseDescriptor.xml file.
 	 	<p>
 	 		<pre>
 	 		
@@ -401,7 +401,7 @@ EXAMPLE:
 	}
 	
 	/**
-	 * Get all entity descriptor objects in sorted order. The order will be as per defined in DatabaseDescriptor.si.xml file.
+	 * Get all entity descriptor objects in sorted order. The order will be as per defined in DatabaseDescriptor.xml file.
 	 * @return Iterator which contains all entity descriptor objects.
 	 */
 	public Iterator<EntityDescriptor> orderedEntityDescriptors() {
