@@ -19,7 +19,7 @@
 
 -->
 
-<!-- Design of ApplicationDescriptor.si.xml -->
+<!-- Design of ApplicationDescriptor.xml -->
 
 <siminov>
     
@@ -66,7 +66,7 @@
 
 <!-- 
 
-ApplicationDescriptor.si.xml is the one who connects application to SIMINOV. It contains properties which defines the behaviour of application.
+ApplicationDescriptor.xml is the one who connects application to SIMINOV. It contains properties which defines the behaviour of application.
 
 Application Descriptor Elements: 
 	
