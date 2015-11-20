@@ -1,0 +1,651 @@
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Siminov Framework - Core - AsyncTableQuery</title>
+        <meta name="viewport" content="width=device-width">
+
+					<link rel="stylesheet" type="text/css" href="../assets/css/font.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/style.css?version=0.9.6.8" />
+			
+			<!--[if IE 8]>
+				<script src="../assets/js/vendor.ie8.js?version=0.9.6.8"></script>
+			<![endif]-->
+			<![if !IE 8]>
+				<script src="../assets/js/vendor.js?version=0.9.6.8"></script>
+			<![endif]>
+
+			<script src="../assets/js/jquery.layout.min.js?version=0.9.6.8"></script>	
+			<script src="../assets/js/frame.js?version=0.9.6.8"></script>
+			<script src="../assets/js/iframe.js?version=0.9.6.8"></script>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>        
+        
+		<!-- DropDowns -->
+		<div id="dropdown-1" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+				
+					<li><a href="#_innerQuery"><img alt="Field-Icon" src="../assets/images/icons/field_private.png"> _innerQuery</a></li>
+
+							</ul>
+		</div>
+
+		<div id="dropdown-2" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+							</ul>
+		</div>
+
+		<div id="dropdown-3" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+				
+					<li><a href="#AsyncTableQuery"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> AsyncTableQuery(TableQuery innerQuery)</a></li>
+
+				
+				
+					<li><a href="#CountAsync"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> CountAsync()</a></li>
+
+				
+					<li><a href="#ElementAtAsync"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> ElementAtAsync(Int32 index)</a></li>
+
+				
+					<li><a href="#FirstAsync"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> FirstAsync()</a></li>
+
+				
+					<li><a href="#FirstOrDefaultAsync"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> FirstOrDefaultAsync()</a></li>
+
+				
+					<li><a href="#OrderBy12"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> OrderBy<U>(Expression orderExpr)</a></li>
+
+				
+					<li><a href="#OrderByDescending2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> OrderByDescending<U>(Expression orderExpr)</a></li>
+
+				
+					<li><a href="#Skip2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Skip(Int32 n)</a></li>
+
+				
+					<li><a href="#Take2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Take(Int32 n)</a></li>
+
+				
+					<li><a href="#ToListAsync"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> ToListAsync()</a></li>
+
+				
+					<li><a href="#Where20"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Where(Expression predExpr)</a></li>
+
+							</ul>
+		</div>
+
+		<div id="dropdown-4" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+							</ul>
+		</div>
+		<!-- DropDowns Ende -->
+
+	    <div class="ui-layout-north">
+			<div class="toolbar">
+
+									<a href="#" data-dropdown="#dropdown-1" class="button"><img src="../assets/images/icons/field_public.png"/> Fields <span class="info">(1)</span> <i class="icon-caret-down"></i></a>
+									<a href="#" data-dropdown="#dropdown-3" class="button"><img src="../assets/images/icons/method_public.png"/> Methods <span class="info">(11)</span> <i class="icon-caret-down"></i></a>
+				
+				<div class="right">
+					<span class="toolbar-info"> Namespace: SQLite</span>
+					<a href="#" id="expand-all-button" class="button"><i class="icon-align-justify" title="expand all"></i></a>
+					<a href="#" id="print-button" class="button"><i class="icon-print" title="print"></i></a>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+        
+		<div class="ui-layout-center">
+
+			<div>
+				<h3 class="box-title first-heading">Syntax</h3>					
+				<div class="syntax-box">
+					<pre class="wrap-pre"><code>public class AsyncTableQuery&lt;T&gt; where T : new(), object </code></pre>
+				</div>
+
+				
+				        
+				
+									<h3 class="box-title">Uses</h3>
+					<div class="list-box">
+						<ul>
+													<li><a href="../type/SQLiteConnectionWithLock.html">SQLiteConnectionWithLock</a></li>
+													<li><a href="../type/TableQuery.html">TableQuery</a></li>
+												</ul>
+					</div>
+				
+				
+									<h3 class="box-title">Fields</h3>
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="_innerQuery" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_private.png"/> <p>_innerQuery</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>private  TableQuery&lt;T&gt; _innerQuery</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+									
+				
+									<h3 class="box-title">Methods</h3>
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="AsyncTableQuery" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>AsyncTableQuery(TableQuery innerQuery)</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public void AsyncTableQuery(TableQuery innerQuery)</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="CountAsync" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>CountAsync()</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public Task CountAsync()</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+			<div class="svg-diagram">
+				<div id="CountAsync-diagram" class="sd-sequence-diagram svgpan">
+					
+					<svg><g><rect height="35" width="193" x="0.55" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/AsyncTableQuery.html" xmlns:xlink="xlink"><text x="15.50" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.AsyncTableQuery<T>]]></text></a><rect height="35" width="225" x="214.50" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/SQLiteConnectionWithLock.html" xmlns:xlink="xlink"><text x="228.98" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.SQLiteConnectionWithLock]]></text></a><rect height="35" width="158" x="459.53" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/TableQuery.html" xmlns:xlink="xlink"><text x="474.30" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.TableQuery<T>]]></text></a><a xlink:href="../type/AsyncTableQuery.html#CountAsync" xmlns:xlink="xlink"><text x="10.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountAsync]]></text></a><path d="M0.00,100.50L97.24,100.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,100 92,95 92,105" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/SQLiteConnectionWithLock.html#Lock" xmlns:xlink="xlink"><text x="107.24" y="125.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Lock]]></text></a><path d="M97.24,135.50L326.64,135.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="326,135 321,130 321,140" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="160.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return IDisposable]]></text><path d="M97.24,170.50L326.64,170.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,170 102,175 102,165" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/TableQuery.html#Count4" xmlns:xlink="xlink"><text x="107.24" y="195.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Count]]></text></a><path d="M97.24,205.50L538.52,205.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="538,205 533,200 533,210" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="230.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return Int32]]></text><path d="M97.24,240.50L538.52,240.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,240 102,245 102,235" fill="#979797" stroke="#979797" stroke-width="" /><text x="10.00" y="265.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return Task]]></text><path d="M0.00,275.50L97.24,275.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="0,275 5,280 5,270" fill="#979797" stroke="#979797" stroke-width="" /><path d="M97.52,45L97.52,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M326.56,45L326.56,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M538.55,45L538.55,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g></svg>
+				</div>
+				<div class="legend">
+					<p class="save"><a href="#"><i class="icon-save"></i>save</a></p>
+					<p class="resetZoom"><a href="#"><i class="icon-refresh"></i>reset</a></p>
+					<p>Drag to pan - Use Mousewheel + Ctrl to zoom</p>
+				</div>
+			</div>
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="ElementAtAsync" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>ElementAtAsync(Int32 index)</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public Task ElementAtAsync(Int32 index)</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+			<div class="svg-diagram">
+				<div id="ElementAtAsync-diagram" class="sd-sequence-diagram svgpan">
+					
+					<svg><g><rect height="35" width="193" x="0.55" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/AsyncTableQuery.html" xmlns:xlink="xlink"><text x="15.50" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.AsyncTableQuery<T>]]></text></a><rect height="35" width="225" x="214.50" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/SQLiteConnectionWithLock.html" xmlns:xlink="xlink"><text x="228.98" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.SQLiteConnectionWithLock]]></text></a><rect height="35" width="158" x="459.53" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/TableQuery.html" xmlns:xlink="xlink"><text x="474.30" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.TableQuery<T>]]></text></a><a xlink:href="../type/AsyncTableQuery.html#ElementAtAsync" xmlns:xlink="xlink"><text x="10.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ElementAtAsync]]></text></a><path d="M0.00,100.50L97.24,100.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,100 92,95 92,105" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/SQLiteConnectionWithLock.html#Lock" xmlns:xlink="xlink"><text x="107.24" y="125.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Lock]]></text></a><path d="M97.24,135.50L326.64,135.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="326,135 321,130 321,140" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="160.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return IDisposable]]></text><path d="M97.24,170.50L326.64,170.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,170 102,175 102,165" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/TableQuery.html#ElementAt" xmlns:xlink="xlink"><text x="107.24" y="195.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ElementAt]]></text></a><path d="M97.24,205.50L538.52,205.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="538,205 533,200 533,210" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="230.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return T]]></text><path d="M97.24,240.50L538.52,240.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,240 102,245 102,235" fill="#979797" stroke="#979797" stroke-width="" /><text x="10.00" y="265.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return Task]]></text><path d="M0.00,275.50L97.24,275.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="0,275 5,280 5,270" fill="#979797" stroke="#979797" stroke-width="" /><path d="M97.52,45L97.52,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M326.56,45L326.56,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M538.55,45L538.55,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g></svg>
+				</div>
+				<div class="legend">
+					<p class="save"><a href="#"><i class="icon-save"></i>save</a></p>
+					<p class="resetZoom"><a href="#"><i class="icon-refresh"></i>reset</a></p>
+					<p>Drag to pan - Use Mousewheel + Ctrl to zoom</p>
+				</div>
+			</div>
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="FirstAsync" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>FirstAsync()</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public Task FirstAsync()</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+			<div class="svg-diagram">
+				<div id="FirstAsync-diagram" class="sd-sequence-diagram svgpan">
+					
+					<svg><g><rect height="35" width="193" x="0.55" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/AsyncTableQuery.html" xmlns:xlink="xlink"><text x="15.50" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.AsyncTableQuery<T>]]></text></a><rect height="35" width="225" x="214.50" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/SQLiteConnectionWithLock.html" xmlns:xlink="xlink"><text x="228.98" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.SQLiteConnectionWithLock]]></text></a><rect height="35" width="158" x="459.53" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/TableQuery.html" xmlns:xlink="xlink"><text x="474.30" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.TableQuery<T>]]></text></a><a xlink:href="../type/AsyncTableQuery.html#FirstAsync" xmlns:xlink="xlink"><text x="10.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[FirstAsync]]></text></a><path d="M0.00,100.50L97.24,100.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,100 92,95 92,105" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/SQLiteConnectionWithLock.html#Lock" xmlns:xlink="xlink"><text x="107.24" y="125.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Lock]]></text></a><path d="M97.24,135.50L326.64,135.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="326,135 321,130 321,140" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="160.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return IDisposable]]></text><path d="M97.24,170.50L326.64,170.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,170 102,175 102,165" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/TableQuery.html#First" xmlns:xlink="xlink"><text x="107.24" y="195.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[First]]></text></a><path d="M97.24,205.50L538.52,205.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="538,205 533,200 533,210" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="230.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return T]]></text><path d="M97.24,240.50L538.52,240.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,240 102,245 102,235" fill="#979797" stroke="#979797" stroke-width="" /><text x="10.00" y="265.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return Task]]></text><path d="M0.00,275.50L97.24,275.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="0,275 5,280 5,270" fill="#979797" stroke="#979797" stroke-width="" /><path d="M97.52,45L97.52,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M326.56,45L326.56,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M538.55,45L538.55,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g></svg>
+				</div>
+				<div class="legend">
+					<p class="save"><a href="#"><i class="icon-save"></i>save</a></p>
+					<p class="resetZoom"><a href="#"><i class="icon-refresh"></i>reset</a></p>
+					<p>Drag to pan - Use Mousewheel + Ctrl to zoom</p>
+				</div>
+			</div>
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="FirstOrDefaultAsync" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>FirstOrDefaultAsync()</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public Task FirstOrDefaultAsync()</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+			<div class="svg-diagram">
+				<div id="FirstOrDefaultAsync-diagram" class="sd-sequence-diagram svgpan">
+					
+					<svg><g><rect height="35" width="193" x="0.55" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/AsyncTableQuery.html" xmlns:xlink="xlink"><text x="15.50" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.AsyncTableQuery<T>]]></text></a><rect height="35" width="225" x="214.50" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/SQLiteConnectionWithLock.html" xmlns:xlink="xlink"><text x="228.98" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.SQLiteConnectionWithLock]]></text></a><rect height="35" width="158" x="459.53" y="10.50" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><a xlink:href="../type/TableQuery.html" xmlns:xlink="xlink"><text x="474.30" y="32.00" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLite.TableQuery<T>]]></text></a><a xlink:href="../type/AsyncTableQuery.html#FirstOrDefaultAsync" xmlns:xlink="xlink"><text x="10.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[FirstOrDefaultAsync]]></text></a><path d="M0.00,100.50L97.24,100.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,100 92,95 92,105" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/SQLiteConnectionWithLock.html#Lock" xmlns:xlink="xlink"><text x="107.24" y="125.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Lock]]></text></a><path d="M97.24,135.50L326.64,135.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="326,135 321,130 321,140" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="160.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return IDisposable]]></text><path d="M97.24,170.50L326.64,170.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,170 102,175 102,165" fill="#979797" stroke="#979797" stroke-width="" /><a xlink:href="../type/TableQuery.html#FirstOrDefault" xmlns:xlink="xlink"><text x="107.24" y="195.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[FirstOrDefault]]></text></a><path d="M97.24,205.50L538.52,205.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="538,205 533,200 533,210" fill="#979797" stroke="#979797" stroke-width="" /><text x="107.24" y="230.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return T]]></text><path d="M97.24,240.50L538.52,240.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="97,240 102,245 102,235" fill="#979797" stroke="#979797" stroke-width="" /><text x="10.00" y="265.50" fill="" style="" text-anchor="" font-family="" font-size="12.00" onmouseover="" onmouseout=""><![CDATA[return Task]]></text><path d="M0.00,275.50L97.24,275.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><polygon points="0,275 5,280 5,270" fill="#979797" stroke="#979797" stroke-width="" /><path d="M97.52,45L97.52,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M326.56,45L326.56,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M538.55,45L538.55,290.55" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g></svg>
+				</div>
+				<div class="legend">
+					<p class="save"><a href="#"><i class="icon-save"></i>save</a></p>
+					<p class="resetZoom"><a href="#"><i class="icon-refresh"></i>reset</a></p>
+					<p>Drag to pan - Use Mousewheel + Ctrl to zoom</p>
+				</div>
+			</div>
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="OrderBy12" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>OrderBy<U>(Expression orderExpr)</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public AsyncTableQuery&lt;T&gt; OrderBy&lt;U&gt;(Expression orderExpr)</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="OrderByDescending2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>OrderByDescending<U>(Expression orderExpr)</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public AsyncTableQuery&lt;T&gt; OrderByDescending&lt;U&gt;(Expression orderExpr)</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Skip2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Skip(Int32 n)</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public AsyncTableQuery&lt;T&gt; Skip(Int32 n)</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Take2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Take(Int32 n)</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public AsyncTableQuery&lt;T&gt; Take(Int32 n)</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="ToListAsync" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>ToListAsync()</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public Task ToListAsync()</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Where20" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Where(Expression predExpr)</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public AsyncTableQuery&lt;T&gt; Where(Expression predExpr)</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+									
+				
+									<div class="svg-diagram">
+						<h3 class="box-title">Class Diagram</h3>
+						<div id="sd-class-diagram" class="svgpan">
+														<svg><g transform="translate(0.00, 50.00)"><rect height="361" width="204" x="0.55" y="0.55" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><text x="68.51" y="20.50" fill="" style="" text-anchor="" font-family="" font-size="11.00" onmouseover="" onmouseout=""><![CDATA[public  class]]></text><a xlink:href="../type/AsyncTableQuery.html" xmlns:xlink="xlink"><text x="42.16" y="35.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[AsyncTableQuery]]></text></a><path d="M0.5,45.50L204.00,45.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="53.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#_innerQuery" xmlns:xlink="xlink"><text x="40.00" y="65.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_innerQuery]]></text></a><path d="M0.5,80.50L204.00,80.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="88.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#CountAsync" xmlns:xlink="xlink"><text x="40.00" y="100.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountAsync]]></text></a><image width="16.00" height="16.00" x="15.00" y="113.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#ElementAtAsync" xmlns:xlink="xlink"><text x="40.00" y="125.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ElementAtAsync]]></text></a><image width="16.00" height="16.00" x="15.00" y="138.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#FirstAsync" xmlns:xlink="xlink"><text x="40.00" y="150.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[FirstAsync]]></text></a><image width="16.00" height="16.00" x="15.00" y="163.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#FirstOrDefaultAsync" xmlns:xlink="xlink"><text x="40.00" y="175.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[FirstOrDefaultAsync]]></text></a><image width="16.00" height="16.00" x="15.00" y="188.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#OrderBy12" xmlns:xlink="xlink"><text x="40.00" y="200.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[OrderBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="213.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#OrderByDescending2" xmlns:xlink="xlink"><text x="40.00" y="225.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[OrderByDescending]]></text></a><image width="16.00" height="16.00" x="15.00" y="238.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#Skip2" xmlns:xlink="xlink"><text x="40.00" y="250.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Skip]]></text></a><image width="16.00" height="16.00" x="15.00" y="263.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#Take2" xmlns:xlink="xlink"><text x="40.00" y="275.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Take]]></text></a><image width="16.00" height="16.00" x="15.00" y="288.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#ToListAsync" xmlns:xlink="xlink"><text x="40.00" y="300.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ToListAsync]]></text></a><image width="16.00" height="16.00" x="15.00" y="313.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#Where20" xmlns:xlink="xlink"><text x="40.00" y="325.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Where]]></text></a><image width="16.00" height="16.00" x="15.00" y="338.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/AsyncTableQuery.html#AsyncTableQuery" xmlns:xlink="xlink"><text x="40.00" y="350.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[AsyncTableQuery]]></text></a></g><g transform="translate(254.00, 100.00)"><rect height="136" width="253" x="0.55" y="0.55" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><text x="88.15" y="20.50" fill="" style="" text-anchor="" font-family="" font-size="11.00" onmouseover="" onmouseout=""><![CDATA[internal  class]]></text><a xlink:href="../type/SQLiteConnectionWithLock.html" xmlns:xlink="xlink"><text x="32.32" y="35.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLiteConnectionWithLock]]></text></a><path d="M0.5,45.50L253.00,45.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="53.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/SQLiteConnectionWithLock.html#_lockPoint" xmlns:xlink="xlink"><text x="40.00" y="65.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_lockPoint]]></text></a><path d="M0.5,80.50L253.00,80.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="88.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/SQLiteConnectionWithLock.html#Lock" xmlns:xlink="xlink"><text x="40.00" y="100.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Lock]]></text></a><image width="16.00" height="16.00" x="15.00" y="113.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/SQLiteConnectionWithLock.html#SQLiteConnectionWithLock" xmlns:xlink="xlink"><text x="40.00" y="125.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SQLiteConnectionWithLock]]></text></a></g><g><path d="M380.50,100.00L380.50,75.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M375.50,90.00L380.50,100.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M385.50,90.00L380.50,100.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g><g transform="translate(557.00, 100.00)"><rect height="1046" width="269" x="0.55" y="0.55" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><text x="101.01" y="20.50" fill="" style="" text-anchor="" font-family="" font-size="11.00" onmouseover="" onmouseout=""><![CDATA[public  class]]></text><a xlink:href="../type/TableQuery.html" xmlns:xlink="xlink"><text x="95.11" y="35.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[TableQuery]]></text></a><path d="M0.5,45.50L269.00,45.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="53.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_deferred" xmlns:xlink="xlink"><text x="40.00" y="65.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_deferred]]></text></a><image width="16.00" height="16.00" x="15.00" y="78.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_joinInner" xmlns:xlink="xlink"><text x="40.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_joinInner]]></text></a><image width="16.00" height="16.00" x="15.00" y="103.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_joinInnerKeySelector" xmlns:xlink="xlink"><text x="40.00" y="115.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_joinInnerKeySelector]]></text></a><image width="16.00" height="16.00" x="15.00" y="128.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_joinOuter" xmlns:xlink="xlink"><text x="40.00" y="140.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_joinOuter]]></text></a><image width="16.00" height="16.00" x="15.00" y="153.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_joinOuterKeySelector" xmlns:xlink="xlink"><text x="40.00" y="165.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_joinOuterKeySelector]]></text></a><image width="16.00" height="16.00" x="15.00" y="178.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_joinSelector" xmlns:xlink="xlink"><text x="40.00" y="190.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_joinSelector]]></text></a><image width="16.00" height="16.00" x="15.00" y="203.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_limit" xmlns:xlink="xlink"><text x="40.00" y="215.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_limit]]></text></a><image width="16.00" height="16.00" x="15.00" y="228.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_offset" xmlns:xlink="xlink"><text x="40.00" y="240.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_offset]]></text></a><image width="16.00" height="16.00" x="15.00" y="253.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_orderBys" xmlns:xlink="xlink"><text x="40.00" y="265.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_orderBys]]></text></a><image width="16.00" height="16.00" x="15.00" y="278.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_selector" xmlns:xlink="xlink"><text x="40.00" y="290.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_selector]]></text></a><image width="16.00" height="16.00" x="15.00" y="303.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#_where" xmlns:xlink="xlink"><text x="40.00" y="315.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[_where]]></text></a><path d="M0.5,330.50L269.00,330.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="338.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#AddOrderBy" xmlns:xlink="xlink"><text x="40.00" y="350.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[AddOrderBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="363.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#AddWhere" xmlns:xlink="xlink"><text x="40.00" y="375.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[AddWhere]]></text></a><image width="16.00" height="16.00" x="15.00" y="388.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Clone" xmlns:xlink="xlink"><text x="40.00" y="400.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Clone]]></text></a><image width="16.00" height="16.00" x="15.00" y="413.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#CompileExpr" xmlns:xlink="xlink"><text x="40.00" y="425.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CompileExpr]]></text></a><image width="16.00" height="16.00" x="15.00" y="438.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#CompileNullBinaryExpression" xmlns:xlink="xlink"><text x="40.00" y="450.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CompileNullBinaryExpression]]></text></a><image width="16.00" height="16.00" x="15.00" y="463.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#ConvertTo" xmlns:xlink="xlink"><text x="40.00" y="475.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ConvertTo]]></text></a><image width="16.00" height="16.00" x="15.00" y="488.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Count4" xmlns:xlink="xlink"><text x="40.00" y="500.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Count]]></text></a><image width="16.00" height="16.00" x="15.00" y="513.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Count5" xmlns:xlink="xlink"><text x="40.00" y="525.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Count]]></text></a><image width="16.00" height="16.00" x="15.00" y="538.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Deferred" xmlns:xlink="xlink"><text x="40.00" y="550.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Deferred]]></text></a><image width="16.00" height="16.00" x="15.00" y="563.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#ElementAt" xmlns:xlink="xlink"><text x="40.00" y="575.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ElementAt]]></text></a><image width="16.00" height="16.00" x="15.00" y="588.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#First" xmlns:xlink="xlink"><text x="40.00" y="600.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[First]]></text></a><image width="16.00" height="16.00" x="15.00" y="613.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#FirstOrDefault" xmlns:xlink="xlink"><text x="40.00" y="625.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[FirstOrDefault]]></text></a><image width="16.00" height="16.00" x="15.00" y="638.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#GenerateCommand" xmlns:xlink="xlink"><text x="40.00" y="650.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GenerateCommand]]></text></a><image width="16.00" height="16.00" x="15.00" y="663.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#GetEnumerator" xmlns:xlink="xlink"><text x="40.00" y="675.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetEnumerator]]></text></a><image width="16.00" height="16.00" x="15.00" y="688.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#GetSqlName" xmlns:xlink="xlink"><text x="40.00" y="700.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetSqlName]]></text></a><image width="16.00" height="16.00" x="15.00" y="713.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Join" xmlns:xlink="xlink"><text x="40.00" y="725.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Join]]></text></a><image width="16.00" height="16.00" x="15.00" y="738.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#OrderBy11" xmlns:xlink="xlink"><text x="40.00" y="750.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[OrderBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="763.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#OrderByDescending" xmlns:xlink="xlink"><text x="40.00" y="775.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[OrderByDescending]]></text></a><image width="16.00" height="16.00" x="15.00" y="788.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Select7" xmlns:xlink="xlink"><text x="40.00" y="800.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Select]]></text></a><image width="16.00" height="16.00" x="15.00" y="813.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Skip" xmlns:xlink="xlink"><text x="40.00" y="825.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Skip]]></text></a><image width="16.00" height="16.00" x="15.00" y="838.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Take" xmlns:xlink="xlink"><text x="40.00" y="850.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Take]]></text></a><image width="16.00" height="16.00" x="15.00" y="863.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#ThenBy" xmlns:xlink="xlink"><text x="40.00" y="875.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ThenBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="888.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#ThenByDescending" xmlns:xlink="xlink"><text x="40.00" y="900.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ThenByDescending]]></text></a><image width="16.00" height="16.00" x="15.00" y="913.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Where19" xmlns:xlink="xlink"><text x="40.00" y="925.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Where]]></text></a><image width="16.00" height="16.00" x="15.00" y="938.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#TableQuery2" xmlns:xlink="xlink"><text x="40.00" y="950.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[TableQuery]]></text></a><image width="16.00" height="16.00" x="15.00" y="963.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAT5QTFRF/wD/8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0/Pz8plCnu2+87qXv+pv7+pn75pjnkE6R+vr66eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5++ff58PL0ytHeuMDSsrvOrLfL09jb5MrkqFCp0mvT027UfjB/nzyfjTWOfC193+PqoKvC0tfieoqh6NHoqVCqy2fMlTiWeit78NXwmKe8vcbWb4CX7djtfzCAdSd169Hr4+bqkJ60ydDdZHaNZHaO7NLscSRy5szmvsfWY3WNu8PUQUtYXW+HyM7ZVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////nLrfiwAAAAF0Uk5TAEDm2GYAAAABYktHRGm8a8S0AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NggANGJmYGZMDIxMLEisRnY2Ln4GTiArO5eXj5+JkEBIWEhJlEGEShKsTEJSSFpKRlGGS55XjkFRQZlJTFJVRU1dQZZKEqNDS1tHV09fQZDAyNjE1MzRjMLSytrG1s7RgYjOxNHRydGBicXVz13dw9GAwdPRkYvLwNGRh8LHz9/BkYAhwDg4KCQwKAxoSGhQPJIHsgcIyIhLswyj46OtrROAYuYGofGx0baxIHF3Awio9IMElMggsEJKekpqVnBMD4ALbeHpAzaZa1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjA2KzAyOjAwBHBRHgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#TableQuery" xmlns:xlink="xlink"><text x="40.00" y="975.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[TableQuery]]></text></a><path d="M0.5,990.50L269.00,990.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="998.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAXpQTFRF/wD/uKyjxLiV3dnUtaaBo5eAoJaAmY96k4VzgHFczci/nLiZpsGu0MjC+uuwf21b/+tu+uJy9Ndn3L1Ui3JRiZxphcyF7evngGtX/+1orphY+eFy991q8s9W7cdL+roipqJfU6xBfZ3fqrrarKSP+eN/lYRTTzow9ttp89JY7cNA6rsx7KgRjJBQQZ4ypMX/ucnl9uGDcGFL4s16Z2BSUD1B37IyyJkdxJMVjmIUUWZAP5cpt8rx5dOGiZKncGFK3sFhWU1X/9AfMycVCgcQLiECZVZPW3hZMowYwcjR////6enihHVe5eTfzsrC1qkuGxALYFxdlp2kp76kKWYc//37/P7+rK2wclxB09nj4+3/Rk5UwMfR/f7++Pv+8vb96PD83On/wsnToq/E/v//1uX/wcjS/P7/+Pr97/T75u773un60uL40OL/+fv/y979yM/Z9v//7Pn/4fD/1er/0ur/c3V8S0tOTU9UTVFWTFBTS09STE9SS05RJyP7MgAAAAF0Uk5TAEDm2GYAAAABYktHREoeDLXGAAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NgAAJGJmYWVjZ2Dk4ubh4Qn4GXj19AQEBQSFhEVAwsIC4hKSUgLSMrJ6+gyKCkpKSsoqomqa6hqaWto6vHoKRvoGJoZGwiaWpmbmFpZc2gZKNia2Rn7+Do5Ozi6ubuweDp5e3j6+Vn7x8QGMTAEBwCFAgN9fIKC4+IjIoG2xADEoiNi09ISIQIJHklJ6ckg0AqRCANqCI9IzMrOycXJpCcnAdWkQ8RKACqKCwsLCouKYUIlJVXVFRUVlXXVNdCBAgCAG+1MCPQVilsAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjQxKzAyOjAwRZ1hagAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Connection" xmlns:xlink="xlink"><text x="40.00" y="1010.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Connection { get; set; }]]></text></a><image width="16.00" height="16.00" x="15.00" y="1023.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAXpQTFRF/wD/uKyjxLiV3dnUtaaBo5eAoJaAmY96k4VzgHFczci/nLiZpsGu0MjC+uuwf21b/+tu+uJy9Ndn3L1Ui3JRiZxphcyF7evngGtX/+1orphY+eFy991q8s9W7cdL+roipqJfU6xBfZ3fqrrarKSP+eN/lYRTTzow9ttp89JY7cNA6rsx7KgRjJBQQZ4ypMX/ucnl9uGDcGFL4s16Z2BSUD1B37IyyJkdxJMVjmIUUWZAP5cpt8rx5dOGiZKncGFK3sFhWU1X/9AfMycVCgcQLiECZVZPW3hZMowYwcjR////6enihHVe5eTfzsrC1qkuGxALYFxdlp2kp76kKWYc//37/P7+rK2wclxB09nj4+3/Rk5UwMfR/f7++Pv+8vb96PD83On/wsnToq/E/v//1uX/wcjS/P7/+Pr97/T75u773un60uL40OL/+fv/y979yM/Z9v//7Pn/4fD/1er/0ur/c3V8S0tOTU9UTVFWTFBTS09STE9SS05RJyP7MgAAAAF0Uk5TAEDm2GYAAAABYktHREoeDLXGAAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQY02NgAAJGJmYWVjZ2Dk4ubh4Qn4GXj19AQEBQSFhEVAwsIC4hKSUgLSMrJ6+gyKCkpKSsoqomqa6hqaWto6vHoKRvoGJoZGwiaWpmbmFpZc2gZKNia2Rn7+Do5Ozi6ubuweDp5e3j6+Vn7x8QGMTAEBwCFAgN9fIKC4+IjIoG2xADEoiNi09ISIQIJHklJ6ckg0AqRCANqCI9IzMrOycXJpCcnAdWkQ8RKACqKCwsLCouKYUIlJVXVFRUVlXXVNdCBAgCAG+1MCPQVilsAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDEyLTA3LTI5VDExOjUzOjQxKzAyOjAwRZ1hagAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxMC0wNC0wM1QwNToxMToyMCswMjowMBDLlngAAAAASUVORK5CYII=" xmlns:xlink="xlink" /><a xlink:href="../type/TableQuery.html#Table" xmlns:xlink="xlink"><text x="40.00" y="1035.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Table { get; set; }]]></text></a></g><g><path d="M691.50,100.00L691.50,75.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M686.50,90.00L691.50,100.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M696.50,90.00L691.50,100.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M691.50,74.50L204.00,74.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g></svg>
+						</div>
+						<div class="legend">
+							<p class="save"><a href="#"><i class="icon-save"></i>save</a></p>
+							<p class="resetZoom"><a href="#"><i class="icon-refresh"></i>reset</a></p>
+							<p>Drag to pan - Use Mousewheel + Ctrl to zoom</p>
+						</div>
+					</div>
+							</div>
+		</div>
+
+    </body>
+</html>
+

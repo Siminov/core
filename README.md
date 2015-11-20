@@ -1,4 +1,4 @@
-Siminov Core (Object Relationship Mapping) - Android
+Siminov Core (Object Relationship Mapping) - Android, iOS, Windows
 ===================================================
 
 Siminov Core is a open source Object/Relational Mapping solution for all different environments - (Android - Java, iOS - Objective-C|Swift, Windows - C#, OS X - Objective-C|Swift). It maps data from an object model representation to a relational data table representation (and visa versa).
@@ -9,7 +9,7 @@ Get Started
 -----------
 Get the source
 
-  git clone git://github.com/siminov/android-core.git
+  git clone git://github.com/siminov/core.git
   
 	
 Features
@@ -18,10 +18,10 @@ Features
 ###### 1. Easy Configuration
 Siminov provides a easy set of defined descriptors which can be broadly classified as 
 	
-	|- ApplicationDescriptor.si.xml 
-	|- DatabaseDescriptor.si.xml
-	|- LibraryDescriptor.si.xml
-	|- EntityDescriptor.si.xml.
+	|- ApplicationDescriptor.xml 
+	|- DatabaseDescriptor.xml
+	|- LibraryDescriptor.xml
+	|- EntityDescriptor.xml.
 
 ###### 2. Handle Application Initialization
 All resources required by application are created and managed by siminov core. (Eg: Creating Database, Deploying Application).

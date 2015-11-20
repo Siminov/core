@@ -1,0 +1,1949 @@
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Siminov Framework - Core - CountClauseImpl</title>
+        <meta name="viewport" content="width=device-width">
+
+					<link rel="stylesheet" type="text/css" href="../assets/css/font.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/style.css?version=0.9.6.8" />
+			
+			<!--[if IE 8]>
+				<script src="../assets/js/vendor.ie8.js?version=0.9.6.8"></script>
+			<![endif]-->
+			<![if !IE 8]>
+				<script src="../assets/js/vendor.js?version=0.9.6.8"></script>
+			<![endif]>
+
+			<script src="../assets/js/jquery.layout.min.js?version=0.9.6.8"></script>	
+			<script src="../assets/js/frame.js?version=0.9.6.8"></script>
+			<script src="../assets/js/iframe.js?version=0.9.6.8"></script>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>        
+        
+		<!-- DropDowns -->
+		<div id="dropdown-1" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+				
+					<li><a href="#AND"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> AND</a></li>
+
+				
+					<li><a href="#ASC_ORDER_BY"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> ASC_ORDER_BY</a></li>
+
+				
+					<li><a href="#BETWEEN"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> BETWEEN</a></li>
+
+				
+					<li><a href="#DESC_ORDER_BY"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> DESC_ORDER_BY</a></li>
+
+				
+					<li><a href="#EQUAL_TO"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> EQUAL_TO</a></li>
+
+				
+					<li><a href="#GREATER_THAN"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> GREATER_THAN</a></li>
+
+				
+					<li><a href="#GREATER_THAN_EQUAL"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> GREATER_THAN_EQUAL</a></li>
+
+				
+					<li><a href="#IN"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> IN</a></li>
+
+				
+					<li><a href="#LESS_THAN"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> LESS_THAN</a></li>
+
+				
+					<li><a href="#LESS_THAN_EQUAL"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> LESS_THAN_EQUAL</a></li>
+
+				
+					<li><a href="#LIKE"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> LIKE</a></li>
+
+				
+					<li><a href="#NOT_EQUAL_TO"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> NOT_EQUAL_TO</a></li>
+
+				
+					<li><a href="#OR"><img alt="Field-Icon" src="../assets/images/icons/field_internal.png"> OR</a></li>
+
+				
+					<li><a href="#where"><img alt="Field-Icon" src="../assets/images/icons/field_private.png"> where</a></li>
+
+				
+					<li><a href="#whereClause"><img alt="Field-Icon" src="../assets/images/icons/field_private.png"> whereClause</a></li>
+
+							</ul>
+		</div>
+
+		<div id="dropdown-2" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+							</ul>
+		</div>
+
+		<div id="dropdown-3" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+				
+					<li><a href="#CountClauseImpl"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> CountClauseImpl(CountImpl where)</a></li>
+
+				
+				
+					<li><a href="#AddCol2"><img alt="Method-Icon" src="../assets/images/icons/method_internal.png"> AddCol(String column)</a></li>
+
+				
+					<li><a href="#And3"><img alt="Method-Icon" src="../assets/images/icons/method_internal.png"> And(String column)</a></li>
+
+				
+					<li><a href="#Between2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Between(object start, object end)</a></li>
+
+				
+					<li><a href="#EqualTo2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> EqualTo(object value)</a></li>
+
+				
+					<li><a href="#GreaterThan2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GreaterThan(object value)</a></li>
+
+				
+					<li><a href="#GreaterThanEqual2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GreaterThanEqual(object value)</a></li>
+
+				
+					<li><a href="#In2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> In(Object[] values)</a></li>
+
+				
+					<li><a href="#LessThan2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> LessThan(object value)</a></li>
+
+				
+					<li><a href="#LessThanEqual2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> LessThanEqual(object value)</a></li>
+
+				
+					<li><a href="#Like2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Like(object like)</a></li>
+
+				
+					<li><a href="#NotEqualTo2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> NotEqualTo(object value)</a></li>
+
+				
+					<li><a href="#Or3"><img alt="Method-Icon" src="../assets/images/icons/method_internal.png"> Or(String column)</a></li>
+
+				
+					<li><a href="#ToString2"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> ToString()</a></li>
+
+							</ul>
+		</div>
+
+		<div id="dropdown-4" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+							</ul>
+		</div>
+		<!-- DropDowns Ende -->
+
+	    <div class="ui-layout-north">
+			<div class="toolbar">
+
+									<a href="#" data-dropdown="#dropdown-1" class="button"><img src="../assets/images/icons/field_public.png"/> Fields <span class="info">(15)</span> <i class="icon-caret-down"></i></a>
+									<a href="#" data-dropdown="#dropdown-3" class="button"><img src="../assets/images/icons/method_public.png"/> Methods <span class="info">(14)</span> <i class="icon-caret-down"></i></a>
+				
+				<div class="right">
+					<span class="toolbar-info"> Namespace: Siminov.Core.Database</span>
+					<a href="#" id="expand-all-button" class="button"><i class="icon-align-justify" title="expand all"></i></a>
+					<a href="#" id="print-button" class="button"><i class="icon-print" title="print"></i></a>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+        
+		<div class="ui-layout-center">
+
+			<div>
+				<h3 class="box-title first-heading">Syntax</h3>					
+				<div class="syntax-box">
+					<pre class="wrap-pre"><code>public class CountClauseImpl : ICountClause</code></pre>
+				</div>
+
+				
+									<h3 class="box-title">Implements</h3>
+					<div class="list-box">
+						<ul>
+														<li><a href="../type/ICountClause.html">Siminov.Core.Database.Design.ICountClause</a></li>
+																			</ul>
+					</div>
+				        
+				
+											<h3 class="box-title">Summary</h3>
+						<div class="doc-box markdown">
+							<p>It is used to create where clause used in database query.
+It implements all the Clauses which are used to in the where clause</p>
+
+						</div>
+					
+					
+					
+					
+					
+					
+					
+					
+				
+				
+									<h3 class="box-title">Used by</h3>
+					<div class="list-box">
+						<ul>
+													<li><a href="../type/CountImpl.html">CountImpl</a></li>
+												</ul>
+					</div>
+				
+									<h3 class="box-title">Fields</h3>
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="AND" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>AND</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String AND</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="ASC_ORDER_BY" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>ASC_ORDER_BY</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String ASC_ORDER_BY</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="BETWEEN" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>BETWEEN</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String BETWEEN</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="DESC_ORDER_BY" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>DESC_ORDER_BY</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String DESC_ORDER_BY</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="EQUAL_TO" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>EQUAL_TO</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String EQUAL_TO</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GREATER_THAN" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>GREATER_THAN</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String GREATER_THAN</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GREATER_THAN_EQUAL" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>GREATER_THAN_EQUAL</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String GREATER_THAN_EQUAL</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="IN" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>IN</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String IN</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="LESS_THAN" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>LESS_THAN</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String LESS_THAN</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="LESS_THAN_EQUAL" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>LESS_THAN_EQUAL</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String LESS_THAN_EQUAL</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="LIKE" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>LIKE</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String LIKE</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="NOT_EQUAL_TO" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>NOT_EQUAL_TO</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String NOT_EQUAL_TO</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="OR" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_internal.png"/> <p>OR</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal readonly String OR</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="where" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_private.png"/> <p>where</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>private  CountImpl where</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="whereClause" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/field_private.png"/> <p>whereClause</p></a>
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>private  StringBuilder whereClause</code></pre>
+		</div>		
+        
+		
+
+		
+
+		
+
+	</div>
+</div>
+
+
+									
+				
+									<h3 class="box-title">Methods</h3>
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="CountClauseImpl" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>CountClauseImpl(CountImpl where)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Clause Constructor</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public void CountClauseImpl(CountImpl where)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">where</p>
+						
+						
+									
+									<small>CountImpl</small>
+
+														
+						
+						<div class="inline">
+							<p>Where clause</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="AddCol2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_internal.png"/> <p>AddCol(String column)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Add column</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal void AddCol(String column)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">column</p>
+						
+						
+									
+									<small>String</small>
+
+														
+						
+						<div class="inline">
+							<p>Name of column</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="And3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_internal.png"/> <p>And(String column)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify AND condition between where clause.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal void And(String column)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">column</p>
+						
+						
+									
+									<small>String</small>
+
+														
+						
+						<div class="inline">
+							<p>Name of column on which condition need to be specified</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Between2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Between(object start, object end)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify BETWEEN condition.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount Between(object start, object end)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">start</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>Start Range</p>
+
+						</div>
+					
+						<p class="key">end</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>End Range</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="EqualTo2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>EqualTo(object value)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify EQUAL TO (=) condition.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount EqualTo(object value)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">value</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>Value for which EQUAL TO (=) condition will be applied.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GreaterThan2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GreaterThan(object value)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify GREATER THAN (>) condition.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount GreaterThan(object value)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">value</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>Value for while GREATER THAN (>) condition will be specified.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GreaterThanEqual2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GreaterThanEqual(object value)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify GREATER THAN EQUAL (>=) condition.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount GreaterThanEqual(object value)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">value</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>Value for which GREATER THAN EQUAL (>=) condition will be specified.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="In2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>In(Object[] values)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify IN condition.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount In(Object[] values)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">values</p>
+						
+						
+									
+									<small>Object[]</small>
+
+														
+						
+						<div class="inline">
+							<p>Values for IN condition.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="LessThan2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>LessThan(object value)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify LESS THAN (</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount LessThan(object value)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">value</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>Value for which LESS THAN (</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="LessThanEqual2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>LessThanEqual(object value)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify LESS THAN EQUAL (</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount LessThanEqual(object value)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">value</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>Value for which LESS THAN EQUAL (</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Like2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Like(object like)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify LIKE condition.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount Like(object like)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">like</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>LIKE condition</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="NotEqualTo2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>NotEqualTo(object value)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify NOT EQUAL TO (!=) condition.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public ICount NotEqualTo(object value)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">value</p>
+						
+						
+									
+									<small>object</small>
+
+														
+						
+						<div class="inline">
+							<p>Value for which NOT EQUAL TO (=) condition will be applied</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Where object</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Or3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_internal.png"/> <p>Or(String column)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Used to specify OR condition between where clause</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>internal void Or(String column)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">column</p>
+						
+						
+									
+									<small>String</small>
+
+														
+						
+						<div class="inline">
+							<p>Name of column on which condition need to be specified</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="ToString2" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>ToString()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>It returns the where clause</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public String ToString()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>String where clause</p>
+
+				</div>
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+									
+				
+									<div class="svg-diagram">
+						<h3 class="box-title">Class Diagram</h3>
+						<div id="sd-class-diagram" class="svgpan">
+														<svg><g transform="translate(310.00, 325.50)"><rect height="786" width="234" x="0.55" y="0.55" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><text x="83.51" y="20.50" fill="" style="" text-anchor="" font-family="" font-size="11.00" onmouseover="" onmouseout=""><![CDATA[public  class]]></text><a xlink:href="../type/CountClauseImpl.html" xmlns:xlink="xlink"><text x="56.95" y="35.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountClauseImpl]]></text></a><path d="M0.5,45.50L234.00,45.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="53.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#AND" xmlns:xlink="xlink"><text x="40.00" y="65.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[AND]]></text></a><image width="16.00" height="16.00" x="15.00" y="78.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#ASC_ORDER_BY" xmlns:xlink="xlink"><text x="40.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ASC_ORDER_BY]]></text></a><image width="16.00" height="16.00" x="15.00" y="103.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#BETWEEN" xmlns:xlink="xlink"><text x="40.00" y="115.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[BETWEEN]]></text></a><image width="16.00" height="16.00" x="15.00" y="128.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#DESC_ORDER_BY" xmlns:xlink="xlink"><text x="40.00" y="140.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[DESC_ORDER_BY]]></text></a><image width="16.00" height="16.00" x="15.00" y="153.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#EQUAL_TO" xmlns:xlink="xlink"><text x="40.00" y="165.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[EQUAL_TO]]></text></a><image width="16.00" height="16.00" x="15.00" y="178.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#GREATER_THAN" xmlns:xlink="xlink"><text x="40.00" y="190.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GREATER_THAN]]></text></a><image width="16.00" height="16.00" x="15.00" y="203.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#GREATER_THAN_EQUAL" xmlns:xlink="xlink"><text x="40.00" y="215.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GREATER_THAN_EQUAL]]></text></a><image width="16.00" height="16.00" x="15.00" y="228.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#IN" xmlns:xlink="xlink"><text x="40.00" y="240.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[IN]]></text></a><image width="16.00" height="16.00" x="15.00" y="253.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#LESS_THAN" xmlns:xlink="xlink"><text x="40.00" y="265.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[LESS_THAN]]></text></a><image width="16.00" height="16.00" x="15.00" y="278.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#LESS_THAN_EQUAL" xmlns:xlink="xlink"><text x="40.00" y="290.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[LESS_THAN_EQUAL]]></text></a><image width="16.00" height="16.00" x="15.00" y="303.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#LIKE" xmlns:xlink="xlink"><text x="40.00" y="315.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[LIKE]]></text></a><image width="16.00" height="16.00" x="15.00" y="328.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#NOT_EQUAL_TO" xmlns:xlink="xlink"><text x="40.00" y="340.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[NOT_EQUAL_TO]]></text></a><image width="16.00" height="16.00" x="15.00" y="353.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFevfLTpr9b8NWO1XJvYvsvlv9jvWprXtcThxLJ/wrB9wKx7vKl4uaV1taBxspxprJdpwtnww7B9wJwn79ty//CMWUkjxdvxrL3ewK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////7zab9wAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQY033L1RICMQxA0aKLFNfS4rC4JcXd//+PWFgmU17IU+6ZhLE/4/H6ftofCFoho8ORKI9ZcepEMsV5OpMlyOULvChKkkCVRUVUpQGqVm9IA5pKOSlbBG37DR1n6/b6g+FoPJnabrMZoNYIc7aQy8/tSgMi4JqeN3oLsMM9wcF9ORKczpfr7f54fvMFdrwQjykqOgcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#OR" xmlns:xlink="xlink"><text x="40.00" y="365.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[OR]]></text></a><image width="16.00" height="16.00" x="15.00" y="378.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#where" xmlns:xlink="xlink"><text x="40.00" y="390.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[where]]></text></a><image width="16.00" height="16.00" x="15.00" y="403.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#whereClause" xmlns:xlink="xlink"><text x="40.00" y="415.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[whereClause]]></text></a><path d="M0.5,430.50L234.00,430.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="438.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAATtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R/Pz86eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58+vr6qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC19+ff56NHoqVCqy2fMlTiWeit78NXwxLJ/wrB9wKx7vKl4uaV1taBxspxprJdp7djtfzCAdSd169Hrw7B9wJwn79ty//CMWUkj7NLscSRy5szmwK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////RPKfegAAAAF0Uk5TAEDm2GYAAAABYktHRGjLbPQiAAAACXBIWXMAAAsSAAALEgHS3X78AAAAtUlEQVQY02NgQABGBlTAxMyCxmdlZkPiszNzcHIxc4PZPLx8/ALMgkLCwiLMonAVYuISksJS0jIMsjxyvPIKigxKyuISKqpq6gwaUBWaWto6unr6BkABHkMjYxMGUzNzC0sraxsGW5ghdvYOBo5Ozgwurm7uHp5e3gwMPma+fv4MDAGBQcHBQYEhQDWhYeFAMiI4MCgoMCgSbn9UcHRgYExQLFwgDqIlHi6QkJiUnJKalg7jAwCALBwdL8QcRgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#AddCol2" xmlns:xlink="xlink"><text x="40.00" y="450.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[AddCol]]></text></a><image width="16.00" height="16.00" x="15.00" y="463.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAATtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R/Pz86eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58+vr6qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC19+ff56NHoqVCqy2fMlTiWeit78NXwxLJ/wrB9wKx7vKl4uaV1taBxspxprJdp7djtfzCAdSd169Hrw7B9wJwn79ty//CMWUkj7NLscSRy5szmwK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////RPKfegAAAAF0Uk5TAEDm2GYAAAABYktHRGjLbPQiAAAACXBIWXMAAAsSAAALEgHS3X78AAAAtUlEQVQY02NgQABGBlTAxMyCxmdlZkPiszNzcHIxc4PZPLx8/ALMgkLCwiLMonAVYuISksJS0jIMsjxyvPIKigxKyuISKqpq6gwaUBWaWto6unr6BkABHkMjYxMGUzNzC0sraxsGW5ghdvYOBo5Ozgwurm7uHp5e3gwMPma+fv4MDAGBQcHBQYEhQDWhYeFAMiI4MCgoMCgSbn9UcHRgYExQLFwgDqIlHi6QkJiUnJKalg7jAwCALBwdL8QcRgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#And3" xmlns:xlink="xlink"><text x="40.00" y="475.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[And]]></text></a><image width="16.00" height="16.00" x="15.00" y="488.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#Between2" xmlns:xlink="xlink"><text x="40.00" y="500.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Between]]></text></a><image width="16.00" height="16.00" x="15.00" y="513.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#EqualTo2" xmlns:xlink="xlink"><text x="40.00" y="525.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[EqualTo]]></text></a><image width="16.00" height="16.00" x="15.00" y="538.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#GreaterThan2" xmlns:xlink="xlink"><text x="40.00" y="550.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GreaterThan]]></text></a><image width="16.00" height="16.00" x="15.00" y="563.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#GreaterThanEqual2" xmlns:xlink="xlink"><text x="40.00" y="575.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GreaterThanEqual]]></text></a><image width="16.00" height="16.00" x="15.00" y="588.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#In2" xmlns:xlink="xlink"><text x="40.00" y="600.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[In]]></text></a><image width="16.00" height="16.00" x="15.00" y="613.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#LessThan2" xmlns:xlink="xlink"><text x="40.00" y="625.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[LessThan]]></text></a><image width="16.00" height="16.00" x="15.00" y="638.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#LessThanEqual2" xmlns:xlink="xlink"><text x="40.00" y="650.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[LessThanEqual]]></text></a><image width="16.00" height="16.00" x="15.00" y="663.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#Like2" xmlns:xlink="xlink"><text x="40.00" y="675.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Like]]></text></a><image width="16.00" height="16.00" x="15.00" y="688.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#NotEqualTo2" xmlns:xlink="xlink"><text x="40.00" y="700.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[NotEqualTo]]></text></a><image width="16.00" height="16.00" x="15.00" y="713.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAATtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R/Pz86eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58+vr6qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC19+ff56NHoqVCqy2fMlTiWeit78NXwxLJ/wrB9wKx7vKl4uaV1taBxspxprJdp7djtfzCAdSd169Hrw7B9wJwn79ty//CMWUkj7NLscSRy5szmwK17UUMjvap40rVEzq88Rjoeuad0OC4at6Jzg2wxgG49bl8yXU4pT0EiOjAbKSIc////RPKfegAAAAF0Uk5TAEDm2GYAAAABYktHRGjLbPQiAAAACXBIWXMAAAsSAAALEgHS3X78AAAAtUlEQVQY02NgQABGBlTAxMyCxmdlZkPiszNzcHIxc4PZPLx8/ALMgkLCwiLMonAVYuISksJS0jIMsjxyvPIKigxKyuISKqpq6gwaUBWaWto6unr6BkABHkMjYxMGUzNzC0sraxsGW5ghdvYOBo5Ozgwurm7uHp5e3gwMPma+fv4MDAGBQcHBQYEhQDWhYeFAMiI4MCgoMCgSbn9UcHRgYExQLFwgDqIlHi6QkJiUnJKalg7jAwCALBwdL8QcRgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#Or3" xmlns:xlink="xlink"><text x="40.00" y="725.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Or]]></text></a><image width="16.00" height="16.00" x="15.00" y="738.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#ToString2" xmlns:xlink="xlink"><text x="40.00" y="750.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ToString]]></text></a><image width="16.00" height="16.00" x="15.00" y="763.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountClauseImpl.html#CountClauseImpl" xmlns:xlink="xlink"><text x="40.00" y="775.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountClauseImpl]]></text></a></g><g transform="translate(310.00, 0.00)"><rect height="276" width="191" x="0.55" y="0.55" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><text x="51.26" y="20.50" fill="" style="" text-anchor="" font-family="" font-size="11.00" onmouseover="" onmouseout=""><![CDATA[public  interface]]></text><a xlink:href="../type/ICountClause.html" xmlns:xlink="xlink"><text x="48.54" y="35.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[ICountClause]]></text></a><path d="M0.5,45.50L191.00,45.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="53.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#Between5" xmlns:xlink="xlink"><text x="40.00" y="65.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Between]]></text></a><image width="16.00" height="16.00" x="15.00" y="78.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#EqualTo5" xmlns:xlink="xlink"><text x="40.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[EqualTo]]></text></a><image width="16.00" height="16.00" x="15.00" y="103.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#GreaterThan5" xmlns:xlink="xlink"><text x="40.00" y="115.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GreaterThan]]></text></a><image width="16.00" height="16.00" x="15.00" y="128.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#GreaterThanEqual5" xmlns:xlink="xlink"><text x="40.00" y="140.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GreaterThanEqual]]></text></a><image width="16.00" height="16.00" x="15.00" y="153.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#In5" xmlns:xlink="xlink"><text x="40.00" y="165.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[In]]></text></a><image width="16.00" height="16.00" x="15.00" y="178.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#LessThan5" xmlns:xlink="xlink"><text x="40.00" y="190.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[LessThan]]></text></a><image width="16.00" height="16.00" x="15.00" y="203.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#LessThanEqual5" xmlns:xlink="xlink"><text x="40.00" y="215.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[LessThanEqual]]></text></a><image width="16.00" height="16.00" x="15.00" y="228.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#Like5" xmlns:xlink="xlink"><text x="40.00" y="240.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Like]]></text></a><image width="16.00" height="16.00" x="15.00" y="253.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/ICountClause.html#NotEqualTo5" xmlns:xlink="xlink"><text x="40.00" y="265.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[NotEqualTo]]></text></a></g><g><path d="M360.00,275.50L360.00,313.00" stroke="#979797" stroke-width="1" stroke-dasharray="5, 5" /><polygon points="360.00,275.50 355.00,285.50 365.00,285.50" fill="#FFFFFF" stroke="#979797" stroke-width="" /><path d="M360.00,313.00L494.00,313.00" stroke="#979797" stroke-width="1" stroke-dasharray="5, 5" /><path d="M494.00,313.00L494.00,325.50" stroke="#979797" stroke-width="1" stroke-dasharray="5, 5" /></g><g transform="translate(0.00, 375.50)"><rect height="886" width="260" x="0.55" y="0.55" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><text x="96.51" y="20.50" fill="" style="" text-anchor="" font-family="" font-size="11.00" onmouseover="" onmouseout=""><![CDATA[public  class]]></text><a xlink:href="../type/CountImpl.html" xmlns:xlink="xlink"><text x="93.21" y="35.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountImpl]]></text></a><path d="M0.5,45.50L260.00,45.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="53.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#column" xmlns:xlink="xlink"><text x="40.00" y="65.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[column]]></text></a><image width="16.00" height="16.00" x="15.00" y="78.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#columns" xmlns:xlink="xlink"><text x="40.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[columns]]></text></a><image width="16.00" height="16.00" x="15.00" y="103.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#databaseMappingDescriptor" xmlns:xlink="xlink"><text x="40.00" y="115.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[databaseMappingDescriptor]]></text></a><image width="16.00" height="16.00" x="15.00" y="128.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#delimiter" xmlns:xlink="xlink"><text x="40.00" y="140.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[delimiter]]></text></a><image width="16.00" height="16.00" x="15.00" y="153.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#distinct" xmlns:xlink="xlink"><text x="40.00" y="165.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[distinct]]></text></a><image width="16.00" height="16.00" x="15.00" y="178.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#groupBy" xmlns:xlink="xlink"><text x="40.00" y="190.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[groupBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="203.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#having" xmlns:xlink="xlink"><text x="40.00" y="215.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[having]]></text></a><image width="16.00" height="16.00" x="15.00" y="228.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#havingClause" xmlns:xlink="xlink"><text x="40.00" y="240.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[havingClause]]></text></a><image width="16.00" height="16.00" x="15.00" y="253.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#limit" xmlns:xlink="xlink"><text x="40.00" y="265.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[limit]]></text></a><image width="16.00" height="16.00" x="15.00" y="278.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#orderBy" xmlns:xlink="xlink"><text x="40.00" y="290.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[orderBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="303.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#referObject" xmlns:xlink="xlink"><text x="40.00" y="315.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[referObject]]></text></a><image width="16.00" height="16.00" x="15.00" y="328.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#where" xmlns:xlink="xlink"><text x="40.00" y="340.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[where]]></text></a><image width="16.00" height="16.00" x="15.00" y="353.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#whereClause" xmlns:xlink="xlink"><text x="40.00" y="365.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[whereClause]]></text></a><image width="16.00" height="16.00" x="15.00" y="378.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZQTFRF/wD/0ub4fbLl5/H7zeP5eK/jir3uebDj3u360+f6ebDkkMT2mc3/jsLz0ub51ej7e7Lli8D0odD+ncnyKVqwfLPnkcPxnc/+n9D+stj7Hk6pADOZW5vYgrfqo9H+KFev8PL0ytHeuMDSsbrNrLfLfLTpr9b8NWO1+vv93+PqoKvCvcbWeoqhXJvYvsvlxMzZmKe8b4CXt8/mWprXtcTh4+bqu8XUkJ60ydDdZHaNZHaOwtnw0tfivsfWY3WNxdvxrL3eu8PUQUtYXW+HyM7ZsrvOVWiBxMzauMHSq7fLT2J7dYWcbX+WZ3eQXnCJV2qCT2N8////oVh58wAAAAF0Uk5TAEDm2GYAAAABYktHRFGUaXwqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqklEQVQY02NgwA0YmZhR+CysbOwcSHxOLm4eXnY+OJ9fQJCHR0hYBC4gKibOIyEpJQ0XkJGVlJOUlwYJKCgqKasoyMioqqlLS0trMDAoaqpoaevoysgAudJ6QAX6BgwMKoZGxiABE6AOUzNzCwtLK1NrYwifwUITCGxs7RjspR3AxjtqOjk52Sg5w+1T0XRxcnFxdYMLaCm623q4enrBBUy9fXz9/ANMYXwAXkgU2UqB5RoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTItMDctMjlUMTE6NTI6MzcrMDI6MDDDSjZ3AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEwLTA0LTAzVDA1OjExOjIwKzAyOjAwEMuWeAAAAABJRU5ErkJggg==" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#whichOrderBy" xmlns:xlink="xlink"><text x="40.00" y="390.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[whichOrderBy]]></text></a><path d="M0.5,405.50L260.00,405.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="413.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#And4" xmlns:xlink="xlink"><text x="40.00" y="425.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[And]]></text></a><image width="16.00" height="16.00" x="15.00" y="438.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#AscendingOrderBy2" xmlns:xlink="xlink"><text x="40.00" y="450.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[AscendingOrderBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="463.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Column2" xmlns:xlink="xlink"><text x="40.00" y="475.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Column]]></text></a><image width="16.00" height="16.00" x="15.00" y="488.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Columns2" xmlns:xlink="xlink"><text x="40.00" y="500.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Columns]]></text></a><image width="16.00" height="16.00" x="15.00" y="513.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Delimiter2" xmlns:xlink="xlink"><text x="40.00" y="525.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Delimiter]]></text></a><image width="16.00" height="16.00" x="15.00" y="538.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#DescendingOrderBy2" xmlns:xlink="xlink"><text x="40.00" y="550.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[DescendingOrderBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="563.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Distinct2" xmlns:xlink="xlink"><text x="40.00" y="575.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Distinct]]></text></a><image width="16.00" height="16.00" x="15.00" y="588.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Execute2" xmlns:xlink="xlink"><text x="40.00" y="600.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Execute]]></text></a><image width="16.00" height="16.00" x="15.00" y="613.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#GroupBy2" xmlns:xlink="xlink"><text x="40.00" y="625.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GroupBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="638.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Having2" xmlns:xlink="xlink"><text x="40.00" y="650.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Having]]></text></a><image width="16.00" height="16.00" x="15.00" y="663.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#HavingClause2" xmlns:xlink="xlink"><text x="40.00" y="675.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[HavingClause]]></text></a><image width="16.00" height="16.00" x="15.00" y="688.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Limit2" xmlns:xlink="xlink"><text x="40.00" y="700.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Limit]]></text></a><image width="16.00" height="16.00" x="15.00" y="713.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Or4" xmlns:xlink="xlink"><text x="40.00" y="725.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Or]]></text></a><image width="16.00" height="16.00" x="15.00" y="738.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#OrderBy2" xmlns:xlink="xlink"><text x="40.00" y="750.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[OrderBy]]></text></a><image width="16.00" height="16.00" x="15.00" y="763.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#Where2" xmlns:xlink="xlink"><text x="40.00" y="775.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Where]]></text></a><image width="16.00" height="16.00" x="15.00" y="788.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#WhereClause2" xmlns:xlink="xlink"><text x="40.00" y="800.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[WhereClause]]></text></a><image width="16.00" height="16.00" x="15.00" y="813.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#CountImpl" xmlns:xlink="xlink"><text x="40.00" y="825.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountImpl]]></text></a><image width="16.00" height="16.00" x="15.00" y="838.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#CountImpl2" xmlns:xlink="xlink"><text x="40.00" y="850.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountImpl]]></text></a><image width="16.00" height="16.00" x="15.00" y="863.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/CountImpl.html#CountImpl3" xmlns:xlink="xlink"><text x="40.00" y="875.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CountImpl]]></text></a></g><g><path d="M130.00,375.50L130.00,350.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g><g><path d="M130.00,350.00L310.00,350.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M300.00,345.00L310.00,350.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /><path d="M300.00,355.00L310.00,350.00" stroke="#979797" stroke-width="1" stroke-dasharray="" /></g></svg>
+						</div>
+						<div class="legend">
+							<p class="save"><a href="#"><i class="icon-save"></i>save</a></p>
+							<p class="resetZoom"><a href="#"><i class="icon-refresh"></i>reset</a></p>
+							<p>Drag to pan - Use Mousewheel + Ctrl to zoom</p>
+						</div>
+					</div>
+							</div>
+		</div>
+
+    </body>
+</html>
+

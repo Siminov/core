@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>SICApplicationDescriptorReader Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">Siminov Framework - Core </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">Siminov Software Solution LLP</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/getApplicationDescriptor">- getApplicationDescriptor</option>
+		
+		<option value="//api/name/init">- init</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">SICApplicationDescriptorReader Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td><a href="../Classes/SICSiminovSAXDefaultHandler.html">SICSiminovSAXDefaultHandler</a> : NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>SICApplicationDescriptorReader.h<br />SICApplicationDescriptorReader.m</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Exposes methods to parse Application Descriptor information as per define in ApplicationDescriptor.si.xml file by application.</p>
+
+<p>Example:</p>
+
+<pre><code> &lt;siminov&gt;
+
+     &lt;!-- General Application Description Properties --&gt;
+
+        &lt;!-- Mandatory Field --&gt;
+     &lt;property name="name"&gt;application_name&lt;/property&gt;
+
+        &lt;!-- Optional Field --&gt;
+     &lt;property name="description"&gt;application_description&lt;/property&gt;
+
+        &lt;!-- Mandatory Field (Default is 0.0) --&gt;
+     &lt;property name="version"&gt;application_version&lt;/property&gt;
+
+
+     &lt;!-- Database Descriptors Used By Application (zero-to-many) --&gt;
+        &lt;!-- Optional Field's --&gt;
+     &lt;database-descriptors&gt;
+        &lt;database-descriptor&gt;full_path_of_database_descriptor_file&lt;/database-descriptor&gt;
+     &lt;/database-descriptors&gt;
+
+
+     &lt;!-- Library Descriptors Used By Application (zero-to-many) --&gt;
+        &lt;!-- Optional Field's --&gt;
+     &lt;library-descriptors&gt;
+        &lt;library-descriptor&gt;full_path_of_library_descriptor_file&lt;/library-descriptor&gt;
+     &lt;/library-descriptors&gt;
+
+
+     &lt;!-- Event Handlers Implemented By Application (zero-to-many) --&gt;
+
+        &lt;!-- Optional Field's --&gt;
+     &lt;event-handlers&gt;
+        &lt;event-handler&gt;full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)&lt;/event-handler&gt;
+     &lt;/event-handlers&gt;
+
+&lt;/siminov&gt;
+</code></pre>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						<h2 class="task-title">Other Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/getApplicationDescriptor" title="getApplicationDescriptor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getApplicationDescriptor">&ndash;&nbsp;getApplicationDescriptor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get application descriptor object.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (SICApplicationDescriptor *)getApplicationDescriptor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Application Descriptor Object.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptorReader.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Initialization" name="task_Initialization"></a>
+						<h2 class="task-title">Initialization</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/init" title="init"></a>
+	<h3 class="method-title"><code><a href="#//api/name/init">&ndash;&nbsp;init</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>ApplicationDescriptorReader Constructor</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (id)init</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptorReader.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

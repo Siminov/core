@@ -1,0 +1,451 @@
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Siminov Framework - Core - Siminov.Core.Database.Design</title>
+        <meta name="viewport" content="width=device-width">
+
+					<link rel="stylesheet" type="text/css" href="../assets/css/font.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/style.css?version=0.9.6.8" />
+			
+			<!--[if IE 8]>
+				<script src="../assets/js/vendor.ie8.js?version=0.9.6.8"></script>
+			<![endif]-->
+			<![if !IE 8]>
+				<script src="../assets/js/vendor.js?version=0.9.6.8"></script>
+			<![endif]>
+
+			<script src="../assets/js/jquery.layout.min.js"></script>	
+			<script src="../assets/js/frame.js?version=0.9.6.8"></script>
+			<script src="../assets/js/iframe.js"></script>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>        
+       
+	    <div id="dropdown-1" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+									<li><a href="../type/IAverage.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IAverage</a></li>
+
+									<li><a href="../type/IAverageClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IAverageClause</a></li>
+
+									<li><a href="../type/ICount.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ICount</a></li>
+
+									<li><a href="../type/ICountClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ICountClause</a></li>
+
+									<li><a href="../type/IDatabase.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IDatabase</a></li>
+
+									<li><a href="../type/IDatabaseImpl.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IDatabaseImpl</a></li>
+
+									<li><a href="../type/IDataTypeHandler.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IDataTypeHandler</a></li>
+
+									<li><a href="../type/IDelete.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IDelete</a></li>
+
+									<li><a href="../type/IDeleteClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IDeleteClause</a></li>
+
+									<li><a href="../type/IGroupConcat.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IGroupConcat</a></li>
+
+									<li><a href="../type/IGroupConcatClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IGroupConcatClause</a></li>
+
+									<li><a href="../type/IMax.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IMax</a></li>
+
+									<li><a href="../type/IMaxClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IMaxClause</a></li>
+
+									<li><a href="../type/IMin.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IMin</a></li>
+
+									<li><a href="../type/IMinClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IMinClause</a></li>
+
+									<li><a href="../type/IQueryBuilder.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IQueryBuilder</a></li>
+
+									<li><a href="../type/ISelect.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ISelect</a></li>
+
+									<li><a href="../type/ISelectClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ISelectClause</a></li>
+
+									<li><a href="../type/ISum.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ISum</a></li>
+
+									<li><a href="../type/ISumClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ISumClause</a></li>
+
+									<li><a href="../type/ITotal.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ITotal</a></li>
+
+									<li><a href="../type/ITotalClause.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ITotalClause</a></li>
+
+							</ul>
+		</div>
+	   
+	    <div class="ui-layout-north">
+			<div class="toolbar">
+				<a href="#" data-dropdown="#dropdown-1" class="button"><img src="../assets/images/icons/class_public.png"/> Types <span class="info">(22)</span> <i class="icon-caret-down"></i></a>
+				<div class="right">
+					<span class="toolbar-info"> Assembly: core</span>
+					<a href="#" id="print-button" class="button" title="print"><i class="icon-print"></i></a>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+        
+		<div class="ui-layout-center">
+			<div>
+				
+					<h3 class="box-title first-heading">Types</h3>
+
+				
+				<div class="table-box">
+					<table>
+						<thead>
+							<tr>
+								<td></td>
+								<td>Name</td>
+								<td>Description</td>
+							</tr>
+						</thead>
+						<tbody>			
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IAverage" href="../type/IAverage.html">IAverage</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to get average value of all non-NULL X within a group. 
+String and BLOB values that do not look like numbers are interpreted as 0.
+The result of avg() is always a floating point value as long as at there is at least one non-NULL input even if all inputs are integers.
+The result of avg() is NULL if and only if there are no non-NULL inputs.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IAverageClause" href="../type/IAverageClause.html">IAverageClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to calculate average.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ICount" href="../type/ICount.html">ICount</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to get count of the number of times that X is not NULL in a group.
+The count(*) function (with no arguments) returns the total number of rows in the group.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ICountClause" href="../type/ICountClause.html">ICountClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to calculate count.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IDatabase" href="../type/IDatabase.html">IDatabase</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes methods to deal with database. 
+It has methods to create, delete, and perform other common database management tasks.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IDatabaseImpl" href="../type/IDatabaseImpl.html">IDatabaseImpl</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes methods to deal with actual database object.
+It has methods to open, create, close, and execute query's.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IDataTypeHandler" href="../type/IDataTypeHandler.html">IDataTypeHandler</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes convert API which is responsible to provide column data type based on java variable data type.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IDelete" href="../type/IDelete.html">IDelete</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to delete tuples from table.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IDeleteClause" href="../type/IDeleteClause.html">IDeleteClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to delete tuple from table.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IGroupConcat" href="../type/IGroupConcat.html">IGroupConcat</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to get group concat that returns a string which is the concatenation of all non-NULL values of X.
+If parameter Y is present then it is used as the separator between instances of X. A comma (",") is used as the separator if Y is omitted.
+The order of the concatenated elements is arbitrary.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IGroupConcatClause" href="../type/IGroupConcatClause.html">IGroupConcatClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to calculate group concat.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IMax" href="../type/IMax.html">IMax</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to returns the maximum value of all values in the group.
+The maximum value is the value that would be returned last in an ORDER BY on the same column. 
+Aggregate max() returns NULL if and only if there are no non-NULL values in the group.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IMaxClause" href="../type/IMaxClause.html">IMaxClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to calculate maximum.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IMin" href="../type/IMin.html">IMin</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to returns the minimum non-NULL value of all values in the group.
+The minimum value is the first non-NULL value that would appear in an ORDER BY of the column.
+Aggregate min() returns NULL if and only if there are no non-NULL values in the group.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IMinClause" href="../type/IMinClause.html">IMinClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to calculate minimum.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IQueryBuilder" href="../type/IQueryBuilder.html">IQueryBuilder</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to build database queries.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ISelect" href="../type/ISelect.html">ISelect</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to get tuples from table based on information provided.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ISelectClause" href="../type/ISelectClause.html">ISelectClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to get tuples from table..</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ISum" href="../type/ISum.html">ISum</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to return sum of all non-NULL values in the group.
+If there are no non-NULL input rows then sum() returns NULL but total() returns 0.0.
+NULL is not normally a helpful result for the sum of no rows but the SQL standard requires it and most other SQL database engines implement sum() that way so SQLite does it in the same way in order to be compatible.
+The result of sum() is an integer value if all non-NULL inputs are integers.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ISumClause" href="../type/ISumClause.html">ISumClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to calculate sum.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ITotal" href="../type/ITotal.html">ITotal</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to return total of all non-NULL values in the group.
+The non-standard total() function is provided as a convenient way to work around this design problem in the SQL language.
+The result of total() is always a floating point value.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ITotalClause" href="../type/ITotalClause.html">ITotalClause</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes API's to provide condition on where clause to calculate total.</p>
+
+																			</td>
+								</tr>
+
+							
+						</tbody>
+					</table>
+				</div>
+
+				
+									<h3 class="box-title">Used by</h3>
+					<div class="list-box">
+						<ul>
+													<li><a href="../namespace/Siminov.Core.html">Siminov.Core</a></li>
+													<li><a href="../namespace/Siminov.Core.Database.html">Siminov.Core.Database</a></li>
+												</ul>
+					</div>
+							</div>
+		</div>
+	   
+    </body>
+</html>
+

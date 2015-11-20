@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>SICClassUtils Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">Siminov Framework - Core </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">Siminov Software Solution LLP</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/createAndInflateObject:data:">+ createAndInflateObject:data:</option>
+		
+		<option value="//api/name/createClass:">+ createClass:</option>
+		
+		<option value="//api/name/createClassInstance:">+ createClassInstance:</option>
+		
+		<option value="//api/name/createMethodBasedOnClassInstance:methodName:message:">+ createMethodBasedOnClassInstance:methodName:message:</option>
+		
+		<option value="//api/name/createMethodBasedOnClassName:methodName:message:">+ createMethodBasedOnClassName:methodName:message:</option>
+		
+		<option value="//api/name/getValue:methodName:">+ getValue:methodName:</option>
+		
+		<option value="//api/name/getValues:methodNames:">+ getValues:methodNames:</option>
+		
+		<option value="//api/name/invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:">+ invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:</option>
+		
+	</optgroup>
+	
+
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">SICClassUtils Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>SICClassUtils.h<br />SICClassUtils.m</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Exposes class util methods to SIMINOV.</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						<a title="Class methods" name="task_Class methods"></a>
+						
+<h2 class="task-title">Class methods</h2>
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/createClass:" title="createClass:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createClass:">+&nbsp;createClass:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Create a Class Object based on class name provided.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (id)createClass:(NSString *)<em>className</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>className</code></th>
+						<td><p>Name of Class</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Class Object</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/createClassInstance:" title="createClassInstance:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createClassInstance:">+&nbsp;createClassInstance:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates class object based on full class name provided.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (id)createClassInstance:(NSString *)<em>className</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>className</code></th>
+						<td><p>Name of class.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Object of class.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection arguments-section exceptions">
+				<h4 class="method-subtitle exception-title">Exceptions</h4>
+				<table class="argument-def exception-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>SICSiminovException</code></th>
+						<td><p>If any exception occur while creating class object based on class name provided.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/createMethodBasedOnClassName:methodName:message:" title="createMethodBasedOnClassName:methodName:message:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createMethodBasedOnClassName:methodName:message:">+&nbsp;createMethodBasedOnClassName:methodName:message:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Create a method object.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (Method)createMethodBasedOnClassName:(NSString *)<em>className</em> methodName:(NSString *)<em>methodName</em> message:(id)<em>parameterTypes</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>className</code></th>
+						<td><p>Name of Class</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>methodName</code></th>
+						<td><p>Name of Method</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameterTypes</code></th>
+						<td><p>Parameter Types</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Method Object</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/createMethodBasedOnClassInstance:methodName:message:" title="createMethodBasedOnClassInstance:methodName:message:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createMethodBasedOnClassInstance:methodName:message:">+&nbsp;createMethodBasedOnClassInstance:methodName:message:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Create a method object.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (Method)createMethodBasedOnClassInstance:(id)<em>classObject</em> methodName:(NSString *)<em>methodName</em> message:(id)<em>parameterTypes</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>classObject</code></th>
+						<td><p>Class Object</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>methodName</code></th>
+						<td><p>Name of Method</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameterTypes</code></th>
+						<td><p>Parameter Types</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Method Object</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getValues:methodNames:" title="getValues:methodNames:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getValues:methodNames:">+&nbsp;getValues:methodNames:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get column values based on class object and method name provided.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (NSEnumerator *)getValues:(id const)<em>classObject</em> methodNames:(NSEnumerator *const)<em>methodNames</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>classObject</code></th>
+						<td><p>Class Object.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>methodNames</code></th>
+						<td><p>Name Of Methods.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Column Values.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection arguments-section exceptions">
+				<h4 class="method-subtitle exception-title">Exceptions</h4>
+				<table class="argument-def exception-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>SICDatabaseException</code></th>
+						<td><p>If any exception occur while getting column values.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getValue:methodName:" title="getValue:methodName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getValue:methodName:">+&nbsp;getValue:methodName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get column value based on class object and method name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (id)getValue:(id const)<em>classObject</em> methodName:(NSString *const)<em>methodName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>classObject</code></th>
+						<td><p>Class Object.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>methodName</code></th>
+						<td><p>Name Of Method.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Column Value.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection arguments-section exceptions">
+				<h4 class="method-subtitle exception-title">Exceptions</h4>
+				<table class="argument-def exception-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>SICDatabaseException</code></th>
+						<td><p>If any exception occur while getting column value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:" title="invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:">+&nbsp;invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Invoke method based on class object, method name and parameter provided.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (id)invokeMethodBasedOnMethodName:(id const)<em>classObject</em> methodName:(NSString *const)<em>methodName</em> parameterTypes:(id const)<em>parameterTypes</em> parameters:(id const)<em>parameters</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>classObject</code></th>
+						<td><p>Class Object.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>methodName</code></th>
+						<td><p>Name Of Method.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameterTypes</code></th>
+						<td><p>Type of parameters.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>Parameters To Method.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Object</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/createAndInflateObject:data:" title="createAndInflateObject:data:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createAndInflateObject:data:">+&nbsp;createAndInflateObject:data:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get new object created and filled with values provided.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (id)createAndInflateObject:(NSString *const)<em>className</em> data:(NSDictionary *const)<em>data</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>className</code></th>
+						<td><p>Class Name.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>data</code></th>
+						<td><p>Column Values.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Class Object.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection arguments-section exceptions">
+				<h4 class="method-subtitle exception-title">Exceptions</h4>
+				<table class="argument-def exception-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>SICDatabaseException</code></th>
+						<td><p>If any exception occur while create and inflating class object.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

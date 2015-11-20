@@ -1,0 +1,2426 @@
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Siminov Framework - Core - IDatabase</title>
+        <meta name="viewport" content="width=device-width">
+
+					<link rel="stylesheet" type="text/css" href="../assets/css/font.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/style.css?version=0.9.6.8" />
+			
+			<!--[if IE 8]>
+				<script src="../assets/js/vendor.ie8.js?version=0.9.6.8"></script>
+			<![endif]-->
+			<![if !IE 8]>
+				<script src="../assets/js/vendor.js?version=0.9.6.8"></script>
+			<![endif]>
+
+			<script src="../assets/js/jquery.layout.min.js?version=0.9.6.8"></script>	
+			<script src="../assets/js/frame.js?version=0.9.6.8"></script>
+			<script src="../assets/js/iframe.js?version=0.9.6.8"></script>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>        
+        
+		<!-- DropDowns -->
+		<div id="dropdown-1" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+							</ul>
+		</div>
+
+		<div id="dropdown-2" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+							</ul>
+		</div>
+
+		<div id="dropdown-3" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+				
+				
+					<li><a href="#Avg3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Avg()</a></li>
+
+				
+					<li><a href="#Count3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Count()</a></li>
+
+				
+					<li><a href="#CreateTable3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> CreateTable()</a></li>
+
+				
+					<li><a href="#Delete3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Delete()</a></li>
+
+				
+					<li><a href="#DropIndex3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> DropIndex(String indexName)</a></li>
+
+				
+					<li><a href="#DropTable3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> DropTable()</a></li>
+
+				
+					<li><a href="#GetColumnNames3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetColumnNames()</a></li>
+
+				
+					<li><a href="#GetColumnTypes3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetColumnTypes()</a></li>
+
+				
+					<li><a href="#GetColumnValues3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetColumnValues()</a></li>
+
+				
+					<li><a href="#GetDatabaseDescriptor3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetDatabaseDescriptor()</a></li>
+
+				
+					<li><a href="#GetDatabaseMappingDescriptor3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetDatabaseMappingDescriptor()</a></li>
+
+				
+					<li><a href="#GetForeignKeys4"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetForeignKeys()</a></li>
+
+				
+					<li><a href="#GetMandatoryFields3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetMandatoryFields()</a></li>
+
+				
+					<li><a href="#GetPrimaryKeys3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetPrimaryKeys()</a></li>
+
+				
+					<li><a href="#GetTableName3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetTableName()</a></li>
+
+				
+					<li><a href="#GetUniqueFields3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GetUniqueFields()</a></li>
+
+				
+					<li><a href="#GroupConcat3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> GroupConcat()</a></li>
+
+				
+					<li><a href="#Max3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Max()</a></li>
+
+				
+					<li><a href="#Min3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Min()</a></li>
+
+				
+					<li><a href="#Save3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Save()</a></li>
+
+				
+					<li><a href="#SaveOrUpdate3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> SaveOrUpdate()</a></li>
+
+				
+					<li><a href="#Select5"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Select()</a></li>
+
+				
+					<li><a href="#Select6"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Select(String query)</a></li>
+
+				
+					<li><a href="#Sum3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Sum()</a></li>
+
+				
+					<li><a href="#Total3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Total()</a></li>
+
+				
+					<li><a href="#Update3"><img alt="Method-Icon" src="../assets/images/icons/method_public.png"> Update()</a></li>
+
+							</ul>
+		</div>
+
+		<div id="dropdown-4" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+							</ul>
+		</div>
+		<!-- DropDowns Ende -->
+
+	    <div class="ui-layout-north">
+			<div class="toolbar">
+
+									<a href="#" data-dropdown="#dropdown-3" class="button"><img src="../assets/images/icons/method_public.png"/> Methods <span class="info">(26)</span> <i class="icon-caret-down"></i></a>
+				
+				<div class="right">
+					<span class="toolbar-info"> Namespace: Siminov.Core.Database.Design</span>
+					<a href="#" id="expand-all-button" class="button"><i class="icon-align-justify" title="expand all"></i></a>
+					<a href="#" id="print-button" class="button"><i class="icon-print" title="print"></i></a>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+        
+		<div class="ui-layout-center">
+
+			<div>
+				<h3 class="box-title first-heading">Syntax</h3>					
+				<div class="syntax-box">
+					<pre class="wrap-pre"><code>public interface IDatabase</code></pre>
+				</div>
+
+				
+				        
+				
+											<h3 class="box-title">Summary</h3>
+						<div class="doc-box markdown">
+							<p>Exposes methods to deal with database. 
+It has methods to create, delete, and perform other common database management tasks.</p>
+
+						</div>
+					
+					
+					
+					
+					
+					
+					
+					
+				
+				
+				
+				
+				
+									<h3 class="box-title">Methods</h3>
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Avg3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Avg()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the average based on where clause provided.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   int noOfBeers = 0;
+
+   try {
+       noOfBeers = beer.Avg().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IAverage Avg()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while getting average from database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Count3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Count()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the count of rows based on where clause provided.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   int noOfBeers = 0;
+
+   try {
+       noOfBeers = beer.Count().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract ICount Count()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while getting count of tuples from database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="CreateTable3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>CreateTable()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Is used to create a new table in an database.</p>
+
+<p>Using SIMINOV there are three ways to create table in database.</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract void CreateTable()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If not able to create table in SQLite.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Delete3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Delete()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>It deletes a record from single table in a relational database.
+Example: Make Beer Object
+    Liquor beer = new Liquor();
+       beer.SetLiquorType(Liquor.LIQUOR<em>TYPE</em>BEER);
+       beer.SetDescription("beer<em>description");
+       beer.SetHistory("beer</em>history");
+       beer.SetLink("beer<em>link");
+       beer.SetAlcholContent("beer</em>alchol_content");</p>
+
+<pre><code>   try {
+       beer.Delete();
+   } catch(DatabaseException de) {
+       //Log it.
+   }
+</code></pre>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IDelete Delete()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while saving tuples in database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="DropIndex3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>DropIndex(String indexName)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Is used to drop a index on a table in database.</p>
+
+<p>Create Index On Liquor table.
+String indexName = "LIQUOR_INDEX_BASED_ON_LINK";
+   Liquor liquor = new Liquor();
+
+   try {
+       liquor.DropIndex(indexName);
+   } catch(DatabaseException databaseException) {
+       //Log It.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract void DropIndex(String indexName)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">indexName</p>
+						
+						
+									
+									<small>String</small>
+
+														
+						
+						<div class="inline">
+							<p>Name of a index needs to be drop.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If not able to drop index on table.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="DropTable3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>DropTable()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>It drop's the table from database based on database-mapping.</p>
+
+<p>Drop the Liquor table.
+Liquor liquor = new Liquor();
+
+   try {
+       liquor.DropTable();
+   } catch(DatabaseException databaseException) {
+       //Log It.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract void DropTable()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If not able to drop table.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetColumnNames3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetColumnNames()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all column names of mapped table.</p>
+
+<p>Example:
+IEnumeratorcolumnNames = null;
+   try {
+       columnNames = new Liquor().GetColumnNames();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IEnumerator GetColumnNames()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>All column names of mapped table.</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If no mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetColumnTypes3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetColumnTypes()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all columns with there data types for invoked class object.</p>
+
+<p>Example:
+IDictionarycolumnTypes = null;
+   try {
+       columnTypes = new Liquor().GetColumnTypes();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IDictionary GetColumnTypes()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>All columns with there data types</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If no mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetColumnValues3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetColumnValues()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all column values in the same order of column names for invoked class object.</p>
+
+<p>Example:
+IDictionaryvalues = null;
+   try {
+       values = new Liquor().GetColumnValues();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IDictionary GetColumnValues()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>All column values for invoked object.</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If no mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetDatabaseDescriptor3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetDatabaseDescriptor()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns database descriptor object based on the POJO class called.</p>
+
+<p>Example:
+try {
+       DatabaseDescriptor databaseDescriptor = new Liquor().GetDatabaseDescriptor();
+   } catch(DatabaseException databaseException) {
+       //Log It.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract DatabaseDescriptor GetDatabaseDescriptor()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Database Descriptor Object</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occur while getting database descriptor object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetDatabaseMappingDescriptor3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetDatabaseMappingDescriptor()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the actual database mapping object mapped for invoked class object.</p>
+
+<p>Example:
+DatabaseMapping databaseMapping = null;
+   try {
+       databaseMapping = new Liquor().GetDatabaseMapping();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract DatabaseMappingDescriptor GetDatabaseMappingDescriptor()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>DatabaseMapping Object</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If database mapping object not mapped for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetForeignKeys4" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetForeignKeys()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all foreign keys of mapped table for invoked class object.</p>
+
+<p>Example:
+IEnumeratorforeignKeys = null;
+   try {
+       foreignKeys = new Liquor().GetForeignKeys();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IEnumerator GetForeignKeys()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>All foreign keys of mapped table.</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If no mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetMandatoryFields3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetMandatoryFields()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all mandatory fields which are associated with mapped table for invoked class object.</p>
+
+<p>Example:
+IEnumeratormandatoryFields = null;
+   try {
+       mandatoryFields = new Liquor().GetMandatoryFields();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IEnumerator GetMandatoryFields()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>All mandatory fields for mapped table</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If no mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetPrimaryKeys3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetPrimaryKeys()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all primary keys of mapped table for invoked class object.</p>
+
+<p>Example:
+IEnumeratorprimaryKeys = null;
+   try {
+       primaryKeys = new Liquor().getPrimeryKeys();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IEnumerator GetPrimaryKeys()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>All primary keys</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If not mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetTableName3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetTableName()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the mapped table name for invoked class object.</p>
+
+<p>Example:
+String tableName = null;
+   try {
+       tableName = new Liquor().GetTableName();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract String GetTableName()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>Mapped Table name.</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If no mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GetUniqueFields3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GetUniqueFields()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all unique fields which are associated with mapped table for invoked class object.</p>
+
+<p>Example:
+IEnumeratoruniqueFields = null;
+   try {
+       uniqueFields = new Liquor().GetUniqueFields();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IEnumerator GetUniqueFields()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p>All unique fields for mapped table.</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If no mapped table found for invoked class object.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="GroupConcat3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>GroupConcat()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the group concat based on where clause provided.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   int groupConcatBeers = 0;
+
+   try {
+       groupConcatBeers = beer.GroupConcat().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IGroupConcat GroupConcat()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while getting group concat from database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Max3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Max()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the max based on where clause provided.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   int maxBeers = 0;
+
+   try {
+       maxBeers = beer.Max().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IMax Max()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while getting max from database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Min3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Min()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the min based on where clause provided.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   int minBeers = 0;
+
+   try {
+       minBeers = beer.Min().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract IMin Min()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while getting min from database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Save3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Save()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>It adds a record to any single table in a relational database.</p>
+
+<p>Example: Make Liquor Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   try {
+       beer.Save();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract void Save()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while saving tuples in database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="SaveOrUpdate3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>SaveOrUpdate()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>It finds out whether tuple exists in table or not.</p>
+
+<p>IF NOT EXISTS:
+adds a record to any single table in a relational database.
+ELSE:
+updates a record to any single table in a relational database.
+Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   try {
+       beer.SaveOrUpdate();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract void SaveOrUpdate()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while saving tuples in database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Select5" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Select()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all tuples based on query from mapped table for invoked class object.</p>
+
+<p>Liquor[] liquors = null;
+   try {
+       liquors = new Liquor().Select().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract ISelect Select()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Select6" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Select(String query)</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns all tuples based on manual query from mapped table for invoked class object.</p>
+
+<p>String query = "SELECT * FROM LIQUOR";
+
+   Liquor[] liquors = null;
+   try {
+       liquors = new Liquor().Select(query);
+   } catch(DatabaseException de) {
+       //Log it.
+   }
+
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract Object[] Select(String query)</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+				<p class="member-box-title">Parameters</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">query</p>
+						
+						
+									
+									<small>String</small>
+
+														
+						
+						<div class="inline">
+							<p>Query to get tuples from database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+				<p class="member-box-title">Returns</p>
+				<div class="member-doc-box">
+					<p><span class="inline-code">ISelect</span>object.</p>
+
+				</div>
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occur while getting tuples from a single table.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Sum3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Sum()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the sum based on where clause provided.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   int noOfBeers = 0;
+
+   try {
+       noOfBeers = beer.Sum().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract ISum Sum()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Total3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Total()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>Returns the total based on where clause provided.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   int totalBeers = 0;
+
+   try {
+       totalBeers = beer.Avg().Execute();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract ITotal Total()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="Update3" class="member">
+	<div class="member-header">		
+		<a href="#"><i class="icon-caret-right"></i><img src="../assets/images/icons/method_public.png"/> <p>Update()</p></a>
+		
+			
+				<div class="summary markdown">
+					<p>It updates a record to any single table in a relational database.</p>
+
+<p>Example: Make Beer Object
+Liquor beer = new Liquor();
+   beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
+   beer.SetDescription("beer_description");
+   beer.SetHistory("beer_history");
+   beer.SetLink("beer_link");
+   beer.SetAlcholContent("beer_alchol_content");
+
+   try {
+       beer.Update();
+   } catch(DatabaseException de) {
+       //Log it.
+   }</p>
+
+				</div>
+			
+		
+	</div>
+
+	<div class="member-content">
+
+		<div class="syntax-box">
+			<pre class="wrap-pre"><code>public abstract void Update()</code></pre>
+		</div>		
+        
+		
+
+		
+		
+			
+
+			
+
+			
+
+			
+				<p class="member-box-title">Exceptions</p>
+				<div class="member-doc-box markdown">
+					
+						<p class="key">Siminov.Core.Exception.DatabaseException</p>
+						<div class="inline">
+							<p>If any error occurs while saving tuples in database.</p>
+
+						</div>
+					
+				</div>
+			
+
+			
+
+			
+						
+			
+
+		
+
+		
+
+	</div>
+</div>
+
+
+									
+				
+									<div class="svg-diagram">
+						<h3 class="box-title">Class Diagram</h3>
+						<div id="sd-class-diagram" class="svgpan">
+														<svg><g transform="translate(0.00, 50.00)"><rect height="701" width="286" x="0.55" y="0.55" fill="#FFFFFF" stroke="#979797" stroke-width="1" /><text x="98.76" y="20.50" fill="" style="" text-anchor="" font-family="" font-size="11.00" onmouseover="" onmouseout=""><![CDATA[public  interface]]></text><a xlink:href="../type/IDatabase.html" xmlns:xlink="xlink"><text x="107.11" y="35.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[IDatabase]]></text></a><path d="M0.5,45.50L286.00,45.50" stroke="#979797" stroke-width="1" stroke-dasharray="" /><image width="16.00" height="16.00" x="15.00" y="53.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Avg3" xmlns:xlink="xlink"><text x="40.00" y="65.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Avg]]></text></a><image width="16.00" height="16.00" x="15.00" y="78.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Count3" xmlns:xlink="xlink"><text x="40.00" y="90.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Count]]></text></a><image width="16.00" height="16.00" x="15.00" y="103.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#CreateTable3" xmlns:xlink="xlink"><text x="40.00" y="115.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[CreateTable]]></text></a><image width="16.00" height="16.00" x="15.00" y="128.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Delete3" xmlns:xlink="xlink"><text x="40.00" y="140.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Delete]]></text></a><image width="16.00" height="16.00" x="15.00" y="153.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#DropIndex3" xmlns:xlink="xlink"><text x="40.00" y="165.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[DropIndex]]></text></a><image width="16.00" height="16.00" x="15.00" y="178.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#DropTable3" xmlns:xlink="xlink"><text x="40.00" y="190.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[DropTable]]></text></a><image width="16.00" height="16.00" x="15.00" y="203.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetColumnNames3" xmlns:xlink="xlink"><text x="40.00" y="215.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetColumnNames]]></text></a><image width="16.00" height="16.00" x="15.00" y="228.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetColumnTypes3" xmlns:xlink="xlink"><text x="40.00" y="240.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetColumnTypes]]></text></a><image width="16.00" height="16.00" x="15.00" y="253.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetColumnValues3" xmlns:xlink="xlink"><text x="40.00" y="265.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetColumnValues]]></text></a><image width="16.00" height="16.00" x="15.00" y="278.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetDatabaseDescriptor3" xmlns:xlink="xlink"><text x="40.00" y="290.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetDatabaseDescriptor]]></text></a><image width="16.00" height="16.00" x="15.00" y="303.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetDatabaseMappingDescriptor3" xmlns:xlink="xlink"><text x="40.00" y="315.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetDatabaseMappingDescriptor]]></text></a><image width="16.00" height="16.00" x="15.00" y="328.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetForeignKeys4" xmlns:xlink="xlink"><text x="40.00" y="340.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetForeignKeys]]></text></a><image width="16.00" height="16.00" x="15.00" y="353.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetMandatoryFields3" xmlns:xlink="xlink"><text x="40.00" y="365.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetMandatoryFields]]></text></a><image width="16.00" height="16.00" x="15.00" y="378.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetPrimaryKeys3" xmlns:xlink="xlink"><text x="40.00" y="390.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetPrimaryKeys]]></text></a><image width="16.00" height="16.00" x="15.00" y="403.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetTableName3" xmlns:xlink="xlink"><text x="40.00" y="415.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetTableName]]></text></a><image width="16.00" height="16.00" x="15.00" y="428.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GetUniqueFields3" xmlns:xlink="xlink"><text x="40.00" y="440.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GetUniqueFields]]></text></a><image width="16.00" height="16.00" x="15.00" y="453.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#GroupConcat3" xmlns:xlink="xlink"><text x="40.00" y="465.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[GroupConcat]]></text></a><image width="16.00" height="16.00" x="15.00" y="478.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Max3" xmlns:xlink="xlink"><text x="40.00" y="490.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Max]]></text></a><image width="16.00" height="16.00" x="15.00" y="503.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Min3" xmlns:xlink="xlink"><text x="40.00" y="515.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Min]]></text></a><image width="16.00" height="16.00" x="15.00" y="528.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Save3" xmlns:xlink="xlink"><text x="40.00" y="540.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Save]]></text></a><image width="16.00" height="16.00" x="15.00" y="553.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#SaveOrUpdate3" xmlns:xlink="xlink"><text x="40.00" y="565.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[SaveOrUpdate]]></text></a><image width="16.00" height="16.00" x="15.00" y="578.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Select5" xmlns:xlink="xlink"><text x="40.00" y="590.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Select]]></text></a><image width="16.00" height="16.00" x="15.00" y="603.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Select6" xmlns:xlink="xlink"><text x="40.00" y="615.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Select]]></text></a><image width="16.00" height="16.00" x="15.00" y="628.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Sum3" xmlns:xlink="xlink"><text x="40.00" y="640.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Sum]]></text></a><image width="16.00" height="16.00" x="15.00" y="653.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Total3" xmlns:xlink="xlink"><text x="40.00" y="665.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Total]]></text></a><image width="16.00" height="16.00" x="15.00" y="678.50" preserveAspectRatio="" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAANtQTFRF/wD//vv+8tvyz4jP8OPw46zj8+Pz8NTw7r7u+q7765Hs8uDz9/Cr1dWsrLSuipmu/f394q/i+qv7+pj76ZDq9Ob0plCnu2+87qXv+pv7+pn75pjnkE6R6eWrwcSsrLWtmKSup0+o0W3S+p/77p3vllKXfC58qVKq0WrS1W/VvHC93ZjejkaPnDydfi5+5eKrzM6stbutnKeu5MrkqFCp0mvT027UfjB/nzyfjTWOfC196NHoqVCqy2fMlTiWeit78NXw7djtfzCAdSd169Hr7NLscSRy5szm////y4eOhgAAAAF0Uk5TAEDm2GYAAAABYktHREjwAtTqAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeUlEQVQY02NgwAMY0fhMzCxofFZmNiQ+OzMHJxczN5jNw8vHL8AsKCQsLMIsClchJi4hKSwlLQOUl+WVk1dgUFQSl1BWUVWDq1DX0NTS1tHVAxmhb2BoxGBsYmpmbmFphbDG2sZWz87eAcliRxMnZxcUp7m6uTOQAwDo6wrtzia2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMi0wNy0yOVQxMTo1MzowNiswMjowMARwUR4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTAtMDQtMDNUMDU6MTE6MjArMDI6MDAQy5Z4AAAAAElFTkSuQmCC" xmlns:xlink="xlink" /><a xlink:href="../type/IDatabase.html#Update3" xmlns:xlink="xlink"><text x="40.00" y="690.50" fill="#1382CE" style="" text-anchor="" font-family="" font-size="14.00" onmouseover="this.setAttribute('fill', '#F58026')" onmouseout="this.setAttribute('fill', '#1382CE')"><![CDATA[Update]]></text></a></g></svg>
+						</div>
+						<div class="legend">
+							<p class="save"><a href="#"><i class="icon-save"></i>save</a></p>
+							<p class="resetZoom"><a href="#"><i class="icon-refresh"></i>reset</a></p>
+							<p>Drag to pan - Use Mousewheel + Ctrl to zoom</p>
+						</div>
+					</div>
+							</div>
+		</div>
+
+    </body>
+</html>
+

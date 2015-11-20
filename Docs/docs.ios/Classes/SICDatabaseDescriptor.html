@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>SICDatabaseDescriptor Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">Siminov Framework - Core </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">Siminov Software Solution LLP</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/addDatabaseMappingDescriptor:databaseMappingDescriptor:">- addDatabaseMappingDescriptor:databaseMappingDescriptor:</option>
+		
+		<option value="//api/name/addDatabaseMappingDescriptorPath:">- addDatabaseMappingDescriptorPath:</option>
+		
+		<option value="//api/name/addProperty:value:">- addProperty:value:</option>
+		
+		<option value="//api/name/containProperty:">- containProperty:</option>
+		
+		<option value="//api/name/containsDatabaseMappingDescriptorBasedOnClassName:">- containsDatabaseMappingDescriptorBasedOnClassName:</option>
+		
+		<option value="//api/name/containsDatabaseMappingDescriptorBasedOnTableName:">- containsDatabaseMappingDescriptorBasedOnTableName:</option>
+		
+		<option value="//api/name/getDatabaseMappingDescriptorPaths">- getDatabaseMappingDescriptorPaths</option>
+		
+		<option value="//api/name/getDatabaseMappingDescriptors">- getDatabaseMappingDescriptors</option>
+		
+		<option value="//api/name/getDatabaseName">- getDatabaseName</option>
+		
+		<option value="//api/name/getDatabseMappingDescriptorBasedOnClassName:">- getDatabseMappingDescriptorBasedOnClassName:</option>
+		
+		<option value="//api/name/getDatabseMappingDescriptorBasedOnPath:">- getDatabseMappingDescriptorBasedOnPath:</option>
+		
+		<option value="//api/name/getDatabseMappingDescriptorBasedOnTableName:">- getDatabseMappingDescriptorBasedOnTableName:</option>
+		
+		<option value="//api/name/getDescription">- getDescription</option>
+		
+		<option value="//api/name/getProperties">- getProperties</option>
+		
+		<option value="//api/name/getProperty:">- getProperty:</option>
+		
+		<option value="//api/name/getType">- getType</option>
+		
+		<option value="//api/name/getVersion">- getVersion</option>
+		
+		<option value="//api/name/isExternalStorageEnable">- isExternalStorageEnable</option>
+		
+		<option value="//api/name/isTransactionSafe">- isTransactionSafe</option>
+		
+		<option value="//api/name/orderedDatabaseMappingDescriptors">- orderedDatabaseMappingDescriptors</option>
+		
+		<option value="//api/name/removeDatabaseMappingDescriptor:">- removeDatabaseMappingDescriptor:</option>
+		
+		<option value="//api/name/removeDatabaseMappingDescriptorBasedOnClassName:">- removeDatabaseMappingDescriptorBasedOnClassName:</option>
+		
+		<option value="//api/name/removeDatabaseMappingDescriptorBasedOnPath:">- removeDatabaseMappingDescriptorBasedOnPath:</option>
+		
+		<option value="//api/name/removeDatabaseMappingDescriptorBasedOnTableName:">- removeDatabaseMappingDescriptorBasedOnTableName:</option>
+		
+		<option value="//api/name/removeProperty:">- removeProperty:</option>
+		
+		<option value="//api/name/setDatabaseName:">- setDatabaseName:</option>
+		
+		<option value="//api/name/setDescription:">- setDescription:</option>
+		
+		<option value="//api/name/setExternalStorageEnable:">- setExternalStorageEnable:</option>
+		
+		<option value="//api/name/setTransactionSafe:">- setTransactionSafe:</option>
+		
+		<option value="//api/name/setType:">- setType:</option>
+		
+		<option value="//api/name/setVersion:">- setVersion:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">SICDatabaseDescriptor Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Conforms to</th>
+	<td><a href="../Protocols/SICIDescriptor.html">SICIDescriptor</a></td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>SICDatabaseDescriptor.h<br />SICDatabaseDescriptor.m</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.si.xml file by application.</p>
+
+<p>Example:</p>
+
+<pre><code>&lt;database-descriptor&gt;
+
+ &lt;!-- General Database Descriptor Properties --&gt;
+
+ &lt;!-- Mandatory Field --&gt;
+ &lt;property name="database_name"&gt;name_of_database_file&lt;/property&gt;
+
+ &lt;!-- Optional Field (Default is sqlite)--&gt;
+ &lt;property name="type"&gt;type_of_database&lt;/property&gt;
+
+ &lt;!-- Mandatory Field --&gt;
+ &lt;property name="version"&gt;database_version&lt;/property&gt;
+
+ &lt;!-- Optional Field --&gt;
+ &lt;property name="description"&gt;database_description&lt;/property&gt;
+
+ &lt;!-- Optional Field (Default is false) --&gt;
+ &lt;property name="transaction_safe"&gt;true/false&lt;/property&gt;
+
+ &lt;!-- Optional Field (Default is false) --&gt;
+ &lt;property name="external_storage"&gt;true/false&lt;/property&gt;
+
+
+ &lt;!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor --&gt;
+
+ &lt;!-- Optional Field --&gt;
+ &lt;database-mapping-descriptors&gt;
+ &lt;database-mapping-descriptor&gt;full_path_of_database_mapping_descriptor_file&lt;/database-mapping-descriptor&gt;
+ &lt;/database-mapping-descriptors&gt;
+
+&lt;/database-descriptor&gt;
+</code></pre>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						<h2 class="task-title">Other Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/getDatabaseName" title="getDatabaseName"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseName">&ndash;&nbsp;getDatabaseName</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get database descriptor name as defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)getDatabaseName</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Database Descriptor Name.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setDatabaseName:" title="setDatabaseName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setDatabaseName:">&ndash;&nbsp;setDatabaseName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set database descriptor name as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setDatabaseName:(NSString *const)<em>databaseName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseName</code></th>
+						<td><p>Database Descriptor Name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getType" title="getType"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getType">&ndash;&nbsp;getType</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get type of database</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)getType</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Type of database</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setType:" title="setType:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setType:">&ndash;&nbsp;setType:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set type of database</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setType:(NSString *)<em>type</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>type</code></th>
+						<td><p>Type of database</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getVersion" title="getVersion"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getVersion">&ndash;&nbsp;getVersion</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get Version of Application as per defined in ApplicationDescriptor.core.xml file.
+Version of application.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (double)getVersion</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setVersion:" title="setVersion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setVersion:">&ndash;&nbsp;setVersion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set Version of Application as per defined in ApplicationDescriptor.core.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setVersion:(double const)<em>version</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>version</code></th>
+						<td><p>Version of application.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDescription" title="getDescription"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDescription">&ndash;&nbsp;getDescription</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get description as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)getDescription</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Description defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setDescription:" title="setDescription:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setDescription:">&ndash;&nbsp;setDescription:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set description as per defined in DatabaseDescritor.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setDescription:(NSString *const)<em>description</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>description</code></th>
+						<td><p>Description defined in DatabaseDescriptor.core.xml file.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isExternalStorageEnable" title="isExternalStorageEnable"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isExternalStorageEnable">&ndash;&nbsp;isExternalStorageEnable</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database needs to be stored on SDCard or not.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)isExternalStorageEnable</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE:If external_storage defined as true in DatabaseDescriptor.core.xml file, FALSE:If external_storage defined as false in DatabaseDescritor.xml file.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setExternalStorageEnable:" title="setExternalStorageEnable:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setExternalStorageEnable:">&ndash;&nbsp;setExternalStorageEnable:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set the external storage value as per defined in DatabaseDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setExternalStorageEnable:(BOOL const)<em>isExternalStorageEnable</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>isExternalStorageEnable</code></th>
+						<td><p>(true/false) External Storage Enable Or Not.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isTransactionSafe" title="isTransactionSafe"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isTransactionSafe">&ndash;&nbsp;isTransactionSafe</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database transactions to make multi-threading safe or not.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)isTransactionSafe</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE: If locking is required as per defined in DatabaseDescriptor.si.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.si.xml file.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setTransactionSafe:" title="setTransactionSafe:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setTransactionSafe:">&ndash;&nbsp;setTransactionSafe:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set database locking as per defined in DatabaseDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setTransactionSafe:(BOOL const)<em>transactionSafe</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>transactionSafe</code></th>
+						<td><p>(true/false) database locking as per defined in DatabaseDescriptor.si.xml file.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containsDatabaseMappingDescriptorBasedOnTableName:" title="containsDatabaseMappingDescriptorBasedOnTableName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containsDatabaseMappingDescriptorBasedOnTableName:">&ndash;&nbsp;containsDatabaseMappingDescriptorBasedOnTableName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database mapping object exists or not, based on table name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containsDatabaseMappingDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>tableName</code></th>
+						<td><p>Name of table.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE: If database mapping exists, FALSE: If database mapping does not exists.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containsDatabaseMappingDescriptorBasedOnClassName:" title="containsDatabaseMappingDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containsDatabaseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;containsDatabaseMappingDescriptorBasedOnClassName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database mapping object exists or not, based on POJO class name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containsDatabaseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>className</code></th>
+						<td><p>POJO class name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE: If database mapping exists, FALSE: If database mapping does not exists.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabaseMappingDescriptorPaths" title="getDatabaseMappingDescriptorPaths"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptorPaths">&ndash;&nbsp;getDatabaseMappingDescriptorPaths</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all database mapping paths as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseMappingDescriptorPaths</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Iterator which contain all database mapping paths.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addDatabaseMappingDescriptorPath:" title="addDatabaseMappingDescriptorPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addDatabaseMappingDescriptorPath:">&ndash;&nbsp;addDatabaseMappingDescriptorPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add database mapping path as per defined in DatabaseDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addDatabaseMappingDescriptorPath:(NSString *const)<em>databaseMappingDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
+						<td><p>Database Mapping Path.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EXAMPLE:</p>
+
+<pre><code>&lt;database-descriptor&gt;
+&lt;database-mappings&gt;
+&lt;database-mapping path="Liquor-Mappings/Liquor.xml" /&gt;
+&lt;database-mapping path="Liquor-Mappings/LiquorBrand.xml" /&gt;
+&lt;/database-mappings&gt;
+&lt;/database-descriptor&gt;
+</code></pre>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabaseMappingDescriptors" title="getDatabaseMappingDescriptors"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptors">&ndash;&nbsp;getDatabaseMappingDescriptors</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all database mapping objects contained.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseMappingDescriptors</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>All database mapping objects.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabseMappingDescriptorBasedOnTableName:" title="getDatabseMappingDescriptorBasedOnTableName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabseMappingDescriptorBasedOnTableName:">&ndash;&nbsp;getDatabseMappingDescriptorBasedOnTableName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get database mapping object based on table name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabseMappingDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>tableName</code></th>
+						<td><p>Name of table.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>DatabaseMapping object based on table name.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabseMappingDescriptorBasedOnClassName:" title="getDatabseMappingDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;getDatabseMappingDescriptorBasedOnClassName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get database mapping object based on POJO class name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>className</code></th>
+						<td><p>POJO class name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Database Mapping object.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabseMappingDescriptorBasedOnPath:" title="getDatabseMappingDescriptorBasedOnPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabseMappingDescriptorBasedOnPath:">&ndash;&nbsp;getDatabseMappingDescriptorBasedOnPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get database mapping object based on path.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabseMappingDescriptorBasedOnPath:(NSString *const)<em>databaseMappingDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
+						<td><p>Database Mapping path as per defined in Database Descriptor.xml file.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Database Mapping object.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addDatabaseMappingDescriptor:databaseMappingDescriptor:" title="addDatabaseMappingDescriptor:databaseMappingDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addDatabaseMappingDescriptor:databaseMappingDescriptor:">&ndash;&nbsp;addDatabaseMappingDescriptor:databaseMappingDescriptor:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add database mapping object in respect to database mapping path.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addDatabaseMappingDescriptor:(NSString *const)<em>databaseMappingDescriptorPath</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *)<em>databaseMappingDescriptor</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
+						<td><p>Database Mapping Path.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
+						<td><p>Database Mapping object.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeDatabaseMappingDescriptorBasedOnPath:" title="removeDatabaseMappingDescriptorBasedOnPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptorBasedOnPath:">&ndash;&nbsp;removeDatabaseMappingDescriptorBasedOnPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove database mapping object based on database mapping path.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptorBasedOnPath:(NSString *const)<em>databaseMappingDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
+						<td><p>Database Mapping Path.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeDatabaseMappingDescriptorBasedOnClassName:" title="removeDatabaseMappingDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;removeDatabaseMappingDescriptorBasedOnClassName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove database mappping object based on POJO class name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>className</code></th>
+						<td><p>POJO class name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeDatabaseMappingDescriptorBasedOnTableName:" title="removeDatabaseMappingDescriptorBasedOnTableName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptorBasedOnTableName:">&ndash;&nbsp;removeDatabaseMappingDescriptorBasedOnTableName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove database mapping object based on table name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>tableName</code></th>
+						<td><p>Name of table.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeDatabaseMappingDescriptor:" title="removeDatabaseMappingDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptor:">&ndash;&nbsp;removeDatabaseMappingDescriptor:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove database mapping object based on database mapping object.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
+						<td><p>Database Mapping object which needs to be removed.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/orderedDatabaseMappingDescriptors" title="orderedDatabaseMappingDescriptors"></a>
+	<h3 class="method-title"><code><a href="#//api/name/orderedDatabaseMappingDescriptors">&ndash;&nbsp;orderedDatabaseMappingDescriptors</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all database mapping objects in sorted order. The order will be as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)orderedDatabaseMappingDescriptors</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Iterator which contains all database mapping objects.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICDatabaseDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Protocol Methods" name="task_Protocol Methods"></a>
+						<h2 class="task-title">Protocol Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/getProperties" title="getProperties"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getProperties">&ndash;&nbsp;getProperties</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all the properties of descriptor</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getProperties</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>All properties</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getProperty:" title="getProperty:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getProperty:">&ndash;&nbsp;getProperty:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get the property value based on the property name</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)getProperty:(NSString *)<em>name</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Value of the property</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containProperty:" title="containProperty:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containProperty:">&ndash;&nbsp;containProperty:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether property exists or not</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containProperty:(NSString *)<em>name</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>(true/false) TRUE: If property exists | FALSE: If property does not exists.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addProperty:value:" title="addProperty:value:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addProperty:value:">&ndash;&nbsp;addProperty:value:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add property to the descriptor</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addProperty:(NSString *)<em>name</em> value:(NSString *)<em>value</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>Value of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeProperty:" title="removeProperty:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeProperty:">&ndash;&nbsp;removeProperty:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove property from the descriptor</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeProperty:(NSString *)<em>name</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

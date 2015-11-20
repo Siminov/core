@@ -1,0 +1,288 @@
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Siminov Framework - Core - Siminov.Core.Model</title>
+        <meta name="viewport" content="width=device-width">
+
+					<link rel="stylesheet" type="text/css" href="../assets/css/font.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/style.css?version=0.9.6.8" />
+			
+			<!--[if IE 8]>
+				<script src="../assets/js/vendor.ie8.js?version=0.9.6.8"></script>
+			<![endif]-->
+			<![if !IE 8]>
+				<script src="../assets/js/vendor.js?version=0.9.6.8"></script>
+			<![endif]>
+
+			<script src="../assets/js/jquery.layout.min.js"></script>	
+			<script src="../assets/js/frame.js?version=0.9.6.8"></script>
+			<script src="../assets/js/iframe.js"></script>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>        
+       
+	    <div id="dropdown-1" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+									<li><a href="../type/ApplicationDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ApplicationDescriptor</a></li>
+
+									<li><a href="../type/DatabaseDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> DatabaseDescriptor</a></li>
+
+									<li><a href="../type/DatabaseMappingDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> DatabaseMappingDescriptor</a></li>
+
+									<li><a href="../type/IDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IDescriptor</a></li>
+
+									<li><a href="../type/LibraryDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> LibraryDescriptor</a></li>
+
+							</ul>
+		</div>
+	   
+	    <div class="ui-layout-north">
+			<div class="toolbar">
+				<a href="#" data-dropdown="#dropdown-1" class="button"><img src="../assets/images/icons/class_public.png"/> Types <span class="info">(5)</span> <i class="icon-caret-down"></i></a>
+				<div class="right">
+					<span class="toolbar-info"> Assembly: core</span>
+					<a href="#" id="print-button" class="button" title="print"><i class="icon-print"></i></a>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+        
+		<div class="ui-layout-center">
+			<div>
+				
+					<h3 class="box-title first-heading">Types</h3>
+
+				
+				<div class="table-box">
+					<table>
+						<thead>
+							<tr>
+								<td></td>
+								<td>Name</td>
+								<td>Description</td>
+							</tr>
+						</thead>
+						<tbody>			
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ApplicationDescriptor" href="../type/ApplicationDescriptor.html">ApplicationDescriptor</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.si.xml file by application.</p>
+
+<p>Example:</p>
+
+<pre><code>   application_name 
+
+
+   application_description
+
+
+   application_version
+
+
+
+
+   full_path_of_database_descriptor_file
+
+
+
+
+   full_path_of_library_descriptor_file
+
+
+
+
+
+   full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)
+</code></pre>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="DatabaseDescriptor" href="../type/DatabaseDescriptor.html">DatabaseDescriptor</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.si.xml file by application.</p>
+
+<p>Example:</p>
+
+<pre><code>   name_of_database_file
+
+
+   type_of_database
+
+
+   database_version
+
+
+   database_description
+
+
+   true/false
+
+
+   true/false
+
+
+
+
+
+
+   full_path_of_database_mapping_descriptor_file
+</code></pre>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="DatabaseMappingDescriptor" href="../type/DatabaseMappingDescriptor.html">DatabaseMappingDescriptor</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes methods to GET and SET Library Descriptor information as per define in DatabaseDescriptor.si.xml or LibraryDescriptor.si.xml  file by application.</p>
+
+<p>Example:</p>
+
+<pre><code>           java_variable_data_type
+
+
+           true/false
+
+
+           true/false
+
+
+           true/false
+
+
+           condition_to_be_checked (Eg: variable_name 'condition' value; variable_name &gt; 0)
+
+
+           default_value_of_column (Eg: 0.1)        
+
+
+
+
+
+
+
+
+       column_name_needs_to_add
+
+
+
+
+
+
+
+               true/false       
+
+
+
+
+               true/false       
+
+
+
+
+               true/false       
+
+
+
+
+               true/false
+</code></pre>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IDescriptor" href="../type/IDescriptor.html">IDescriptor</a>
+									</td>	
+									<td class="markdown">
+																						<p>It exposes common API for all the descriptor
+It has method to get and set properties of descriptor</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="LibraryDescriptor" href="../type/LibraryDescriptor.html">LibraryDescriptor</a>
+									</td>	
+									<td class="markdown">
+																						<p>Exposes methods to GET and SET Library Descriptor information as per define in LibraryDescriptor.si.xml file by application.</p>
+
+<p>Example:</p>
+
+<pre><code>   name_of_library
+
+
+   description_of_library
+
+
+
+
+
+
+
+   name_of_database_descriptor.full_path_of_database_mapping_descriptor_file
+</code></pre>
+
+																			</td>
+								</tr>
+
+							
+						</tbody>
+					</table>
+				</div>
+
+				
+									<h3 class="box-title">Used by</h3>
+					<div class="list-box">
+						<ul>
+													<li><a href="../namespace/Siminov.Core.html">Siminov.Core</a></li>
+													<li><a href="../namespace/Siminov.Core.Database.html">Siminov.Core.Database</a></li>
+													<li><a href="../namespace/Siminov.Core.Database.Sqlite.html">Siminov.Core.Database.Sqlite</a></li>
+													<li><a href="../namespace/Siminov.Core.Reader.html">Siminov.Core.Reader</a></li>
+													<li><a href="../namespace/Siminov.Core.Resource.html">Siminov.Core.Resource</a></li>
+												</ul>
+					</div>
+							</div>
+		</div>
+	   
+    </body>
+</html>
+

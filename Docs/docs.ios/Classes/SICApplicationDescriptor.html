@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>SICApplicationDescriptor Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">Siminov Framework - Core </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">Siminov Software Solution LLP</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/addDatabaseDescriptor:databaseDescriptor:">- addDatabaseDescriptor:databaseDescriptor:</option>
+		
+		<option value="//api/name/addDatabaseDescriptorPath:">- addDatabaseDescriptorPath:</option>
+		
+		<option value="//api/name/addEvent:">- addEvent:</option>
+		
+		<option value="//api/name/addLibraryDescriptorPath:">- addLibraryDescriptorPath:</option>
+		
+		<option value="//api/name/addProperty:value:">- addProperty:value:</option>
+		
+		<option value="//api/name/containLibraryDescriptorPath:">- containLibraryDescriptorPath:</option>
+		
+		<option value="//api/name/containProperty:">- containProperty:</option>
+		
+		<option value="//api/name/containsDatabaseDescriptor:">- containsDatabaseDescriptor:</option>
+		
+		<option value="//api/name/containsDatabaseDescriptorBasedOnName:">- containsDatabaseDescriptorBasedOnName:</option>
+		
+		<option value="//api/name/containsDatabaseDescriptorBasedOnPath:">- containsDatabaseDescriptorBasedOnPath:</option>
+		
+		<option value="//api/name/getDatabaseDescriptorBasedOnName:">- getDatabaseDescriptorBasedOnName:</option>
+		
+		<option value="//api/name/getDatabaseDescriptorBasedOnPath:">- getDatabaseDescriptorBasedOnPath:</option>
+		
+		<option value="//api/name/getDatabaseDescriptorNames">- getDatabaseDescriptorNames</option>
+		
+		<option value="//api/name/getDatabaseDescriptorPaths">- getDatabaseDescriptorPaths</option>
+		
+		<option value="//api/name/getDatabaseDescriptors">- getDatabaseDescriptors</option>
+		
+		<option value="//api/name/getDescription">- getDescription</option>
+		
+		<option value="//api/name/getEvents">- getEvents</option>
+		
+		<option value="//api/name/getLibraryDescriptorPaths">- getLibraryDescriptorPaths</option>
+		
+		<option value="//api/name/getName">- getName</option>
+		
+		<option value="//api/name/getProperties">- getProperties</option>
+		
+		<option value="//api/name/getProperty:">- getProperty:</option>
+		
+		<option value="//api/name/getVersion">- getVersion</option>
+		
+		<option value="//api/name/isDatabaseNeeded">- isDatabaseNeeded</option>
+		
+		<option value="//api/name/removeDatabaseDescriptor:">- removeDatabaseDescriptor:</option>
+		
+		<option value="//api/name/removeDatabaseDescriptorBasedOnName:">- removeDatabaseDescriptorBasedOnName:</option>
+		
+		<option value="//api/name/removeDatabaseDescriptorBasedOnPath:">- removeDatabaseDescriptorBasedOnPath:</option>
+		
+		<option value="//api/name/removeEvent:">- removeEvent:</option>
+		
+		<option value="//api/name/removeLibraryDescriptorPath:">- removeLibraryDescriptorPath:</option>
+		
+		<option value="//api/name/removeProperty:">- removeProperty:</option>
+		
+		<option value="//api/name/setDescription:">- setDescription:</option>
+		
+		<option value="//api/name/setName:">- setName:</option>
+		
+		<option value="//api/name/setVersion:">- setVersion:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">SICApplicationDescriptor Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Conforms to</th>
+	<td><a href="../Protocols/SICIDescriptor.html">SICIDescriptor</a></td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>SICApplicationDescriptor.h<br />SICApplicationDescriptor.m</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.si.xml file by application.</p>
+
+<p>Example:</p>
+
+<pre><code>&lt;siminov&gt;
+
+ &lt;!-- General Application Description Properties --&gt;
+
+ &lt;!-- Mandatory Field --&gt;
+ &lt;property name="name"&gt;application_name&lt;/property&gt;
+
+ &lt;!-- Optional Field --&gt;
+ &lt;property name="description"&gt;application_description&lt;/property&gt;
+
+ &lt;!-- Mandatory Field (Default is 0.0) --&gt;
+ &lt;property name="version"&gt;application_version&lt;/property&gt;
+
+
+ &lt;!-- Database Descriptors Used By Application (zero-to-many) --&gt;
+ &lt;!-- Optional Field's --&gt;
+ &lt;database-descriptors&gt;
+ &lt;database-descriptor&gt;full_path_of_database_descriptor_file&lt;/database-descriptor&gt;
+ &lt;/database-descriptors&gt;
+
+
+ &lt;!-- Library Descriptors Used By Application (zero-to-many) --&gt;
+ &lt;!-- Optional Field's --&gt;
+ &lt;library-descriptors&gt;
+ &lt;library-descriptor&gt;full_path_of_library_descriptor_file&lt;/library-descriptor&gt;
+ &lt;/library-descriptors&gt;
+
+
+ &lt;!-- Event Handlers Implemented By Application (zero-to-many) --&gt;
+
+ &lt;!-- Optional Field's --&gt;
+ &lt;event-handlers&gt;
+ &lt;event-handler&gt;full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)&lt;/event-handler&gt;
+ &lt;/event-handlers&gt;
+
+&lt;/siminov&gt;
+</code></pre>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						<h2 class="task-title">Other Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/getName" title="getName"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getName">&ndash;&nbsp;getName</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get Application Descriptor Name as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)getName</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Application Descriptor Name.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setName:" title="setName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setName:">&ndash;&nbsp;setName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set Application Descriptor Name as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setName:(NSString *const)<em>name</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of Application Descriptor.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDescription" title="getDescription"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDescription">&ndash;&nbsp;getDescription</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set Description of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)getDescription</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Description of application.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setDescription:" title="setDescription:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setDescription:">&ndash;&nbsp;setDescription:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set Description of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setDescription:(NSString *const)<em>description</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>description</code></th>
+						<td><p>Description of application.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getVersion" title="getVersion"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getVersion">&ndash;&nbsp;getVersion</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get Version of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (double)getVersion</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Version of application.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setVersion:" title="setVersion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setVersion:">&ndash;&nbsp;setVersion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set Version of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setVersion:(double const)<em>version</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>version</code></th>
+						<td><p>Version of application.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isDatabaseNeeded" title="isDatabaseNeeded"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isDatabaseNeeded">&ndash;&nbsp;isDatabaseNeeded</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database needed by application or not.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)isDatabaseNeeded</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE: If database needed by application, FALSE: If database is not needed by application.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containsDatabaseDescriptor:" title="containsDatabaseDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containsDatabaseDescriptor:">&ndash;&nbsp;containsDatabaseDescriptor:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database descriptor exists in Resources or not.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containsDatabaseDescriptor:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptor</code></th>
+						<td><p>Database Descriptor object.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE: If Database Descriptor exists in Resources, FALSE: If Database Descriptor does not exists in Resources.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containsDatabaseDescriptorBasedOnPath:" title="containsDatabaseDescriptorBasedOnPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containsDatabaseDescriptorBasedOnPath:">&ndash;&nbsp;containsDatabaseDescriptorBasedOnPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database descriptor exists in Resources or not, based on database descriptor path.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containsDatabaseDescriptorBasedOnPath:(NSString *const)<em>containDatabaseDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>containDatabaseDescriptorPath</code></th>
+						<td><p>Database Descriptor path.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE: If Database Descriptor exists in Resources, FALSE: If Database Descriptor does not exists in Resources.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containsDatabaseDescriptorBasedOnName:" title="containsDatabaseDescriptorBasedOnName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containsDatabaseDescriptorBasedOnName:">&ndash;&nbsp;containsDatabaseDescriptorBasedOnName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether database descriptor exists in Resources or not, based on Database Descriptor name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containsDatabaseDescriptorBasedOnName:(NSString *const)<em>databaseDescriptorName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptorName</code></th>
+						<td><p>Database Descriptor Name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TRUE: If Database Descriptor exists in Resources, FALSE: If Database Descriptor does not exists in Resources.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabaseDescriptorBasedOnName:" title="getDatabaseDescriptorBasedOnName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseDescriptorBasedOnName:">&ndash;&nbsp;getDatabaseDescriptorBasedOnName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get Database Descriptor based on Database Descriptor Name.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (SICDatabaseDescriptor *)getDatabaseDescriptorBasedOnName:(NSString *const)<em>databaseDescriptorName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptorName</code></th>
+						<td><p>Database Desciptor Name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Database Descriptor Object.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabaseDescriptorBasedOnPath:" title="getDatabaseDescriptorBasedOnPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseDescriptorBasedOnPath:">&ndash;&nbsp;getDatabaseDescriptorBasedOnPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get Database Descriptor based on Database Descriptor Path.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (SICDatabaseDescriptor *)getDatabaseDescriptorBasedOnPath:(NSString *const)<em>databaseDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptorPath</code></th>
+						<td><p>Database Descriptor Path.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Database Descriptor Object.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabaseDescriptorPaths" title="getDatabaseDescriptorPaths"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseDescriptorPaths">&ndash;&nbsp;getDatabaseDescriptorPaths</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all database descriptor paths as per contained in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseDescriptorPaths</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Iterator which contains all database descriptor paths.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabaseDescriptorNames" title="getDatabaseDescriptorNames"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseDescriptorNames">&ndash;&nbsp;getDatabaseDescriptorNames</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all database descriptor names as per needed by application.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseDescriptorNames</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Iterator which contains all database descriptor names.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addDatabaseDescriptorPath:" title="addDatabaseDescriptorPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addDatabaseDescriptorPath:">&ndash;&nbsp;addDatabaseDescriptorPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add Database Descriptor path as per contained in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addDatabaseDescriptorPath:(NSString *const)<em>databaseDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptorPath</code></th>
+						<td><p>DatabaseDescriptor path.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getDatabaseDescriptors" title="getDatabaseDescriptors"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getDatabaseDescriptors">&ndash;&nbsp;getDatabaseDescriptors</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all database descriptor objects contains by Siminov.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseDescriptors</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Iterator which contains all database descriptor objects.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addDatabaseDescriptor:databaseDescriptor:" title="addDatabaseDescriptor:databaseDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addDatabaseDescriptor:databaseDescriptor:">&ndash;&nbsp;addDatabaseDescriptor:databaseDescriptor:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add Database Descriptor object in respect to database descriptor path.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addDatabaseDescriptor:(NSString *const)<em>databaseDescriptorPath</em> databaseDescriptor:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptorPath</code></th>
+						<td><p>Database Descriptor Path.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptor</code></th>
+						<td><p>Database Descriptor Object.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeDatabaseDescriptorBasedOnPath:" title="removeDatabaseDescriptorBasedOnPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseDescriptorBasedOnPath:">&ndash;&nbsp;removeDatabaseDescriptorBasedOnPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove Database Descriptor from Resources based on database path provided, as per defined in ApplicationDescriptor.si.xml file</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseDescriptorBasedOnPath:(NSString *const)<em>databaseDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptorPath</code></th>
+						<td><p>Database Descriptor Path.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeDatabaseDescriptorBasedOnName:" title="removeDatabaseDescriptorBasedOnName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseDescriptorBasedOnName:">&ndash;&nbsp;removeDatabaseDescriptorBasedOnName:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove Database Descriptor from Resources based in database name provided, as per defined in DatabaseDescriptor.si.xml file</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseDescriptorBasedOnName:(NSString *const)<em>databaseDescriptorName</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptorName</code></th>
+						<td><p>DatabaseDescriptor Name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeDatabaseDescriptor:" title="removeDatabaseDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseDescriptor:">&ndash;&nbsp;removeDatabaseDescriptor:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove DatabaseDescriptor object from Resources.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseDescriptor:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>databaseDescriptor</code></th>
+						<td><p>DatabaseDescriptor object which needs to be removed.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addLibraryDescriptorPath:" title="addLibraryDescriptorPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addLibraryDescriptorPath:">&ndash;&nbsp;addLibraryDescriptorPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add library descriptor path</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addLibraryDescriptorPath:(NSString *const)<em>libraryDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>libraryDescriptorPath</code></th>
+						<td><p>Library Descriptor Path</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getLibraryDescriptorPaths" title="getLibraryDescriptorPaths"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getLibraryDescriptorPaths">&ndash;&nbsp;getLibraryDescriptorPaths</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all library descriptor paths</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getLibraryDescriptorPaths</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Library Descriptor Paths</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containLibraryDescriptorPath:" title="containLibraryDescriptorPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containLibraryDescriptorPath:">&ndash;&nbsp;containLibraryDescriptorPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether it contains library descriptor path or not</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containLibraryDescriptorPath:(NSString *const)<em>libraryDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>libraryDescriptorPath</code></th>
+						<td><p>Path of Library Descriptor</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>(true/false) TRUE: If library descriptor path exists | FALSE: If library descriptor path does not exists.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeLibraryDescriptorPath:" title="removeLibraryDescriptorPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeLibraryDescriptorPath:">&ndash;&nbsp;removeLibraryDescriptorPath:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove library descriptor path</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeLibraryDescriptorPath:(NSString *const)<em>libraryDescriptorPath</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>libraryDescriptorPath</code></th>
+						<td><p>Path of library descriptor</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getEvents" title="getEvents"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEvents">&ndash;&nbsp;getEvents</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all event handlers as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getEvents</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>All event handlers defined in ApplicationDescriptor.si.xml file</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addEvent:" title="addEvent:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addEvent:">&ndash;&nbsp;addEvent:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add event as per defined in ApplicationDescriptor.si.xml file.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addEvent:(NSString *const)<em>event</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>event</code></th>
+						<td><p>Event Handler class name.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeEvent:" title="removeEvent:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeEvent:">&ndash;&nbsp;removeEvent:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove event as per defined event name</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeEvent:(NSString *const)<em>event</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>event</code></th>
+						<td><p>Name of the event</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICApplicationDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Protocol Methods" name="task_Protocol Methods"></a>
+						<h2 class="task-title">Protocol Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/getProperties" title="getProperties"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getProperties">&ndash;&nbsp;getProperties</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get all the properties of descriptor</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getProperties</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>All properties</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getProperty:" title="getProperty:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getProperty:">&ndash;&nbsp;getProperty:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Get the property value based on the property name</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)getProperty:(NSString *)<em>name</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Value of the property</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/containProperty:" title="containProperty:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containProperty:">&ndash;&nbsp;containProperty:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check whether property exists or not</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)containProperty:(NSString *)<em>name</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>(true/false) TRUE: If property exists | FALSE: If property does not exists.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addProperty:value:" title="addProperty:value:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addProperty:value:">&ndash;&nbsp;addProperty:value:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Add property to the descriptor</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addProperty:(NSString *)<em>name</em> value:(NSString *)<em>value</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>Value of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeProperty:" title="removeProperty:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeProperty:">&ndash;&nbsp;removeProperty:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Remove property from the descriptor</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeProperty:(NSString *)<em>name</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>name</code></th>
+						<td><p>Name of the property</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICIDescriptor.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

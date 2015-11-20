@@ -1,0 +1,507 @@
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Siminov Framework - Core - SQLite</title>
+        <meta name="viewport" content="width=device-width">
+
+					<link rel="stylesheet" type="text/css" href="../assets/css/font.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css?version=0.9.6.8" />
+			<link rel="stylesheet" type="text/css" href="../assets/css/style.css?version=0.9.6.8" />
+			
+			<!--[if IE 8]>
+				<script src="../assets/js/vendor.ie8.js?version=0.9.6.8"></script>
+			<![endif]-->
+			<![if !IE 8]>
+				<script src="../assets/js/vendor.js?version=0.9.6.8"></script>
+			<![endif]>
+
+			<script src="../assets/js/jquery.layout.min.js"></script>	
+			<script src="../assets/js/frame.js?version=0.9.6.8"></script>
+			<script src="../assets/js/iframe.js"></script>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>        
+       
+	    <div id="dropdown-1" class="dropdown dropdown-tip">
+			<ul class="dropdown-menu">
+									<li><a href="../type/AsyncTableQuery.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> AsyncTableQuery</a></li>
+
+									<li><a href="../type/AutoIncrementAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> AutoIncrementAttribute</a></li>
+
+									<li><a href="../type/BaseTableQuery.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> BaseTableQuery</a></li>
+
+									<li><a href="../type/CollationAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> CollationAttribute</a></li>
+
+									<li><a href="../type/ColumnAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> ColumnAttribute</a></li>
+
+									<li><a href="../type/CreateFlags.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> CreateFlags</a></li>
+
+									<li><a href="../type/CreateTablesResult.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> CreateTablesResult</a></li>
+
+									<li><a href="../type/IgnoreAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IgnoreAttribute</a></li>
+
+									<li><a href="../type/IndexedAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IndexedAttribute</a></li>
+
+									<li><a href="../type/MaxLengthAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> MaxLengthAttribute</a></li>
+
+									<li><a href="../type/NotNullAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> NotNullAttribute</a></li>
+
+									<li><a href="../type/NotNullConstraintViolationException.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> NotNullConstraintViolationException</a></li>
+
+									<li><a href="../type/Orm.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> Orm</a></li>
+
+									<li><a href="../type/PreparedSqlLiteInsertCommand.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> PreparedSqlLiteInsertCommand</a></li>
+
+									<li><a href="../type/PrimaryKeyAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> PrimaryKeyAttribute</a></li>
+
+									<li><a href="../type/SQLite3.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLite3</a></li>
+
+									<li><a href="../type/SQLiteAsyncConnection.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLiteAsyncConnection</a></li>
+
+									<li><a href="../type/SQLiteCommand.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLiteCommand</a></li>
+
+									<li><a href="../type/SQLiteConnection.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLiteConnection</a></li>
+
+									<li><a href="../type/SQLiteConnectionPool.html"><img alt="Class-Icon" src="../assets/images/icons/class_internal.png"> SQLiteConnectionPool</a></li>
+
+									<li><a href="../type/SQLiteConnectionString.html"><img alt="Class-Icon" src="../assets/images/icons/class_internal.png"> SQLiteConnectionString</a></li>
+
+									<li><a href="../type/SQLiteConnectionWithLock.html"><img alt="Class-Icon" src="../assets/images/icons/class_internal.png"> SQLiteConnectionWithLock</a></li>
+
+									<li><a href="../type/SQLiteException.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLiteException</a></li>
+
+									<li><a href="../type/SQLiteOpenFlags.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLiteOpenFlags</a></li>
+
+									<li><a href="../type/SQLiteQueryColumn.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLiteQueryColumn</a></li>
+
+									<li><a href="../type/SQLiteQueryRow.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> SQLiteQueryRow</a></li>
+
+									<li><a href="../type/TableAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> TableAttribute</a></li>
+
+									<li><a href="../type/TableMapping.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> TableMapping</a></li>
+
+									<li><a href="../type/TableQuery.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> TableQuery</a></li>
+
+									<li><a href="../type/UniqueAttribute.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> UniqueAttribute</a></li>
+
+							</ul>
+		</div>
+	   
+	    <div class="ui-layout-north">
+			<div class="toolbar">
+				<a href="#" data-dropdown="#dropdown-1" class="button"><img src="../assets/images/icons/class_public.png"/> Types <span class="info">(30)</span> <i class="icon-caret-down"></i></a>
+				<div class="right">
+					<span class="toolbar-info"> Assembly: core</span>
+					<a href="#" id="print-button" class="button" title="print"><i class="icon-print"></i></a>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+        
+		<div class="ui-layout-center">
+			<div>
+				
+					<h3 class="box-title first-heading">Types</h3>
+
+				
+				<div class="table-box">
+					<table>
+						<thead>
+							<tr>
+								<td></td>
+								<td>Name</td>
+								<td>Description</td>
+							</tr>
+						</thead>
+						<tbody>			
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="AsyncTableQuery" href="../type/AsyncTableQuery.html">AsyncTableQuery</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="AutoIncrementAttribute" href="../type/AutoIncrementAttribute.html">AutoIncrementAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="BaseTableQuery" href="../type/BaseTableQuery.html">BaseTableQuery</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="CollationAttribute" href="../type/CollationAttribute.html">CollationAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="ColumnAttribute" href="../type/ColumnAttribute.html">ColumnAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="CreateFlags" href="../type/CreateFlags.html">CreateFlags</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="CreateTablesResult" href="../type/CreateTablesResult.html">CreateTablesResult</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IgnoreAttribute" href="../type/IgnoreAttribute.html">IgnoreAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="IndexedAttribute" href="../type/IndexedAttribute.html">IndexedAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="MaxLengthAttribute" href="../type/MaxLengthAttribute.html">MaxLengthAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="NotNullAttribute" href="../type/NotNullAttribute.html">NotNullAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="NotNullConstraintViolationException" href="../type/NotNullConstraintViolationException.html">NotNullConstraintViolationException</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="Orm" href="../type/Orm.html">Orm</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="PreparedSqlLiteInsertCommand" href="../type/PreparedSqlLiteInsertCommand.html">PreparedSqlLiteInsertCommand</a>
+									</td>	
+									<td class="markdown">
+																						<p>Since the insert never changed, we only need to prepare once.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="PrimaryKeyAttribute" href="../type/PrimaryKeyAttribute.html">PrimaryKeyAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLite3" href="../type/SQLite3.html">SQLite3</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLiteAsyncConnection" href="../type/SQLiteAsyncConnection.html">SQLiteAsyncConnection</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLiteCommand" href="../type/SQLiteCommand.html">SQLiteCommand</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLiteConnection" href="../type/SQLiteConnection.html">SQLiteConnection</a>
+									</td>	
+									<td class="markdown">
+																						<p>Represents an open connection to a SQLite database.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_internal.png">
+									</td>
+									<td>
+										<a title="SQLiteConnectionPool" href="../type/SQLiteConnectionPool.html">SQLiteConnectionPool</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_internal.png">
+									</td>
+									<td>
+										<a title="SQLiteConnectionString" href="../type/SQLiteConnectionString.html">SQLiteConnectionString</a>
+									</td>	
+									<td class="markdown">
+																						<p>Represents a parsed connection string.</p>
+
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_internal.png">
+									</td>
+									<td>
+										<a title="SQLiteConnectionWithLock" href="../type/SQLiteConnectionWithLock.html">SQLiteConnectionWithLock</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLiteException" href="../type/SQLiteException.html">SQLiteException</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLiteOpenFlags" href="../type/SQLiteOpenFlags.html">SQLiteOpenFlags</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLiteQueryColumn" href="../type/SQLiteQueryColumn.html">SQLiteQueryColumn</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="SQLiteQueryRow" href="../type/SQLiteQueryRow.html">SQLiteQueryRow</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="TableAttribute" href="../type/TableAttribute.html">TableAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="TableMapping" href="../type/TableMapping.html">TableMapping</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="TableQuery" href="../type/TableQuery.html">TableQuery</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+								<tr  class="even" >
+									<td class="iconColumn">
+										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
+									</td>
+									<td>
+										<a title="UniqueAttribute" href="../type/UniqueAttribute.html">UniqueAttribute</a>
+									</td>	
+									<td class="markdown">
+																			</td>
+								</tr>
+
+							
+						</tbody>
+					</table>
+				</div>
+
+				
+									<h3 class="box-title">Used by</h3>
+					<div class="list-box">
+						<ul>
+													<li><a href="../namespace/Siminov.Core.Database.Sqlite.html">Siminov.Core.Database.Sqlite</a></li>
+												</ul>
+					</div>
+							</div>
+		</div>
+	   
+    </body>
+</html>
+
