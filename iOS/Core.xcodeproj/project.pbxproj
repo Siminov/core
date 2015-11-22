@@ -279,99 +279,13 @@
 		0203F0EC1AA5854200F84AFB /* SICClassUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICClassUtils.m; sourceTree = "<group>"; };
 		0203F0ED1AA5854200F84AFB /* SICFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICFileUtils.h; sourceTree = "<group>"; };
 		0203F0EE1AA5854200F84AFB /* SICFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICFileUtils.m; sourceTree = "<group>"; };
-		022AC6B51ABAAB23001D6066 /* SICApplicationDescriptor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICApplicationDescriptor.html; sourceTree = "<group>"; };
-		022AC6B61ABAAB23001D6066 /* SICApplicationDescriptorReader.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICApplicationDescriptorReader.html; sourceTree = "<group>"; };
-		022AC6B71ABAAB23001D6066 /* SICAttribute.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICAttribute.html; sourceTree = "<group>"; };
-		022AC6B81ABAAB23001D6066 /* SICClassUtils.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICClassUtils.html; sourceTree = "<group>"; };
-		022AC6B91ABAAB23001D6066 /* SICClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICClause.html; sourceTree = "<group>"; };
-		022AC6BA1ABAAB23001D6066 /* SICDatabase.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabase.html; sourceTree = "<group>"; };
-		022AC6BB1ABAAB23001D6066 /* SICDatabaseBundle.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseBundle.html; sourceTree = "<group>"; };
-		022AC6BC1ABAAB23001D6066 /* SICDatabaseDescriptor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseDescriptor.html; sourceTree = "<group>"; };
-		022AC6BD1ABAAB23001D6066 /* SICDatabaseDescriptorReader.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseDescriptorReader.html; sourceTree = "<group>"; };
-		022AC6BE1ABAAB23001D6066 /* SICDatabaseException.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseException.html; sourceTree = "<group>"; };
-		022AC6BF1ABAAB23001D6066 /* SICDatabaseFactory.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseFactory.html; sourceTree = "<group>"; };
-		022AC6C01ABAAB23001D6066 /* SICDatabaseHelper.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseHelper.html; sourceTree = "<group>"; };
-		022AC6C11ABAAB23001D6066 /* SICDatabaseImpl.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseImpl.html; sourceTree = "<group>"; };
-		022AC6C21ABAAB23001D6066 /* SICDatabaseMappingDescriptor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseMappingDescriptor.html; sourceTree = "<group>"; };
-		022AC6C31ABAAB23001D6066 /* SICDatabaseMappingDescriptorReader.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseMappingDescriptorReader.html; sourceTree = "<group>"; };
-		022AC6C41ABAAB23001D6066 /* SICDatabaseUtils.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDatabaseUtils.html; sourceTree = "<group>"; };
-		022AC6C51ABAAB23001D6066 /* SICDataTypeHandler.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDataTypeHandler.html; sourceTree = "<group>"; };
-		022AC6C61ABAAB23001D6066 /* SICDeploymentException.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICDeploymentException.html; sourceTree = "<group>"; };
-		022AC6C71ABAAB23001D6066 /* SICEventHandler.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICEventHandler.html; sourceTree = "<group>"; };
-		022AC6C81ABAAB23001D6066 /* SICIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIndex.html; sourceTree = "<group>"; };
-		022AC6C91ABAAB23001D6066 /* SICInitializer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICInitializer.html; sourceTree = "<group>"; };
-		022AC6CA1ABAAB23001D6066 /* SICLibraryDescriptor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICLibraryDescriptor.html; sourceTree = "<group>"; };
-		022AC6CB1ABAAB23001D6066 /* SICLibraryDescriptorReader.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICLibraryDescriptorReader.html; sourceTree = "<group>"; };
-		022AC6CC1ABAAB23001D6066 /* SICLog.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICLog.html; sourceTree = "<group>"; };
-		022AC6CD1ABAAB23001D6066 /* SICPrematureEndOfParseException.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICPrematureEndOfParseException.html; sourceTree = "<group>"; };
-		022AC6CE1ABAAB23001D6066 /* SICQueryBuilder.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICQueryBuilder.html; sourceTree = "<group>"; };
-		022AC6CF1ABAAB23001D6066 /* SICQuickDatabaseMappingDescriptorReader.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICQuickDatabaseMappingDescriptorReader.html; sourceTree = "<group>"; };
-		022AC6D01ABAAB23001D6066 /* SICRelationship.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICRelationship.html; sourceTree = "<group>"; };
-		022AC6D11ABAAB23001D6066 /* SICResourceManager.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICResourceManager.html; sourceTree = "<group>"; };
-		022AC6D21ABAAB23001D6066 /* SICSiminov.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICSiminov.html; sourceTree = "<group>"; };
-		022AC6D31ABAAB23001D6066 /* SICSiminovCriticalException.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICSiminovCriticalException.html; sourceTree = "<group>"; };
-		022AC6D41ABAAB23001D6066 /* SICSiminovException.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICSiminovException.html; sourceTree = "<group>"; };
-		022AC6D51ABAAB23001D6066 /* SICSiminovSAXDefaultHandler.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICSiminovSAXDefaultHandler.html; sourceTree = "<group>"; };
-		022AC6D61ABAAB23001D6066 /* SICWhere.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICWhere.html; sourceTree = "<group>"; };
-		022AC6D91ABAAB23001D6066 /* _index.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _index.scss; sourceTree = "<group>"; };
-		022AC6DA1ABAAB23001D6066 /* _layout.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _layout.scss; sourceTree = "<group>"; };
-		022AC6DB1ABAAB23001D6066 /* _normalize.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _normalize.scss; sourceTree = "<group>"; };
-		022AC6DC1ABAAB23001D6066 /* _object.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _object.scss; sourceTree = "<group>"; };
-		022AC6DD1ABAAB23001D6066 /* _print.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _print.scss; sourceTree = "<group>"; };
-		022AC6DE1ABAAB23001D6066 /* _variables.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _variables.scss; sourceTree = "<group>"; };
-		022AC6DF1ABAAB23001D6066 /* _xcode.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _xcode.scss; sourceTree = "<group>"; };
-		022AC6E01ABAAB23001D6066 /* style.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = style.scss; sourceTree = "<group>"; };
-		022AC6E11ABAAB23001D6066 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		022AC6E21ABAAB23001D6066 /* hierarchy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = hierarchy.html; sourceTree = "<group>"; };
-		022AC6E41ABAAB23001D6066 /* button_bar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bar_background.png; sourceTree = "<group>"; };
-		022AC6E51ABAAB23001D6066 /* disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure.png; sourceTree = "<group>"; };
-		022AC6E61ABAAB23001D6066 /* disclosure_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure_open.png; sourceTree = "<group>"; };
-		022AC6E71ABAAB23001D6066 /* library_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library_background.png; sourceTree = "<group>"; };
-		022AC6E81ABAAB23001D6066 /* title_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_background.png; sourceTree = "<group>"; };
-		022AC6E91ABAAB23001D6066 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		022AC6EB1ABAAB23001D6066 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
-		022AC6ED1ABAAB23001D6066 /* SICIAverage.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIAverage.html; sourceTree = "<group>"; };
-		022AC6EE1ABAAB23001D6066 /* SICIAverageClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIAverageClause.html; sourceTree = "<group>"; };
-		022AC6EF1ABAAB23001D6066 /* SICICount.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICICount.html; sourceTree = "<group>"; };
-		022AC6F01ABAAB23001D6066 /* SICICountClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICICountClause.html; sourceTree = "<group>"; };
-		022AC6F11ABAAB23001D6066 /* SICIDatabase.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIDatabase.html; sourceTree = "<group>"; };
-		022AC6F21ABAAB23001D6066 /* SICIDatabaseEvents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIDatabaseEvents.html; sourceTree = "<group>"; };
-		022AC6F31ABAAB23001D6066 /* SICIDatabaseImpl.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIDatabaseImpl.html; sourceTree = "<group>"; };
-		022AC6F41ABAAB23001D6066 /* SICIDataTypeHandler.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIDataTypeHandler.html; sourceTree = "<group>"; };
-		022AC6F51ABAAB23001D6066 /* SICIDelete.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIDelete.html; sourceTree = "<group>"; };
-		022AC6F61ABAAB23001D6066 /* SICIDeleteClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIDeleteClause.html; sourceTree = "<group>"; };
-		022AC6F71ABAAB23001D6066 /* SICIDescriptor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIDescriptor.html; sourceTree = "<group>"; };
-		022AC6F81ABAAB23001D6066 /* SICIException.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIException.html; sourceTree = "<group>"; };
-		022AC6F91ABAAB23001D6066 /* SICIGroupConcat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIGroupConcat.html; sourceTree = "<group>"; };
-		022AC6FA1ABAAB23001D6066 /* SICIGroupConcatClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIGroupConcatClause.html; sourceTree = "<group>"; };
-		022AC6FB1ABAAB23001D6066 /* SICIInitializer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIInitializer.html; sourceTree = "<group>"; };
-		022AC6FC1ABAAB23001D6066 /* SICIMax.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIMax.html; sourceTree = "<group>"; };
-		022AC6FD1ABAAB23001D6066 /* SICIMaxClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIMaxClause.html; sourceTree = "<group>"; };
-		022AC6FE1ABAAB23001D6066 /* SICIMin.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIMin.html; sourceTree = "<group>"; };
-		022AC6FF1ABAAB23001D6066 /* SICIMinClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIMinClause.html; sourceTree = "<group>"; };
-		022AC7001ABAAB23001D6066 /* SICIQueryBuilder.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICIQueryBuilder.html; sourceTree = "<group>"; };
-		022AC7011ABAAB23001D6066 /* SICISelect.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICISelect.html; sourceTree = "<group>"; };
-		022AC7021ABAAB23001D6066 /* SICISelectClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICISelectClause.html; sourceTree = "<group>"; };
-		022AC7031ABAAB23001D6066 /* SICISiminovEvents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICISiminovEvents.html; sourceTree = "<group>"; };
-		022AC7041ABAAB23001D6066 /* SICISum.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICISum.html; sourceTree = "<group>"; };
-		022AC7051ABAAB23001D6066 /* SICISumClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICISumClause.html; sourceTree = "<group>"; };
-		022AC7061ABAAB23001D6066 /* SICITotal.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICITotal.html; sourceTree = "<group>"; };
-		022AC7071ABAAB23001D6066 /* SICITotalClause.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SICITotalClause.html; sourceTree = "<group>"; };
 		0297C0E01AA091A0006672E9 /* libCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		02ECBE771AE22EB7008E7DEB /* siminov-core-v1.0.1.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "siminov-core-v1.0.1.zip"; sourceTree = "<group>"; };
-		02ECBE781AE23EBE008E7DEB /* siminov-core-v1.0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "siminov-core-v1.0.zip"; sourceTree = "<group>"; };
-		CE097E041B692DCC00A739F4 /* v2.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = v2.0; sourceTree = "<group>"; };
 		CE097E081B692EAD00A739F4 /* SICEntityDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICEntityDescriptor.h; sourceTree = "<group>"; };
 		CE097E091B692EAD00A739F4 /* SICEntityDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICEntityDescriptor.m; sourceTree = "<group>"; };
 		CE097E0C1B6A760800A739F4 /* SICEntityDescriptorReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICEntityDescriptorReader.h; sourceTree = "<group>"; };
 		CE097E0D1B6A760800A739F4 /* SICEntityDescriptorReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICEntityDescriptorReader.m; sourceTree = "<group>"; };
-		CE4811651AE20C1B00940C51 /* v1.1.0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = v1.1.0; sourceTree = "<group>"; };
 		CEAE04851B6B65DF00D351B8 /* SICQuickEntityDescriptorReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICQuickEntityDescriptorReader.h; sourceTree = "<group>"; };
 		CEAE04861B6B65DF00D351B8 /* SICQuickEntityDescriptorReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICQuickEntityDescriptorReader.m; sourceTree = "<group>"; };
-		CEB0E5E51BFCD0A100DCD753 /* ApplicationDescriptor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ApplicationDescriptor.xml; sourceTree = "<group>"; };
-		CEB0E5E61BFCD0A100DCD753 /* DatabaseDescriptor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DatabaseDescriptor.xml; sourceTree = "<group>"; };
-		CEB0E5E71BFCD0A100DCD753 /* EntityDescriptor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EntityDescriptor.xml; sourceTree = "<group>"; };
-		CEB0E5E81BFCD0A100DCD753 /* LibraryDescriptor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LibraryDescriptor.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -575,158 +489,12 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		022AC6B31ABAAB23001D6066 /* Docs */ = {
-			isa = PBXGroup;
-			children = (
-				022AC6B41ABAAB23001D6066 /* Classes */,
-				022AC6D71ABAAB23001D6066 /* css */,
-				022AC6E21ABAAB23001D6066 /* hierarchy.html */,
-				022AC6E31ABAAB23001D6066 /* img */,
-				022AC6E91ABAAB23001D6066 /* index.html */,
-				022AC6EA1ABAAB23001D6066 /* js */,
-				022AC6EC1ABAAB23001D6066 /* Protocols */,
-			);
-			path = Docs;
-			sourceTree = "<group>";
-		};
-		022AC6B41ABAAB23001D6066 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				022AC6B51ABAAB23001D6066 /* SICApplicationDescriptor.html */,
-				022AC6B61ABAAB23001D6066 /* SICApplicationDescriptorReader.html */,
-				022AC6B71ABAAB23001D6066 /* SICAttribute.html */,
-				022AC6B81ABAAB23001D6066 /* SICClassUtils.html */,
-				022AC6B91ABAAB23001D6066 /* SICClause.html */,
-				022AC6BA1ABAAB23001D6066 /* SICDatabase.html */,
-				022AC6BB1ABAAB23001D6066 /* SICDatabaseBundle.html */,
-				022AC6BC1ABAAB23001D6066 /* SICDatabaseDescriptor.html */,
-				022AC6BD1ABAAB23001D6066 /* SICDatabaseDescriptorReader.html */,
-				022AC6BE1ABAAB23001D6066 /* SICDatabaseException.html */,
-				022AC6BF1ABAAB23001D6066 /* SICDatabaseFactory.html */,
-				022AC6C01ABAAB23001D6066 /* SICDatabaseHelper.html */,
-				022AC6C11ABAAB23001D6066 /* SICDatabaseImpl.html */,
-				022AC6C21ABAAB23001D6066 /* SICDatabaseMappingDescriptor.html */,
-				022AC6C31ABAAB23001D6066 /* SICDatabaseMappingDescriptorReader.html */,
-				022AC6C41ABAAB23001D6066 /* SICDatabaseUtils.html */,
-				022AC6C51ABAAB23001D6066 /* SICDataTypeHandler.html */,
-				022AC6C61ABAAB23001D6066 /* SICDeploymentException.html */,
-				022AC6C71ABAAB23001D6066 /* SICEventHandler.html */,
-				022AC6C81ABAAB23001D6066 /* SICIndex.html */,
-				022AC6C91ABAAB23001D6066 /* SICInitializer.html */,
-				022AC6CA1ABAAB23001D6066 /* SICLibraryDescriptor.html */,
-				022AC6CB1ABAAB23001D6066 /* SICLibraryDescriptorReader.html */,
-				022AC6CC1ABAAB23001D6066 /* SICLog.html */,
-				022AC6CD1ABAAB23001D6066 /* SICPrematureEndOfParseException.html */,
-				022AC6CE1ABAAB23001D6066 /* SICQueryBuilder.html */,
-				022AC6CF1ABAAB23001D6066 /* SICQuickDatabaseMappingDescriptorReader.html */,
-				022AC6D01ABAAB23001D6066 /* SICRelationship.html */,
-				022AC6D11ABAAB23001D6066 /* SICResourceManager.html */,
-				022AC6D21ABAAB23001D6066 /* SICSiminov.html */,
-				022AC6D31ABAAB23001D6066 /* SICSiminovCriticalException.html */,
-				022AC6D41ABAAB23001D6066 /* SICSiminovException.html */,
-				022AC6D51ABAAB23001D6066 /* SICSiminovSAXDefaultHandler.html */,
-				022AC6D61ABAAB23001D6066 /* SICWhere.html */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		022AC6D71ABAAB23001D6066 /* css */ = {
-			isa = PBXGroup;
-			children = (
-				022AC6D81ABAAB23001D6066 /* scss */,
-				022AC6E11ABAAB23001D6066 /* style.css */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		022AC6D81ABAAB23001D6066 /* scss */ = {
-			isa = PBXGroup;
-			children = (
-				022AC6D91ABAAB23001D6066 /* _index.scss */,
-				022AC6DA1ABAAB23001D6066 /* _layout.scss */,
-				022AC6DB1ABAAB23001D6066 /* _normalize.scss */,
-				022AC6DC1ABAAB23001D6066 /* _object.scss */,
-				022AC6DD1ABAAB23001D6066 /* _print.scss */,
-				022AC6DE1ABAAB23001D6066 /* _variables.scss */,
-				022AC6DF1ABAAB23001D6066 /* _xcode.scss */,
-				022AC6E01ABAAB23001D6066 /* style.scss */,
-			);
-			path = scss;
-			sourceTree = "<group>";
-		};
-		022AC6E31ABAAB23001D6066 /* img */ = {
-			isa = PBXGroup;
-			children = (
-				022AC6E41ABAAB23001D6066 /* button_bar_background.png */,
-				022AC6E51ABAAB23001D6066 /* disclosure.png */,
-				022AC6E61ABAAB23001D6066 /* disclosure_open.png */,
-				022AC6E71ABAAB23001D6066 /* library_background.png */,
-				022AC6E81ABAAB23001D6066 /* title_background.png */,
-			);
-			path = img;
-			sourceTree = "<group>";
-		};
-		022AC6EA1ABAAB23001D6066 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				022AC6EB1ABAAB23001D6066 /* script.js */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		022AC6EC1ABAAB23001D6066 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				022AC6ED1ABAAB23001D6066 /* SICIAverage.html */,
-				022AC6EE1ABAAB23001D6066 /* SICIAverageClause.html */,
-				022AC6EF1ABAAB23001D6066 /* SICICount.html */,
-				022AC6F01ABAAB23001D6066 /* SICICountClause.html */,
-				022AC6F11ABAAB23001D6066 /* SICIDatabase.html */,
-				022AC6F21ABAAB23001D6066 /* SICIDatabaseEvents.html */,
-				022AC6F31ABAAB23001D6066 /* SICIDatabaseImpl.html */,
-				022AC6F41ABAAB23001D6066 /* SICIDataTypeHandler.html */,
-				022AC6F51ABAAB23001D6066 /* SICIDelete.html */,
-				022AC6F61ABAAB23001D6066 /* SICIDeleteClause.html */,
-				022AC6F71ABAAB23001D6066 /* SICIDescriptor.html */,
-				022AC6F81ABAAB23001D6066 /* SICIException.html */,
-				022AC6F91ABAAB23001D6066 /* SICIGroupConcat.html */,
-				022AC6FA1ABAAB23001D6066 /* SICIGroupConcatClause.html */,
-				022AC6FB1ABAAB23001D6066 /* SICIInitializer.html */,
-				022AC6FC1ABAAB23001D6066 /* SICIMax.html */,
-				022AC6FD1ABAAB23001D6066 /* SICIMaxClause.html */,
-				022AC6FE1ABAAB23001D6066 /* SICIMin.html */,
-				022AC6FF1ABAAB23001D6066 /* SICIMinClause.html */,
-				022AC7001ABAAB23001D6066 /* SICIQueryBuilder.html */,
-				022AC7011ABAAB23001D6066 /* SICISelect.html */,
-				022AC7021ABAAB23001D6066 /* SICISelectClause.html */,
-				022AC7031ABAAB23001D6066 /* SICISiminovEvents.html */,
-				022AC7041ABAAB23001D6066 /* SICISum.html */,
-				022AC7051ABAAB23001D6066 /* SICISumClause.html */,
-				022AC7061ABAAB23001D6066 /* SICITotal.html */,
-				022AC7071ABAAB23001D6066 /* SICITotalClause.html */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		02408B411ABB34B4000620D7 /* Build */ = {
-			isa = PBXGroup;
-			children = (
-				02ECBE781AE23EBE008E7DEB /* siminov-core-v1.0.zip */,
-				02ECBE771AE22EB7008E7DEB /* siminov-core-v1.0.1.zip */,
-			);
-			path = Build;
-			sourceTree = "<group>";
-		};
 		0297C0D71AA091A0006672E9 = {
 			isa = PBXGroup;
 			children = (
-				CE4811641AE20BEC00940C51 /* Version-Control */,
-				02408B411ABB34B4000620D7 /* Build */,
-				022AC6B31ABAAB23001D6066 /* Docs */,
 				0203F05A1AA4A70500F84AFB /* Foundation.framework */,
 				0203F0581AA4A6FE00F84AFB /* UIKit.framework */,
 				0203F0561AA4A6F800F84AFB /* SystemConfiguration.framework */,
-				0297C2511AA0A312006672E9 /* Assets */,
 				0203F0871AA5854200F84AFB /* Siminov */,
 				0297C0E11AA091A0006672E9 /* Products */,
 			);
@@ -738,26 +506,6 @@
 				0297C0E01AA091A0006672E9 /* libCore.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		0297C2511AA0A312006672E9 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				CEB0E5E51BFCD0A100DCD753 /* ApplicationDescriptor.xml */,
-				CEB0E5E61BFCD0A100DCD753 /* DatabaseDescriptor.xml */,
-				CEB0E5E71BFCD0A100DCD753 /* EntityDescriptor.xml */,
-				CEB0E5E81BFCD0A100DCD753 /* LibraryDescriptor.xml */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		CE4811641AE20BEC00940C51 /* Version-Control */ = {
-			isa = PBXGroup;
-			children = (
-				CE097E041B692DCC00A739F4 /* v2.0 */,
-				CE4811651AE20C1B00940C51 /* v1.1.0 */,
-			);
-			path = "Version-Control";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
