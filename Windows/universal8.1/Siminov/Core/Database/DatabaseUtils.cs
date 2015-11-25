@@ -16,6 +16,14 @@
  **/
 
 
+#if __MOBILE__
+#define XAMARIN
+#endif
+
+#if !__MOBILE__
+#define WINDOWS
+#endif
+
 
 using Siminov.Core.Utils;
 using Siminov.Core.Model;
@@ -25,6 +33,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
+#if XAMARIN
+using PCLStorage;
+#endif
 
 namespace Siminov.Core.Database
 {
@@ -52,13 +65,32 @@ namespace Siminov.Core.Database
         /// <returns></returns>
         public String InternalMemoryDatabasePath(DatabaseDescriptor databaseDescriptor)
         {
-            ResourceManager resourceManager = ResourceManager.GetInstance();
-            ApplicationDescriptor applicationDescriptor = resourceManager.GetApplicationDescriptor();
 
-            String databaseDirName = databaseDescriptor.GetDatabaseName();
+            #if XAMARIN
+            
+                var rootFolder = FileSystem.Current.LocalStorage;
+			    return rootFolder.Path;
 
-            String databaseDirPath = applicationDescriptor.GetName() + FileUtils.Separator + Constants.DATABASE_PATH_DATABASE + FileUtils.Separator + databaseDirName + FileUtils.Separator;
-            return databaseDirPath;
+                ResourceManager resourceManager = ResourceManager.GetInstance();
+                ApplicationDescriptor applicationDescriptor = resourceManager.GetApplicationDescriptor();
+
+                String databaseDirName = databaseDescriptor.GetDatabaseName();
+
+                String databaseDirPath = applicationDescriptor.GetName() + FileUtils.Separator + Constants.DATABASE_PATH_DATABASE + FileUtils.Separator + databaseDirName + FileUtils.Separator;
+                return databaseDirPath;
+
+            #elif WINDOWS
+
+                ResourceManager resourceManager = ResourceManager.GetInstance();
+                ApplicationDescriptor applicationDescriptor = resourceManager.GetApplicationDescriptor();
+
+                String databaseDirName = databaseDescriptor.GetDatabaseName();
+
+                String databaseDirPath = applicationDescriptor.GetName() + FileUtils.Separator + Constants.DATABASE_PATH_DATABASE + FileUtils.Separator + databaseDirName + FileUtils.Separator;
+                return databaseDirPath;
+            
+            #endif
+
         }
 
         /// <summary>

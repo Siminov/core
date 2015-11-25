@@ -50,6 +50,7 @@ namespace Siminov.Core.Resource
 
         private static ResourceManager resources = null;
 
+        protected ICollection<Object> applicationContexts = new LinkedList<Object>();
 
         /// <summary>
         /// Resource Private Constructor
@@ -59,6 +60,16 @@ namespace Siminov.Core.Resource
             databaseFactory = DatabaseFactory.GetInstance();
         }
 
+
+        public IEnumerator<Object> GetApplicationContexts()
+        {
+            return this.applicationContexts.GetEnumerator();
+        }
+
+        public void AddApplicationContext(Object applicationContext)
+        {
+            this.applicationContexts.Add(applicationContext);
+        }
 
         /// <summary>
         /// It provides an singleton instance of ResourceManager class.

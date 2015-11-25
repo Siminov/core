@@ -16,6 +16,14 @@
  **/
 
 
+#if __MOBILE__
+#define XAMARIN
+#endif
+
+#if !__MOBILE__
+#define WINDOWS
+#endif
+
 
 using Siminov.Core.Utils;
 using Siminov.Core.Exception;
@@ -198,7 +206,17 @@ namespace Siminov.Core.Reader
 
             try
             {
+
+                #if XAMARIN
+                entityDescriptorStream = FileUtils.ReadFileFromEmbeddedResources("Assets." + entityDescriptorFilePath + "." + entityDescriptorFileName);
+				if(entityDescriptorStream == null) 
+				{
+					entityDescriptorStream = FileUtils.ReadFileFromEmbeddedResources(entityDescriptorFilePath + "." + entityDescriptorFileName);					
+				}
+                #elif WINDOWS
                 entityDescriptorStream = FileUtils.SearchFile(entityDescriptorFilePath, entityDescriptorFileName, FileUtils.INSTALLED_FOLDER);
+                #endif
+
             }
             catch (System.Exception ioException)
             {

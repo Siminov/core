@@ -61,6 +61,7 @@ namespace Siminov.Core
             {
 
                 Object value = iterator.Current;
+                resourceManager.AddApplicationContext(value);
             }
 
             Siminov.Start();

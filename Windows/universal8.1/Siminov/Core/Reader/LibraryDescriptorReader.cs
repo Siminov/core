@@ -16,6 +16,14 @@
  **/
 
 
+#if __MOBILE__
+#define XAMARIN
+#endif
+
+#if !__MOBILE__
+#define WINDOWS
+#endif
+
 
 using Siminov.Core.Utils;
 using Siminov.Core.Exception;
@@ -91,7 +99,12 @@ namespace Siminov.Core.Reader
             this.libraryName = this.libraryName.Replace(".", "/");
 
 
-            Stream libraryDescriptorStream = FileUtils.SearchFile(this.libraryName, Constants.LIBRARY_DESCRIPTOR_FILE_NAME, FileUtils.INSTALLED_FOLDER);
+            #if XAMARIN
+                Stream libraryDescriptorStream = FileUtils.ReadFileFromEmbeddedResources(this.libraryName + "." + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);
+            #elif WINDOWS
+                Stream libraryDescriptorStream = FileUtils.SearchFile(this.libraryName, Constants.LIBRARY_DESCRIPTOR_FILE_NAME, FileUtils.INSTALLED_FOLDER);
+            #endif
+
             if (libraryDescriptorStream == null)
             {
                 Log.Log.Error(typeof(LibraryDescriptorReader).FullName, "Constructor", "Invalid Library Descriptor Stream Found, LIBRARY-NAME: " + this.libraryName + FileUtils.Separator + Constants.LIBRARY_DESCRIPTOR_FILE_NAME);

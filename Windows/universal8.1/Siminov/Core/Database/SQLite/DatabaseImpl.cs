@@ -16,6 +16,14 @@
  **/
 
 
+#if __MOBILE__
+#define XAMARIN
+#endif
+
+#if !__MOBILE__
+#define WINDOWS
+#endif
+
 
 using Siminov.Core.Utils;
 using Siminov.Core.Database.Design;
@@ -29,6 +37,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Siminov.Core.Database.Sqlite
 {
@@ -73,7 +82,13 @@ namespace Siminov.Core.Database.Sqlite
 
             try
             {
-                sqliteDatabase = new SQLiteConnection(databasePath + databaseName);
+
+                #if XAMARIN
+                    String databaseURI = Path.Combine (databasePath, databaseName);
+                    sqliteDatabase = new SQLiteConnection(databaseURI);
+                #elif WINDOWS
+                    sqliteDatabase = new SQLiteConnection(databasePath + databaseName);
+                #endif
             }
             catch (SQLiteException sqliteException)
             {
@@ -136,10 +151,21 @@ namespace Siminov.Core.Database.Sqlite
         public IEnumerator<IDictionary<String, Object>> ExecuteSelectQuery(DatabaseDescriptor databaseDescriptor, EntityDescriptor entityDescriptor, String query)
         {
 
-            List<SQLiteQueryRow> cursors = null;
+            #if XAMARIN
+                SQLitePCL.sqlite3_stmt statement = SQLite3.Prepare2(sqliteDatabase.Handle, query);
+            #elif WINDOWS
+                List<SQLiteQueryRow> statement = null;
+            #endif
+
             try
             {
-                cursors = sqliteDatabase.Query2(query);
+
+                #if XAMARIN
+                    statement = SQLite3.Prepare2(sqliteDatabase.Handle, query);
+                #elif WINDOWS
+                    statement = sqliteDatabase.Query2(query);
+                #endif
+                
             }
             catch (System.Exception exception)
             {
@@ -153,102 +179,229 @@ namespace Siminov.Core.Database.Sqlite
             }
 
             List<Dictionary<String, Object>> tuples = new List<Dictionary<String, Object>>();
-            foreach (SQLiteQueryRow cursor in cursors)
-            {
 
-                IDictionary<String, Object> tuple = new Dictionary<String, Object>();
+            #if XAMARIN
 
-                List<SQLiteQueryColumn> columns = cursor.column;
-                if (columns == null || columns.Count <= 0)
+                SQLite3.Result result;
+			    while ((result = SQLite3.Step (statement)) == SQLite3.Result.Row)
+			    {
+				    IDictionary<String, Object> tuple = new Dictionary<String, Object>();
+
+				    String stmtResult = result.ToString ();
+
+				    //string[] names = SQLite3.ColType.GetNames ();
+				    //string[] values = SQLite3.ColType.GetValues ();
+				    int columnsCount = SQLite3.ColumnCount (statement);
+				    for(int i = 0;i < columnsCount;i++) 
+				    {
+					    String columnName = SQLite3.ColumnName (statement, i);
+					    SQLite3.ColType columnType = SQLite3.ColumnType (statement, i);
+					    Object columnValue = SQLite3.ColumnText (statement, i);
+
+					    bool isString = false;
+					    bool isLong = false;
+					    bool isFloat = false;
+					    bool isBlob = false;
+
+					    if (columnType == SQLite3.ColType.Text) 
+					    {
+						    isString = true;
+					    } 
+					    else if (columnType == SQLite3.ColType.Integer) 
+					    {
+						    isLong = true;
+					    }
+					    else if(columnType == SQLite3.ColType.Float) 
+					    {
+						    isFloat = true;
+					    }
+					    else if(columnType == SQLite3.ColType.Blob) 
+					    {
+						    isBlob = true;
+					    }
+					    else if(columnType == SQLite3.ColType.Null)
+					    {
+					    }
+
+
+					    if (isString)
+					    {
+						
+						    if (entityDescriptor != null)
+						    {
+							    EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
+
+							    if (attribute != null)
+							    {
+
+								    if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_STRING_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+								    {
+									    tuple.Add(columnName, (String)columnValue);
+								    }
+								    else if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_BOOLEAN_PRIMITIVE_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+								    {
+									    tuple.Add(columnName, columnValue.Equals(Boolean.TrueString.ToString()) ? true : false);
+								    }
+								    else if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_BOOLEAN_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+								    {
+									    tuple.Add(columnName, columnValue.Equals(Boolean.TrueString.ToString()) ? Boolean.TrueString : Boolean.FalseString);
+								    }
+								    else if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_STRING_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+								    {
+									    tuple.Add(columnName, (String)columnValue);
+								    }
+							    }
+							    else
+							    {
+								    tuple.Add(columnName, columnValue);
+							    }
+						    }
+						    else
+						    {
+							    tuple.Add(columnName, columnValue);
+						    }
+					    }
+					    else if (isLong)
+					    {
+
+						    if (entityDescriptor != null)
+						    {
+							    EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
+
+							    if (attribute != null)
+							    {
+								    if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+								    {
+									    tuple.Add(columnName, columnValue);
+								    }
+							    }
+							    else
+							    {
+								    tuple.Add(columnName, columnValue);
+							    }
+						    }
+						    else
+						    {
+							    tuple.Add(columnName, columnValue);
+						    }
+					    }
+					    else if (isFloat)
+					    {
+
+						    if (entityDescriptor != null)
+						    {
+							    EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
+
+							    if (attribute != null)
+							    {
+								    if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+								    {
+									    tuple.Add(columnName, columnValue);
+								    }
+							    }
+							    else
+							    {
+								    tuple.Add(columnName, columnValue);
+							    }
+						    }
+						    else
+						    {
+							    tuple.Add(columnName, columnValue);
+						    }
+
+						    tuple.Add(columnName, columnValue);
+					    }
+					    else if (isBlob)
+					    {
+						    tuple.Add(columnName, columnValue);
+					    }
+				    }
+
+				    tuples.Add((Dictionary<String, Object>)tuple);
+			    }
+
+			    SQLite3.Finalize(statement);
+
+			    return tuples.GetEnumerator();
+
+            #elif WINDOWS
+                foreach (SQLiteQueryRow cursor in statement)
                 {
-                    continue;
-                }
 
-                foreach (SQLiteQueryColumn column in columns)
-                {
+                    IDictionary<String, Object> tuple = new Dictionary<String, Object>();
 
-                    String columnName = column.Key;
-                    Object columnValue = column.Value;
+                    List<SQLiteQueryColumn> columns = cursor.column;
+                    if (columns == null || columns.Count <= 0)
+                    {
+                        continue;
+                    }
 
-
-                    bool isString = false;
-                    bool isLong = false;
-                    bool isFloat = false;
-                    bool isBlob = false;
-
-                    if (columnValue != null)
+                    foreach (SQLiteQueryColumn column in columns)
                     {
 
-                        if (columnValue.GetType().FullName.Equals(typeof(String).FullName, StringComparison.OrdinalIgnoreCase))
+                        String columnName = column.Key;
+                        Object columnValue = column.Value;
+
+
+                        bool isString = false;
+                        bool isLong = false;
+                        bool isFloat = false;
+                        bool isBlob = false;
+
+                        if (columnValue != null)
+                        {
+
+                            if (columnValue.GetType().FullName.Equals(typeof(String).FullName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                isString = true;
+                            }
+                            else if (columnValue.GetType().FullName.Equals(typeof(long).FullName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                isLong = true;
+                            }
+                            else if (columnValue.GetType().FullName.Equals(typeof(float).FullName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                isFloat = true;
+                            }
+                            else if (columnValue.GetType().FullName.Equals(typeof(byte).FullName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                isBlob = true;
+                            }
+                        }
+                        else
                         {
                             isString = true;
                         }
-                        else if (columnValue.GetType().FullName.Equals(typeof(long).FullName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            isLong = true;
-                        }
-                        else if (columnValue.GetType().FullName.Equals(typeof(float).FullName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            isFloat = true;
-                        }
-                        else if (columnValue.GetType().FullName.Equals(typeof(byte).FullName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            isBlob = true;
-                        }
-                    }
-                    else
-                    {
-                        isString = true;
-                    }
 
 
-                    if (isString)
-                    {
-
-                        if (entityDescriptor != null)
+                        if (isString)
                         {
-                            EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
 
-                            if (attribute != null)
+                            if (entityDescriptor != null)
                             {
+                                EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
 
-                                if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_STRING_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                if (attribute != null)
                                 {
-                                    tuple.Add(columnName, (String)columnValue);
-                                }
-                                else if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_BOOLEAN_PRIMITIVE_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    tuple.Add(columnName, columnValue.Equals(Boolean.TrueString.ToString()) ? true : false);
-                                }
-                                else if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_BOOLEAN_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    tuple.Add(columnName, columnValue.Equals(Boolean.TrueString.ToString()) ? Boolean.TrueString : Boolean.FalseString);
-                                }
-                                else if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_STRING_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    tuple.Add(columnName, (String)columnValue);
-                                }
-                            }
-                            else
-                            {
-                                tuple.Add(columnName, columnValue);
-                            }
-                        }
-                        else
-                        {
-                            tuple.Add(columnName, columnValue);
-                        }
-                    }
-                    else if (isLong)
-                    {
 
-                        if (entityDescriptor != null)
-                        {
-                            EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
-
-                            if (attribute != null)
-                            {
-                                if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                    if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_STRING_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        tuple.Add(columnName, (String)columnValue);
+                                    }
+                                    else if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_BOOLEAN_PRIMITIVE_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        tuple.Add(columnName, columnValue.Equals(Boolean.TrueString.ToString()) ? true : false);
+                                    }
+                                    else if (attribute.GetType().Equals(IDataTypeHandler.CSHARP_BOOLEAN_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        tuple.Add(columnName, columnValue.Equals(Boolean.TrueString.ToString()) ? Boolean.TrueString : Boolean.FalseString);
+                                    }
+                                    else if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_STRING_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        tuple.Add(columnName, (String)columnValue);
+                                    }
+                                }
+                                else
                                 {
                                     tuple.Add(columnName, columnValue);
                                 }
@@ -258,21 +411,21 @@ namespace Siminov.Core.Database.Sqlite
                                 tuple.Add(columnName, columnValue);
                             }
                         }
-                        else
+                        else if (isLong)
                         {
-                            tuple.Add(columnName, columnValue);
-                        }
-                    }
-                    else if (isFloat)
-                    {
 
-                        if (entityDescriptor != null)
-                        {
-                            EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
-
-                            if (attribute != null)
+                            if (entityDescriptor != null)
                             {
-                                if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
+
+                                if (attribute != null)
+                                {
+                                    if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        tuple.Add(columnName, columnValue);
+                                    }
+                                }
+                                else
                                 {
                                     tuple.Add(columnName, columnValue);
                                 }
@@ -282,24 +435,45 @@ namespace Siminov.Core.Database.Sqlite
                                 tuple.Add(columnName, columnValue);
                             }
                         }
-                        else
+                        else if (isFloat)
+                        {
+
+                            if (entityDescriptor != null)
+                            {
+                                EntityDescriptor.Attribute attribute = entityDescriptor.GetAttributeBasedOnColumnName(columnName);
+
+                                if (attribute != null)
+                                {
+                                    if (attribute.GetType().Equals(IDataTypeHandler.JAVASCRIPT_NUMBER_DATA_TYPE, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        tuple.Add(columnName, columnValue);
+                                    }
+                                }
+                                else
+                                {
+                                    tuple.Add(columnName, columnValue);
+                                }
+                            }
+                            else
+                            {
+                                tuple.Add(columnName, columnValue);
+                            }
+
+                            tuple.Add(columnName, columnValue);
+                        }
+                        else if (isBlob)
                         {
                             tuple.Add(columnName, columnValue);
                         }
+                    }
 
-                        tuple.Add(columnName, columnValue);
-                    }
-                    else if (isBlob)
-                    {
-                        tuple.Add(columnName, columnValue);
-                    }
+                    tuples.Add((Dictionary<String, Object>)tuple);
                 }
 
-                tuples.Add((Dictionary<String, Object>)tuple);
-            }
 
+                return tuples.GetEnumerator();
+            #endif
 
-            return tuples.GetEnumerator();
         }
 
         public void ExecuteMethod(String methodName, Object parameter)

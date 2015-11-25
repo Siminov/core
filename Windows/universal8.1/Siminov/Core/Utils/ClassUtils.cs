@@ -16,6 +16,14 @@
  **/
 
 
+#if __MOBILE__
+#define XAMARIN
+#endif
+
+#if !__MOBILE__
+#define WINDOWS
+#endif
+
 
 using Siminov.Core.Exception;
 using Siminov.Core.Log;
@@ -25,7 +33,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Siminov.Core.Resource;
+
+#if WINDOWS
+using Windows.Foundation;
 using Windows.Storage;
+using Windows.Storage.Streams;
+#endif
+
 
 namespace Siminov.Core.Utils
 {
@@ -37,6 +52,7 @@ namespace Siminov.Core.Utils
     {
 
         private static IDictionary<String, Type> types = new Dictionary<String, Type>();
+        private static ResourceManager resourceManager = ResourceManager.GetInstance();
 
 
         /// <summary>
@@ -57,30 +73,13 @@ namespace Siminov.Core.Utils
                 return types[className];
             }
 
-            var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
-            var fileTask = folder.GetFilesAsync().AsTask();
-            fileTask.Wait();
+            #if XAMARIN
 
-            if (fileTask.Exception != null)
-            {
-                throw fileTask.Exception;
-            }
-
-            IReadOnlyList<StorageFile> files = fileTask.Result;
-            for (int i = 0; i < files.Count; i++)
-            {
-
-                StorageFile file = files[i];
-                if (file.FileType == ".dll" || file.FileType == ".exe")
+                IEnumerator<Object> applicationContexts = resourceManager.GetApplicationContexts();
+                while (applicationContexts.MoveNext())
                 {
-                    if (file.DisplayName.Equals("sqlite", StringComparison.OrdinalIgnoreCase) || file.DisplayName.Equals("sqlite3", StringComparison.OrdinalIgnoreCase))
-                    {
-                        continue;
-                    }
-
-                    AssemblyName name = new AssemblyName() { Name = file.DisplayName };
-                    Assembly asm = Assembly.Load(name);
+                    Assembly asm = (Assembly)applicationContexts.Current;
 
                     foreach (Type typeObject in asm.ExportedTypes)
                     {
@@ -90,9 +89,50 @@ namespace Siminov.Core.Utils
                         }
                     }
                 }
-            }
 
-            return Type.GetType(className);
+                return Type.GetType(className);
+
+            #elif WINDOWS
+
+                var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+
+                var fileTask = folder.GetFilesAsync().AsTask();
+                fileTask.Wait();
+
+                if (fileTask.Exception != null)
+                {
+                    throw fileTask.Exception;
+                }
+
+                IReadOnlyList<StorageFile> files = fileTask.Result;
+                for (int i = 0; i < files.Count; i++)
+                {
+
+                    StorageFile file = files[i];
+                    if (file.FileType == ".dll" || file.FileType == ".exe")
+                    {
+                        if (file.DisplayName.Equals("sqlite", StringComparison.OrdinalIgnoreCase) || file.DisplayName.Equals("sqlite3", StringComparison.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
+
+                        AssemblyName name = new AssemblyName() { Name = file.DisplayName };
+                        Assembly asm = Assembly.Load(name);
+
+                        foreach (Type typeObject in asm.ExportedTypes)
+                        {
+                            if (typeObject.FullName.Equals(className))
+                            {
+                                return typeObject;
+                            }
+                        }
+                    }
+                }
+
+                return Type.GetType(className);
+
+            #endif
+
         }
 
 

@@ -16,6 +16,14 @@
  **/
 
 
+#if __MOBILE__
+#define XAMARIN
+#endif
+
+#if !__MOBILE__
+#define WINDOWS
+#endif
+
 
 using Siminov.Core.Utils;
 using Siminov.Core.Exception;
@@ -112,7 +120,12 @@ namespace Siminov.Core.Reader
                 //databaseDescriptorStream = getClass().getClassLoader().getResourceAsStream(this.databaseDescriptorPath);
                 //if(databaseDescriptorStream == null) 
                 //{
+
+                #if XAMARIN
+                databaseDescriptorStream = FileUtils.ReadFileFromEmbeddedResources("Assets." + this.databaseDescriptorPath);                
+                #elif WINDOWS
                 databaseDescriptorStream = FileUtils.ReadFile("Assets", this.databaseDescriptorPath, FileUtils.INSTALLED_FOLDER);
+                #endif
                 //}
             }
             catch (System.Exception ioException)

@@ -15,10 +15,19 @@
  * limitations under the License.
  **/
 
+#if __MOBILE__
+#define XAMARIN
+#endif
+
+#if !__MOBILE__
+#define WINDOWS
+#endif
+
 
 
 using Siminov.Core.Exception;
 using Siminov.Core.Log;
+using Siminov.Core.Resource;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,9 +35,21 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.Threading;
+
+
+#if XAMARIN
+using PCLStorage;
+#endif
+
+#if WINDOWS
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Streams;
+#endif
+
+
 
 namespace Siminov.Core.Utils
 {
@@ -40,6 +61,8 @@ namespace Siminov.Core.Utils
 
         public static readonly int INSTALLED_FOLDER = 1;
         public static readonly int LOCAL_FOLDER = 2;
+
+        private static ResourceManager resourceManager = ResourceManager.GetInstance();
 
         public static bool DoesFolderExists(String path, int option)
         {
@@ -59,12 +82,23 @@ namespace Siminov.Core.Utils
 
         public static bool DoesFileExists(String path, String name, int option)
         {
+            
+            #if XAMARIN
+                IFolder folder; 
+            #elif WINDOWS
+                StorageFolder folder;
+            #endif
 
-            StorageFolder folder = GetFolder(path, option);
+            folder = GetFolder(path, option);
 
             try
             {
-                var fileTask = folder.GetFileAsync(name).AsTask();
+                #if XAMARIN
+					var fileTask = folder.GetFileAsync(name);
+                #elif WINDOWS
+                    var fileTask = folder.GetFileAsync(name).AsTask();
+                #endif
+
                 fileTask.Wait();
 
                 if (fileTask.Exception != null)
@@ -88,11 +122,22 @@ namespace Siminov.Core.Utils
         public static void DeleteFile(String path, String name, int option)
         {
 
-            StorageFolder folder = GetFolder(path, option);
+            #if XAMARIN
+                IFolder folder;
+            #elif WINDOWS
+                StorageFolder folder;
+            #endif
+
+            folder = GetFolder(path, option);
 
             try
             {
-                var fileTask = folder.GetFileAsync(name).AsTask();
+                #if XAMARIN
+					var fileTask = folder.GetFileAsync(name);
+                #elif WINDOWS
+                    var fileTask = folder.GetFileAsync(name).AsTask();
+                #endif
+
                 fileTask.Wait();
 
                 if (fileTask.Exception != null)
@@ -100,8 +145,20 @@ namespace Siminov.Core.Utils
                     throw fileTask.Exception;
                 }
 
-                StorageFile deleteFile = fileTask.Result;
-                var actionTask = deleteFile.DeleteAsync().AsTask();
+                #if XAMARIN
+                    IFile deleteFile;
+                #elif WINDOWS
+                    StorageFile deleteFile;
+                #endif
+
+                deleteFile = fileTask.Result;
+
+                #if XAMARIN
+					var actionTask = deleteFile.DeleteAsync();
+				#elif WINDOWS
+					var actionTask = deleteFile.DeleteAsync().AsTask();
+				#endif
+                
                 actionTask.Wait();
 
                 if (actionTask.Exception != null)
@@ -119,7 +176,13 @@ namespace Siminov.Core.Utils
         public static Stream SearchFile(String path, String name, int option)
         {
 
-            StorageFolder folder = SearchFolder(path, option);
+            #if XAMARIN
+                IFolder folder;
+            #elif WINDOWS
+                StorageFolder folder;
+            #endif
+
+            folder = SearchFolder(path, option);
             if (folder == null)
             {
                 return SearchFile(path, name);
@@ -133,9 +196,19 @@ namespace Siminov.Core.Utils
         public static Stream SearchFile(String path, String name)
         {
             path = path.Replace("/", ".");
-            StorageFolder storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
-            var fileTask = storageFolder.GetFilesAsync().AsTask();
+            #if XAMARIN
+                IFolder storageFolder = FileSystem.Current.LocalStorage;
+            #elif WINDOWS
+                StorageFolder storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            #endif
+
+            #if XAMARIN
+				var fileTask = storageFolder.GetFilesAsync();
+            #elif WINDOWS
+                var fileTask = storageFolder.GetFilesAsync().AsTask();
+            #endif
+
             fileTask.Wait();
 
             if (fileTask.Exception != null)
@@ -143,19 +216,44 @@ namespace Siminov.Core.Utils
                 throw fileTask.Exception;
             }
 
-            IReadOnlyList<StorageFile> files = fileTask.Result;
+
+            #if XAMARIN
+                IList<IFile> files;
+            #elif WINDOWS
+                IReadOnlyList<StorageFile> files;
+            #endif
+
+            files = fileTask.Result;
             for (int i = 0; i < files.Count; i++)
             {
 
-                StorageFile file = files[i];
+                #if XAMARIN
+                    IFile file;
+                #elif WINDOWS
+                    StorageFile file;
+                #endif
+
+                file = files[i];
+
+                #if WINDOWS
                 if (file.FileType == ".dll" || file.FileType == ".exe")
+                #endif
                 {
+                    #if XAMARIN
+                    if (file.Name.Equals("sqlite", StringComparison.OrdinalIgnoreCase) || file.Name.Equals("sqlite3", StringComparison.OrdinalIgnoreCase))
+                    #elif WINDOWS
                     if (file.DisplayName.Equals("sqlite", StringComparison.OrdinalIgnoreCase) || file.DisplayName.Equals("sqlite3", StringComparison.OrdinalIgnoreCase))
+                    #endif
                     {
                         continue;
                     }
 
+                    #if XAMARIN
+                    AssemblyName assemblyName = new AssemblyName() { Name = file.Name };
+                    #elif WINDOWS
                     AssemblyName assemblyName = new AssemblyName() { Name = file.DisplayName };
+                    #endif
+
                     Assembly asm = Assembly.Load(assemblyName);
 
                     String[] resourceNames = asm.GetManifestResourceNames();
@@ -171,7 +269,13 @@ namespace Siminov.Core.Utils
                 }
             }
 
-            var foldersTask = storageFolder.GetFoldersAsync().AsTask();
+
+            #if XAMARIN
+				var foldersTask = storageFolder.GetFoldersAsync();
+            #elif WINDOWS
+                var foldersTask = storageFolder.GetFoldersAsync().AsTask();
+            #endif
+
             foldersTask.Wait();
 
             if (foldersTask.Exception != null)
@@ -180,13 +284,34 @@ namespace Siminov.Core.Utils
             }
 
 
-            IReadOnlyList<StorageFolder> readFolders = foldersTask.Result;
-            foreach (StorageFolder folder in readFolders)
+            #if XAMARIN
+                IList<IFolder> folders;
+            #elif WINDOWS
+                IReadOnlyList<StorageFolder> folders;
+            #endif
+
+            folders = foldersTask.Result;
+
+            
+			#if XAMARIN
+				IFolder folder;
+			#elif WINDOWS
+				StorageFolder folder;
+			#endif
+
+            for(int i = 0;i < folders.Count;i++)
             {
+                folder = folders[i];
+
                 String[] separators = new String[] { "/" };
                 String[] paths = path.Split(separators, StringSplitOptions.None);
 
-                fileTask = folder.GetFilesAsync().AsTask();
+                #if XAMARIN
+					fileTask = folder.GetFilesAsync();
+                #elif WINDOWS
+                    fileTask = folder.GetFilesAsync().AsTask();
+                #endif
+
                 fileTask.Wait();
 
                 if (fileTask.Exception != null)
@@ -195,18 +320,39 @@ namespace Siminov.Core.Utils
                 }
 
                 files = fileTask.Result;
-                for (int i = 0; i < files.Count; i++)
+                for (int j = 0; j < files.Count; j++)
                 {
 
-                    StorageFile file = files[i];
+                    #if XAMARIN
+                        IFile file;
+                    #elif WINDOWS
+                        StorageFile file;
+                    #endif
+
+                    file = files[j];
+
+                    #if WINDOWS
                     if (file.FileType == ".dll" || file.FileType == ".exe")
+                    #endif
+
                     {
+
+                        #if XAMARIN
+                        if (file.Name.Equals("sqlite", StringComparison.OrdinalIgnoreCase) || file.Name.Equals("sqlite3", StringComparison.OrdinalIgnoreCase))
+                        #elif WINDOWS
                         if (file.DisplayName.Equals("sqlite", StringComparison.OrdinalIgnoreCase) || file.DisplayName.Equals("sqlite3", StringComparison.OrdinalIgnoreCase))
+                        #endif
                         {
                             continue;
                         }
 
+
+                        #if XAMARIN
+                        AssemblyName assemblyName = new AssemblyName() { Name = folder.Name + "/" + file.Name };
+                        #elif WINDOWS
                         AssemblyName assemblyName = new AssemblyName() { Name = folder.Name + "/" + file.DisplayName };
+                        #endif
+
                         Assembly asm = Assembly.Load(assemblyName);
 
                         String[] resourceNames = asm.GetManifestResourceNames();
@@ -227,135 +373,293 @@ namespace Siminov.Core.Utils
         }
 
 
-        public static StorageFolder SearchFolder(String path, int option)
-        {
-
-            StorageFolder storageFolder = null;
-            if (option == INSTALLED_FOLDER)
+        #if XAMARIN
+            public static IFolder SearchFolder(String path, int option)
             {
-                storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+			    IFolder storageFolder = null;
+
+			    IFolder rootFolder = FileSystem.Current.LocalStorage;
+			    var foldersTask = rootFolder.GetFoldersAsync ();
+			    foldersTask.Wait();
+
+			    if (foldersTask.Exception != null)
+			    {
+				    throw foldersTask.Exception;
+			    }
+
+			    IList<IFolder> folders = foldersTask.Result;
+			    foreach (IFolder folder in folders)
+			    {
+				    String[] separators = new String[] { "/" };
+				    String[] paths = path.Split(separators, StringSplitOptions.None);
+
+				    IFolder searchedFolder = SearchFolder(paths, folder, option);
+				    if (searchedFolder != null)
+				    {
+					    return searchedFolder;
+				    }
+			    }
+
+			    return null;
             }
-            else
+        #elif WINDOWS
+            public static StorageFolder SearchFolder(String path, int option)
             {
-                storageFolder = ApplicationData.Current.LocalFolder;
-            }
 
-
-            var foldersTask = storageFolder.GetFoldersAsync().AsTask();
-            foldersTask.Wait();
-
-            if (foldersTask.Exception != null)
-            {
-                throw foldersTask.Exception;
-            }
-
-            IReadOnlyList<StorageFolder> readFolders = foldersTask.Result;
-            foreach (StorageFolder folder in readFolders)
-            {
-                String[] separators = new String[] { "/" };
-                String[] paths = path.Split(separators, StringSplitOptions.None);
-
-                StorageFolder searchedFolder = SearchFolder(paths, folder, option);
-                if (searchedFolder != null)
+                StorageFolder storageFolder = null;
+                if (option == INSTALLED_FOLDER)
                 {
-                    return searchedFolder;
+                    storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
                 }
-            }
-
-            return null;
-        }
-
-
-        private static StorageFolder SearchFolder(String[] paths, StorageFolder storageFolder, int option)
-        {
-            if (paths == null || paths.Length <= 0)
-            {
-                return storageFolder;
-            }
-
-            var foldersTask = storageFolder.GetFoldersAsync().AsTask();
-            foldersTask.Wait();
-
-            if (foldersTask.Exception != null)
-            {
-                throw foldersTask.Exception;
-            }
-
-            IReadOnlyList<StorageFolder> readFolders = foldersTask.Result;
-            foreach (StorageFolder folder in readFolders)
-            {
-                for (int i = 0; i < paths.Length;i++)
+                else
                 {
+                    storageFolder = ApplicationData.Current.LocalFolder;
+                }
 
-                    if (folder.Name.Equals(paths[i], StringComparison.OrdinalIgnoreCase))
+
+                var foldersTask = storageFolder.GetFoldersAsync().AsTask();
+                foldersTask.Wait();
+
+                if (foldersTask.Exception != null)
+                {
+                    throw foldersTask.Exception;
+                }
+
+                IReadOnlyList<StorageFolder> readFolders = foldersTask.Result;
+                foreach (StorageFolder folder in readFolders)
+                {
+                    String[] separators = new String[] { "/" };
+                    String[] paths = path.Split(separators, StringSplitOptions.None);
+
+                    StorageFolder searchedFolder = SearchFolder(paths, folder, option);
+                    if (searchedFolder != null)
                     {
-                        String[] newPaths = new String[paths.Length - 1];
-
-                        int count = 0;
-                        for (int j = 1;j < paths.Length; j++)
-                        {
-                            newPaths[count++] = paths[j];
-                        }
-
-                        return SearchFolder(newPaths, folder, option);
+                        return searchedFolder;
                     }
                 }
+
+                return null;
             }
 
-            return null;
-        }
+        #endif
 
 
-
-        public static Stream ReadFile(StorageFolder folder, String name, int option)
-        {
-            Stream fileStream = null;
-
-            var fileTask = folder.GetFileAsync(name).AsTask();
-            fileTask.Wait();
-
-            if (fileTask.Exception != null)
+        #if XAMARIN
+            private static IFolder SearchFolder(String[] paths, IFolder storageFolder, int option)
             {
-                throw fileTask.Exception;
+			    if (paths == null || paths.Length <= 0)
+			    {
+				    return storageFolder;
+			    }
+
+			    var foldersTasks = storageFolder.GetFoldersAsync();
+			    foldersTasks.Wait ();
+
+			    if (foldersTasks.Exception != null)
+			    {
+				    throw foldersTasks.Exception;
+			    }
+
+
+			    IList<IFolder> folders = foldersTasks.Result;
+			    foreach (IFolder folder in folders) 
+			    {
+				    for (int i = 0; i < paths.Length; i++) 
+				    {
+					    if (folder.Name.Equals(paths[i], StringComparison.OrdinalIgnoreCase))
+					    {
+						    String[] newPaths = new String[paths.Length - 1];
+
+						    int count = 0;
+						    for (int j = 1;j < paths.Length; j++)
+						    {
+							    newPaths[count++] = paths[j];
+						    }
+
+						    return SearchFolder(newPaths, folder, option);
+					    }
+				    }
+			    }
+
+			    return null;
             }
-
-
-            StorageFile fileObject = fileTask.Result;
-            var readStreamTask = fileObject.OpenAsync(FileAccessMode.Read).AsTask();
-            readStreamTask.Wait();
-
-            if (readStreamTask.Exception != null)
+        #elif WINDOWS
+            private static StorageFolder SearchFolder(String[] paths, StorageFolder storageFolder, int option)
             {
-                throw readStreamTask.Exception;
-            }
-
-            IRandomAccessStream readStreamTest = readStreamTask.Result;
-
-            using (var reader = new DataReader(readStreamTest))
-            {
-                var readerallDataTask = reader.LoadAsync((uint)readStreamTest.Size).AsTask();
-                readerallDataTask.Wait();
-
-                if (readerallDataTask.Exception != null)
+                if (paths == null || paths.Length <= 0)
                 {
-                    throw readerallDataTask.Exception;
+                    return storageFolder;
                 }
 
-                var buffer = new byte[(int)readStreamTest.Size];
-                reader.ReadBytes(buffer);
+                var foldersTask = storageFolder.GetFoldersAsync().AsTask();
+                foldersTask.Wait();
 
-                fileStream = new MemoryStream(buffer);
+                if (foldersTask.Exception != null)
+                {
+                    throw foldersTask.Exception;
+                }
+
+                IReadOnlyList<StorageFolder> readFolders = foldersTask.Result;
+                foreach (StorageFolder folder in readFolders)
+                {
+                    for (int i = 0; i < paths.Length; i++)
+                    {
+
+                        if (folder.Name.Equals(paths[i], StringComparison.OrdinalIgnoreCase))
+                        {
+                            String[] newPaths = new String[paths.Length - 1];
+
+                            int count = 0;
+                            for (int j = 1; j < paths.Length; j++)
+                            {
+                                newPaths[count++] = paths[j];
+                            }
+
+                            return SearchFolder(newPaths, folder, option);
+                        }
+                    }
+                }
+
+                return null;
             }
 
-            return fileStream;
-        }
+        #endif
+
+
+        #if XAMARIN
+            public static Stream ReadFile(IFolder folder, String name, int option)
+            {
+			    StreamReader fileStream = null;
+
+			    var fileTask = folder.GetFileAsync(name);
+			    fileTask.Wait ();
+
+			    if (fileTask.Exception != null)
+			    {
+				    throw fileTask.Exception;
+			    }
+
+			    IFile file = fileTask.Result;
+
+			    var readStreamTask = file.OpenAsync(FileAccess.Read);
+			    readStreamTask.Wait ();
+
+			    if (readStreamTask.Exception != null)
+			    {
+				    throw readStreamTask.Exception;
+			    }
+
+			    Stream readStream = readStreamTask.Result;
+
+			    using (StreamReader reader = new System.IO.StreamReader (readStream)) {
+				    fileStream = Utils.ToInputStream(reader.ReadToEnd());
+			    }
+
+			    return fileStream.BaseStream;
+            }
+        #elif WINDOWS
+            public static Stream ReadFile(StorageFolder folder, String name, int option)
+            {
+                Stream fileStream = null;
+
+                var fileTask = folder.GetFileAsync(name).AsTask();
+                fileTask.Wait();
+
+                if (fileTask.Exception != null)
+                {
+                    throw fileTask.Exception;
+                }
+
+
+                StorageFile fileObject = fileTask.Result;
+                var readStreamTask = fileObject.OpenAsync(FileAccessMode.Read).AsTask();
+                readStreamTask.Wait();
+
+                if (readStreamTask.Exception != null)
+                {
+                    throw readStreamTask.Exception;
+                }
+
+                IRandomAccessStream readStreamTest = readStreamTask.Result;
+
+                using (var reader = new DataReader(readStreamTest))
+                {
+                    var readerallDataTask = reader.LoadAsync((uint)readStreamTest.Size).AsTask();
+                    readerallDataTask.Wait();
+
+                    if (readerallDataTask.Exception != null)
+                    {
+                        throw readerallDataTask.Exception;
+                    }
+
+                    var buffer = new byte[(int)readStreamTest.Size];
+                    reader.ReadBytes(buffer);
+
+                    fileStream = new MemoryStream(buffer);
+                }
+
+                return fileStream;
+            }
+
+
+        #endif
+
+
+        #if XAMARIN
+        
+		    public static Stream ReadFileFromEmbeddedResources(String resourceId) 
+		    {
+			    resourceId = resourceId.Replace("/", ".");
+
+			    IEnumerator<Object> applicationContexts = resourceManager.GetApplicationContexts ();
+			    while(applicationContexts.MoveNext()) 
+			    {
+				    Assembly applicationContext = (Assembly)applicationContexts.Current;
+				    String[] resourceNames = applicationContext.GetManifestResourceNames ();
+
+				    bool containResource = false;
+				    for(int j = 0;j < resourceNames.Length;j++)
+				    {
+					    if(resourceId.Equals(resourceNames[j], StringComparison.OrdinalIgnoreCase)) 
+					    {
+						    containResource = true;
+						    break;
+					    }
+				    }
+
+				    if(containResource) 
+				    {
+					    return applicationContext.GetManifestResourceStream (resourceId);
+				    }
+			    }
+
+			    return null;
+		    }
+
+        #endif
 
         public static Stream ReadFile(String path, String name, int option)
         {
+            #if XAMARIN
+			StreamReader fileStream = null;
+            #elif WINDOWS
             Stream fileStream = null;
+            #endif
 
-            StorageFolder folder = GetFolder(path, option);
+            #if XAMARIN
+                IFolder folder;
+            #elif WINDOWS
+                StorageFolder folder;
+            #endif
+
+            folder = GetFolder(path, option);
+
+            #if XAMARIN
+            var fileTask = folder.GetFileAsync(name);
+            #elif WINDOWS
             var fileTask = folder.GetFileAsync(name).AsTask();
+            #endif
+
             fileTask.Wait();
 
             if (fileTask.Exception != null)
@@ -363,8 +667,21 @@ namespace Siminov.Core.Utils
                 throw fileTask.Exception;
             }
 
-            StorageFile fileObject = fileTask.Result;
-            var readStreamTask = fileObject.OpenAsync(FileAccessMode.Read).AsTask();
+
+            #if XAMARIN
+                IFile file;
+            #elif WINDOWS
+                StorageFile file;
+            #endif
+
+            file = fileTask.Result;
+
+            #if XAMARIN
+            var readStreamTask = file.OpenAsync(FileAccess.Read);
+            #elif WINDOWS
+            var readStreamTask = file.OpenAsync(FileAccessMode.Read).AsTask();
+            #endif
+
             readStreamTask.Wait();
 
             if (readStreamTask.Exception != null)
@@ -372,64 +689,112 @@ namespace Siminov.Core.Utils
                 throw readStreamTask.Exception;
             }
 
-            IRandomAccessStream readStreamTest = readStreamTask.Result;
 
-            using (var reader = new DataReader(readStreamTest))
-            {
-                var readerallDataTask = reader.LoadAsync((uint)readStreamTest.Size).AsTask();
-                readerallDataTask.Wait();
+            #if XAMARIN
+                Stream readStream;
+            #elif WINDOWS
+                IRandomAccessStream readStream;
+            #endif
 
-                if (readerallDataTask.Exception != null)
+            readStream = readStreamTask.Result;
+
+            #if XAMARIN
+                using (StreamReader reader = new System.IO.StreamReader (readStream))	
                 {
-                    throw readerallDataTask.Exception;
+                    fileStream = Utils.ToInputStream(reader.ReadToEnd());
                 }
 
+                return fileStream.BaseStream;
+            #elif WINDOWS
+                using (var reader = new DataReader(readStream))
+                {
+                    var readerallDataTask = reader.LoadAsync((uint)readStream.Size).AsTask();
+                    readerallDataTask.Wait();
 
-                var buffer = new byte[(int)readStreamTest.Size];
-                reader.ReadBytes(buffer);
+                    if (readerallDataTask.Exception != null)
+                    {
+                        throw readerallDataTask.Exception;
+                    }
 
-                fileStream = new MemoryStream(buffer);
-            }
 
-            return fileStream;
+                    var buffer = new byte[(int)readStream.Size];
+                    reader.ReadBytes(buffer);
+
+                    fileStream = new MemoryStream(buffer);
+                }
+
+                return fileStream;
+            #endif
+
         }
 
 
-
-
-        public static StorageFolder GetFolder(String path, int option)
-        {
-            path = path.Replace('/', '\\').TrimEnd('\\');
-
-            StorageFolder storageFolder = null;
-
-            if (option == INSTALLED_FOLDER)
+        #if XAMARIN
+            public static IFolder GetFolder(String path, int option)
             {
-                storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+			    path = path.Replace('/', '\\').TrimEnd('\\');
+
+			    var storageFolder = FileSystem.Current.LocalStorage;
+			    IFolder folder = storageFolder;
+
+			    string[] folderNames = path.Split('\\');
+			    for (int i = 0; i < folderNames.Length; i++)
+			    {
+				    if(folderNames[i].Length <= 0) 
+				    {
+					    continue;
+				    }	
+
+				    var folderTask = folder.CreateFolderAsync(folderNames[i], CreationCollisionOption.OpenIfExists);
+				    folderTask.Wait ();
+
+				    if (folderTask.Exception != null)
+				    {
+					    throw folderTask.Exception;
+				    }
+
+				    folder = folderTask.Result;
+				
+			    }
+
+			    return folder;
             }
-            else
+        #elif WINDOWS
+            public static StorageFolder GetFolder(String path, int option)
             {
-                storageFolder = ApplicationData.Current.LocalFolder;
-            }
+                path = path.Replace('/', '\\').TrimEnd('\\');
 
-            StorageFolder folder = storageFolder;
+                StorageFolder storageFolder = null;
 
-            string[] folderNames = path.Split('\\');
-            for (int i = 0; i < folderNames.Length; i++)
-            {
-                var task = folder.CreateFolderAsync(folderNames[i], CreationCollisionOption.OpenIfExists).AsTask();
-                task.Wait();
-
-                if (task.Exception != null)
+                if (option == INSTALLED_FOLDER)
                 {
-                    throw task.Exception;
+                    storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+                }
+                else
+                {
+                    storageFolder = ApplicationData.Current.LocalFolder;
                 }
 
-                folder = task.Result;
+                StorageFolder folder = storageFolder;
+
+                string[] folderNames = path.Split('\\');
+                for (int i = 0; i < folderNames.Length; i++)
+                {
+                    var task = folder.CreateFolderAsync(folderNames[i], CreationCollisionOption.OpenIfExists).AsTask();
+                    task.Wait();
+
+                    if (task.Exception != null)
+                    {
+                        throw task.Exception;
+                    }
+
+                    folder = task.Result;
+                }
+
+                return folder;
             }
 
-            return folder;
-        }
+        #endif
 
 
         public static void CreateFolder(String path, int option)
@@ -440,7 +805,13 @@ namespace Siminov.Core.Utils
         public static void CreateFile(String path, String name, int option)
         {
 
-        }
+            #if XAMARIN
+                IFolder folder = GetFolder(path, option);
 
+                var fileTask = folder.CreateFileAsync(name, CreationCollisionOption.FailIfExists, new CancellationTokenSource().Token);
+                fileTask.Wait();
+            #endif
+
+        }
     }
 }
