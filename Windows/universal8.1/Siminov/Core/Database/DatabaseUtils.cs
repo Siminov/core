@@ -71,14 +71,6 @@ namespace Siminov.Core.Database
                 var rootFolder = FileSystem.Current.LocalStorage;
 			    return rootFolder.Path;
 
-                ResourceManager resourceManager = ResourceManager.GetInstance();
-                ApplicationDescriptor applicationDescriptor = resourceManager.GetApplicationDescriptor();
-
-                String databaseDirName = databaseDescriptor.GetDatabaseName();
-
-                String databaseDirPath = applicationDescriptor.GetName() + FileUtils.Separator + Constants.DATABASE_PATH_DATABASE + FileUtils.Separator + databaseDirName + FileUtils.Separator;
-                return databaseDirPath;
-
             #elif WINDOWS
 
                 ResourceManager resourceManager = ResourceManager.GetInstance();
