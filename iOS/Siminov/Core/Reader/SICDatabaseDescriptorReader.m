@@ -63,6 +63,8 @@
             }
             
             NSString *filePath = [[[SICFileUtils alloc]init] getFilePath:databaseDescriptorPathName inDirectory:DIRECTORY_NAME];
+            NSLog([NSString stringWithFormat:@"Database Descriptor Path: %@", filePath], __PRETTY_FUNCTION__);
+            
             databaseDescriptorStream = [[NSFileManager defaultManager] contentsAtPath:filePath];
             
             if(databaseDescriptorStream == nil) {
@@ -84,6 +86,8 @@
                 databaseDescriptorPathName = [NSString stringWithFormat:@"%@/%@", directoryPartsJoined, filename];
                 
                 NSString *filePath = [[[SICFileUtils alloc] init] getFilePath:databaseDescriptorPathName inDirectory:@"include"];
+                NSLog([NSString stringWithFormat:@"Database Descriptor Path: %@", filePath], __PRETTY_FUNCTION__);
+                
                 databaseDescriptorStream = [[NSFileManager defaultManager] contentsAtPath:filePath];
             }
             

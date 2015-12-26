@@ -25,6 +25,8 @@
 @implementation SICDatabaseImpl
 
 - (void)openOrCreate:(SICDatabaseDescriptor * const)databaseDescriptor {
+    [SICLog debug:NSStringFromClass([self class]) methodName:@"openOrCreate" message:@"open or create database"];
+    
     [UIApplication sharedApplication];
     
     NSString *databasePath = [[[SICDatabaseUtils alloc] init] getDatabasePath:databaseDescriptor];
@@ -54,6 +56,7 @@
     
     @try {
         NSString *dbPath = [NSString stringWithFormat:@"%@%@",databasePath,databaseName];
+        [SICLog debug:NSStringFromClass([self class]) methodName:@"openOrCreate" message:[NSString stringWithFormat:@"db path: %@", dbPath]];
         
         sqlite3_shutdown();
         sqlite3_config(SQLITE_CONFIG_SERIALIZED);
@@ -67,6 +70,8 @@
         [SICLog error:NSStringFromClass([self class]) methodName:@"openOrCreate" message:[NSString stringWithFormat:@"SQLiteException caught while opening database, %@",[exception reason]]];
         @throw [[SICDeploymentException alloc] initWithClassName:NSStringFromClass([self class]) methodName:@"openOrCreate" message:[NSString stringWithFormat:@"SQLiteException caught while opening database, %@",[exception reason]]];
     }
+    
+    [SICLog debug:NSStringFromClass([self class]) methodName:@"openOrCreate" message:@"Database created"];
 }
 
 - (void)close:(id)databaseDescriptor {
@@ -134,8 +139,11 @@
             
             index++;
         }
-        @throw [[SICDatabaseException alloc]initWithClassName:NSStringFromClass([self class]) methodName:[NSString stringWithFormat:@"executeBindQuery(%@)",query] message:[NSString stringWithFormat:@"SQLiteException caught while compiling statement, %@",[exception reason]]];
+        //@throw [[SICDatabaseException alloc]initWithClassName:NSStringFromClass([self class]) methodName:[NSString stringWithFormat:@"executeBindQuery(%@)",query] message:[NSString stringWithFormat:@"SQLiteException caught while compiling statement, %@",[exception reason]]];
+        return;
     }
+    
+    [SICLog debug:NSStringFromClass([self class]) methodName:[NSString stringWithFormat:@"executeBindQuery(%@)",query] message:@"After preparing statement"];
     
     NSMutableArray *duplicateColumnValues = [[NSMutableArray alloc]init];
     
@@ -181,6 +189,8 @@
         index++;
     }
     
+    [SICLog debug:NSStringFromClass([self class]) methodName:[NSString stringWithFormat:@"executeBindQuery(%@)",query] message:@"Before execute statement"];
+    
     @try {
         int databaseResult = sqlite3_step(statement);
         if(databaseResult != SQLITE_DONE) 	{
@@ -224,11 +234,15 @@
             
             index++;
         }
-         sqlite3_finalize(statement);
+        
+        sqlite3_finalize(statement);
         
         @throw [[SICDatabaseException alloc]initWithClassName:NSStringFromClass([self class]) methodName:[NSString stringWithFormat:@"executeBindQuery(%@)",query] message:[NSString stringWithFormat:@"SQLiteException caught while executing statement, %@",[exception reason]]];
     }
-     sqlite3_finalize(statement);
+    
+    [SICLog debug:NSStringFromClass([self class]) methodName:[NSString stringWithFormat:@"executeBindQuery(%@)",query] message:@"After execute statement"];
+    
+    sqlite3_finalize(statement);
 }
 
 - (NSEnumerator *)executeSelectQuery:(SICDatabaseDescriptor * const)databaseDescriptor entityDescriptor:(SICEntityDescriptor * const)entityDescriptor query:(NSString * )query {

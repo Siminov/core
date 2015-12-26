@@ -30,7 +30,7 @@
     }
     @catch (NSException *exception) {
         [SICLog error: NSStringFromClass([self class]) methodName:@"createClassObject" message:[NSString stringWithFormat:@"Exception caught while creating class object, CLASS-NAME:%@,%@",className,[exception reason]]];
-        @throw [[SICSiminovCriticalException alloc] initWithClassName:NSStringFromClass([self class]) methodName:@"createClassObject" message:[NSString stringWithFormat:@"Exception caught while creating class object, CLASS-NAME:%@,%@",className,[exception reason]]];
+        @throw [[SICSiminovException alloc] initWithClassName:NSStringFromClass([self class]) methodName:@"createClassObject" message:[NSString stringWithFormat:@"Exception caught while creating class object, CLASS-NAME:%@,%@",className,[exception reason]]];
     }
     
     return classObject;
@@ -46,7 +46,7 @@
     }
     @catch (NSException *exception) {
         [SICLog error: NSStringFromClass([self class]) methodName:@"createClassInstance" message:[NSString stringWithFormat:@"Exception caught while creating new instance of class, CLASS-NAME:%@,%@", className, [exception reason]]];
-        @throw [[SICSiminovCriticalException alloc] initWithClassName: NSStringFromClass([self class]) methodName:@"createClassInstance" message:[NSString stringWithFormat:@"Exception caught while creating new instance of class, CLASS-NAME:%@,%@",className,[exception reason]]];
+        @throw [[SICSiminovException alloc] initWithClassName: NSStringFromClass([self class]) methodName:@"createClassInstance" message:[NSString stringWithFormat:@"Exception caught while creating new instance of class, CLASS-NAME:%@,%@",className,[exception reason]]];
     }
     
     return object;
@@ -67,7 +67,7 @@
     }
     @catch (NSException *exception) {
         [SICLog error: NSStringFromClass([self class]) methodName:@"createClassInstance" message:[NSString stringWithFormat:@"Exception caught while creating new instance of class, CLASS-NAME:%@,%@",className,[exception reason]]];
-        @throw [[SICSiminovCriticalException alloc] initWithClassName: NSStringFromClass([self class]) methodName:@"createClassInstance" message:[NSString stringWithFormat:@"Exception caught while creating new instance of class, CLASS-NAME: %@,%@",className,[exception reason]]];
+        @throw [[SICSiminovException alloc] initWithClassName: NSStringFromClass([self class]) methodName:@"createClassInstance" message:[NSString stringWithFormat:@"Exception caught while creating new instance of class, CLASS-NAME: %@,%@",className,[exception reason]]];
     }
     
     return object;
@@ -86,6 +86,8 @@
     }
     @catch (NSException *exception) {
         [SICLog debug:NSStringFromClass([self class]) methodName:@"createMethodBasedOnClassInstance" message:[NSString stringWithFormat:@"NoSuchMethodException caught while creating method, CLASS-NAME: %@, METHOD-NAME: %@, %@",NSStringFromClass([classObject class]),methodName,[exception reason]]];
+        
+        @throw [[SICSiminovException alloc] initWithClassName:NSStringFromClass([self class]) methodName:@"createMethodBasedOnClassInstance" message:[NSString stringWithFormat:@"NoSuchMethodException caught while creating method, CLASS-NAME: %@, METHOD-NAME: %@, %@",NSStringFromClass([classObject class]),methodName,[exception reason]]];
     }
     
     //method setAcces
@@ -138,7 +140,7 @@
     }
     @catch (NSException *exception) {
         [SICLog error:NSStringFromClass([self class]) methodName:@"getValue" message:[NSString stringWithFormat:@"Exception caught while getting return value from method, CLASS-NAME: %@, METHOD-NAME: %s, %@",NSStringFromClass([classObject class]),sel_getName(method_getName(method)),[exception reason]]];
-        @throw [[SICSiminovCriticalException alloc] initWithClassName:NSStringFromClass([self class]) methodName:@"getValue" message:[NSString stringWithFormat:@"Exception caught while getting return value from method, CLASS-NAME: %@, METHOD-NAME: %s, %@",NSStringFromClass([classObject class]),sel_getName(method_getName(method)),[exception reason]]];
+        @throw [[SICSiminovException alloc] initWithClassName:NSStringFromClass([self class]) methodName:@"getValue" message:[NSString stringWithFormat:@"Exception caught while getting return value from method, CLASS-NAME: %@, METHOD-NAME: %s, %@",NSStringFromClass([classObject class]),sel_getName(method_getName(method)),[exception reason]]];
     }
 }
 
