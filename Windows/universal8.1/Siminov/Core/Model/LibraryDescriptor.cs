@@ -1,6 +1,6 @@
 ﻿/** 
  * [SIMINOV FRAMEWORK]
- * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-
-
 
 using System;
 using System.Collections.Generic;
@@ -219,8 +217,8 @@ namespace Siminov.Core.Model
         /// <code>
         ///        <database-descriptor>
         ///            <entity-descriptors>
-        ///                <entity-descriptor>Liquor-Mappings/Liquor.xml</entity-descriptor>
-        ///                <entity-descriptor>Liquor-Mappings/LiquorBrand.xml</entity-descriptor>
+        ///                <entity-descriptor>Entity-Descriptors/Book.xml</entity-descriptor>
+        ///                <entity-descriptor>Entity-Descriptors/Lession.xml</entity-descriptor>
         ///            </entity-descriptors>
         ///        </database-descriptor>
         /// </code>

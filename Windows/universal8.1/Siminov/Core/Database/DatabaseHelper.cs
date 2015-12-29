@@ -1,6 +1,6 @@
 ﻿/** 
  * [SIMINOV FRAMEWORK]
- * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -330,14 +330,14 @@ namespace Siminov.Core.Database
         /// <code>
         ///        <entity-descriptor>
         ///        
-        ///            <property name="table_name">LIQUOR</property>
-        ///            <property name="class_name">Siminov.Core.Sample.Model.Liquor</property>
+        ///            <property name="table_name">BOOK</property>
+        ///            <property name="class_name">Siminov.Core.Sample.Model.Book</property>
         ///
         ///            <attributes>
         ///		
         ///                <attribute>
-        ///                    <property name="variable_name">liquorType</property>
-        ///                    <property name="column_name">LIQUOR_TYPE</property>
+        ///                    <property name="variable_name">title</property>
+        ///                    <property name="column_name">TITLE</property>
         ///                    <property name="type">System.String</property>
         ///                    <property name="primary_key">true</property>
         ///                    <property name="not_null">true</property>
@@ -351,8 +351,8 @@ namespace Siminov.Core.Database
         ///                </attribute>
         ///
         ///                <attribute>
-        ///                    <property name="variable_name">history</property>
-        ///                    <property name="column_name">HISTORY</property>
+        ///                    <property name="variable_name">author</property>
+        ///                    <property name="column_name">AUTHOR</property>
         ///                    <property name="type">System.String</property>
         ///                </attribute>
         ///
@@ -363,25 +363,19 @@ namespace Siminov.Core.Database
         ///                    <property name="default">www.wikipedia.org</property>
         ///                </attribute>
         ///
-        ///                <attribute>
-        ///                    <property name="variable_name">alcholContent</property>
-        ///                    <property name="column_name">ALCHOL_CONTENT</property>
-        ///                    <property name="type">System.String</property>
-        ///                </attribute>
-        ///
         ///                <index>
-        ///                    <property name="name">LIQUOR_INDEX_BASED_ON_LINK</property>
+        ///                    <property name="name">BOOK_INDEX_BASED_ON_AUTHOR</property>
         ///                    <property name="unique">true</property>
         ///                    <property name="type">System.String</property>
-        ///                    <property name="column">HISTORY</property>
+        ///                    <property name="column">AUTHOR</property>
         ///                </index>
         ///
         ///                <relationships>
         ///
-        ///                    <relationship ="" ="" ="" ="">
+        ///                    <relationship>
         ///                        <property name="type">one-to-many</property>
-        ///                        <property name="refer">liquorBrands</property>
-        ///                        <property name="refer_to">Siminov.Core.Sample.Model.LiquorBrand</property>
+        ///                        <property name="refer">lessions</property>
+        ///                        <property name="refer_to">Siminov.Core.Sample.Model.Lession</property>
         ///                        <property name="on_update">cascade</property>
         ///                        <property name="on_delete">cascade</property>
         ///                        <property name="load">true</property>
@@ -410,10 +404,10 @@ namespace Siminov.Core.Database
         /// Example:
         /// <para>
         /// <code>
-        ///        Liquor liquor = new Liquor();
+        ///        Book book = new Book();
         ///
         ///        try {
-        ///            Database.CreateTables(liquor.GetEntityDescriptor());
+        ///            Database.CreateTables(book.GetEntityDescriptor());
         ///        } catch(DatabaseException databaseException) {
         ///            //Log It.
         ///        }
@@ -642,9 +636,9 @@ namespace Siminov.Core.Database
         /// <summary>
         /// It drop's the table from database based on entity descriptor
         /// <para>
-        /// Drop the Liquor table
+        /// Drop the Book table
         /// <code>
-        ///        EntityDescriptor entityDescriptor = new Liquor().GetEntityDescriptor();
+        ///        EntityDescriptor entityDescriptor = new Book().GetEntityDescriptor();
         ///	
         ///        try {
         ///            Database.DropTable(entityDescriptor);
@@ -692,19 +686,19 @@ namespace Siminov.Core.Database
         /// <summary>
         /// Is used to create a new index on a table in database
         /// <para>
-        /// Create Index On Liquor table
+        /// Create Index On Book table
         /// <code>
-        ///        EntityDescriptor.Index indexOnLiquor = entityDescriptor.new Index();
-        ///        indexOnLiquor.SetName("LIQUOR_INDEX_BASED_ON_LINK");
-        ///        indexOnLiquor.SetUnique(true);
+        ///        EntityDescriptor.Index indexOnBook = entityDescriptor.new Index();
+        ///        indexOnBook.SetName("BOOK_INDEX_BASED_ON_AUTHOR");
+        ///        indexOnBook.SetUnique(true);
         ///	
         ///        //Add Columns on which we need index.
-        ///        indexOnLiquor.AddColumn("LINK");
+        ///        indexOnBook.AddColumn("LINK");
         ///
-        ///        EntityDescriptor entityDescriptor = new Liquor().GetEntityDescriptor();
+        ///        EntityDescriptor entityDescriptor = new Book().GetEntityDescriptor();
         ///
         ///        try {
-        ///            Database.CreateIndex(entityDescriptor, indexOnLiquor);
+        ///            Database.CreateIndex(entityDescriptor, indexOnBook);
         ///        } catch(DatabaseException databaseException) {
         ///            //Log It.
         ///        }
@@ -728,16 +722,16 @@ namespace Siminov.Core.Database
         /// <summary>
         /// Is used to create a new index on a table in database
         /// <para>
-        /// Create Index On Liquor table
+        /// Create Index On Book table
         /// <code>
-        ///        String indexName = "LIQUOR_INDEX_BASED_ON_LINK";
+        ///        String indexName = "BOOK_INDEX_BASED_ON_AUTHOR";
         ///        boolean isUnique = true;
         ///
         ///        Collection<String> columnNames = new ArrayList<String>();
         ///        columnNames.Add("LINK");
         ///
         ///        try {
-        ///            new Liquor().CreateIndex(indexName, columnNames.GetEnumerator(), isUnique);
+        ///            new Book().CreateIndex(indexName, columnNames.GetEnumerator(), isUnique);
         ///        } catch(DatabaseException databaseException) {
         ///            //Log It.
         ///        }
@@ -802,10 +796,10 @@ namespace Siminov.Core.Database
         /// <summary>
         /// Is used to drop a index on a table in database
         /// <para>
-        /// Create Index On Liquor table
+        /// Create Index On Book table
         /// <code>
-        ///        String indexName = "LIQUOR_INDEX_BASED_ON_LINK";
-        ///        EntityDescriptor entityDescriptor = new Liquor().GetEntityDescriptor();
+        ///        String indexName = "BOOK_INDEX_BASED_ON_AUTHOR";
+        ///        EntityDescriptor entityDescriptor = new Book().GetEntityDescriptor();
         ///	
         ///        try {
         ///            Database.DropIndex(entityDescriptor, indexName);
@@ -855,9 +849,9 @@ namespace Siminov.Core.Database
         /// <summary>
         /// It drop's the whole database based on database-descriptor
         /// <para>
-        /// Drop the Liquor table
+        /// Drop the Book table
         /// <code>
-        ///        DatabaseDescriptor databaseDescriptor = new Liquor().GetDatabaseDescriptor();
+        ///        DatabaseDescriptor databaseDescriptor = new Book().GetDatabaseDescriptor();
         ///    
         ///        try {
         ///            Database.DropDatabase(databaseDescriptor);
@@ -908,21 +902,20 @@ namespace Siminov.Core.Database
         /// <para>
         /// Transactions can be nested. When the outer transaction is ended all of the work done in that transaction and all of the nested transactions will be committed or rolled back.
         /// The changes will be rolled back if any transaction is ended without being marked as clean(by calling commitTransaction). Otherwise they will be committed.
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
-        ///        Liquor beer = new Liquor();
-        ///        beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
-        ///        beer.SetDescription("beer_description");
-        ///        beer.SetHistory("beer_history");
-        ///        beer.SetLink("beer_link");
-        ///        beer.SetAlcholContent("beer_alchol_content");
-        ///
-        ///        DatabaseDescriptor databaseDescriptor = beer.GetDatabaseDescriptor();
+        ///        Book cBook = new Book();
+        ///        cBook.Set(Book.BOOK_TYPE_C);
+        ///        cBook.SetDescription("c_description");
+        ///        cBook.SetHistory("c_author");
+        ///        cBook.SetLink("c_link");
+        ///        
+        ///        DatabaseDescriptor databaseDescriptor = cBook.GetDatabaseDescriptor();
         /// 
         ///        try {
         ///            Database.BeginTransaction(databaseDescriptor);
         ///	
-        ///            beer.Save();
+        ///            cBook.Save();
         /// 
         ///            Database.CommitTransaction(databaseDescriptor);
         ///        } catch(DatabaseException de) {
@@ -964,21 +957,20 @@ namespace Siminov.Core.Database
         /// Marks the current transaction as successful
         /// <para>
         /// Finally it will End a transaction
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
-        ///        Liquor beer = new Liquor();
-        ///        beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
-        ///        beer.SetDescription("beer_description");
-        ///        beer.SetHistory("beer_history");
-        ///        beer.SetLink("beer_link");
-        ///        beer.SetAlcholContent("beer_alchol_content");
-        ///
-        ///        DatabaseDescriptor databaseDescriptor = beer.GetDatabaseDescriptor();
+        ///        Book cBook = new Book();
+        ///        cBook.SetTitle(Book.BOOK_TYPE_C);
+        ///        cBook.SetDescription("c_description");
+        ///        cBook.SetHistory("c_author");
+        ///        cBook.SetLink("c_link");
+        ///        
+        ///        DatabaseDescriptor databaseDescriptor = cBook.GetDatabaseDescriptor();
         /// 
         ///        try {
         ///            Database.BeginTransaction(databaseDescriptor);
         ///
-        ///            beer.Save();
+        ///            cBook.Save();
         /// 
         ///            Database.CommitTransaction(databaseDescriptor);
         ///        } catch(DatabaseException de) {
@@ -1021,19 +1013,18 @@ namespace Siminov.Core.Database
         /// <para>
         /// Example:
         /// <code>
-        ///        Liquor beer = new Liquor();
-        ///        beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
-        ///        beer.SetDescription("beer_description");
-        ///        beer.SetHistory("beer_history");
-        ///        beer.SetLink("beer_link");
-        ///        beer.SetAlcholContent("beer_alchol_content");
-        ///
-        ///        DatabaseDescriptor databaseDescriptor = beer.GetDatabaseDescriptor();
+        ///        Book cBook = new Book();
+        ///        cBook.SetTitle(Book.BOOK_TYPE_C);
+        ///        cBook.SetDescription("c_description");
+        ///        cBook.SetAuthor("c_author");
+        ///        cBook.SetLink("c_link");
+        ///        
+        ///        DatabaseDescriptor databaseDescriptor = cBook.GetDatabaseDescriptor();
         /// 
         ///        try {
         ///            Database.BeginTransaction(databaseDescriptor);
         ///
-        ///            beer.Save();
+        ///            cBook.Save();
         /// 
         ///            Database.CommitTransaction(databaseDescriptor);
         ///        } catch(DatabaseException de) {
@@ -1258,11 +1249,11 @@ namespace Siminov.Core.Database
         /// <para>
         /// Example:
         /// <code>
-        ///        String query = "SELECT * FROM LIQUOR";
+        ///        String query = "SELECT * FROM BOOK";
         ///	
-        ///        Liquor[] liquors = null;
+        ///        Book[] books = null;
         ///        try {
-        ///            liquors = new Liquor().Select(query);
+        ///            books = new Book().Select(query);
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -1336,17 +1327,16 @@ namespace Siminov.Core.Database
         /// <summary>
         /// It adds a record to any single table in a relational database.
         /// <para>
-        /// Example: Make Liquor Object
+        /// Example: Make Book Object
         /// <code>
-        ///        Liquor beer = new Liquor();
-        ///        beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
-        ///        beer.SetDescription("beer_description");
-        ///        beer.SetHistory("beer_history");
-        ///        beer.SetLink("beer_link");
-        ///        beer.SetAlcholContent("beer_alchol_content");
-        ///
+        ///        Book cBook = new Book();
+        ///        cBook.SetTitle(Book.BOOK_TYPE_AUTHOR);
+        ///        cBook.SetDescription("c_description");
+        ///        cBook.Setauthor("c_author");
+        ///        cBook.SetLink("c_link");
+        ///        
         ///        try {
-        ///            beer.Save();
+        ///            cBook.Save();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -1531,17 +1521,16 @@ namespace Siminov.Core.Database
         /// <summary>
         /// It updates a record to any single table in a relational database
         /// <para>
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
-        ///        Liquor beer = new Liquor();
-        ///        beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
-        ///        beer.SetDescription("beer_description");
-        ///        beer.SetHistory("beer_history");
-        ///        beer.SetLink("beer_link");
-        ///        beer.SetAlcholContent("beer_alchol_content");
+        ///        Book cBook = new Book();
+        ///        cBook.SetTitle(Book.BOOK_TYPE_C);
+        ///        cBook.SetDescription("c_description");
+        ///        cBook.SetAuthor("c_author");
+        ///        cBook.SetLink("c_link");
         /// 
         ///        try {
-        ///            beer.Update();
+        ///            cBook.Update();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -1752,17 +1741,16 @@ namespace Siminov.Core.Database
         ///        updates a record to any single table in a relational database.
         ///	
         /// <para>
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
-        ///        Liquor beer = new Liquor();
-        ///        beer.SetLiquorType(Liquor.LIQUOR_TYPE_BEER);
-        ///        beer.SetDescription("beer_description");
-        ///        beer.SetHistory("beer_history");
-        ///        beer.SetLink("beer_link");
-        ///        beer.SetAlcholContent("beer_alchol_content");
-        /// 
+        ///        Book cBook = new Book();
+        ///        cBook.SetTitle(Book.BOOK_TYPE_C);
+        ///        cBook.SetDescription("c_description");
+        ///        cBook.SetAuthor("c_author");
+        ///        cBook.SetLink("c_link");
+        ///        
         ///        try {
-        ///            beer.SaveOrUpdate();
+        ///            cBook.SaveOrUpdate();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -2315,7 +2303,7 @@ namespace Siminov.Core.Database
         /// Example:
         /// <code>
         ///        try {
-        ///            DatabaseDescriptor databaseDescriptor = new Liquor().GetDatabaseDescriptor();
+        ///            DatabaseDescriptor databaseDescriptor = new Book().GetDatabaseDescriptor();
         ///        } catch(DatabaseException databaseException) {
         ///            //Log It.
         ///        }
@@ -2337,7 +2325,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        EntityDescriptor entityDescriptor = null;
         ///        try {
-        ///            entityDescriptor = new Liquor().GetEntityDescriptor();
+        ///            entityDescriptor = new Book().GetEntityDescriptor();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -2359,7 +2347,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        String tableName = null;
         ///        try {
-        ///            tableName = new Liquor().getTableName();
+        ///            tableName = new Book().getTableName();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -2385,7 +2373,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        IEnumerator<String> columnNames = null;
         ///        try {
-        ///            columnNames = new Liquor().GetColumnNames();
+        ///            columnNames = new Book().GetColumnNames();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -2470,7 +2458,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        IDictionary<String, Object> values = null;
         ///        try {
-        ///            values = new Liquor().GetColumnValues();
+        ///            values = new Book().GetColumnValues();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -2579,7 +2567,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        IDictionary<String, String> columnTypes = null;
         ///        try {
-        ///            columnTypes = new Liquor().GetColumnTypes();
+        ///            columnTypes = new Book().GetColumnTypes();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }	
@@ -2663,7 +2651,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        IEnumerator<String> primaryKeys = null;
         ///        try {
-        ///            primaryKeys = new Liquor().GetPrimeryKeys();
+        ///            primaryKeys = new Book().GetPrimeryKeys();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -2703,7 +2691,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        IEnumerator<String> mandatoryFields = null;
         ///        try {
-        ///            mandatoryFields = new Liquor().GetMandatoryFields();
+        ///            mandatoryFields = new Book().GetMandatoryFields();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///       }
@@ -2797,7 +2785,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        IEnumerator<String> uniqueFields = null;
         ///        try {
-        ///            uniqueFields = new Liquor().GetUniqueFields();
+        ///            uniqueFields = new Book().GetUniqueFields();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -2896,7 +2884,7 @@ namespace Siminov.Core.Database
         /// <code>
         ///        IEnumerator<String> foreignKeys = null;
         ///        try {
-        ///             foreignKeys = new Liquor().GetForeignKeys();
+        ///             foreignKeys = new Book().GetForeignKeys();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }

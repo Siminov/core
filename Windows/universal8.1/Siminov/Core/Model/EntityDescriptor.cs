@@ -1,6 +1,6 @@
 ﻿/** 
  * [SIMINOV FRAMEWORK]
- * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-
 
 
 using System;
@@ -577,14 +576,14 @@ namespace Siminov.Core.Model
         /// <code>
         ///    <entity-descriptor>
         ///    	
-        ///         <property name="table_name">LIQUOR</property>
-        ///         <property name="class_name">Siminov.Core.Sample.Model.Liquor</property>        
+        ///         <property name="table_name">BOOK</property>
+        ///         <property name="class_name">Siminov.Core.Sample.Model.Book</property>        
         /// 
         ///        <attributes>
         ///	
         ///            <attribute>
-        ///                <property name="variable_name">liquorType</property>
-        ///                <property name="column_name">LIQUOR_TYPE</property>
+        ///                <property name="variable_name">title</property>
+        ///                <property name="column_name">TITLE</property>
         ///                <property name="type">TEXT</property>
         ///                <property name="primary_key">true</property>
         ///                <property name="not_null">true</property>
@@ -903,9 +902,9 @@ namespace Siminov.Core.Model
         /// Example:
         /// <code>
         ///        <index>
-        ///            <property name="name">LIQUOR_INDEX_BASED_ON_LINK</property>
+        ///            <property name="name">BOOK_INDEX_BASED_ON_AUTHOR</property>
         ///            <property name="unique">true</property>
-        ///            <property name="column">HISTORY</property>
+        ///            <property name="column">AUTHOR</property>
         ///        </index>
         /// </code>
         /// </para>
