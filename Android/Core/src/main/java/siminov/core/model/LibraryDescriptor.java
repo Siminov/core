@@ -1,6 +1,6 @@
-/** 
+/**
  * [SIMINOV FRAMEWORK]
- * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,28 +35,32 @@ import siminov.core.Constants;
 		
 Example:
 	{@code
-	
+
+
+	<!-- DESIGN OF LibraryDescriptor.xml -->
+
 	<library-descriptor>
-	
-	    <!-- General Properties Of Library -->
-	    
-	    <!-- Mandatory Field -->
+
+		<!-- General Properties Of Library -->
+
+		<!-- Mandatory Field -->
 		<property name="name">name_of_library</property>
-		
+
 		<!-- Optional Field -->
 		<property name="description">description_of_library</property>
-	
-		
-		<!-- Entity Descriptor Needed Under This Library Descriptor -->
-		
-		<!-- Optional Field -->
+
+
+
+		<!-- Entity Descriptors Needed Under This Library Descriptor -->
+
+			<!-- Optional Field -->
 			<!-- Entity Descriptors -->
 		<entity-descriptors>
 			<entity-descriptor>name_of_database_descriptor.full_path_of_entity_descriptor_file</entity-descriptor>
 		</entity-descriptors>
-		 
+
 	</library-descriptor>
-	
+
 	}
 	
 		</pre>

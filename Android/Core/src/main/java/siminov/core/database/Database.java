@@ -1,6 +1,6 @@
-/** 
+/**
  * [SIMINOV FRAMEWORK]
- * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,11 +57,11 @@ public class Database implements IDatabase {
 	/**
 	 * It drop's the whole database based on database name.
 	  	<p>
-			<pre> Drop the Liquor table.
+			<pre> Drop the Book table.
 	
 	{@code
 	
-		DatabaseDescriptor databaseDescriptor = new Liquor().getDatabaseDescriptor();
+		DatabaseDescriptor databaseDescriptor = new Book().getDatabaseDescriptor();
 		
 		try {
 			Database.dropDatabase(databaseDescriptor.getDatabaseName());
@@ -222,14 +222,14 @@ Example:
 	/**
 	 * It drop's the table from database based on entity descriptor.
 	  	<p>
-			<pre> Drop the Liquor table.
+			<pre> Drop the Book table.
 	
 	{@code
 	
-	Liquor liquor = new Liquor();
+	Book book = new Book();
 	
 	try {
-		liquor.dropTable();
+		book.dropTable();
 	} catch(DatabaseException databaseException) {
 		//Log It.
 	}
@@ -248,15 +248,15 @@ Example:
 	/**
 	   Is used to drop a index on a table in database.
 	  	<p>
-			<pre> Create Index On Liquor table.
+			<pre> Create Index On Book table.
 	
 	{@code
 	
-	String indexName = "LIQUOR_INDEX_BASED_ON_LINK";
-	Liquor liquor = new Liquor();
+	String indexName = "BOOK_INDEX_BASED_ON_AUTHOR";
+	Book cBook = new Book();
 	
 	try {
-		liquor.dropIndex(indexName);
+		cBook.dropIndex(indexName);
 	} catch(DatabaseException databaseException) {
 		//Log It.
 	}
@@ -282,9 +282,9 @@ Example:
 
 {@code
 
-Liquor[] liquors = null;
+Book[] books = null;
 try {
-	liquors = new Liquor().select().execute();
+	books = new Book().select().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -308,11 +308,11 @@ Example:
 
 {@code
 
-String query = "SELECT * FROM LIQUOR";
+String query = "SELECT * FROM BOOK";
 
-Liquor[] liquors = null;
+Book[] books = null;
 try {
-	liquors = new Liquor().select(query);
+	books = new Book().select(query);
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -338,19 +338,18 @@ try {
 
    	<pre>
    	
-Example: Make Liquor Object
+Example: Make Book Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
 try {
-	beer.save();
+	cBook.save();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -379,15 +378,14 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
 try {
-	beer.update();
+	cBook.update();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -420,15 +418,14 @@ Example: Make Beer Object
 
 	{@code
 
-	Liquor beer = new Liquor();
-	beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-	beer.setDescription(applicationContext.getString(R.string.beer_description));
-	beer.setHistory(applicationContext.getString(R.string.beer_history));
-	beer.setLink(applicationContext.getString(R.string.beer_link));
-	beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
-  
+	Book cBook = new Book();
+	cBook.setTitle(Book.BOOK_TYPE_C);
+	cBook.setDescription(applicationContext.getString(R.string.c_description));
+	cBook.setAuthor(applicationContext.getString(R.string.c_author));
+	cBook.setLink(applicationContext.getString(R.string.c_link));
+
 	try {
-		beer.saveOrUpdate();
+		cBook.saveOrUpdate();
 	} catch(DatabaseException de) {
 		//Log it.
 	}
@@ -457,15 +454,14 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
 try {
-	beer.delete();
+	cBook.delete();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -493,17 +489,16 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
-int noOfBeers = 0;
+int noOfBooks = 0;
 
 try {
-	noOfBeers = beer.count().execute();
+	noOfBooks = cBook.count().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -526,17 +521,16 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
-int noOfBeers = 0;
+int noOfBooks = 0;
 
 try {
-	noOfBeers = beer.avg().execute();
+	noOfBooks = cBook.avg().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -559,17 +553,16 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
-int noOfBeers = 0;
+int noOfBooks = 0;
 
 try {
-	noOfBeers = beer.sum().execute();
+	noOfBooks = cBook.sum().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -592,17 +585,16 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
-int totalBeers = 0;
+int totalBooks = 0;
 
 try {
-	totalBeers = beer.avg().execute();
+	totalBooks = cBook.avg().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -625,17 +617,16 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
-int minBeers = 0;
+int minBooks = 0;
 
 try {
-	minBeers = beer.min().execute();
+	minBooks = cBook.min().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -658,17 +649,16 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
-int maxBeers = 0;
+int maxBooks = 0;
 
 try {
-	maxBeers = beer.max().execute();
+	maxBooks = cBook.max().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -691,17 +681,16 @@ Example: Make Beer Object
 
 {@code
 
-Liquor beer = new Liquor();
-beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-beer.setDescription(applicationContext.getString(R.string.beer_description));
-beer.setHistory(applicationContext.getString(R.string.beer_history));
-beer.setLink(applicationContext.getString(R.string.beer_link));
-beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+Book cBook = new Book();
+cBook.setTitle(Book.BOOK_TYPE_C);
+cBook.setDescription(applicationContext.getString(R.string.c_description));
+cBook.setAuthor(applicationContext.getString(R.string.c_author));
+cBook.setLink(applicationContext.getString(R.string.c_link));
 
-int groupConcatBeers = 0;
+int groupConcatBooks = 0;
 
 try {
-	groupConcatBeers = beer.groupConcat().execute();
+	groupConcatBooks = cBook.groupConcat().execute();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -723,7 +712,7 @@ Example:
 
 	{@code
 	try {
-		DatabaseDescriptor databaseDescriptor = new Liquor().getDatabaseDescriptor();
+		DatabaseDescriptor databaseDescriptor = new Book().getDatabaseDescriptor();
 	} catch(DatabaseException databaseException) {
 		//Log It.
 	}
@@ -753,7 +742,7 @@ Example:
  			
 EntityDescriptor entityDescriptor = null;
 try {
-	entityDescriptor = new Liquor().getEntityDescriptor();
+	entityDescriptor = new Book().getEntityDescriptor();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -786,7 +775,7 @@ Example:
 
 String tableName = null;
 try {
-	tableName = new Liquor().getTableName();
+	tableName = new Book().getTableName();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -818,7 +807,7 @@ Example:
 
 Iterator<String> columnNames = null;
 try {
-	columnNames = new Liquor().getColumnNames();
+	columnNames = new Book().getColumnNames();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -848,7 +837,7 @@ Example:
 
 Map<String, Object> values = null;
 try {
-	values = new Liquor().getColumnValues();
+	values = new Book().getColumnValues();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -879,7 +868,7 @@ Example:
 
 Map<String, String> columnTypes = null;
 try {
-	columnTypes = new Liquor().getColumnTypes();
+	columnTypes = new Book().getColumnTypes();
 } catch(DatabaseException de) {
 	//Log it.
 }	
@@ -910,7 +899,7 @@ Example:
 
 Iterator<String> primaryKeys = null;
 try {
-	primaryKeys = new Liquor().getPrimeryKeys();
+	primaryKeys = new Book().getPrimeryKeys();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -941,7 +930,7 @@ Example:
 
 Iterator<String> mandatoryFields = null;
 try {
-	mandatoryFields = new Liquor().getMandatoryFields();
+	mandatoryFields = new Book().getMandatoryFields();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -972,7 +961,7 @@ Example:
  			
 Iterator<String> uniqueFields = null;
 try {
-	uniqueFields = new Liquor().getUniqueFields();
+	uniqueFields = new Book().getUniqueFields();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -1003,7 +992,7 @@ Example:
  			
 Iterator<String> foreignKeys = null;
 try {
-	foreignKeys = new Liquor().getForeignKeys();
+	foreignKeys = new Book().getForeignKeys();
 } catch(DatabaseException de) {
 	//Log it.
 }
@@ -1036,19 +1025,18 @@ Example: Make Beer Object
 
 	{@code
 
-	Liquor beer = new Liquor();
-	beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-	beer.setDescription(applicationContext.getString(R.string.beer_description));
-	beer.setHistory(applicationContext.getString(R.string.beer_history));
-	beer.setLink(applicationContext.getString(R.string.beer_link));
-	beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+	Book cBook = new Book();
+	cBook.setTitle(Book.BOOK_TYPE_C);
+	cBook.setDescription(applicationContext.getString(R.string.c_description));
+	cBook.setAuthor(applicationContext.getString(R.string.c_author));
+	cBook.setLink(applicationContext.getString(R.string.c_link));
 
-	DatabaseDescriptor databaseDescriptor = beer.getDatabaseDescriptor();
+	DatabaseDescriptor databaseDescriptor = cBook.getDatabaseDescriptor();
 
 	try {
 		Database.beginTransaction(databaseDescriptor);
-	
-		beer.save();
+
+	cBook.save();
 
 		Database.commitTransaction(databaseDescriptor);
 	} catch(DatabaseException de) {
@@ -1075,19 +1063,18 @@ Example: Make Beer Object
 Example: Make Beer Object
 	{@code
 
-	Liquor beer = new Liquor();
-	beer.setLiquorType(Liquor.LIQUOR_TYPE_BEER);
-	beer.setDescription(applicationContext.getString(R.string.beer_description));
-	beer.setHistory(applicationContext.getString(R.string.beer_history));
-	beer.setLink(applicationContext.getString(R.string.beer_link));
-	beer.setAlcholContent(applicationContext.getString(R.string.beer_alchol_content));
+	Book cBook = new Book();
+	cBook.setTitle(Book.BOOK_TYPE_C);
+	cBook.setDescription(applicationContext.getString(R.string.c_description));
+	cBook.setAuthor(applicationContext.getString(R.string.c_author));
+	cBook.setLink(applicationContext.getString(R.string.c_link));
 
-	DatabaseDescriptor databaseDescriptor = beer.getDatabaseDescriptor();
+	DatabaseDescriptor databaseDescriptor = cBook.getDatabaseDescriptor();
   
 	try {
 		Database.beginTransaction(databaseDescriptor);
-  		
-		beer.save();
+
+		cBook.save();
   
 		Database.commitTransaction(databaseDescriptor);
 	} catch(DatabaseException de) {

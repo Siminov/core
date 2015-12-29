@@ -1,6 +1,6 @@
-/** 
+/**
  * [SIMINOV FRAMEWORK]
- * Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+ * Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,39 +34,43 @@ import siminov.core.Constants;
 		
 Example:
 	{@code
-	
+
+
+	<!-- Design Of DatabaseDescriptor.xml -->
+
 	<database-descriptor>
-	
-	    <!-- General Database Descriptor Properties -->
-	    
-		    <!-- Mandatory Field -->
+
+		<!-- General Database Descriptor Properties -->
+
+		<!-- Mandatory Field -->
 		<property name="database_name">name_of_database_file</property>
-	
-			<!-- Optional Field (Default is sqlite)-->
+
+		<!-- Optional Field (Default is sqlite)-->
 		<property name="type">type_of_database</property>
-	
-			<!-- Mandatory Field -->
+
+		<!-- Mandatory Field -->
 		<property name="version">database_version</property>
-				
-			<!-- Optional Field -->
+
+		<!-- Optional Field -->
 		<property name="description">database_description</property>
-	
-			<!-- Optional Field (Default is false) -->
+
+		<!-- Optional Field (Default is false) -->
 		<property name="transaction_safe">true/false</property>
-		
-			<!-- Optional Field (Default is false) -->
+
+		<!-- Optional Field (Default is false) -->
 		<property name="external_storage">true/false</property>
-			
-	
-	
+
+
+
 		<!-- Entity Descriptor Paths Needed Under This Database Descriptor -->
-		
+
 			<!-- Optional Field -->
 		<entity-descriptors>
 			<entity-descriptor>full_path_of_entity_descriptor_file</entity-descriptor>
 		</entity-descriptors>
-		
+
 	</database-descriptor>
+
 
 	}
 	
