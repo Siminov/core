@@ -256,6 +256,10 @@ namespace Siminov.Core.Database
             return this;
         }
 
+        /// <summary>
+        /// Used to get sum, this method should be called in last to calculate sum.
+        /// </summary>
+        /// <returns>Sum</returns>
         public double Execute()
         {
 

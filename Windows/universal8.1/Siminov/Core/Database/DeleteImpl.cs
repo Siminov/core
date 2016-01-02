@@ -255,6 +255,9 @@ namespace Siminov.Core.Database
             return this;
         }
 
+        /// <summary>
+        /// Used to delete, this method should be called in last to delete tuples from table.
+        /// </summary>
         public void Execute()
         {
 

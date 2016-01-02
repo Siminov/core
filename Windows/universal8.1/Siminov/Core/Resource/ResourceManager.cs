@@ -59,11 +59,20 @@ namespace Siminov.Core.Resource
         }
 
 
+        /// <summary>
+        /// Get Application Contexts
+        /// </summary>
+        /// <returns>Application Contexts</returns>
         public IEnumerator<Object> GetApplicationContexts()
         {
             return this.applicationContexts.GetEnumerator();
         }
 
+
+        /// <summary>
+        /// Add Application Context
+        /// </summary>
+        /// <param name="applicationContext">Application Context</param>
         public void AddApplicationContext(Object applicationContext)
         {
             this.applicationContexts.Add(applicationContext);

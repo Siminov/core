@@ -138,7 +138,7 @@ namespace Siminov.Core.Database.Design
         /// <para>
         /// Create Index On Book table.
         /// <code>
-        ///        String indexName = "BOOK_INDEX_BASED_ON_LESSION";
+        ///        String indexName = "BOOK_INDEX_BASED_ON_AUTHOR";
         ///        Book book = new Book();
         ///	
         ///        try {
@@ -257,7 +257,7 @@ namespace Siminov.Core.Database.Design
         ///        cBook.SetTitle(Book.BOOK_TYPE_C);
         ///        cBook.SetDescription("c_description");
         ///        cBook.SetAuthor("c_author");
-        ///        cBook.SetLink("beer_link");
+        ///        cBook.SetLink("c_link");
         ///        
         ///        try {
         ///            cBook.SaveOrUpdate();
@@ -273,7 +273,7 @@ namespace Siminov.Core.Database.Design
 
         /// <summary>
         /// It deletes a record from single table in a relational database.
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
         ///        Book cBook = new Book();
         ///        cBook.SetTitle(Book.BOOK_TYPE_C);
@@ -322,7 +322,7 @@ namespace Siminov.Core.Database.Design
         /// <summary>
         /// Returns the average based on where clause provided.
         /// <para>
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
         ///        Book cBook = new Book();
         ///        cBook.SetTitle(Book.BOOK_TYPE_C);
@@ -333,7 +333,7 @@ namespace Siminov.Core.Database.Design
         ///        int noOfBooks = 0;
         ///
         ///        try {
-        ///            noOfBooks = beer.Avg().Execute();
+        ///            noOfBooks = cBook.Avg().Execute();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -362,7 +362,7 @@ namespace Siminov.Core.Database.Design
         /// <summary>
         /// Returns the sum based on where clause provided.
         /// <para>
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
         ///        Book cBook = new Book();
         ///        cBook.SetTitle(Book.BOOK_TYPE_C);
@@ -387,7 +387,7 @@ namespace Siminov.Core.Database.Design
         /// <summary>
         /// Returns the total based on where clause provided.
         /// <para>
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
         ///        Book cBook = new Book();
         ///        cBook.SetTitle(Book.BOOK_TYPE_c);
@@ -395,10 +395,10 @@ namespace Siminov.Core.Database.Design
         ///        cBook.SetAuthor("c_author");
         ///        cBook.SetLink("c_link");
         ///        
-        ///        int totalBeers = 0;
+        ///        int totalBooks = 0;
         ///
         ///        try {
-        ///            totalBeers = beer.Avg().Execute();
+        ///            totalBooks = cBook.Avg().Execute();
         ///        } catch(DatabaseException de) {
         ///            //Log it.
         ///        }
@@ -412,7 +412,7 @@ namespace Siminov.Core.Database.Design
         /// <summary>
         /// Returns the min based on where clause provided.
         /// <para>
-        /// Example: Make Beer Object
+        /// Example: Make Book Object
         /// <code>
         ///        Book cBook = new Book();
         ///        cBook.SetTitle(Book.BOOK_TYPE_C);
@@ -488,7 +488,7 @@ namespace Siminov.Core.Database.Design
 
 
         /// <summary>
-        /// Returns database descriptor object based on the POJO class called.
+        /// Returns database descriptor object based on the mapped class called.
         /// <para>
         /// Example:
         /// <code>

@@ -133,11 +133,6 @@ namespace Siminov.Core.Database.Design
         /// <returns>ISelect Interface</returns>
         ISelect Columns(String[] columns);
 
-        /*
-         * 
-         * @return .
-         * @throws . 
-         */
         /// <summary>
         /// Used to get tuples, this method should be called in last to get tuples from table.
         /// </summary>

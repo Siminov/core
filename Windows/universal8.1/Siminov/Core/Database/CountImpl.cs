@@ -256,6 +256,10 @@ namespace Siminov.Core.Database
             return this;
         }
 
+        /// <summary>
+        /// Used to get count, this method should be called in last to calculate count.
+        /// </summary>
+        /// <returns>Count</returns>
         public int Execute()
         {
 

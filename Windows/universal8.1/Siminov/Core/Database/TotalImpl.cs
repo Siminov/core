@@ -254,6 +254,10 @@ namespace Siminov.Core.Database
             return this;
         }
 
+        /// <summary>
+        /// Used to get total, this method should be called in last to calculate total.
+        /// </summary>
+        /// <returns>Total</returns>
         public double Execute()
         {
 

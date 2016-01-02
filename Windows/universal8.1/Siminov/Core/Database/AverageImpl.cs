@@ -257,6 +257,11 @@ namespace Siminov.Core.Database
             return this;
         }
 
+
+        /// <summary>
+        /// Used to get average, this method should be called in last to calculate average.
+        /// </summary>
+        /// <returns>Average</returns>
         public double Execute()
         {
 

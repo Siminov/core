@@ -255,6 +255,10 @@ namespace Siminov.Core.Database
             return this;
         }
 
+        /// <summary>
+        /// Used to get maximum, this method should be called in last to calculate maximum.
+        /// </summary>
+        /// <returns>Maximum</returns>
         public double Execute()
         {
 

@@ -310,6 +310,13 @@ namespace Siminov.Core.Utils
             return InvokeMethod(classObject, method, parameters);
         }
 
+        /// <summary>
+        /// Invoke method based on class object, method object and parameters provided
+        /// </summary>
+        /// <param name="classObject">Class Object</param>
+        /// <param name="method">Method Object</param>
+        /// <param name="parameters">Parameters to method</param>
+        /// <returns></returns>
         public static Object InvokeMethod(Object classObject, MethodInfo method, Object[] parameters)
         {
 

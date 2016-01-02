@@ -255,6 +255,10 @@ namespace Siminov.Core.Database
             return this;
         }
 
+        /// <summary>
+        /// Used to get tuples, this method should be called in last to get tuples from table.
+        /// </summary>
+        /// <returns>Tuples</returns>
         public Object[] Execute()
         {
 

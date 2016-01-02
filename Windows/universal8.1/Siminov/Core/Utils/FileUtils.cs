@@ -54,6 +54,10 @@ using Windows.Storage.Streams;
 namespace Siminov.Core.Utils
 {
 
+    /// <summary>
+    /// Exposes file system api's.
+    /// Using this framework/application can easily handle the file storage
+    /// </summary>
     public class FileUtils
     {
 
@@ -64,6 +68,12 @@ namespace Siminov.Core.Utils
 
         private static ResourceManager resourceManager = ResourceManager.GetInstance();
 
+        /// <summary>
+        /// Check whether folder exists in file storage or not
+        /// </summary>
+        /// <param name="path">Path to the folder</param>
+        /// <param name="option">Options for folder</param>
+        /// <returns>TRUE/FALSE; TRUE: If folder exists, FALSE: If folder does not exists</returns>
         public static bool DoesFolderExists(String path, int option)
         {
 
@@ -80,6 +90,13 @@ namespace Siminov.Core.Utils
         }
 
 
+        /// <summary>
+        /// Check whether file exists or not in file storage
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <param name="name">Name of the file</param>
+        /// <param name="option">Options for the file</param>
+        /// <returns>TRUE/FALSE; TRUE: If file exists, FALSE: If file does not exists</returns>
         public static bool DoesFileExists(String path, String name, int option)
         {
             
@@ -114,11 +131,23 @@ namespace Siminov.Core.Utils
             }
         }
 
+        /// <summary>
+        /// Delete the folder based on path and name from file storage
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <param name="name">Name of the file</param>
+        /// <param name="option">Options of the file</param>
         public static void DeleteFolder(String path, String name, int option)
         {
 
         }
 
+        /// <summary>
+        /// Delete the file based on path and name from file storage
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <param name="name">Name of the file</param>
+        /// <param name="option">Options for the file</param>
         public static void DeleteFile(String path, String name, int option)
         {
 
@@ -173,6 +202,13 @@ namespace Siminov.Core.Utils
             }
         }
 
+        /// <summary>
+        /// Search the file based on path and name in file storage
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <param name="name">Name of the file</param>
+        /// <param name="option">Options for the file</param>
+        /// <returns>File Stream</returns>
         public static Stream SearchFile(String path, String name, int option)
         {
 
@@ -193,6 +229,12 @@ namespace Siminov.Core.Utils
             return file;
         }
 
+        /// <summary>
+        /// Search file based on path and name in file storage 
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <param name="name">Name of the file</param>
+        /// <returns>File Stream</returns>
         public static Stream SearchFile(String path, String name)
         {
             path = path.Replace("/", ".");
@@ -403,6 +445,13 @@ namespace Siminov.Core.Utils
 			    return null;
             }
         #elif WINDOWS
+
+            /// <summary>
+            /// Search folder based on path and option in file storage
+            /// </summary>
+            /// <param name="path">Path to the folder</param>
+            /// <param name="option">Option for the folder</param>
+            /// <returns>Storage Folder</returns>
             public static StorageFolder SearchFolder(String path, int option)
             {
 
@@ -484,6 +533,14 @@ namespace Siminov.Core.Utils
 			    return null;
             }
         #elif WINDOWS
+
+            /// <summary>
+            /// Search folder based on paths, storage folder and option in file storage
+            /// </summary>
+            /// <param name="paths">Paths to the folder</param>
+            /// <param name="storageFolder">Storage Folder</param>
+            /// <param name="option">Option for the folder</param>
+            /// <returns>Storage Folder</returns>
             private static StorageFolder SearchFolder(String[] paths, StorageFolder storageFolder, int option)
             {
                 if (paths == null || paths.Length <= 0)
@@ -558,6 +615,14 @@ namespace Siminov.Core.Utils
 			    return fileStream.BaseStream;
             }
         #elif WINDOWS
+
+            /// <summary>
+            /// Read file based on file name in the file storage
+            /// </summary>
+            /// <param name="folder">Storage Folder</param>
+            /// <param name="name">Name of the file</param>
+            /// <param name="option">Option for the file</param>
+            /// <returns></returns>
             public static Stream ReadFile(StorageFolder folder, String name, int option)
             {
                 Stream fileStream = null;
@@ -638,6 +703,13 @@ namespace Siminov.Core.Utils
 
         #endif
 
+        /// <summary>
+        /// Read file based on path and name in file storage
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <param name="name">Name of the file</param>
+        /// <param name="option">Option for the file</param>
+        /// <returns>File Stream</returns>
         public static Stream ReadFile(String path, String name, int option)
         {
             #if XAMARIN
@@ -760,6 +832,13 @@ namespace Siminov.Core.Utils
 			    return folder;
             }
         #elif WINDOWS
+
+            /// <summary>
+            /// Get folder based on path
+            /// </summary>
+            /// <param name="path">Path to the folder</param>
+            /// <param name="option">Option for the folder</param>
+            /// <returns>Storage Folder</returns>
             public static StorageFolder GetFolder(String path, int option)
             {
                 path = path.Replace('/', '\\').TrimEnd('\\');
@@ -797,11 +876,22 @@ namespace Siminov.Core.Utils
         #endif
 
 
+        /// <summary>
+        /// Create folder based on path
+        /// </summary>
+        /// <param name="path">Path of the folder</param>
+        /// <param name="option">Option for the folder</param>
         public static void CreateFolder(String path, int option)
         {
 
         }
 
+        /// <summary>
+        /// Create file based on path and file name
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <param name="name">Name of the file</param>
+        /// <param name="option">Option for the file</param>
         public static void CreateFile(String path, String name, int option)
         {
 

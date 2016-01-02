@@ -303,6 +303,10 @@ namespace Siminov.Core.Reader
             }
         }
 
+        /// <summary>
+        /// Return parsed entity descriptor
+        /// </summary>
+        /// <returns>Entity Descriptor</returns>
         public EntityDescriptor GetEntityDescriptor()
         {
             return this.entityDescriptor;
