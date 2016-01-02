@@ -21,7 +21,7 @@ package siminov.core.events;
 
 /**
  * Exposes events to deal with life cycle of SIMINOV FRAMEWORK. 
- * It has methods such as (coreInitialized, firstTimeSiminovInitialized, coreStoped).
+ * It has methods such as (onFirstTimeSiminovInitialized, onSiminovInitialized, onSiminovStopped).
  */
 public interface ISiminovEvents {
 

@@ -213,10 +213,10 @@ Example: DatabaseDescriptor.xml
 	}
 	
 	/**
-	 * Get Database Descriptor based on POJO class name provided.
+	 * Get Database Descriptor based on mapped class name provided.
 	 * 
-	 * @param className POJO class name.
-	 * @return Database Descriptor object in respect to POJO class name.
+	 * @param className Mapped class name.
+	 * @return Database Descriptor object in respect to mapped class name.
 	 */
 	public DatabaseDescriptor getDatabaseDescriptorBasedOnClassName(final String className) {
 		if(this.applicationDescriptor == null) {

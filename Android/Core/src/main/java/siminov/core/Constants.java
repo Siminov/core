@@ -58,12 +58,24 @@ public interface Constants {
 	 */
 	public String APPLICATION_DESCRIPTOR_VERSION = "version";
 
+	/**
+	 * Application Descriptor Deploy
+	 */
 	public String APPLICATION_DESCRIPTOR_DEPLOY = "deploy";
-	
+
+	/**
+	 * Application Descriptor Deploy Development
+	 */
 	public String APPLICATION_DESCRIPTOR_DEPLOY_DEVELOPMENT = "development";
 
+	/**
+	 * Application Descriptor Deploy Beta
+	 */
 	public String APPLICATION_DESCRIPTOR_DEPLOY_BETA = "beta";
 
+	/**
+	 * Application Descriptor Deploy Production
+	 */
 	public String APPLICATION_DESCRIPTOR_DEPLOY_PRODUCTION = "production";
 
 	

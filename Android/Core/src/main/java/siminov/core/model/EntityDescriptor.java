@@ -188,16 +188,16 @@ public class EntityDescriptor implements IDescriptor {
 	}
 	
 	/**
-	 * Get POJO class name.
-	 * @return POJO class name.
+	 * Get mapped class name.
+	 * @return Mapped class name.
 	 */
 	public String getClassName() {
 		return this.properties.get(Constants.ENTITY_DESCRIPTOR_CLASS_NAME);
 	}
 	
 	/**
-	 * Set POJO class name as per defined in EntityDescriptor.xml file.
-	 * @param className POJO class name.
+	 * Set mapped class name as per defined in EntityDescriptor.xml file.
+	 * @param className Mapped class name.
 	 */
 	public void setClassName(final String className) {
 		this.properties.put(Constants.ENTITY_DESCRIPTOR_CLASS_NAME, className);
@@ -619,32 +619,32 @@ Example:
 		}
 		
 		/**
-		 * Get POJO class column getter method name.
-		 * @return POJO class column getter method name.
+		 * Get mapped class column getter method name.
+		 * @return Mapped class column getter method name.
 		 */
 		public String getGetterMethodName() {
 			return this.getterMethodName;
 		}
 		
 		/**
-		 * Set POJO class column getter method name.
-		 * @param getMethodName POJO class coumn getter method name. 
+		 * Set mapped class column getter method name.
+		 * @param getMethodName Mapped class coumn getter method name.
 		 */
 		public void setGetterMethodName(final String getMethodName) {
 			this.getterMethodName = getMethodName;
 		}
 		
 		/**
-		 * Get POJO class column setter method name.
-		 * @return POJO class column setter method name.
+		 * Get mapped class column setter method name.
+		 * @return Mapped class column setter method name.
 		 */
 		public String getSetterMethodName() {
 			return this.setterMethodName;
 		}
 		
 		/**
-		 * Set POJO class column setter method name.
-		 * @param setMethodName POJO class column setter method name.
+		 * Set mapped class column setter method name.
+		 * @param setMethodName Mapped class column setter method name.
 		 */
 		public void setSetterMethodName(final String setMethodName) {
 			this.setterMethodName = setMethodName;

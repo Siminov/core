@@ -40,16 +40,16 @@ public class SiminovCriticalException extends RuntimeException implements IExcep
 	}
 	
 	/**
-	 * Get POJO class name.
-	 * @return POJO Class Name.
+	 * Get mapped class name.
+	 * @return Mapped Class Name.
 	 */
 	public String getClassName() {
 		return this.className;
 	}
 	
 	/**
-	 * Set POJO class name.
-	 * @param className POJO Class Name.
+	 * Set mapped class name.
+	 * @param className Mapped Class Name.
 	 */
 	public void setClassName(final String className) {
 		this.className = className;
