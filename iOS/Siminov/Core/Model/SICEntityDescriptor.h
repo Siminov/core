@@ -1,10 +1,19 @@
-//
-//  SICEntityDescriptor.h
-//  Core
-//
-//  Created by user on 29/07/15.
-//  Copyright (c) 2015 Siminov. All rights reserved.
-//
+///
+/// [SIMINOV FRAMEWORK - CORE]
+/// Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
+///
+/// Licensed under the Apache License, Version 2.0 (the "License");
+/// you may not use this file except in compliance with the License.
+/// You may obtain a copy of the License at
+///
+///     http://www.apache.org/licenses/LICENSE-2.0
+///
+/// Unless required by applicable law or agreed to in writing, software
+/// distributed under the License is distributed on an "AS IS" BASIS,
+/// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+/// See the License for the specific language governing permissions and
+/// limitations under the License.
+///
 
 #import <Foundation/Foundation.h>
 #import "SICConstants.h"
@@ -93,35 +102,35 @@
     </indexes>
  
  
-        <!-- Map Relationship Properties -->
+    <!-- Map Relationship Properties -->
  
         <!-- Optional Field's -->
-        <relationships>
- 
-            <relationship>
- 
-                    <!-- Mandatory Field -->
-                    <!-- Type of Relationship -->
-                <property name="type">one-to-one|one-to-many|many-to-one|many-to-many</property>
- 
-                    <!-- Mandatory Field -->
-                    <!-- REFER -->
-                <property name="refer">class_variable_name</property>
- 
-                    <!-- Mandatory Field -->
-                    <!-- REFER TO -->
-                <property name="refer_to">map_to_class_name</property>
- 
-                    <!-- Optional Field -->
-                <property name="on_update">cascade/restrict/no_action/set_null/set_default</property>
- 
-                    <!-- Optional Field -->
-                <property name="on_delete">cascade/restrict/no_action/set_null/set_default</property>
- 
-                    <!-- Optional Field (Default is false) -->
-                <property name="load">true/false</property>
- 
-            </relationship>
+    <relationships>
+
+        <relationship>
+
+                <!-- Mandatory Field -->
+                <!-- Type of Relationship -->
+            <property name="type">one-to-one|one-to-many|many-to-one|many-to-many</property>
+
+                <!-- Mandatory Field -->
+                <!-- REFER -->
+            <property name="refer">class_variable_name</property>
+
+                <!-- Mandatory Field -->
+                <!-- REFER TO -->
+            <property name="refer_to">map_to_class_name</property>
+
+                <!-- Optional Field -->
+            <property name="on_update">cascade/restrict/no_action/set_null/set_default</property>
+
+                <!-- Optional Field -->
+            <property name="on_delete">cascade/restrict/no_action/set_null/set_default</property>
+
+                <!-- Optional Field (Default is false) -->
+            <property name="load">true/false</property>
+
+        </relationship>
  
 	</relationships>
  
@@ -627,7 +636,7 @@
 	
  Example:
 	
-	<index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true">
+	<index name="BOOK_INDEX_BASED_ON_AUDITOR" unique="true">
  <column>HISTORY</column>
 	</index>
  */

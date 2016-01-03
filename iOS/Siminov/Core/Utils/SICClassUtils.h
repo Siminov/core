@@ -1,6 +1,6 @@
 ///
-/// [SIMINOV FRAMEWORK]
-/// Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+/// [SIMINOV FRAMEWORK - CORE]
+/// Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
+
 
 
 #import <Foundation/Foundation.h>
@@ -89,7 +90,15 @@
  */
 + (id)invokeMethodBasedOnMethodName:(id const)classObject methodName:(NSString * const)methodName parameterTypes:(id const)parameterTypes parameters:(id const)parameters;
 
+/**
+ * Invoke method based on class object, method object and parameter provided.
+ * @param classObject Class Object.
+ * @param method Method Object.
+ * @param parameters Parameters to the method
+ * @return Object
+ */
 + (id)invokeMethodBasedOnMethod:(id const)classObject method:(Method) method parameters:(id const)parameters;
+
 /**
  * Get new object created and filled with values provided.
  * @param className Class Name.

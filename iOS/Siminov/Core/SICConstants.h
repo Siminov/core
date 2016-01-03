@@ -1,6 +1,6 @@
 ///
-/// [SIMINOV FRAMEWORK]
-/// Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+/// [SIMINOV FRAMEWORK - CORE]
+/// Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -60,12 +60,24 @@ static NSString * const APPLICATION_DESCRIPTOR_DESCRIPTION = @"description";
  */
 static NSString * const APPLICATION_DESCRIPTOR_VERSION = @"version";
 
+/**
+ * Application Descriptor Deploy
+ */
 static NSString * const APPLICATION_DESCRIPTOR_DEPLOY = @"deploy";
 
+/**
+ * Application Descriptor Deploy Development
+ */
 static NSString * const APPLICATION_DESCRIPTOR_DEPLOY_DEVELOPMENT = @"development";
 
+/**
+ * Application Descriptor Deploy Beta
+ */
 static NSString * const APPLICATION_DESCRIPTOR_DEPLOY_BETA = @"beta";
 
+/**
+ * Application Descriptor Deploy Production
+ */
 static NSString * const APPLICATION_DESCRIPTOR_DEPLOY_PRODUCTION = @"production";
 
 
@@ -106,6 +118,9 @@ static NSString * const DATABASE_DESCRIPTOR = @"database-descriptor";
  */
 static NSString * const DATABASE_DESCRIPTOR_PROPERTY = @"property";
 
+/**
+ * Database Descriptor Property Name
+ */
 static NSString * const DATABASE_DESCRIPTOR_PROPERTY_NAME = @"name";
 
 /**
@@ -260,10 +275,19 @@ static NSString * const ENTITY_DESCRIPTOR_ATTRIBUTE_CHECK = @"check";
  */
 static NSString * const ENTITY_DESCRIPTOR_INDEX = @"index";
 
+/**
+ * Entity Descriptor Index Name
+ */
 static NSString * const ENTITY_DESCRIPTOR_INDEX_NAME = @"name";
 
+/**
+ * Entity Descriptor Index Unique
+ */
 static NSString * const ENTITY_DESCRIPTOR_INDEX_UNIQUE = @"unique";
 
+/**
+ * Entity Descriptor Index Column
+ */
 static NSString * const ENTITY_DESCRIPTOR_INDEX_COLUMN = @"column";
 
 /**

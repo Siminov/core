@@ -1,6 +1,6 @@
 ///
-/// [SIMINOV FRAMEWORK]
-/// Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+/// [SIMINOV FRAMEWORK - CORE]
+/// Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -14,7 +14,6 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
 
 #import <Foundation/Foundation.h>
 #import "SICResourceManager.h"
@@ -35,9 +34,9 @@
 
 /** It drops the whole database based on database-descriptor.
  
- Drop the Liquor table.
+ Drop the book table.
     
-    SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc] init] getDatabaseDescriptor];
+    SICDatabaseDescriptor *databaseDescriptor = [[[Book alloc] init] getDatabaseDescriptor];
 	
 	@try {
         [SICDatabase dropDatabase:databaseDescriptor];
@@ -196,10 +195,10 @@
  
  Example:
 	
-     Liquor *liquor = [[Liquor alloc] init];
+     Book *book = [[Book alloc] init];
  
      @try {
-        [SICDatabase createTables:[liquor getEntityDescriptor]];
+        [SICDatabase createTables:[book getEntityDescriptor]];
      } @catch(SICDatabaseException *databaseException) {
         //Log It.
      }
@@ -210,9 +209,9 @@
 
 /** It drops the table from database based on entity descriptor.
  
- Drop the Liquor table.
+ Drop the book table.
 	
-    EntityDescriptor *entityDescriptor = [[[Liquor alloc] init] getEntityDescriptor];
+    EntityDescriptor *entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
         
     @try {
         [SICDatabase dropTable:entityDescriptor];
@@ -227,19 +226,19 @@
 
 /** Is used to create a new index on a table in database.
  
- Create Index On Liquor table.
+ Create Index On book table.
 	
-	Index *indexOnLiquor = [[Index alloc] init];
-	[indexOnLiquor setName: @"LIQUOR_INDEX_BASED_ON_LINK"];
-	[indexOnLiquor setUnique: true];
+	Index *indexOnBook = [[Index alloc] init];
+	[indexOnBook setName: @"BOOK_INDEX_BASED_ON_AUDITOR"];
+	[indexOnBook setUnique: true];
 	
 	//Add Columns on which we need index.
-	[indexOnLiquor addColumn: @"LINK"];
+	[indexOnBook addColumn: @"LINK"];
  
-	SICEntityDescriptor *entityDescriptor = [[[Liquor alloc] init] getEntityDescriptor];
+	SICEntityDescriptor *entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
  
 	@try {
-        [SICDatabase createIndexBasedonIndexObject:entityDescriptor index:indexOnLiquor);
+        [SICDatabase createIndexBasedonIndexObject:entityDescriptor index:indexOnBook);
 	} @catch(SICDatabaseException *databaseException) {
         //Log It.
 	}
@@ -252,17 +251,17 @@
 
 /** Is used to create a new index on a table in database.
  
- Create Index On Liquor table.
+ Create Index On book table.
  
-	NSString *indexName = @"LIQUOR_INDEX_BASED_ON_LINK";
+	NSString *indexName = @"BOOK_INDEX_BASED_ON_AUDITOR";
 	BOOL isUnique = true;
 	
 	NSMutableArray *columnNames = [NSMutableArray alloc] init];
 	[columnNames add:@"LINK"];
 	
 	@try {
-        [[Liquor alloc] init] createIndex;
-        new Liquor().createIndex(indexName, columnNames.iterator(), isUnique);
+        [[Book alloc] init] createIndex;
+        new Book().createIndex(indexName, columnNames.iterator(), isUnique);
 	} @catch(SICDatabaseException *databaseException) {
         //Log It.
 	}
@@ -276,10 +275,10 @@
 
 /** Is used to drop a index on a table in database.
 
- Create Index On Liquor table.
+ Create Index On Book table.
  
-	NSString *indexName = @"LIQUOR_INDEX_BASED_ON_LINK";
-	SICEntityDescriptor *entityDescriptor = [[[Liquor alloc] init] getEntityDescriptor];
+	NSString *indexName = @"BOOK_INDEX_BASED_ON_AUDITOR";
+	SICEntityDescriptor *entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
 	
 	@try {
         [SICDatabase dropIndex:entityDescriptor indexName:indexName];
@@ -297,20 +296,19 @@
  Transactions can be nested. When the outer transaction is ended all of the work done in that transaction and all of the nested transactions will be committed or rolled back.
  The changes will be rolled back if any transaction is ended without being marked as clean(by calling commitTransaction). Otherwise they will be committed.
  
- Example: Make Beer Object
+ Example: Make Book Object
  
-    Liquor *beer = [[Liquor alloc] init];
-	[beer setLiquorType: LIQUOR_TYPE_BEER];
-	[beer setDescription: @"beer_description"];
-	[beer setHistory: @"beer_history"];
-	[beer setLink: @"beer_link"];
-	[beer setAlcholContent: @"beer_alchol_content"];
+    Book *cBook = [[Book alloc] init];
+	[cBook setTitle:BOOK_TYPE_C];
+	[cBook setDescription: @"c_description"];
+	[cBook setAuditor: @"c_auditor"];
+	[cBook setLink: @"c_link"];
  
-	SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+	SICDatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
  
 	@try {
         [SICDatabase beginTransaction:databaseDescriptor];
-        [beer save];
+        [cBook save];
         [SICDatabase commitTransaction:databaseDescriptor];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
@@ -328,18 +326,17 @@
  
  Example: Make Beer Object
 	
-	Liquor *beer = [[Liquor alloc] init];
-	[beer setLiquorType: LIQUOR_TYPE_BEER];
-	[beer setDescription: @"beer_description"];
-	[beer setHistory: @"beer_history"];
-	[beer setLink: @"beer_link"];
-	[beer setAlcholContent: @"beer_alchol_content"];
+	Book *cBook = [[Book alloc] init];
+	[cBook setTitle:BOOK_TYPE_C];
+	[cBook setDescription: @"c_description"];
+	[cBook setAuditor: @"c_auditor"];
+	[cBook setLink: @"c_link"];
  
-	SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+	SICDatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
  
 	@try {
         [SICDatabase beginTransaction: databaseDescriptor];
-        [beer save];
+        [cBook save];
         [SICDatabase commitTransaction: databaseDescriptor];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
@@ -359,11 +356,11 @@
  
  Example:
 
-	NSString *query = @"SELECT * FROM LIQUOR";
-	NSArray *liquors;
+	NSString *query = @"SELECT * FROM BOOK";
+	NSArray *books;
 	
     @try {
-        liquors = [[[[Liquor alloc] init] select] execute];
+        books = [[[[Book alloc] init] select] execute];
 	} @catch(SICDatabaseException *de) {
         //Log it.
 	}
@@ -377,17 +374,16 @@
 
 /** It adds a record to any single table in a relational database.
 
- Example: Make Liquor Object
+ Example: Make Book Object
  
-	Liquor *beer = [[Liquor alloc] init];
-	[beer setLiquorType: LIQUOR_TYPE_BEER];
-	[beer setDescription: @"beer_description"];
-	[beer setHistory: @"beer_history"];
+	Book *cBook = [[Book alloc] init];
+	[cBook setTitle: BOOK_TYPE_C];
+	[beer setDescription: @"c_description"];
+	[beer setAuditor: @"c_auditor"];
 	[beer setLink: @"beer_link"];
-	[beer setAlcholContent: @"beer_alchol_content"];
  
 	@try {
-        [beer save];
+        [cBook save];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -403,15 +399,14 @@
 	
  Example: Make Beer Object
 
-	Liquor *beer = [[Liquor alloc] init];
-	[beer setLiquorType: LIQUOR_TYPE_BEER];
-	[beer setDescription: @"beer_description"];
-	[beer setHistory: @"beer_history"];
-	[beer setLink: @"beer_link"];
-	[beer setAlcholContent: @"beer_alchol_content"];
+	Book *cBook = [[Book alloc] init];
+	[cBook setTitle:BOOK_TYPE_C];
+	[cBook setDescription: @"c_description"];
+	[cBook setAuditor: @"c_auditor"];
+	[cBook setLink: @"c_link"];
  
 	@try {
-        [beer update];
+        [cBook update];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -431,15 +426,14 @@
  
  Example: Make Beer Object
 
-	Liquor beer = [[Liquor alloc] init];
-	[beer setLiquorType: LIQUOR_TYPE_BEER];
-	[beer setDescription: @"beer_description"];
-	[beer setHistory: @"beer_history"];
-	[beer setLink: @"beer_link"];
-	[beer setAlcholContent: @"beer_alchol_content"];
+	Book *cBook = [[Book alloc] init];
+	[cBook setTitle:BOOK_TYPE_C];
+	[cBook setDescription: @"c_description"];
+	[cBook setAuditor: @"c_auditor"];
+	[cBook setLink: @"c_link"];
  
 	@try {
-        [beer saveOrUpdate];
+        [cBook saveOrUpdate];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -468,7 +462,7 @@
  Example:
 
 	@try {
-        SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc] init] getDatabaseDescriptor];
+        SICDatabaseDescriptor *databaseDescriptor = [[[Book alloc] init] getDatabaseDescriptor];
 	} @catch(SICDatabaseException *databaseException) {
         //Log It.
 	}
@@ -484,7 +478,7 @@
  
 	SICEntityDescriptor *entityDescriptor = nil;
 	@try {
-        entityDescriptor = [[[Liquor alloc] init] getEntityDescriptor];
+        entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -501,7 +495,7 @@
 	
 	NSString *tableName = nil;
 	@try {
-        tableName = [[[Liquor alloc] init] getTableName];
+        tableName = [[[Book alloc] init] getTableName];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -518,7 +512,7 @@
 	
 	NSEnumerator *columnNames = nil;
 	@try {
-        columnNames = [[[Liquor alloc] init] getColumnNames];
+        columnNames = [[[Book alloc] init] getColumnNames];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -535,7 +529,7 @@
 	
 	NSMutableDictionary *values = nil;
 	@try {
-        values = [[[Liquor alloc] init] getColumnValues];
+        values = [[[Book alloc] init] getColumnValues];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -552,7 +546,7 @@
  
 	NSMutableDictionary *columnTypes = nil;
 	@try {
-        columnTypes = [[[Liquor alloc] init] getColumnTypes];
+        columnTypes = [[[Book alloc] init] getColumnTypes];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -569,7 +563,7 @@
  
 	NSEnumerator *primaryKeys = nil;
 	@try {
-        primaryKeys = [[[Liquor alloc] init] getPrimeryKeys();
+        primaryKeys = [[[Book alloc] init] getPrimeryKeys();
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -586,7 +580,7 @@
  
 	NSEnumerator *mandatoryFields = null;
 	@try {
-        mandatoryFields = [[[Liquor alloc] init] getMandatoryFields];
+        mandatoryFields = [[[Book alloc] init] getMandatoryFields];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -603,7 +597,7 @@
 
 	NSEnumerator *uniqueFields = null;
 	@try {
-        uniqueFields = [[[Liquor alloc] init] getUniqueFields];
+        uniqueFields = [[[Book alloc] init] getUniqueFields];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}
@@ -620,7 +614,7 @@
  
 	NSEnumerator *foreignKeys = nil;
 	@try {
-        foreignKeys = [[[Liquor alloc] init] getForeignKeys];
+        foreignKeys = [[[Book alloc] init] getForeignKeys];
 	} @catch(SICDatabaseException *databaseException) {
         //Log it.
 	}

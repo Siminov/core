@@ -1,6 +1,6 @@
-/// 
-/// [SIMINOV FRAMEWORK]
-/// Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+///
+/// [SIMINOV FRAMEWORK - CORE]
+/// Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -161,12 +161,12 @@
 
 /** It drop's the table from database based on entity-descriptor.
  
- Drop the Liquor table.
+ Drop the Book table.
 	
-	Liquor *liquor = [[Liquor alloc] init];
+	Book *book = [[Book alloc] init];
 	
 	@try {
-        [liquor dropTable];
+        [book dropTable];
     } @catch(SICDatabaseException *databaseException) {
         //Log It.
 	}
@@ -175,13 +175,13 @@
 
 /** Is used to drop a index on a table in database.
  
- Create Index On Liquor table.
+ Create Index On Book table.
 
-	NSString * indexName = @"LIQUOR_INDEX_BASED_ON_LINK";
-	Liquor *liquor = [[Liquor alloc] init];
+	NSString * indexName = @"BOOK_INDEX_BASED_ON_AUDITOR";
+	Book *book = [[Book alloc] init];
 	
 	@try {
-        [liquor dropIndex:indexName];
+        [book dropIndex:indexName];
 	} @catch(SICDatabaseException *databaseException) {
         //Log It.
 	}
@@ -194,9 +194,9 @@
  
  Example:
  
-    NSArray *liquors;
+    NSArray *books;
     @try {
-        liquors = [[[[Liquor alloc] init] select] execute];
+        books = [[[[Book alloc] init] select] execute];
      } @catch(SICDatabaseException de) {
         //Log it.
      }
@@ -209,11 +209,11 @@
 
  Example:
 
-     NSString *query = @"SELECT * FROM LIQUOR";
-     NSArray *liquors;
+     NSString *query = @"SELECT * FROM BOOK";
+     NSArray *books;
         
      @try {
-        liquors = [[[Liquor alloc] init] select:query];
+        books = [[[Book alloc] init] select:query];
      } @catch(SICDatabaseException *de) {
         //Log it.
      }
@@ -226,17 +226,16 @@
 
 /** It adds a record to any single table in a relational database.
  
- Example: Make Liquor Object
+ Example: Make Book Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
      @try {
-        [beer save];
+        [cBook save];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -247,15 +246,14 @@
  
  Example: Make Beer Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"beer_link"];
+ 
      @try {
-        [beer update];
+        [cBook update];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -270,15 +268,14 @@
 
  Example: Make Beer Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setHistory: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
      @try {
-        [beer saveOrUpdate];
+        [cBook saveOrUpdate];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -289,15 +286,14 @@
 
  Example: Make Beer Object
 
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
      @try {
-        [beer delete];
+        [cBook delete];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -308,17 +304,16 @@
  
  Example: Make Beer Object
 
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
-     int noOfBeers = 0;
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
+     int noOfBooks = 0;
      
      @try {
-        noOfBeers = [[beer count] execute];
+        noOfBooks = [[cBook count] execute];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -329,17 +324,16 @@
  
  Example: Make Beer Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
-     int noOfBeers = 0;
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
+     int noOfBooks = 0;
      
      @try {
-        noOfBeers = [[beer avg] execute];
+        noOfBooks = [[beer avg] execute];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -350,17 +344,16 @@
  
  Example: Make Beer Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
-     int noOfBeers = 0;
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
+     int noOfBooks = 0;
      
      @try {
-        noOfBeers = [[beer sum] execute];
+        noOfBooks = [[cBook sum] execute];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -371,17 +364,16 @@
  
  Example: Make Beer Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
-     int totalBeers = 0;
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle:BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
+     int totalBooks = 0;
      
      @try {
-        totalBeers = [[beer avg] execute];
+        totalBooks = [[cBook avg] execute];
      }
      @catch(SICDatabaseException *databaseException) {
         //Log it.
@@ -391,19 +383,18 @@
 
 /** Returns the min based on where clause provided.
 
- Example: Make Beer Object
+ Example: Make Book Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
-     int minBeers = 0;
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
+     int minBooks = 0;
      
      @try {
-        minBeers = [[beer min] execute];
+        minBooks = [[cBook min] execute];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -414,17 +405,16 @@
  
  Example: Make Beer Object
 
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: Liquor.LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
-     int maxBeers = 0;
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: Book.BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
+     int maxBooks = 0;
      
      @try {
-        maxBeers = [[beer max] execute];
+        maxBooks = [[cBook max] execute];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -435,29 +425,28 @@
  
  Example: Make Beer Object
  
-     Liquor *beer = [[Liquor alloc] init];
-     [beer setLiquorType: LIQUOR_TYPE_BEER];
-     [beer setDescription: @"beer_description"];
-     [beer setHistory: @"beer_history"];
-     [beer setLink: @"beer_link"];
-     [beer setAlcholContent: @"beer_alchol_content"];
-     
-     int groupConcatBeers = 0;
+     Book *cBook = [[Book alloc] init];
+     [cBook setTitle: BOOK_TYPE_C];
+     [cBook setDescription: @"c_description"];
+     [cBook setAuditor: @"c_auditor"];
+     [cBook setLink: @"c_link"];
+ 
+     int groupConcatBooks = 0;
      
      @try {
-        groupConcatBeers = [[beer groupConcat] execute];
+        groupConcatBooks = [[cBook groupConcat] execute];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
  */
 - (id<SICIGroupConcat>)groupConcat;
 
-/** Returns database descriptor object based on the POJO class called.
+/** Returns database descriptor object based on the mapped class called.
 
  Example:
  
 	@try {
-        SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc] init] getDatabaseDescriptor];
+        SICDatabaseDescriptor *databaseDescriptor = [[[Book alloc] init] getDatabaseDescriptor];
 	} @catch(SICDatabaseException *databaseException) {
         //Log It.
 	}
@@ -472,7 +461,7 @@
 
      SICEntityDescriptor *entityDescriptor = nil;
      @try {
-        entityDescriptor = [[[Liquor alloc] init] getEntityDescriptor];
+        entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -487,7 +476,7 @@
 
      NSString *tableName = nil;
      @try {
-        tableName = [[[Liquor alloc] init] getTableName];
+        tableName = [[[Book alloc] init] getTableName];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -502,7 +491,7 @@
 
      NSEnumerator *columnNames = nil;
      @try {
-        columnNames = [[[Liquor alloc] init] getColumnNames];
+        columnNames = [[[Book alloc] init] getColumnNames];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -517,7 +506,7 @@
  
      NSDictionary *values = nil;
      @try {
-        values = [[[Liquor alloc] init] getColumnValues];
+        values = [[[Book alloc] init] getColumnValues];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -532,7 +521,7 @@
  
  NSDictionary *columnTypes = nil;
  @try {
-	columnTypes = [[[Liquor alloc] init] getColumnTypes];
+	columnTypes = [[[Book alloc] init] getColumnTypes];
  } @catch(SICDatabaseException *databaseException) {
 	//Log it.
  }
@@ -547,7 +536,7 @@
  
      NSEnumerator *primaryKeys = nil;
      @try {
-        primaryKeys = [[[Liquor alloc] init] getPrimaryKeys];
+        primaryKeys = [[[Book alloc] init] getPrimaryKeys];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -562,7 +551,7 @@
 
      NSEnumerator *mandatoryFields = nil;
      @try {
-        mandatoryFields = [[[Liquor alloc] init] getMandatoryFields];
+        mandatoryFields = [[[Book alloc] init] getMandatoryFields];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }
@@ -577,7 +566,7 @@
 
      NSEnumerator *uniqueFields = null;
      @try {
-        uniqueFields = [[[Liquor alloc] init] getUniqueFields];
+        uniqueFields = [[[Book alloc] init] getUniqueFields];
      }
      @catch(SICDatabaseException *databaseException) {
         //Log it.
@@ -593,7 +582,7 @@
  
      NSEnumerator *foreignKeys = nil;
      @try {
-        foreignKeys = [[[Liquor alloc] init] getForeignKeys];
+        foreignKeys = [[[Book alloc] init] getForeignKeys];
      } @catch(SICDatabaseException *databaseException) {
         //Log it.
      }

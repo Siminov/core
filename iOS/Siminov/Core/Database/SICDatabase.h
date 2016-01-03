@@ -1,6 +1,6 @@
 ///
-/// [SIMINOV FRAMEWORK]
-/// Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+/// [SIMINOV FRAMEWORK - CORE]
+/// Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -42,9 +42,9 @@
 
 /** It drops the whole database based on database name.
  
- Drop the Liquor table.
+ Drop the book table.
  
- SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc]init] getDatabaseDescriptor];
+ SICDatabaseDescriptor *databaseDescriptor = [[[Book alloc]init] getDatabaseDescriptor];
  
  @try {
  [SICDatabase dropDatabase:[databaseDescriptor getDatabaseName]];
@@ -63,18 +63,17 @@
  
  Example: Make Beer Object
  
-	Liquor *beer = [[Liquor alloc] init];
-	[beer setLiquorType: LIQUOR_TYPE_BEER];
-	[beer setDescription: @"beer_description"];
-	[beer setHistory: @"beer_history"];
-	[beer setLink: @"beer_link"];
-	[beer setAlcholContent: @"beer_alchol_content"];
+	Book *cBook = [[Book alloc] init];
+	[cBook setTitle:BOOK_TYPE_C];
+	[cBook setDescription: @"c_description"];
+	[cBook setAuthor: @"c_author"];
+	[cBook setLink: @"c_link"];
  
-	SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+	SICDatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
  
 	@try {
  [SICDatabase beginTransaction:databaseDescriptor];
- [beer save];
+ [cBook save];
  [SICDatabase commitTransaction:databaseDescriptor];
 	} @catch(SICDatabaseException *databaseException) {
  //Log it.
@@ -92,18 +91,17 @@
  
  Example: Make Beer Object
 	
- Liquor *beer = [[Liquor alloc] init];
-	[beer setLiquorType: LIQUOR_TYPE_BEER];
-	[beer setDescription: @"beer_description"];
-	[beer setHistory: @"beer_history"];
-	[beer setLink: @"beer_link"];
-	[beer setAlcholContent: @"beer_alchol_content"];
+    Book *cBook = [[Book alloc] init];
+	[cBook setTitle:BOOK_TYPE_C];
+	[cBook setDescription: @"c_description"];
+	[cBook setAuthor: @"c_author"];
+	[cBook setLink: @"beer_link"];
  
-	DatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+	DatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
  
 	@try {
  [SICDatabase beginTransaction:databaseDescriptor];
- [beer save];
+ [cBook save];
  [SICDatabase commitTransaction:databaseDescriptor];
 	} @catch(SICDatabaseException *databaseException) {
  //Log it.

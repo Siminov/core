@@ -1,6 +1,6 @@
 ///
-/// [SIMINOV FRAMEWORK]
-/// Copyright [2015] [Siminov Software Solution LLP|support@siminov.com]
+/// [SIMINOV FRAMEWORK - CORE]
+/// Copyright [2014-2016] [Siminov Software Solution LLP|support@siminov.com]
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -156,6 +156,11 @@
  */
 - (SICWhere *)havingClause:(NSString *)havingclause;
 
+/**
+ * Used to add column
+ * @param columnName Name of the column
+ * @return Where Where instance object
+ */
 - (SICWhere *)column:(NSString *)columnName;
 
 /**
@@ -172,6 +177,10 @@
  */
 - (SICWhere *)delimiter:(NSString *)delimiterString;
 
+/**
+ * Executes the request
+ * @return Request Output
+ */
 - (id)execute;
 
 
