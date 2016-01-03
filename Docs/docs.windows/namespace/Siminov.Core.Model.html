@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Siminov Framework - Core - Siminov.Core.Model</title>
+        <title>Core - Siminov.Core.Model</title>
         <meta name="viewport" content="width=device-width">
 
 					<link rel="stylesheet" type="text/css" href="../assets/css/font.css?version=0.9.6.8" />
@@ -34,7 +34,7 @@
 
 									<li><a href="../type/DatabaseDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> DatabaseDescriptor</a></li>
 
-									<li><a href="../type/DatabaseMappingDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> DatabaseMappingDescriptor</a></li>
+									<li><a href="../type/EntityDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> EntityDescriptor</a></li>
 
 									<li><a href="../type/IDescriptor.html"><img alt="Class-Icon" src="../assets/images/icons/class_public.png"> IDescriptor</a></li>
 
@@ -80,7 +80,7 @@
 										<a title="ApplicationDescriptor" href="../type/ApplicationDescriptor.html">ApplicationDescriptor</a>
 									</td>	
 									<td class="markdown">
-																						<p>Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.si.xml file by application.</p>
+																						<p>Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.xml file by application.</p>
 
 <p>Example:</p>
 
@@ -121,7 +121,7 @@
 										<a title="DatabaseDescriptor" href="../type/DatabaseDescriptor.html">DatabaseDescriptor</a>
 									</td>	
 									<td class="markdown">
-																						<p>Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.si.xml file by application.</p>
+																						<p>Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.xml file by application.</p>
 
 <p>Example:</p>
 
@@ -147,7 +147,7 @@
 
 
 
-   full_path_of_database_mapping_descriptor_file
+   full_path_of_entity_descriptor_file
 </code></pre>
 
 																			</td>
@@ -159,62 +159,50 @@
 										<img alt="Class-Icon" src="../assets/images/icons/class_public.png">
 									</td>
 									<td>
-										<a title="DatabaseMappingDescriptor" href="../type/DatabaseMappingDescriptor.html">DatabaseMappingDescriptor</a>
+										<a title="EntityDescriptor" href="../type/EntityDescriptor.html">EntityDescriptor</a>
 									</td>	
 									<td class="markdown">
-																						<p>Exposes methods to GET and SET Library Descriptor information as per define in DatabaseDescriptor.si.xml or LibraryDescriptor.si.xml  file by application.</p>
+																						<p>Exposes methods to GET and SET Library Descriptor information as per define in DatabaseDescriptor.xml or LibraryDescriptor.xml  file by application.</p>
 
 <p>Example:</p>
 
-<pre><code>           java_variable_data_type
+<p>name<em>of</em>table</p>
 
+<p>mapped<em>class</em>name</p>
 
-           true/false
+<p>column<em>name</em>of_table</p>
 
+<p>class<em>variable</em>name</p>
 
-           true/false
+<p>java<em>variable</em>data_type</p>
 
+<p>true/false</p>
 
-           true/false
+<p>true/false</p>
 
+<p>true/false</p>
 
-           condition_to_be_checked (Eg: variable_name 'condition' value; variable_name &gt; 0)
+<p>condition<em>to</em>be<em>checked (Eg: variable</em>name 'condition' value; variable_name > 0)</p>
 
+<p>default<em>value</em>of_column (Eg: 0.1)</p>
 
-           default_value_of_column (Eg: 0.1)        
+<p>name<em>of</em>index</p>
 
+<p>true/false</p>
 
+<p>column<em>name</em>needs<em>to</em>add</p>
 
+<p>one-to-one|one-to-many|many-to-one|many-to-many</p>
 
+<p>class<em>variable</em>name</p>
 
+<p>map<em>to</em>class_name</p>
 
+<p>cascade/restrict/no<em>action/set</em>null/set_default</p>
 
+<p>cascade/restrict/no<em>action/set</em>null/set_default</p>
 
-       column_name_needs_to_add
-
-
-
-
-
-
-
-               true/false       
-
-
-
-
-               true/false       
-
-
-
-
-               true/false       
-
-
-
-
-               true/false
-</code></pre>
+<p>true/false</p>
 
 																			</td>
 								</tr>
@@ -243,7 +231,7 @@ It has method to get and set properties of descriptor</p>
 										<a title="LibraryDescriptor" href="../type/LibraryDescriptor.html">LibraryDescriptor</a>
 									</td>	
 									<td class="markdown">
-																						<p>Exposes methods to GET and SET Library Descriptor information as per define in LibraryDescriptor.si.xml file by application.</p>
+																						<p>Exposes methods to GET and SET Library Descriptor information as per define in LibraryDescriptor.xml file by application.</p>
 
 <p>Example:</p>
 
@@ -258,7 +246,7 @@ It has method to get and set properties of descriptor</p>
 
 
 
-   name_of_database_descriptor.full_path_of_database_mapping_descriptor_file
+   name_of_database_descriptor.full_path_of_entity_descriptor_file
 </code></pre>
 
 																			</td>

@@ -5,20 +5,22 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Siminov Framework - Core</title>
+        <title>Core</title>
         <meta name="viewport" content="width=device-width">
-		<link rel="shortcut icon" href="assets/images/product_logo.ico">
+
 		
 					<link rel="stylesheet" type="text/css" href="assets/css/font.css?version=0.9.6.8" />
 			<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css?version=0.9.6.8" />
 			<link rel="stylesheet" type="text/css" href="assets/css/style.css?version=0.9.6.8" />
 			<link rel="stylesheet" type="text/css" href="assets/css/dynamic.css?version=0.9.6.8" />
 
-		<link rel="stylesheet" type="text/css" href="assets/css/custom.css" />
-		<link rel="stylesheet" type="text/css" href="assets/css/dynamic.css" />
-		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="assets/css/override.css" />
-			
+<link rel="stylesheet" type="text/css" href="assets/css/custom.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/dynamic.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/override.css" />
+
+<link rel="shortcut icon" href="assets/images/product_logo.ico">
+
 			<!--[if IE 8]>
 				<script src="assets/js/vendor.ie8.js?version=0.9.6.8"></script>
 			<![endif]-->
@@ -72,11 +74,11 @@
 		
 			{ "Name" : "DATABASE_DESCRIPTOR", "Url" : "#type/Constants?DATABASE_DESCRIPTOR", "Type" : "Field" },
 		
-			{ "Name" : "DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR", "Url" : "#type/Constants?DATABASE_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR", "Type" : "Field" },
-		
 			{ "Name" : "DATABASE_DESCRIPTOR_DATABASE_NAME", "Url" : "#type/Constants?DATABASE_DESCRIPTOR_DATABASE_NAME", "Type" : "Field" },
 		
 			{ "Name" : "DATABASE_DESCRIPTOR_DESCRIPTION", "Url" : "#type/Constants?DATABASE_DESCRIPTOR_DESCRIPTION", "Type" : "Field" },
+		
+			{ "Name" : "DATABASE_DESCRIPTOR_ENTITY_DESCRIPTOR", "Url" : "#type/Constants?DATABASE_DESCRIPTOR_ENTITY_DESCRIPTOR", "Type" : "Field" },
 		
 			{ "Name" : "DATABASE_DESCRIPTOR_EXTERNAL_STORAGE", "Url" : "#type/Constants?DATABASE_DESCRIPTOR_EXTERNAL_STORAGE", "Type" : "Field" },
 		
@@ -90,71 +92,77 @@
 		
 			{ "Name" : "DATABASE_DESCRIPTOR_VERSION", "Url" : "#type/Constants?DATABASE_DESCRIPTOR_VERSION", "Type" : "Field" },
 		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_CHECK", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_CHECK", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_DEFAULT_VALUE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_ENTITY", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_ENTITY", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_ENTITY_CLASS_NAME", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_ENTITY_CLASS_NAME", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_ENTITY_TABLE_NAME", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_ENTITY_TABLE_NAME", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_INDEX", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_INDEX", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_NAME", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_NAME", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_NOT_NULL", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_NOT_NULL", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_PRIMARY_KEY", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_PROPERTY", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_PROPERTY", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_CASCADE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_LOAD", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_MANY", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_ONE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_MANY_TO_ONE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_NO_ACTION", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_NO_ACTION", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ON_DELETE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ON_DELETE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ON_UPDATE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ON_UPDATE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_MANY", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_ONE_TO_ONE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER_TO", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_REFER_TO", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_RESTRICT", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_RESTRICT", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_DEFAULT", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_NULL", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_RELATIONSHIPS_SET_NULL", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_TYPE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_TYPE", "Type" : "Field" },
-		
-			{ "Name" : "DATABASE_MAPPING_DESCRIPTOR_UNIQUE", "Url" : "#type/Constants?DATABASE_MAPPING_DESCRIPTOR_UNIQUE", "Type" : "Field" },
-		
 			{ "Name" : "DATABASE_PATH_DATA", "Url" : "#type/Constants?DATABASE_PATH_DATA", "Type" : "Field" },
 		
 			{ "Name" : "DATABASE_PATH_DATABASE", "Url" : "#type/Constants?DATABASE_PATH_DATABASE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR", "Url" : "#type/Constants?ENTITY_DESCRIPTOR", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_CHECK", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_CHECK", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_COLUMN_NAME", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_DEFAULT_VALUE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_DEFAULT_VALUE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_NOT_NULL", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_NOT_NULL", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_PRIMARY_KEY", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_PRIMARY_KEY", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_TYPE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_TYPE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_UNIQUE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_UNIQUE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_ATTRIBUTE_VARIABLE_NAME", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_CLASS_NAME", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_CLASS_NAME", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_INDEX", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_INDEX", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_INDEX_COLUMN", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_INDEX_COLUMN", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_INDEX_NAME", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_INDEX_NAME", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_INDEX_UNIQUE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_INDEX_UNIQUE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_NAME", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_NAME", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_PROPERTY", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_PROPERTY", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_CASCADE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_CASCADE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_LOAD", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_LOAD", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_NO_ACTION", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_NO_ACTION", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_ON_DELETE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_ON_DELETE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_ON_UPDATE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_ON_UPDATE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_REFER", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_REFER", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_REFER_TO", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_REFER_TO", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_RESTRICT", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_RESTRICT", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_SET_DEFAULT", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_SET_DEFAULT", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_SET_NULL", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_SET_NULL", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_MANY", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_MANY", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_ONE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_MANY_TO_ONE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_MANY", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_MANY", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_ONE", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_RELATIONSHIP_TYPE_ONE_TO_ONE", "Type" : "Field" },
+		
+			{ "Name" : "ENTITY_DESCRIPTOR_TABLE_NAME", "Url" : "#type/Constants?ENTITY_DESCRIPTOR_TABLE_NAME", "Type" : "Field" },
 		
 			{ "Name" : "FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER", "Url" : "#type/Constants?FORM_ALTER_ADD_COLUMN_QUERY_COLUMN_NAME_PARAMETER", "Type" : "Field" },
 		
@@ -308,11 +316,11 @@
 		
 			{ "Name" : "FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER", "Url" : "#type/Constants?FORM_UPDATE_DATABASE_VERSION_QUERY_DATABASE_VERSION_PARAMETER", "Type" : "Field" },
 		
-			{ "Name" : "LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR", "Url" : "#type/Constants?LIBRARY_DESCRIPTOR_DATABASE_MAPPING_DESCRIPTOR", "Type" : "Field" },
-		
-			{ "Name" : "LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR", "Url" : "#type/Constants?LIBRARY_DESCRIPTOR_DATABASE_MAPPING_SEPRATOR", "Type" : "Field" },
-		
 			{ "Name" : "LIBRARY_DESCRIPTOR_DESCRIPTION", "Url" : "#type/Constants?LIBRARY_DESCRIPTOR_DESCRIPTION", "Type" : "Field" },
+		
+			{ "Name" : "LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR", "Url" : "#type/Constants?LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR", "Type" : "Field" },
+		
+			{ "Name" : "LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR_SEPRATOR", "Url" : "#type/Constants?LIBRARY_DESCRIPTOR_ENTITY_DESCRIPTOR_SEPRATOR", "Type" : "Field" },
 		
 			{ "Name" : "LIBRARY_DESCRIPTOR_FILE_NAME", "Url" : "#type/Constants?LIBRARY_DESCRIPTOR_FILE_NAME", "Type" : "Field" },
 		
@@ -395,7 +403,7 @@
 		
 			{ "Name" : "ProcessDatabaseDescriptors", "Url" : "#type/Siminov?ProcessDatabaseDescriptors", "Type" : "Method" },
 		
-			{ "Name" : "ProcessDatabaseMappingDescriptors", "Url" : "#type/Siminov?ProcessDatabaseMappingDescriptors", "Type" : "Method" },
+			{ "Name" : "ProcessEntityDescriptors", "Url" : "#type/Siminov?ProcessEntityDescriptors", "Type" : "Method" },
 		
 			{ "Name" : "ProcessLibraries", "Url" : "#type/Siminov?ProcessLibraries", "Type" : "Method" },
 		
@@ -471,11 +479,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/AverageImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/AverageImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/AverageImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/AverageImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/AverageImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/AverageImpl?groupBy", "Type" : "Field" },
 		
@@ -593,11 +601,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/CountImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/CountImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/CountImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/CountImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/CountImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/CountImpl?groupBy", "Type" : "Field" },
 		
@@ -682,7 +690,7 @@
 		
 			{ "Name" : "GetDatabaseDescriptor", "Url" : "#type/Database?GetDatabaseDescriptor", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMappingDescriptor", "Url" : "#type/Database?GetDatabaseMappingDescriptor", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptor", "Url" : "#type/Database?GetEntityDescriptor", "Type" : "Method" },
 		
 			{ "Name" : "GetForeignKeys", "Url" : "#type/Database?GetForeignKeys", "Type" : "Method" },
 		
@@ -803,7 +811,7 @@
 		
 			{ "Name" : "GetDatabaseDescriptor", "Url" : "#type/DatabaseHelper?GetDatabaseDescriptor2", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMappingDescriptor", "Url" : "#type/DatabaseHelper?GetDatabaseMappingDescriptor2", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptor", "Url" : "#type/DatabaseHelper?GetEntityDescriptor2", "Type" : "Method" },
 		
 			{ "Name" : "GetForeignKeys", "Url" : "#type/DatabaseHelper?GetForeignKeys2", "Type" : "Method" },
 		
@@ -938,11 +946,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/DeleteImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/DeleteImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/DeleteImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/DeleteImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/DeleteImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/DeleteImpl?groupBy", "Type" : "Field" },
 		
@@ -1060,11 +1068,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/GroupConcatImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/GroupConcatImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/GroupConcatImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/GroupConcatImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/GroupConcatImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/GroupConcatImpl?groupBy", "Type" : "Field" },
 		
@@ -1182,11 +1190,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/MaxImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/MaxImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/MaxImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/MaxImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/MaxImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/MaxImpl?groupBy", "Type" : "Field" },
 		
@@ -1304,11 +1312,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/MinImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/MinImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/MinImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/MinImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/MinImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/MinImpl?groupBy", "Type" : "Field" },
 		
@@ -1426,11 +1434,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/SelectImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/SelectImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/SelectImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/SelectImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/SelectImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/SelectImpl?groupBy", "Type" : "Field" },
 		
@@ -1548,11 +1556,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/SumImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/SumImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/SumImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/SumImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/SumImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/SumImpl?groupBy", "Type" : "Field" },
 		
@@ -1670,11 +1678,11 @@
 		
 			{ "Name" : "columns", "Url" : "#type/TotalImpl?columns", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/TotalImpl?databaseMappingDescriptor", "Type" : "Field" },
-		
 			{ "Name" : "delimiter", "Url" : "#type/TotalImpl?delimiter", "Type" : "Field" },
 		
 			{ "Name" : "distinct", "Url" : "#type/TotalImpl?distinct", "Type" : "Field" },
+		
+			{ "Name" : "entityDescriptor", "Url" : "#type/TotalImpl?entityDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "groupBy", "Url" : "#type/TotalImpl?groupBy", "Type" : "Field" },
 		
@@ -1837,7 +1845,7 @@
 		
 			{ "Name" : "GetDatabaseDescriptor", "Url" : "#type/IDatabase?GetDatabaseDescriptor3", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMappingDescriptor", "Url" : "#type/IDatabase?GetDatabaseMappingDescriptor3", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptor", "Url" : "#type/IDatabase?GetEntityDescriptor3", "Type" : "Method" },
 		
 			{ "Name" : "GetForeignKeys", "Url" : "#type/IDatabase?GetForeignKeys4", "Type" : "Method" },
 		
@@ -2731,41 +2739,41 @@
 		{ "Name" : "DatabaseDescriptor", "Url" : "#type/DatabaseDescriptor", "Type" : "Type" },
 
 		
-			{ "Name" : "databaseMappingDescriptorPaths", "Url" : "#type/DatabaseDescriptor?databaseMappingDescriptorPaths", "Type" : "Field" },
+			{ "Name" : "entityDescriptorPaths", "Url" : "#type/DatabaseDescriptor?entityDescriptorPaths", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptorsBasedOnClassName", "Url" : "#type/DatabaseDescriptor?databaseMappingDescriptorsBasedOnClassName", "Type" : "Field" },
+			{ "Name" : "entityDescriptorsBasedOnClassName", "Url" : "#type/DatabaseDescriptor?entityDescriptorsBasedOnClassName", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptorsBasedOnPath", "Url" : "#type/DatabaseDescriptor?databaseMappingDescriptorsBasedOnPath", "Type" : "Field" },
+			{ "Name" : "entityDescriptorsBasedOnPath", "Url" : "#type/DatabaseDescriptor?entityDescriptorsBasedOnPath", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptorsBasedOnTableName", "Url" : "#type/DatabaseDescriptor?databaseMappingDescriptorsBasedOnTableName", "Type" : "Field" },
+			{ "Name" : "entityDescriptorsBasedOnTableName", "Url" : "#type/DatabaseDescriptor?entityDescriptorsBasedOnTableName", "Type" : "Field" },
 		
 			{ "Name" : "properties", "Url" : "#type/DatabaseDescriptor?properties", "Type" : "Field" },
 		
-			{ "Name" : "AddDatabaseMappingDescriptor", "Url" : "#type/DatabaseDescriptor?AddDatabaseMappingDescriptor", "Type" : "Method" },
+			{ "Name" : "AddEntityDescriptor", "Url" : "#type/DatabaseDescriptor?AddEntityDescriptor", "Type" : "Method" },
 		
-			{ "Name" : "AddDatabaseMappingDescriptorPath", "Url" : "#type/DatabaseDescriptor?AddDatabaseMappingDescriptorPath", "Type" : "Method" },
+			{ "Name" : "AddEntityDescriptorPath", "Url" : "#type/DatabaseDescriptor?AddEntityDescriptorPath", "Type" : "Method" },
 		
 			{ "Name" : "AddProperty", "Url" : "#type/DatabaseDescriptor?AddProperty2", "Type" : "Method" },
 		
 			{ "Name" : "ContainProperty", "Url" : "#type/DatabaseDescriptor?ContainProperty2", "Type" : "Method" },
 		
-			{ "Name" : "ContainsDatabaseMappingDescriptorBasedOnClassName", "Url" : "#type/DatabaseDescriptor?ContainsDatabaseMappingDescriptorBasedOnClassName", "Type" : "Method" },
+			{ "Name" : "ContainsEntityDescriptorBasedOnClassName", "Url" : "#type/DatabaseDescriptor?ContainsEntityDescriptorBasedOnClassName", "Type" : "Method" },
 		
-			{ "Name" : "ContainsDatabaseMappingDescriptorBasedOnTableName", "Url" : "#type/DatabaseDescriptor?ContainsDatabaseMappingDescriptorBasedOnTableName", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabaseMappingDescriptorPaths", "Url" : "#type/DatabaseDescriptor?GetDatabaseMappingDescriptorPaths", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabaseMappingDescriptors", "Url" : "#type/DatabaseDescriptor?GetDatabaseMappingDescriptors", "Type" : "Method" },
+			{ "Name" : "ContainsEntityDescriptorBasedOnTableName", "Url" : "#type/DatabaseDescriptor?ContainsEntityDescriptorBasedOnTableName", "Type" : "Method" },
 		
 			{ "Name" : "GetDatabaseName", "Url" : "#type/DatabaseDescriptor?GetDatabaseName", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabseMappingDescriptorBasedOnClassName", "Url" : "#type/DatabaseDescriptor?GetDatabseMappingDescriptorBasedOnClassName", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabseMappingDescriptorBasedOnPath", "Url" : "#type/DatabaseDescriptor?GetDatabseMappingDescriptorBasedOnPath", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabseMappingDescriptorBasedOnTableName", "Url" : "#type/DatabaseDescriptor?GetDatabseMappingDescriptorBasedOnTableName", "Type" : "Method" },
-		
 			{ "Name" : "GetDescription", "Url" : "#type/DatabaseDescriptor?GetDescription2", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorBasedOnClassName", "Url" : "#type/DatabaseDescriptor?GetEntityDescriptorBasedOnClassName", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorBasedOnPath", "Url" : "#type/DatabaseDescriptor?GetEntityDescriptorBasedOnPath", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorBasedOnTableName", "Url" : "#type/DatabaseDescriptor?GetEntityDescriptorBasedOnTableName", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorPaths", "Url" : "#type/DatabaseDescriptor?GetEntityDescriptorPaths", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptors", "Url" : "#type/DatabaseDescriptor?GetEntityDescriptors", "Type" : "Method" },
 		
 			{ "Name" : "GetProperties", "Url" : "#type/DatabaseDescriptor?GetProperties2", "Type" : "Method" },
 		
@@ -2779,15 +2787,15 @@
 		
 			{ "Name" : "IsTransactionSafe", "Url" : "#type/DatabaseDescriptor?IsTransactionSafe", "Type" : "Method" },
 		
-			{ "Name" : "OrderedDatabaseMappingDescriptors", "Url" : "#type/DatabaseDescriptor?OrderedDatabaseMappingDescriptors", "Type" : "Method" },
+			{ "Name" : "OrderedEntityDescriptors", "Url" : "#type/DatabaseDescriptor?OrderedEntityDescriptors", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMappingDescriptor", "Url" : "#type/DatabaseDescriptor?RemoveDatabaseMappingDescriptor", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptor", "Url" : "#type/DatabaseDescriptor?RemoveEntityDescriptor", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMappingDescriptorBasedOnClassName", "Url" : "#type/DatabaseDescriptor?RemoveDatabaseMappingDescriptorBasedOnClassName", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptorBasedOnClassName", "Url" : "#type/DatabaseDescriptor?RemoveEntityDescriptorBasedOnClassName", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMappingDescriptorBasedOnPath", "Url" : "#type/DatabaseDescriptor?RemoveDatabaseMappingDescriptorBasedOnPath", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptorBasedOnPath", "Url" : "#type/DatabaseDescriptor?RemoveEntityDescriptorBasedOnPath", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMappingDescriptorBasedOnTableName", "Url" : "#type/DatabaseDescriptor?RemoveDatabaseMappingDescriptorBasedOnTableName", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptorBasedOnTableName", "Url" : "#type/DatabaseDescriptor?RemoveEntityDescriptorBasedOnTableName", "Type" : "Method" },
 		
 			{ "Name" : "RemoveProperty", "Url" : "#type/DatabaseDescriptor?RemoveProperty2", "Type" : "Method" },
 		
@@ -2803,90 +2811,88 @@
 		
 			{ "Name" : "SetVersion", "Url" : "#type/DatabaseDescriptor?SetVersion2", "Type" : "Method" },
 		
-		{ "Name" : "DatabaseMappingDescriptor", "Url" : "#type/DatabaseMappingDescriptor", "Type" : "Type" },
+		{ "Name" : "EntityDescriptor", "Url" : "#type/EntityDescriptor", "Type" : "Type" },
 
 		
-			{ "Name" : "attributeBasedOnColumnNames", "Url" : "#type/DatabaseMappingDescriptor?attributeBasedOnColumnNames", "Type" : "Field" },
+			{ "Name" : "attributeBasedOnColumnNames", "Url" : "#type/EntityDescriptor?attributeBasedOnColumnNames", "Type" : "Field" },
 		
-			{ "Name" : "attributeBasedOnVariableNames", "Url" : "#type/DatabaseMappingDescriptor?attributeBasedOnVariableNames", "Type" : "Field" },
+			{ "Name" : "attributeBasedOnVariableNames", "Url" : "#type/EntityDescriptor?attributeBasedOnVariableNames", "Type" : "Field" },
 		
-			{ "Name" : "className", "Url" : "#type/DatabaseMappingDescriptor?className", "Type" : "Field" },
+			{ "Name" : "indexes", "Url" : "#type/EntityDescriptor?indexes", "Type" : "Field" },
 		
-			{ "Name" : "indexes", "Url" : "#type/DatabaseMappingDescriptor?indexes", "Type" : "Field" },
+			{ "Name" : "properties", "Url" : "#type/EntityDescriptor?properties", "Type" : "Field" },
 		
-			{ "Name" : "relationshipsBasedOnRefer", "Url" : "#type/DatabaseMappingDescriptor?relationshipsBasedOnRefer", "Type" : "Field" },
+			{ "Name" : "relationshipsBasedOnRefer", "Url" : "#type/EntityDescriptor?relationshipsBasedOnRefer", "Type" : "Field" },
 		
-			{ "Name" : "relationshipsBasedOnReferTo", "Url" : "#type/DatabaseMappingDescriptor?relationshipsBasedOnReferTo", "Type" : "Field" },
+			{ "Name" : "relationshipsBasedOnReferTo", "Url" : "#type/EntityDescriptor?relationshipsBasedOnReferTo", "Type" : "Field" },
 		
-			{ "Name" : "tableName", "Url" : "#type/DatabaseMappingDescriptor?tableName", "Type" : "Field" },
+			{ "Name" : "AddAttribute", "Url" : "#type/EntityDescriptor?AddAttribute", "Type" : "Method" },
 		
-			{ "Name" : "AddAttribute", "Url" : "#type/DatabaseMappingDescriptor?AddAttribute", "Type" : "Method" },
+			{ "Name" : "AddIndex", "Url" : "#type/EntityDescriptor?AddIndex", "Type" : "Method" },
 		
-			{ "Name" : "AddIndex", "Url" : "#type/DatabaseMappingDescriptor?AddIndex", "Type" : "Method" },
+			{ "Name" : "AddProperty", "Url" : "#type/EntityDescriptor?AddProperty3", "Type" : "Method" },
 		
-			{ "Name" : "AddProperty", "Url" : "#type/DatabaseMappingDescriptor?AddProperty3", "Type" : "Method" },
+			{ "Name" : "AddRelationship", "Url" : "#type/EntityDescriptor?AddRelationship", "Type" : "Method" },
 		
-			{ "Name" : "AddRelationship", "Url" : "#type/DatabaseMappingDescriptor?AddRelationship", "Type" : "Method" },
+			{ "Name" : "ContainProperty", "Url" : "#type/EntityDescriptor?ContainProperty3", "Type" : "Method" },
 		
-			{ "Name" : "ContainProperty", "Url" : "#type/DatabaseMappingDescriptor?ContainProperty3", "Type" : "Method" },
+			{ "Name" : "ContainsAttributeBasedOnColumnName", "Url" : "#type/EntityDescriptor?ContainsAttributeBasedOnColumnName", "Type" : "Method" },
 		
-			{ "Name" : "ContainsAttributeBasedOnColumnName", "Url" : "#type/DatabaseMappingDescriptor?ContainsAttributeBasedOnColumnName", "Type" : "Method" },
+			{ "Name" : "ContainsAttributeBasedOnVariableName", "Url" : "#type/EntityDescriptor?ContainsAttributeBasedOnVariableName", "Type" : "Method" },
 		
-			{ "Name" : "ContainsAttributeBasedOnVariableName", "Url" : "#type/DatabaseMappingDescriptor?ContainsAttributeBasedOnVariableName", "Type" : "Method" },
+			{ "Name" : "ContainsIndex", "Url" : "#type/EntityDescriptor?ContainsIndex", "Type" : "Method" },
 		
-			{ "Name" : "ContainsIndex", "Url" : "#type/DatabaseMappingDescriptor?ContainsIndex", "Type" : "Method" },
+			{ "Name" : "GetAttributeBasedOnColumnName", "Url" : "#type/EntityDescriptor?GetAttributeBasedOnColumnName", "Type" : "Method" },
 		
-			{ "Name" : "GetAttributeBasedOnColumnName", "Url" : "#type/DatabaseMappingDescriptor?GetAttributeBasedOnColumnName", "Type" : "Method" },
+			{ "Name" : "GetAttributeBasedOnVariableName", "Url" : "#type/EntityDescriptor?GetAttributeBasedOnVariableName", "Type" : "Method" },
 		
-			{ "Name" : "GetAttributeBasedOnVariableName", "Url" : "#type/DatabaseMappingDescriptor?GetAttributeBasedOnVariableName", "Type" : "Method" },
+			{ "Name" : "GetAttributes", "Url" : "#type/EntityDescriptor?GetAttributes", "Type" : "Method" },
 		
-			{ "Name" : "GetAttributes", "Url" : "#type/DatabaseMappingDescriptor?GetAttributes", "Type" : "Method" },
+			{ "Name" : "GetClassName", "Url" : "#type/EntityDescriptor?GetClassName5", "Type" : "Method" },
 		
-			{ "Name" : "GetClassName", "Url" : "#type/DatabaseMappingDescriptor?GetClassName5", "Type" : "Method" },
+			{ "Name" : "GetColumnNames", "Url" : "#type/EntityDescriptor?GetColumnNames4", "Type" : "Method" },
 		
-			{ "Name" : "GetColumnNames", "Url" : "#type/DatabaseMappingDescriptor?GetColumnNames4", "Type" : "Method" },
+			{ "Name" : "GetIndex", "Url" : "#type/EntityDescriptor?GetIndex", "Type" : "Method" },
 		
-			{ "Name" : "GetIndex", "Url" : "#type/DatabaseMappingDescriptor?GetIndex", "Type" : "Method" },
+			{ "Name" : "GetIndexes", "Url" : "#type/EntityDescriptor?GetIndexes", "Type" : "Method" },
 		
-			{ "Name" : "GetIndexes", "Url" : "#type/DatabaseMappingDescriptor?GetIndexes", "Type" : "Method" },
+			{ "Name" : "GetIndexNames", "Url" : "#type/EntityDescriptor?GetIndexNames", "Type" : "Method" },
 		
-			{ "Name" : "GetIndexNames", "Url" : "#type/DatabaseMappingDescriptor?GetIndexNames", "Type" : "Method" },
+			{ "Name" : "GetManyToManyRelationships", "Url" : "#type/EntityDescriptor?GetManyToManyRelationships", "Type" : "Method" },
 		
-			{ "Name" : "GetManyToManyRelationships", "Url" : "#type/DatabaseMappingDescriptor?GetManyToManyRelationships", "Type" : "Method" },
+			{ "Name" : "GetManyToOneRelationships", "Url" : "#type/EntityDescriptor?GetManyToOneRelationships", "Type" : "Method" },
 		
-			{ "Name" : "GetManyToOneRelationships", "Url" : "#type/DatabaseMappingDescriptor?GetManyToOneRelationships", "Type" : "Method" },
+			{ "Name" : "GetOneToManyRelationships", "Url" : "#type/EntityDescriptor?GetOneToManyRelationships", "Type" : "Method" },
 		
-			{ "Name" : "GetOneToManyRelationships", "Url" : "#type/DatabaseMappingDescriptor?GetOneToManyRelationships", "Type" : "Method" },
+			{ "Name" : "GetOneToOneRelationships", "Url" : "#type/EntityDescriptor?GetOneToOneRelationships", "Type" : "Method" },
 		
-			{ "Name" : "GetOneToOneRelationships", "Url" : "#type/DatabaseMappingDescriptor?GetOneToOneRelationships", "Type" : "Method" },
+			{ "Name" : "GetProperties", "Url" : "#type/EntityDescriptor?GetProperties3", "Type" : "Method" },
 		
-			{ "Name" : "GetProperties", "Url" : "#type/DatabaseMappingDescriptor?GetProperties3", "Type" : "Method" },
+			{ "Name" : "GetProperty", "Url" : "#type/EntityDescriptor?GetProperty3", "Type" : "Method" },
 		
-			{ "Name" : "GetProperty", "Url" : "#type/DatabaseMappingDescriptor?GetProperty3", "Type" : "Method" },
+			{ "Name" : "GetRelationshipBasedOnRefer", "Url" : "#type/EntityDescriptor?GetRelationshipBasedOnRefer", "Type" : "Method" },
 		
-			{ "Name" : "GetRelationshipBasedOnRefer", "Url" : "#type/DatabaseMappingDescriptor?GetRelationshipBasedOnRefer", "Type" : "Method" },
+			{ "Name" : "GetRelationshipBasedOnReferTo", "Url" : "#type/EntityDescriptor?GetRelationshipBasedOnReferTo", "Type" : "Method" },
 		
-			{ "Name" : "GetRelationshipBasedOnReferTo", "Url" : "#type/DatabaseMappingDescriptor?GetRelationshipBasedOnReferTo", "Type" : "Method" },
+			{ "Name" : "GetRelationships", "Url" : "#type/EntityDescriptor?GetRelationships", "Type" : "Method" },
 		
-			{ "Name" : "GetRelationships", "Url" : "#type/DatabaseMappingDescriptor?GetRelationships", "Type" : "Method" },
+			{ "Name" : "GetTableName", "Url" : "#type/EntityDescriptor?GetTableName4", "Type" : "Method" },
 		
-			{ "Name" : "GetTableName", "Url" : "#type/DatabaseMappingDescriptor?GetTableName4", "Type" : "Method" },
+			{ "Name" : "RemoveAttribute", "Url" : "#type/EntityDescriptor?RemoveAttribute", "Type" : "Method" },
 		
-			{ "Name" : "RemoveAttribute", "Url" : "#type/DatabaseMappingDescriptor?RemoveAttribute", "Type" : "Method" },
+			{ "Name" : "RemoveAttributeBasedOnColumnName", "Url" : "#type/EntityDescriptor?RemoveAttributeBasedOnColumnName", "Type" : "Method" },
 		
-			{ "Name" : "RemoveAttributeBasedOnColumnName", "Url" : "#type/DatabaseMappingDescriptor?RemoveAttributeBasedOnColumnName", "Type" : "Method" },
+			{ "Name" : "RemoveAttributeBasedOnVariableName", "Url" : "#type/EntityDescriptor?RemoveAttributeBasedOnVariableName", "Type" : "Method" },
 		
-			{ "Name" : "RemoveAttributeBasedOnVariableName", "Url" : "#type/DatabaseMappingDescriptor?RemoveAttributeBasedOnVariableName", "Type" : "Method" },
+			{ "Name" : "RemoveIndex", "Url" : "#type/EntityDescriptor?RemoveIndex", "Type" : "Method" },
 		
-			{ "Name" : "RemoveIndex", "Url" : "#type/DatabaseMappingDescriptor?RemoveIndex", "Type" : "Method" },
+			{ "Name" : "RemoveIndexBasedOnName", "Url" : "#type/EntityDescriptor?RemoveIndexBasedOnName", "Type" : "Method" },
 		
-			{ "Name" : "RemoveIndexBasedOnName", "Url" : "#type/DatabaseMappingDescriptor?RemoveIndexBasedOnName", "Type" : "Method" },
+			{ "Name" : "RemoveProperty", "Url" : "#type/EntityDescriptor?RemoveProperty3", "Type" : "Method" },
 		
-			{ "Name" : "RemoveProperty", "Url" : "#type/DatabaseMappingDescriptor?RemoveProperty3", "Type" : "Method" },
+			{ "Name" : "SetClassName", "Url" : "#type/EntityDescriptor?SetClassName5", "Type" : "Method" },
 		
-			{ "Name" : "SetClassName", "Url" : "#type/DatabaseMappingDescriptor?SetClassName5", "Type" : "Method" },
-		
-			{ "Name" : "SetTableName", "Url" : "#type/DatabaseMappingDescriptor?SetTableName", "Type" : "Method" },
+			{ "Name" : "SetTableName", "Url" : "#type/EntityDescriptor?SetTableName", "Type" : "Method" },
 		
 		{ "Name" : "IDescriptor", "Url" : "#type/IDescriptor", "Type" : "Type" },
 
@@ -2904,39 +2910,39 @@
 		{ "Name" : "LibraryDescriptor", "Url" : "#type/LibraryDescriptor", "Type" : "Type" },
 
 		
-			{ "Name" : "databaseMappingPaths", "Url" : "#type/LibraryDescriptor?databaseMappingPaths", "Type" : "Field" },
+			{ "Name" : "entityDescriptorBasedOnClassName", "Url" : "#type/LibraryDescriptor?entityDescriptorBasedOnClassName", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingsBasedOnClassName", "Url" : "#type/LibraryDescriptor?databaseMappingsBasedOnClassName", "Type" : "Field" },
+			{ "Name" : "entityDescriptorBasedOnPath", "Url" : "#type/LibraryDescriptor?entityDescriptorBasedOnPath", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingsBasedOnPath", "Url" : "#type/LibraryDescriptor?databaseMappingsBasedOnPath", "Type" : "Field" },
+			{ "Name" : "entityDescriptorBasedOnTableName", "Url" : "#type/LibraryDescriptor?entityDescriptorBasedOnTableName", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingsBasedOnTableName", "Url" : "#type/LibraryDescriptor?databaseMappingsBasedOnTableName", "Type" : "Field" },
+			{ "Name" : "entityDescriptorPaths", "Url" : "#type/LibraryDescriptor?entityDescriptorPaths", "Type" : "Field" },
 		
 			{ "Name" : "properties", "Url" : "#type/LibraryDescriptor?properties", "Type" : "Field" },
 		
-			{ "Name" : "AddDatabaseMapping", "Url" : "#type/LibraryDescriptor?AddDatabaseMapping", "Type" : "Method" },
+			{ "Name" : "AddEntityDescriptor", "Url" : "#type/LibraryDescriptor?AddEntityDescriptor2", "Type" : "Method" },
 		
-			{ "Name" : "AddDatabaseMappingPath", "Url" : "#type/LibraryDescriptor?AddDatabaseMappingPath", "Type" : "Method" },
+			{ "Name" : "AddEntityDescriptorPath", "Url" : "#type/LibraryDescriptor?AddEntityDescriptorPath2", "Type" : "Method" },
 		
 			{ "Name" : "AddProperty", "Url" : "#type/LibraryDescriptor?AddProperty5", "Type" : "Method" },
 		
 			{ "Name" : "ContainProperty", "Url" : "#type/LibraryDescriptor?ContainProperty5", "Type" : "Method" },
 		
-			{ "Name" : "ContainsDatabaseMappingBasedOnClassName", "Url" : "#type/LibraryDescriptor?ContainsDatabaseMappingBasedOnClassName", "Type" : "Method" },
+			{ "Name" : "ContainsEntityDescriptorBasedOnClassName", "Url" : "#type/LibraryDescriptor?ContainsEntityDescriptorBasedOnClassName2", "Type" : "Method" },
 		
-			{ "Name" : "ContainsDatabaseMappingBasedOnTableName", "Url" : "#type/LibraryDescriptor?ContainsDatabaseMappingBasedOnTableName", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabaseMappingPaths", "Url" : "#type/LibraryDescriptor?GetDatabaseMappingPaths", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabseMappingBasedOnClassName", "Url" : "#type/LibraryDescriptor?GetDatabseMappingBasedOnClassName", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabseMappingBasedOnPath", "Url" : "#type/LibraryDescriptor?GetDatabseMappingBasedOnPath", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabseMappingBasedOnTableName", "Url" : "#type/LibraryDescriptor?GetDatabseMappingBasedOnTableName", "Type" : "Method" },
-		
-			{ "Name" : "GetDatabseMappings", "Url" : "#type/LibraryDescriptor?GetDatabseMappings", "Type" : "Method" },
+			{ "Name" : "ContainsEntityDescriptorBasedOnTableName", "Url" : "#type/LibraryDescriptor?ContainsEntityDescriptorBasedOnTableName2", "Type" : "Method" },
 		
 			{ "Name" : "GetDescription", "Url" : "#type/LibraryDescriptor?GetDescription3", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorBasedOnClassName", "Url" : "#type/LibraryDescriptor?GetEntityDescriptorBasedOnClassName2", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorBasedOnPath", "Url" : "#type/LibraryDescriptor?GetEntityDescriptorBasedOnPath2", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorBasedOnTableName", "Url" : "#type/LibraryDescriptor?GetEntityDescriptorBasedOnTableName2", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptorPaths", "Url" : "#type/LibraryDescriptor?GetEntityDescriptorPaths2", "Type" : "Method" },
+		
+			{ "Name" : "GetEntityDescriptors", "Url" : "#type/LibraryDescriptor?GetEntityDescriptors2", "Type" : "Method" },
 		
 			{ "Name" : "GetName", "Url" : "#type/LibraryDescriptor?GetName2", "Type" : "Method" },
 		
@@ -2944,15 +2950,15 @@
 		
 			{ "Name" : "GetProperty", "Url" : "#type/LibraryDescriptor?GetProperty5", "Type" : "Method" },
 		
-			{ "Name" : "OrderedDatabaseMappings", "Url" : "#type/LibraryDescriptor?OrderedDatabaseMappings", "Type" : "Method" },
+			{ "Name" : "OrderedEntityDescriptors", "Url" : "#type/LibraryDescriptor?OrderedEntityDescriptors2", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMapping", "Url" : "#type/LibraryDescriptor?RemoveDatabaseMapping", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptor", "Url" : "#type/LibraryDescriptor?RemoveEntityDescriptor2", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMappingBasedOnClassName", "Url" : "#type/LibraryDescriptor?RemoveDatabaseMappingBasedOnClassName", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptorBasedOnClassName", "Url" : "#type/LibraryDescriptor?RemoveEntityDescriptorBasedOnClassName2", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMappingBasedOnPath", "Url" : "#type/LibraryDescriptor?RemoveDatabaseMappingBasedOnPath", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptorBasedOnPath", "Url" : "#type/LibraryDescriptor?RemoveEntityDescriptorBasedOnPath2", "Type" : "Method" },
 		
-			{ "Name" : "RemoveDatabaseMappingBasedOnTableName", "Url" : "#type/LibraryDescriptor?RemoveDatabaseMappingBasedOnTableName", "Type" : "Method" },
+			{ "Name" : "RemoveEntityDescriptorBasedOnTableName", "Url" : "#type/LibraryDescriptor?RemoveEntityDescriptorBasedOnTableName2", "Type" : "Method" },
 		
 			{ "Name" : "RemoveProperty", "Url" : "#type/LibraryDescriptor?RemoveProperty5", "Type" : "Method" },
 		
@@ -3010,54 +3016,42 @@
 		
 			{ "Name" : "StartElement", "Url" : "#type/DatabaseDescriptorReader?StartElement2", "Type" : "Method" },
 		
-		{ "Name" : "DatabaseMappingDescriptorReader", "Url" : "#type/DatabaseMappingDescriptorReader", "Type" : "Type" },
+		{ "Name" : "EntityDescriptorReader", "Url" : "#type/EntityDescriptorReader", "Type" : "Type" },
 
 		
-			{ "Name" : "currectRelationship", "Url" : "#type/DatabaseMappingDescriptorReader?currectRelationship", "Type" : "Field" },
+			{ "Name" : "currectRelationship", "Url" : "#type/EntityDescriptorReader?currectRelationship", "Type" : "Field" },
 		
-			{ "Name" : "currentAttribute", "Url" : "#type/DatabaseMappingDescriptorReader?currentAttribute", "Type" : "Field" },
+			{ "Name" : "currentAttribute", "Url" : "#type/EntityDescriptorReader?currentAttribute", "Type" : "Field" },
 		
-			{ "Name" : "currentIndex", "Url" : "#type/DatabaseMappingDescriptorReader?currentIndex", "Type" : "Field" },
+			{ "Name" : "currentIndex", "Url" : "#type/EntityDescriptorReader?currentIndex", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/DatabaseMappingDescriptorReader?databaseMappingDescriptor", "Type" : "Field" },
+			{ "Name" : "entityDescriptor", "Url" : "#type/EntityDescriptorReader?entityDescriptor", "Type" : "Field" },
 		
-			{ "Name" : "databaseMappingName", "Url" : "#type/DatabaseMappingDescriptorReader?databaseMappingName", "Type" : "Field" },
+			{ "Name" : "entityDescriptorName", "Url" : "#type/EntityDescriptorReader?entityDescriptorName", "Type" : "Field" },
 		
-			{ "Name" : "isColumn", "Url" : "#type/DatabaseMappingDescriptorReader?isColumn", "Type" : "Field" },
+			{ "Name" : "isAttribute", "Url" : "#type/EntityDescriptorReader?isAttribute", "Type" : "Field" },
 		
-			{ "Name" : "isIndex", "Url" : "#type/DatabaseMappingDescriptorReader?isIndex", "Type" : "Field" },
+			{ "Name" : "isIndex", "Url" : "#type/EntityDescriptorReader?isIndex", "Type" : "Field" },
 		
-			{ "Name" : "isRelationship", "Url" : "#type/DatabaseMappingDescriptorReader?isRelationship", "Type" : "Field" },
+			{ "Name" : "isRelationship", "Url" : "#type/EntityDescriptorReader?isRelationship", "Type" : "Field" },
 		
-			{ "Name" : "propertyName", "Url" : "#type/DatabaseMappingDescriptorReader?propertyName", "Type" : "Field" },
+			{ "Name" : "propertyName", "Url" : "#type/EntityDescriptorReader?propertyName", "Type" : "Field" },
 		
-			{ "Name" : "resourceManager", "Url" : "#type/DatabaseMappingDescriptorReader?resourceManager", "Type" : "Field" },
+			{ "Name" : "resourceManager", "Url" : "#type/EntityDescriptorReader?resourceManager", "Type" : "Field" },
 		
-			{ "Name" : "tempValue", "Url" : "#type/DatabaseMappingDescriptorReader?tempValue", "Type" : "Field" },
+			{ "Name" : "tempValue", "Url" : "#type/EntityDescriptorReader?tempValue", "Type" : "Field" },
 		
-			{ "Name" : "Characters", "Url" : "#type/DatabaseMappingDescriptorReader?Characters3", "Type" : "Method" },
+			{ "Name" : "Characters", "Url" : "#type/EntityDescriptorReader?Characters3", "Type" : "Method" },
 		
-			{ "Name" : "DoValidation", "Url" : "#type/DatabaseMappingDescriptorReader?DoValidation3", "Type" : "Method" },
+			{ "Name" : "DoValidation", "Url" : "#type/EntityDescriptorReader?DoValidation3", "Type" : "Method" },
 		
-			{ "Name" : "EndElement", "Url" : "#type/DatabaseMappingDescriptorReader?EndElement3", "Type" : "Method" },
+			{ "Name" : "EndElement", "Url" : "#type/EntityDescriptorReader?EndElement3", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMappingDescriptor", "Url" : "#type/DatabaseMappingDescriptorReader?GetDatabaseMappingDescriptor4", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptor", "Url" : "#type/EntityDescriptorReader?GetEntityDescriptor4", "Type" : "Method" },
 		
-			{ "Name" : "InitalizeIndex", "Url" : "#type/DatabaseMappingDescriptorReader?InitalizeIndex", "Type" : "Method" },
+			{ "Name" : "ProcessProperty", "Url" : "#type/EntityDescriptorReader?ProcessProperty", "Type" : "Method" },
 		
-			{ "Name" : "InitializeAttribute", "Url" : "#type/DatabaseMappingDescriptorReader?InitializeAttribute", "Type" : "Method" },
-		
-			{ "Name" : "InitializeEntity", "Url" : "#type/DatabaseMappingDescriptorReader?InitializeEntity", "Type" : "Method" },
-		
-			{ "Name" : "InitializeProperty", "Url" : "#type/DatabaseMappingDescriptorReader?InitializeProperty3", "Type" : "Method" },
-		
-			{ "Name" : "InitializeRelationship", "Url" : "#type/DatabaseMappingDescriptorReader?InitializeRelationship", "Type" : "Method" },
-		
-			{ "Name" : "ProcessProperty", "Url" : "#type/DatabaseMappingDescriptorReader?ProcessProperty", "Type" : "Method" },
-		
-			{ "Name" : "ProcessRelationship", "Url" : "#type/DatabaseMappingDescriptorReader?ProcessRelationship", "Type" : "Method" },
-		
-			{ "Name" : "StartElement", "Url" : "#type/DatabaseMappingDescriptorReader?StartElement3", "Type" : "Method" },
+			{ "Name" : "StartElement", "Url" : "#type/EntityDescriptorReader?StartElement3", "Type" : "Method" },
 		
 		{ "Name" : "IDescriptorReader", "Url" : "#type/IDescriptorReader", "Type" : "Type" },
 
@@ -3087,32 +3081,34 @@
 		
 			{ "Name" : "GetLibraryDescriptor", "Url" : "#type/LibraryDescriptorReader?GetLibraryDescriptor", "Type" : "Method" },
 		
-			{ "Name" : "InitializeProperty", "Url" : "#type/LibraryDescriptorReader?InitializeProperty4", "Type" : "Method" },
+			{ "Name" : "InitializeProperty", "Url" : "#type/LibraryDescriptorReader?InitializeProperty3", "Type" : "Method" },
 		
 			{ "Name" : "StartElement", "Url" : "#type/LibraryDescriptorReader?StartElement5", "Type" : "Method" },
 		
-		{ "Name" : "QuickDatabaseMappingDescriptorReader", "Url" : "#type/QuickDatabaseMappingDescriptorReader", "Type" : "Type" },
+		{ "Name" : "QuickEntityDescriptorReader", "Url" : "#type/QuickEntityDescriptorReader", "Type" : "Type" },
 
 		
-			{ "Name" : "databaseMappingDescriptor", "Url" : "#type/QuickDatabaseMappingDescriptorReader?databaseMappingDescriptor", "Type" : "Field" },
+			{ "Name" : "doesMatch", "Url" : "#type/QuickEntityDescriptorReader?doesMatch", "Type" : "Field" },
 		
-			{ "Name" : "doesMatch", "Url" : "#type/QuickDatabaseMappingDescriptorReader?doesMatch", "Type" : "Field" },
+			{ "Name" : "entityDescriptor", "Url" : "#type/QuickEntityDescriptorReader?entityDescriptor", "Type" : "Field" },
 		
-			{ "Name" : "finalDatabaseMappingBasedOnClassName", "Url" : "#type/QuickDatabaseMappingDescriptorReader?finalDatabaseMappingBasedOnClassName", "Type" : "Field" },
+			{ "Name" : "finalEntityDescriptorBasedOnClassName", "Url" : "#type/QuickEntityDescriptorReader?finalEntityDescriptorBasedOnClassName", "Type" : "Field" },
 		
-			{ "Name" : "resourceManager", "Url" : "#type/QuickDatabaseMappingDescriptorReader?resourceManager", "Type" : "Field" },
+			{ "Name" : "propertyName", "Url" : "#type/QuickEntityDescriptorReader?propertyName", "Type" : "Field" },
 		
-			{ "Name" : "tempValue", "Url" : "#type/QuickDatabaseMappingDescriptorReader?tempValue", "Type" : "Field" },
+			{ "Name" : "resourceManager", "Url" : "#type/QuickEntityDescriptorReader?resourceManager", "Type" : "Field" },
 		
-			{ "Name" : "Characters", "Url" : "#type/QuickDatabaseMappingDescriptorReader?Characters6", "Type" : "Method" },
+			{ "Name" : "tempValue", "Url" : "#type/QuickEntityDescriptorReader?tempValue", "Type" : "Field" },
 		
-			{ "Name" : "EndElement", "Url" : "#type/QuickDatabaseMappingDescriptorReader?EndElement6", "Type" : "Method" },
+			{ "Name" : "Characters", "Url" : "#type/QuickEntityDescriptorReader?Characters6", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMapping", "Url" : "#type/QuickDatabaseMappingDescriptorReader?GetDatabaseMapping", "Type" : "Method" },
+			{ "Name" : "EndElement", "Url" : "#type/QuickEntityDescriptorReader?EndElement6", "Type" : "Method" },
 		
-			{ "Name" : "Process", "Url" : "#type/QuickDatabaseMappingDescriptorReader?Process", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptor", "Url" : "#type/QuickEntityDescriptorReader?GetEntityDescriptor5", "Type" : "Method" },
 		
-			{ "Name" : "StartElement", "Url" : "#type/QuickDatabaseMappingDescriptorReader?StartElement6", "Type" : "Method" },
+			{ "Name" : "Process", "Url" : "#type/QuickEntityDescriptorReader?Process", "Type" : "Method" },
+		
+			{ "Name" : "StartElement", "Url" : "#type/QuickEntityDescriptorReader?StartElement6", "Type" : "Method" },
 		
 		{ "Name" : "SiminovSAXDefaultHandler", "Url" : "#type/SiminovSAXDefaultHandler", "Type" : "Type" },
 
@@ -3132,11 +3128,17 @@
 		{ "Name" : "ResourceManager", "Url" : "#type/ResourceManager", "Type" : "Type" },
 
 		
+			{ "Name" : "applicationContexts", "Url" : "#type/ResourceManager?applicationContexts", "Type" : "Field" },
+		
 			{ "Name" : "applicationDescriptor", "Url" : "#type/ResourceManager?applicationDescriptor", "Type" : "Field" },
 		
 			{ "Name" : "databaseFactory", "Url" : "#type/ResourceManager?databaseFactory", "Type" : "Field" },
 		
 			{ "Name" : "resources", "Url" : "#type/ResourceManager?resources", "Type" : "Field" },
+		
+			{ "Name" : "AddApplicationContext", "Url" : "#type/ResourceManager?AddApplicationContext", "Type" : "Method" },
+		
+			{ "Name" : "GetApplicationContexts", "Url" : "#type/ResourceManager?GetApplicationContexts", "Type" : "Method" },
 		
 			{ "Name" : "GetApplicationDescriptor", "Url" : "#type/ResourceManager?GetApplicationDescriptor2", "Type" : "Method" },
 		
@@ -3162,11 +3164,11 @@
 		
 			{ "Name" : "GetDatabaseEventHandler", "Url" : "#type/ResourceManager?GetDatabaseEventHandler2", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMappingDescriptorBasedOnClassName", "Url" : "#type/ResourceManager?GetDatabaseMappingDescriptorBasedOnClassName", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptorBasedOnClassName", "Url" : "#type/ResourceManager?GetEntityDescriptorBasedOnClassName3", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMappingDescriptorBasedOnTableName", "Url" : "#type/ResourceManager?GetDatabaseMappingDescriptorBasedOnTableName", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptorBasedOnTableName", "Url" : "#type/ResourceManager?GetEntityDescriptorBasedOnTableName3", "Type" : "Method" },
 		
-			{ "Name" : "GetDatabaseMappingDescriptors", "Url" : "#type/ResourceManager?GetDatabaseMappingDescriptors2", "Type" : "Method" },
+			{ "Name" : "GetEntityDescriptors", "Url" : "#type/ResourceManager?GetEntityDescriptors3", "Type" : "Method" },
 		
 			{ "Name" : "GetInstance", "Url" : "#type/ResourceManager?GetInstance3", "Type" : "Method" },
 		
@@ -3174,7 +3176,7 @@
 		
 			{ "Name" : "RemoveDatabaseBundle", "Url" : "#type/ResourceManager?RemoveDatabaseBundle2", "Type" : "Method" },
 		
-			{ "Name" : "RequiredDatabaseMappingDescriptorBasedOnClassName", "Url" : "#type/ResourceManager?RequiredDatabaseMappingDescriptorBasedOnClassName", "Type" : "Method" },
+			{ "Name" : "RequiredEntityDescriptorBasedOnClassName", "Url" : "#type/ResourceManager?RequiredEntityDescriptorBasedOnClassName", "Type" : "Method" },
 		
 			{ "Name" : "SetApplicationDescriptor", "Url" : "#type/ResourceManager?SetApplicationDescriptor", "Type" : "Method" },
 		
@@ -3182,6 +3184,8 @@
 	
 		{ "Name" : "ClassUtils", "Url" : "#type/ClassUtils", "Type" : "Type" },
 
+		
+			{ "Name" : "resourceManager", "Url" : "#type/ClassUtils?resourceManager", "Type" : "Field" },
 		
 			{ "Name" : "types", "Url" : "#type/ClassUtils?types", "Type" : "Field" },
 		
@@ -3213,6 +3217,8 @@
 			{ "Name" : "INSTALLED_FOLDER", "Url" : "#type/FileUtils?INSTALLED_FOLDER", "Type" : "Field" },
 		
 			{ "Name" : "LOCAL_FOLDER", "Url" : "#type/FileUtils?LOCAL_FOLDER", "Type" : "Field" },
+		
+			{ "Name" : "resourceManager", "Url" : "#type/FileUtils?resourceManager", "Type" : "Field" },
 		
 			{ "Name" : "Separator", "Url" : "#type/FileUtils?Separator", "Type" : "Field" },
 		
@@ -3948,30 +3954,33 @@
 		</script>
 
     </head>
-    <body>   
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-				<img alt="Siminov Framework - Core" src="assets/images/product_logo.ico" title="Siminov Framework - Core">
-					Siminov Framework - Core 
-				</h1>
-				
-				<div class="nav">
-						<li class="divider-vertical"></li>
-						<li>
-							<p class="navbar-text">
-								API Docs for Version: <b>1.0</b>
-							</p>
-						</li>
-				</div>
-			</div>
-		</div>
-		<div class="ui-layout-south">
+    <body>
+        
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+                    <img alt="Siminov Framework - Core" src="assets/images/product_logo.ico" title="Siminov Framework - Core">
+                        Siminov Framework - Core
+                        </h1>
+                
+                <div class="nav">
+                    <li class="divider-vertical"></li>
+                    <li>
+                        <p class="navbar-text">
+                        API Docs for Version: <b>1.0</b>
+                        </p>
+                    </li>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-layout-south">
 			<div class="user-footer markdown">
 				
 			</div>
 			<div class="sd-footer">
-				 <a href="index.html" target="_blank">© 2015 Siminov Software Solution LLP. All Rights Reserved.</a>
+				
+				 Â© 2014-2016 Siminov Software Solution LLP. All Rights Reserved.   - generated by <a href="http://sharpDox.de" target="_blank">sharpDox</a>
 			</div>
 		</div>
         <div class="ui-layout-west">
@@ -4191,7 +4200,7 @@
 	
 		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/DatabaseDescriptor"><a href="#type/DatabaseDescriptor">DatabaseDescriptor</a></li>
 	
-		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/DatabaseMappingDescriptor"><a href="#type/DatabaseMappingDescriptor">DatabaseMappingDescriptor</a></li>
+		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/EntityDescriptor"><a href="#type/EntityDescriptor">EntityDescriptor</a></li>
 	
 		<li data-jstree='{"icon":"./assets/images/icons/interface_public.png"}' id="node-type/IDescriptor"><a href="#type/IDescriptor">IDescriptor</a></li>
 	
@@ -4211,13 +4220,13 @@
 	
 		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/DatabaseDescriptorReader"><a href="#type/DatabaseDescriptorReader">DatabaseDescriptorReader</a></li>
 	
-		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/DatabaseMappingDescriptorReader"><a href="#type/DatabaseMappingDescriptorReader">DatabaseMappingDescriptorReader</a></li>
+		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/EntityDescriptorReader"><a href="#type/EntityDescriptorReader">EntityDescriptorReader</a></li>
 	
 		<li data-jstree='{"icon":"./assets/images/icons/interface_public.png"}' id="node-type/IDescriptorReader"><a href="#type/IDescriptorReader">IDescriptorReader</a></li>
 	
 		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/LibraryDescriptorReader"><a href="#type/LibraryDescriptorReader">LibraryDescriptorReader</a></li>
 	
-		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/QuickDatabaseMappingDescriptorReader"><a href="#type/QuickDatabaseMappingDescriptorReader">QuickDatabaseMappingDescriptorReader</a></li>
+		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/QuickEntityDescriptorReader"><a href="#type/QuickEntityDescriptorReader">QuickEntityDescriptorReader</a></li>
 	
 		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/SiminovSAXDefaultHandler"><a href="#type/SiminovSAXDefaultHandler">SiminovSAXDefaultHandler</a></li>
 
@@ -4245,7 +4254,7 @@
 	
 		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/ClassUtils"><a href="#type/ClassUtils">ClassUtils</a></li>
 	
-		<li data-jstree='{"icon":"./assets/images/icons/class_internal.png"}' id="node-type/FileUtils"><a href="#type/FileUtils">FileUtils</a></li>
+		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/FileUtils"><a href="#type/FileUtils">FileUtils</a></li>
 	
 		<li data-jstree='{"icon":"./assets/images/icons/class_public.png"}' id="node-type/Utils"><a href="#type/Utils">Utils</a></li>
 
