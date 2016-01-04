@@ -2,8 +2,6 @@
 
 Steps to generate the documentation:
 
-	- headerdoc2html -j -o /private/var/user/Documents/App/Core/Docs/docs.ios  Siminov/
+	- brew install appledoc
 
-	- gatherheaderdoc /private/var/user/Documents/App/Core/Docs/docs.ios 
-
-
+	- appledoc --project-name Core --project-company "Siminov" --company-id Siminov.Core  --output /private/var/user/Documents/App/Core/Docs/docs.ios  .

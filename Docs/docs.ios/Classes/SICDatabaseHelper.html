@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -78,8 +78,6 @@
 		
 		<option value="//api/name/dropTable:">+ dropTable:</option>
 		
-		<option value="//api/name/endTransaction:">+ endTransaction:</option>
-		
 		<option value="//api/name/getColumnNames:">+ getColumnNames:</option>
 		
 		<option value="//api/name/getColumnTypes:">+ getColumnTypes:</option>
@@ -88,7 +86,7 @@
 		
 		<option value="//api/name/getDatabaseDescriptor:">+ getDatabaseDescriptor:</option>
 		
-		<option value="//api/name/getDatabaseMappingDescriptor:">+ getDatabaseMappingDescriptor:</option>
+		<option value="//api/name/getEntityDescriptor:">+ getEntityDescriptor:</option>
 		
 		<option value="//api/name/getForeignKeys:">+ getForeignKeys:</option>
 		
@@ -100,7 +98,7 @@
 		
 		<option value="//api/name/getUniqueFields:">+ getUniqueFields:</option>
 		
-		<option value="//api/name/parseAndInflateData:values:">+ parseAndInflateData:values:</option>
+		<option value="//api/name/parseAndInflateData:parentObject:entityDescriptor:values:">+ parseAndInflateData:parentObject:entityDescriptor:values:</option>
 		
 		<option value="//api/name/save:">+ save:</option>
 		
@@ -210,6 +208,11 @@ It has methods to create, delete, and perform other common database management t
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It is used to create instance of <a href="../Protocols/SICIDatabase.html">SICIDatabase</a> implementation.</p>
+			</div>
+			
 
 			
 
@@ -251,7 +254,7 @@ It has methods to create, delete, and perform other common database management t
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>databaseDescriptor</code></th>
-						<td><p>Database-mapping object which defines the structure of table.</p></td>
+						<td><p>Entity Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 				</table>
@@ -265,9 +268,11 @@ It has methods to create, delete, and perform other common database management t
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Drop the Liquor table.</p>
+				<p>It drops the whole database based on database-descriptor.</p>
 
-<pre><code>SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc] init] getDatabaseDescriptor];
+<p>Drop the book table.</p>
+
+<pre><code>SICDatabaseDescriptor *databaseDescriptor = [[[Book alloc] init] getDatabaseDescriptor];
 
 @try {
     [SICDatabase dropDatabase:databaseDescriptor];
@@ -330,6 +335,11 @@ It has methods to create, delete, and perform other common database management t
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Upgrade Existing Database.</p>
+			</div>
+			
 
 			
 
@@ -361,7 +371,7 @@ It has methods to create, delete, and perform other common database management t
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)upgradeTable:(SICDatabaseMappingDescriptor *)<em>databaseMappingDescriptor</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)upgradeTable:(SICEntityDescriptor *)<em>entityDescriptor</em></code></div>
 
 		    
 			
@@ -370,7 +380,7 @@ It has methods to create, delete, and perform other common database management t
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
 						<td><p>object related to table.</p></td>
 					</tr>
 				
@@ -382,6 +392,11 @@ It has methods to create, delete, and perform other common database management t
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Upgrade Table.</p>
+			</div>
 			
 
 			
@@ -426,7 +441,7 @@ It has methods to create, delete, and perform other common database management t
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)createTables:(NSEnumerator *)<em>databaseMappingDescriptors</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)createTables:(NSEnumerator *)<em>entityDescriptors</em></code></div>
 
 		    
 			
@@ -435,8 +450,8 @@ It has methods to create, delete, and perform other common database management t
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptors</code></th>
-						<td><p>Database-mapping objects which defines the structure of each table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptors</code></th>
+						<td><p>Entity Descriptor objects which defines the structure of each table.</p></td>
 					</tr>
 				
 				</table>
@@ -450,61 +465,130 @@ It has methods to create, delete, and perform other common database management t
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Using SIMINOV there are three ways to create table in database.</p>
+				<p>Is used to create a new table in an database.</p>
+
+<p>Using SIMINOV there are three ways to create table in database.</p>
 
 <ul>
-<li>Describing table structure in form of DATABASE-MAPPING-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.</li>
+<li>Describing table structure in form of ENTITY-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.</li>
 </ul>
 
 
-<p>SIMINOV will parse each DATABASE-MAPPING-DESCRIPTOR XML defined by developer and create table&rsquo;s in database.</p>
+<p>SIMINOV will parse each ENTITY-DESCRIPTOR XML defined by developer and create table&rsquo;s in database.</p>
 
 <p>Example:</p>
 
-<pre><code> &lt;database-mapping-descriptor&gt;
+<pre><code>    &lt;!-- Design Of EntityDescriptor.xml --&gt;
 
- &lt;entity table_name="LIQUOR" class_name="Liquor"&gt;
+&lt;entity-descriptor&gt;
 
- &lt;attribute variable_name="liquorType" column_name="LIQUOR_TYPE"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;property name="primary_key"&gt;true&lt;/property&gt;
- &lt;property name="not_null"&gt;true&lt;/property&gt;
- &lt;property name="unique"&gt;true&lt;/property&gt;
- &lt;/attribute&gt;
+    &lt;!-- General Properties Of Table And Class --&gt;
 
- &lt;attribute variable_name="description" column_name="DESCRIPTION"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;/attribute&gt;
+        &lt;!-- Mandatory Field --&gt;
+        &lt;!-- NAME OF TABLE --&gt;
+    &lt;property name="table_name"&gt;name_of_table&lt;/property&gt;
 
- &lt;attribute variable_name="history" column_name="HISTORY"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;/attribute&gt;
+        &lt;!-- Mandatory Field --&gt;
+        &lt;!-- MAPPED CLASS NAME --&gt;
+    &lt;property name="class_name"&gt;mapped_class_name&lt;/property&gt;
 
- &lt;attribute variable_name="link" column_name="LINK"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;property name="default"&gt;www.wikipedia.org&lt;/property&gt;
- &lt;/attribute&gt;
 
- &lt;attribute variable_name="alcholContent" column_name="ALCHOL_CONTENT"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;/attribute&gt;
+        &lt;!-- Optional Field --&gt;
+    &lt;attributes&gt;
 
- &lt;index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true"&gt;
- &lt;attribute&gt;HISTORY&lt;/attribute&gt;
- &lt;/index&gt;
+        &lt;!-- Column Properties Required Under This Table --&gt;
 
- &lt;relationships&gt;
+        &lt;!-- Optional Field --&gt;
+        &lt;attribute&gt;
 
- &lt;one-to-many refer="liquorBrands" refer_to="LiquorBrand" on_update="cascade" on_delete="cascade"&gt;
- &lt;property name="load"&gt;true&lt;/property&gt;
- &lt;/one-to-many&gt;
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- COLUMN_NAME: Mandatory Field --&gt;
+            &lt;property name="column_name"&gt;column_name_of_table&lt;/property&gt;
 
- &lt;/relationships&gt;
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- VARIABLE_NAME: Mandatory Field --&gt;
+            &lt;property name="variable_name"&gt;class_variable_name&lt;/property&gt;
 
- &lt;/entity&gt;
+                &lt;!-- Mandatory Field --&gt;
+            &lt;property name="type"&gt;java_variable_data_type&lt;/property&gt;
 
- &lt;/database-mapping-descriptor&gt;
+                &lt;!-- Optional Field (Default is false) --&gt;
+            &lt;property name="primary_key"&gt;true/false&lt;/property&gt;
+
+                &lt;!-- Optional Field (Default is false) --&gt;
+            &lt;property name="not_null"&gt;true/false&lt;/property&gt;
+
+                &lt;!-- Optional Field (Default is false) --&gt;
+            &lt;property name="unique"&gt;true/false&lt;/property&gt;
+
+                &lt;!-- Optional Field --&gt;
+            &lt;property name="check"&gt;condition_to_be_checked (Eg: variable_name 'condition' value; variable_name &gt; 0)&lt;/property&gt;
+
+                &lt;!-- Optional Field --&gt;
+            &lt;property name="default"&gt;default_value_of_column (Eg: 0.1)&lt;/property&gt;
+
+    &lt;/attribute&gt;
+
+&lt;/attributes&gt;
+
+
+    &lt;!-- Optional Field --&gt;
+&lt;indexes&gt;
+
+        &lt;!-- Index Properties --&gt;
+    &lt;index&gt;
+
+            &lt;!-- Mandatory Field --&gt;
+            &lt;!-- NAME OF INDEX --&gt;
+        &lt;property name="name"&gt;name_of_index&lt;/property&gt;
+
+            &lt;!-- Mandatory Field --&gt;
+            &lt;!-- UNIQUE: Optional Field (Default is false) --&gt;
+        &lt;property name="unique"&gt;true/false&lt;/property&gt;
+
+            &lt;!-- Optional Field --&gt;
+            &lt;!-- Name of the column --&gt;
+        &lt;property name="column"&gt;column_name_needs_to_add&lt;/property&gt;
+
+    &lt;/index&gt;
+
+&lt;/indexes&gt;
+
+
+&lt;!-- Map Relationship Properties --&gt;
+
+    &lt;!-- Optional Field's --&gt;
+&lt;relationships&gt;
+
+    &lt;relationship&gt;
+
+            &lt;!-- Mandatory Field --&gt;
+            &lt;!-- Type of Relationship --&gt;
+        &lt;property name="type"&gt;one-to-one|one-to-many|many-to-one|many-to-many&lt;/property&gt;
+
+            &lt;!-- Mandatory Field --&gt;
+            &lt;!-- REFER --&gt;
+        &lt;property name="refer"&gt;class_variable_name&lt;/property&gt;
+
+            &lt;!-- Mandatory Field --&gt;
+            &lt;!-- REFER TO --&gt;
+        &lt;property name="refer_to"&gt;map_to_class_name&lt;/property&gt;
+
+            &lt;!-- Optional Field --&gt;
+        &lt;property name="on_update"&gt;cascade/restrict/no_action/set_null/set_default&lt;/property&gt;
+
+            &lt;!-- Optional Field --&gt;
+        &lt;property name="on_delete"&gt;cascade/restrict/no_action/set_null/set_default&lt;/property&gt;
+
+            &lt;!-- Optional Field (Default is false) --&gt;
+        &lt;property name="load"&gt;true/false&lt;/property&gt;
+
+    &lt;/relationship&gt;
+
+&lt;/relationships&gt;
 </code></pre>
+
+<p>&lt;/entity-descriptor></p>
 			</div>
 			
 
@@ -538,7 +622,7 @@ It has methods to create, delete, and perform other common database management t
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)createTable:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)createTable:(SICEntityDescriptor *const)<em>entityDescriptor</em></code></div>
 
 		    
 			
@@ -547,8 +631,8 @@ It has methods to create, delete, and perform other common database management t
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-mapping object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 				</table>
@@ -562,14 +646,16 @@ It has methods to create, delete, and perform other common database management t
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Manually creating table structure using DatabaseMapping POJO class.</p>
+				<p>Is used to create a new table in an database.</p>
+
+<p>Manually creating table structure using Entity Descriptor mapped class.</p>
 
 <p>Example:</p>
 
-<pre><code> Liquor *liquor = [[Liquor alloc] init];
+<pre><code> Book *book = [[Book alloc] init];
 
  @try {
-    [SICDatabase createTables:[liquor getDatabaseMappingDescriptor]];
+    [SICDatabase createTables:[book getEntityDescriptor]];
  } @catch(SICDatabaseException *databaseException) {
     //Log It.
  }
@@ -602,12 +688,12 @@ It has methods to create, delete, and perform other common database management t
 			
 			
 			<div class="method-subsection brief-description">
-				<p>It drops the table from database based on database mapping descriptor.</p>
+				<p>It drops the table from database based on entity descriptor.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)dropTable:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)dropTable:(SICEntityDescriptor *const)<em>entityDescriptor</em></code></div>
 
 		    
 			
@@ -616,8 +702,8 @@ It has methods to create, delete, and perform other common database management t
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-mapping object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 				</table>
@@ -631,12 +717,14 @@ It has methods to create, delete, and perform other common database management t
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Drop the Liquor table.</p>
+				<p>It drops the table from database based on entity descriptor.</p>
 
-<pre><code>DatabaseMappingDescriptor *databaseMappingDescriptor = [[[Liquor alloc] init] getDatabaseMappingDescriptor];
+<p>Drop the book table.</p>
+
+<pre><code>EntityDescriptor *entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
 
 @try {
-    [SICDatabase dropTable:databaseMappingDescriptor];
+    [SICDatabase dropTable:entityDescriptor];
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -674,7 +762,7 @@ It has methods to create, delete, and perform other common database management t
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)createIndexBasedonIndexObject:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em> index:(SICIndex *const)<em>index</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)createIndexBasedonIndexObject:(SICEntityDescriptor *const)<em>entityDescriptor</em> index:(SICIndex *const)<em>index</em></code></div>
 
 		    
 			
@@ -683,8 +771,8 @@ It has methods to create, delete, and perform other common database management t
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-mapping object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 					<tr>
@@ -703,19 +791,21 @@ It has methods to create, delete, and perform other common database management t
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Create Index On Liquor table.</p>
+				<p>Is used to create a new index on a table in database.</p>
 
-<pre><code>Index *indexOnLiquor = [[Index alloc] init];
-[indexOnLiquor setName: @"LIQUOR_INDEX_BASED_ON_LINK"];
-[indexOnLiquor setUnique: true];
+<p>Create Index On book table.</p>
+
+<pre><code>Index *indexOnBook = [[Index alloc] init];
+[indexOnBook setName: @"BOOK_INDEX_BASED_ON_AUDITOR"];
+[indexOnBook setUnique: true];
 
 //Add Columns on which we need index.
-[indexOnLiquor addColumn: @"LINK"];
+[indexOnBook addColumn: @"LINK"];
 
-SICDatabaseMapping *databaseMapping = [[[Liquor alloc] init] getDatabaseMapping];
+SICEntityDescriptor *entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
 
 @try {
-    [SICDatabase createIndexBasedonIndexObject:databaseMapping index:indexOnLiquor);
+    [SICDatabase createIndexBasedonIndexObject:entityDescriptor index:indexOnBook);
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -753,7 +843,7 @@ SICDatabaseMapping *databaseMapping = [[[Liquor alloc] init] getDatabaseMapping]
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)createIndex:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em> indexName:(id)<em>indexName</em> columnNames:(NSEnumerator *)<em>columnNames</em> isUnique:(BOOL const)<em>isUnique</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)createIndex:(SICEntityDescriptor *const)<em>entityDescriptor</em> indexName:(id)<em>indexName</em> columnNames:(NSEnumerator *)<em>columnNames</em> isUnique:(bool const)<em>isUnique</em></code></div>
 
 		    
 			
@@ -762,8 +852,8 @@ SICDatabaseMapping *databaseMapping = [[[Liquor alloc] init] getDatabaseMapping]
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-mapping object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 					<tr>
@@ -792,17 +882,19 @@ SICDatabaseMapping *databaseMapping = [[[Liquor alloc] init] getDatabaseMapping]
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Create Index On Liquor table.</p>
+				<p>Is used to create a new index on a table in database.</p>
 
-<pre><code>NSString *indexName = @"LIQUOR_INDEX_BASED_ON_LINK";
+<p>Create Index On book table.</p>
+
+<pre><code>NSString *indexName = @"BOOK_INDEX_BASED_ON_AUDITOR";
 BOOL isUnique = true;
 
 NSMutableArray *columnNames = [NSMutableArray alloc] init];
 [columnNames add:@"LINK"];
 
 @try {
-    [[Liquor alloc] init] createIndex;
-    new Liquor().createIndex(indexName, columnNames.iterator(), isUnique);
+    [[Book alloc] init] createIndex;
+    new Book().createIndex(indexName, columnNames.iterator(), isUnique);
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -840,7 +932,7 @@ NSMutableArray *columnNames = [NSMutableArray alloc] init];
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)dropIndex:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em> indexName:(NSString *const)<em>indexName</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)dropIndex:(SICEntityDescriptor *const)<em>entityDescriptor</em> indexName:(NSString *const)<em>indexName</em></code></div>
 
 		    
 			
@@ -849,8 +941,8 @@ NSMutableArray *columnNames = [NSMutableArray alloc] init];
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-mapping object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 					<tr>
@@ -869,13 +961,15 @@ NSMutableArray *columnNames = [NSMutableArray alloc] init];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Create Index On Liquor table.</p>
+				<p>Is used to drop a index on a table in database.</p>
 
-<pre><code>NSString *indexName = @"LIQUOR_INDEX_BASED_ON_LINK";
-SICDatabaseMapping *databaseMapping = [[[Liquor alloc] init] getDatabaseMapping];
+<p>Create Index On Book table.</p>
+
+<pre><code>NSString *indexName = @"BOOK_INDEX_BASED_ON_AUDITOR";
+SICEntityDescriptor *entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
 
 @try {
-    [SICDatabase dropIndex:databaseMapping indexName:indexName];
+    [SICDatabase dropIndex:entityDescriptor indexName:indexName];
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -937,23 +1031,24 @@ SICDatabaseMapping *databaseMapping = [[[Liquor alloc] init] getDatabaseMapping]
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Transactions can be nested. When the outer transaction is ended all of the work done in that transaction and all of the nested transactions will be committed or rolled back.
+				<p>Begins a transaction in EXCLUSIVE mode.</p>
+
+<p>Transactions can be nested. When the outer transaction is ended all of the work done in that transaction and all of the nested transactions will be committed or rolled back.
 The changes will be rolled back if any transaction is ended without being marked as clean(by calling commitTransaction). Otherwise they will be committed.</p>
 
-<p>Example: Make Beer Object</p>
+<p>Example: Make Book Object</p>
 
-<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
+<pre><code>Book *cBook = [[Book alloc] init];
+[cBook setTitle:BOOK_TYPE_C];
+[cBook setDescription: @"c_description"];
+[cBook setAuditor: @"c_auditor"];
+[cBook setLink: @"c_link"];
 
-SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+SICDatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
 
 @try {
     [SICDatabase beginTransaction:databaseDescriptor];
-    [beer save];
+    [cBook save];
     [SICDatabase commitTransaction:databaseDescriptor];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
@@ -1018,100 +1113,23 @@ SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Finally it will End a transaction.</p>
+				<p>Marks the current transaction as successful.</p>
+
+<p>Finally it will End a transaction.</p>
 
 <p>Example: Make Beer Object</p>
 
-<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
+<pre><code>Book *cBook = [[Book alloc] init];
+[cBook setTitle:BOOK_TYPE_C];
+[cBook setDescription: @"c_description"];
+[cBook setAuditor: @"c_auditor"];
+[cBook setLink: @"c_link"];
 
-SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
-
-@try {
-    [SICDatabase beginTransaction: databaseDescriptor];
-    [beer save];
-    [SICDatabase commitTransaction: databaseDescriptor];
-} @catch(SICDatabaseException *databaseException) {
-    //Log it.
-} @finally {
-    [SICDatabase endTransaction: databaseDescriptor];
-}
-</code></pre>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">SICDatabaseHelper.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/endTransaction:" title="endTransaction:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/endTransaction:">+&nbsp;endTransaction:</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>End the current transaction.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>+ (void)endTransaction:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em></code></div>
-
-		    
-			
-			<div class="method-subsection arguments-section parameters">
-				<h4 class="method-subtitle parameter-title">Parameters</h4>
-				<table class="argument-def parameter-def">
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>databaseDescriptor</code></th>
-						<td><p>Database Descriptor Object.</p></td>
-					</tr>
-				
-				</table>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
-
-<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
-
-SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+SICDatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
 
 @try {
     [SICDatabase beginTransaction: databaseDescriptor];
-    [beer save];
+    [cBook save];
     [SICDatabase commitTransaction: databaseDescriptor];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
@@ -1186,13 +1204,15 @@ SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all tuples based on manual query from mapped table for invoked class object.</p>
 
-<pre><code>NSString *query = @"SELECT * FROM LIQUOR";
-NSArray *liquors;
+<p>Example:</p>
+
+<pre><code>NSString *query = @"SELECT * FROM BOOK";
+NSArray *books;
 
 @try {
-    liquors = [[[[Liquor alloc] init] select] execute];
+    books = [[[[Book alloc] init] select] execute];
 } @catch(SICDatabaseException *de) {
     //Log it.
 }
@@ -1254,17 +1274,18 @@ NSArray *liquors;
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Liquor Object</p>
+				<p>It adds a record to any single table in a relational database.</p>
 
-<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
+<p>Example: Make Book Object</p>
+
+<pre><code>Book *cBook = [[Book alloc] init];
+[cBook setTitle: BOOK_TYPE_C];
+[beer setDescription: @"c_description"];
+[beer setAuditor: @"c_auditor"];
 [beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
 
 @try {
-    [beer save];
+    [cBook save];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1328,15 +1349,18 @@ NSArray *liquors;
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
+				<p>It updates a record to any single table in a relational database.</p>
+
+<p>Example: Make Beer Object</p>
+
+<pre><code>Book *cBook = [[Book alloc] init];
+[cBook setTitle:BOOK_TYPE_C];
+[cBook setDescription: @"c_description"];
+[cBook setAuditor: @"c_auditor"];
+[cBook setLink: @"c_link"];
 
 @try {
-    [beer update];
+    [cBook update];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1402,17 +1426,22 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>It finds out whether tuple exists in table or not.
+IF NOT EXISTS:
+adds a record to any single table in a relational database.
+ELSE:
+updates a record to any single table in a relational database.</p>
 
-<pre><code>Liquor beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
+
+<pre><code>Book *cBook = [[Book alloc] init];
+[cBook setTitle:BOOK_TYPE_C];
+[cBook setDescription: @"c_description"];
+[cBook setAuditor: @"c_auditor"];
+[cBook setLink: @"c_link"];
 
 @try {
-    [beer saveOrUpdate];
+    [cBook saveOrUpdate];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1479,10 +1508,12 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns database descriptor object based on the POJO class called.</p>
+
+<p>Example:</p>
 
 <pre><code>@try {
-    SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc] init] getDatabaseDescriptor];
+    SICDatabaseDescriptor *databaseDescriptor = [[[Book alloc] init] getDatabaseDescriptor];
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -1504,8 +1535,8 @@ updates a record to any single table in a relational database.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabaseMappingDescriptor:" title="getDatabaseMappingDescriptor:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptor:">+&nbsp;getDatabaseMappingDescriptor:</a></code>
+	<a name="//api/name/getEntityDescriptor:" title="getEntityDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptor:">+&nbsp;getEntityDescriptor:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1515,12 +1546,12 @@ updates a record to any single table in a relational database.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Returns the actual database mapping object mapped for invoked class object.</p>
+				<p>Returns the actual entity descriptor object mapped for invoked class object.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (SICDatabaseMappingDescriptor *)getDatabaseMappingDescriptor:(NSString *const)<em>className</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (SICEntityDescriptor *)getEntityDescriptor:(NSString *const)<em>className</em></code></div>
 
 		    
 			
@@ -1540,7 +1571,7 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>DatabaseMapping Object</p>
+				<p>Entity Descriptor Object</p>
 			</div>
 			
 
@@ -1549,11 +1580,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns the actual entity descriptor object mapped for invoked class object.</p>
 
-<pre><code>SICDatabaseMapping *databaseMapping = nil;
+<p>Example:</p>
+
+<pre><code>SICEntityDescriptor *entityDescriptor = nil;
 @try {
-    databaseMapping = [[[Liquor alloc] init] getDatabaseMapping];
+    entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1620,11 +1653,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns the mapped table name for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code>NSString *tableName = nil;
 @try {
-    tableName = [[[Liquor alloc] init] getTableName];
+    tableName = [[[Book alloc] init] getTableName];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1691,11 +1726,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all column names of mapped table.</p>
+
+<p>Example:</p>
 
 <pre><code>NSEnumerator *columnNames = nil;
 @try {
-    columnNames = [[[Liquor alloc] init] getColumnNames];
+    columnNames = [[[Book alloc] init] getColumnNames];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1762,11 +1799,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all column values in the same order of column names for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code>NSMutableDictionary *values = nil;
 @try {
-    values = [[[Liquor alloc] init] getColumnValues];
+    values = [[[Book alloc] init] getColumnValues];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1833,11 +1872,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all columns with there data types for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code>NSMutableDictionary *columnTypes = nil;
 @try {
-    columnTypes = [[[Liquor alloc] init] getColumnTypes];
+    columnTypes = [[[Book alloc] init] getColumnTypes];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1904,11 +1945,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all primary keys of mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code>NSEnumerator *primaryKeys = nil;
 @try {
-    primaryKeys = [[[Liquor alloc] init] getPrimeryKeys();
+    primaryKeys = [[[Book alloc] init] getPrimeryKeys();
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -1975,11 +2018,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all mandatory fields which are associated with mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code>NSEnumerator *mandatoryFields = null;
 @try {
-    mandatoryFields = [[[Liquor alloc] init] getMandatoryFields];
+    mandatoryFields = [[[Book alloc] init] getMandatoryFields];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -2046,11 +2091,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all unique fields which are associated with mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code>NSEnumerator *uniqueFields = null;
 @try {
-    uniqueFields = [[[Liquor alloc] init] getUniqueFields];
+    uniqueFields = [[[Book alloc] init] getUniqueFields];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -2117,11 +2164,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all foreign keys of mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code>NSEnumerator *foreignKeys = nil;
 @try {
-    foreignKeys = [[[Liquor alloc] init] getForeignKeys];
+    foreignKeys = [[[Book alloc] init] getForeignKeys];
 } @catch(SICDatabaseException *databaseException) {
     //Log it.
 }
@@ -2143,8 +2192,8 @@ updates a record to any single table in a relational database.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/parseAndInflateData:values:" title="parseAndInflateData:values:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/parseAndInflateData:values:">+&nbsp;parseAndInflateData:values:</a></code>
+	<a name="//api/name/parseAndInflateData:parentObject:entityDescriptor:values:" title="parseAndInflateData:parentObject:entityDescriptor:values:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/parseAndInflateData:parentObject:entityDescriptor:values:">+&nbsp;parseAndInflateData:parentObject:entityDescriptor:values:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -2159,7 +2208,7 @@ updates a record to any single table in a relational database.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (NSEnumerator *)parseAndInflateData:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em> values:(NSEnumerator *const)<em>values</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (NSEnumerator *)parseAndInflateData:(id const)<em>object</em> parentObject:(id)<em>parentObject</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em> values:(NSEnumerator *const)<em>values</em></code></div>
 
 		    
 			
@@ -2168,7 +2217,7 @@ updates a record to any single table in a relational database.</p>
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
 						<td><p>object related to table.</p></td>
 					</tr>
 				
@@ -2185,6 +2234,11 @@ updates a record to any single table in a relational database.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Iterates the provided cursor, and returns tuples in form of actual objects.</p>
+			</div>
 			
 
 			
@@ -2208,12 +2262,14 @@ updates a record to any single table in a relational database.</p>
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

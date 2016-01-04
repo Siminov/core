@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -90,11 +90,11 @@
 		
 		<option value="//api/name/getDatabaseEventHandler">- getDatabaseEventHandler</option>
 		
-		<option value="//api/name/getDatabaseMappingDescriptorBasedOnClassName:">- getDatabaseMappingDescriptorBasedOnClassName:</option>
+		<option value="//api/name/getEntityDescriptorBasedOnClassName:">- getEntityDescriptorBasedOnClassName:</option>
 		
-		<option value="//api/name/getDatabaseMappingDescriptorBasedOnTableName:">- getDatabaseMappingDescriptorBasedOnTableName:</option>
+		<option value="//api/name/getEntityDescriptorBasedOnTableName:">- getEntityDescriptorBasedOnTableName:</option>
 		
-		<option value="//api/name/getDatabaseMappingDescriptors">- getDatabaseMappingDescriptors</option>
+		<option value="//api/name/getEntityDescriptors">- getEntityDescriptors</option>
 		
 		<option value="//api/name/getSiminovEventHandler">- getSiminovEventHandler</option>
 		
@@ -102,7 +102,7 @@
 		
 		<option value="//api/name/removeDatabaseBundle:">- removeDatabaseBundle:</option>
 		
-		<option value="//api/name/requiredDatabaseMappingDescriptorBasedOnClassName:">- requiredDatabaseMappingDescriptorBasedOnClassName:</option>
+		<option value="//api/name/requiredEntityDescriptorBasedOnClassName:">- requiredEntityDescriptorBasedOnClassName:</option>
 		
 		<option value="//api/name/setApplicationDescriptor:">- setApplicationDescriptor:</option>
 		
@@ -143,7 +143,7 @@
 						<p>It handles and provides all resources needed by SIMINOV such as:</p>
 
 <p><p>
-Provides Application Descriptor, Database Descriptor, Library Descriptor, Database Mapping Descriptor.</p>
+Provides Application Descriptor, Database Descriptor, Library Descriptor, Entity Descriptor.</p>
 					</div>
 					
 					
@@ -190,6 +190,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It provides an instance of Resources class</p>
+			</div>
+			
 
 			
 
@@ -235,6 +240,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Application Descriptor object of application.</p>
+			</div>
 			
 
 			
@@ -289,6 +299,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set Application Descriptor of application.</p>
+			</div>
+			
 
 			
 
@@ -337,12 +352,14 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: ApplicationDescriptor.si.xml</p>
+				<p>Get iterator of all database descriptors provided in Application Descriptor file.</p>
+
+<p>Example: ApplicationDescriptor.xml</p>
 
 <pre><code>&lt;siminov&gt;
 
     &lt;database-descriptors&gt;
-        &lt;database-descriptor&gt;DatabaseDescriptor.si.xml&lt;/database-descriptor&gt;
+        &lt;database-descriptor&gt;DatabaseDescriptor.xml&lt;/database-descriptor&gt;
     &lt;/database-descriptors&gt;
 
 &lt;/siminov&gt;
@@ -409,12 +426,14 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: ApplicationDescriptor.si.xml</p>
+				<p>Get DatabaseDescriptor based on path provided as per defined in Application Descriptor file.</p>
+
+<p>Example: ApplicationDescriptor.xml</p>
 
 <pre><code>&lt;siminov&gt;
 
     &lt;database-descriptors&gt;
-        &lt;database-descriptor&gt;DatabaseDescriptor.si.xml&lt;/database-descriptor&gt;
+        &lt;database-descriptor&gt;DatabaseDescriptor.xml&lt;/database-descriptor&gt;
     &lt;/database-descriptors&gt;
 
 &lt;/siminov&gt;
@@ -476,7 +495,9 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: DatabaseDescriptor.xml</p>
+				<p>Get Database Descriptor based on database descriptor name provided as per defined in Database Descriptor file.</p>
+
+<p>Example: DatabaseDescriptor.xml</p>
 
 <pre><code>&lt;database-descriptor&gt;
 
@@ -531,6 +552,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all Database Descriptors object.</p>
+			</div>
 			
 
 			
@@ -590,6 +616,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Database Descriptor based on POJO class name provided.</p>
+			</div>
+			
 
 			
 
@@ -647,6 +678,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get database descriptor name based on class name</p>
+			</div>
 			
 
 			
@@ -706,6 +742,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Database Descriptor based on table name provided.</p>
+			</div>
+			
 
 			
 
@@ -764,6 +805,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get database descriptor name based on table name</p>
+			</div>
+			
 
 			
 
@@ -779,8 +825,8 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabaseMappingDescriptorBasedOnClassName:" title="getDatabaseMappingDescriptorBasedOnClassName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;getDatabaseMappingDescriptorBasedOnClassName:</a></code>
+	<a name="//api/name/getEntityDescriptorBasedOnClassName:" title="getEntityDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptorBasedOnClassName:">&ndash;&nbsp;getEntityDescriptorBasedOnClassName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -790,12 +836,12 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get Database Mapping based on POJO class name provided.</p>
+				<p>Get Entity Descriptor based on mapped class name provided.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabaseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (SICEntityDescriptor *)getEntityDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
 
 		    
 			
@@ -805,7 +851,7 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>className</code></th>
-						<td><p>POJO class name.</p></td>
+						<td><p>Mapped class name.</p></td>
 					</tr>
 				
 				</table>
@@ -815,12 +861,17 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>Database Mapping object in respect to POJO class name.</p>
+				<p>Entity Descriptor object in respect to class name.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Entity Descriptor based on mapped class name provided.</p>
+			</div>
 			
 
 			
@@ -837,8 +888,8 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabaseMappingDescriptorBasedOnTableName:" title="getDatabaseMappingDescriptorBasedOnTableName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptorBasedOnTableName:">&ndash;&nbsp;getDatabaseMappingDescriptorBasedOnTableName:</a></code>
+	<a name="//api/name/getEntityDescriptorBasedOnTableName:" title="getEntityDescriptorBasedOnTableName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptorBasedOnTableName:">&ndash;&nbsp;getEntityDescriptorBasedOnTableName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -848,12 +899,12 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get Database Mapping based on table name provided.</p>
+				<p>Get Entity Descriptor based on table name provided.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabaseMappingDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (SICEntityDescriptor *)getEntityDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
 
 		    
 			
@@ -880,6 +931,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Entity Descriptor based on table name provided.</p>
+			</div>
+			
 
 			
 
@@ -895,8 +951,8 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabaseMappingDescriptors" title="getDatabaseMappingDescriptors"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptors">&ndash;&nbsp;getDatabaseMappingDescriptors</a></code>
+	<a name="//api/name/getEntityDescriptors" title="getEntityDescriptors"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptors">&ndash;&nbsp;getEntityDescriptors</a></code>
 </h3>
 
 	<div class="method-info">
@@ -906,12 +962,12 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get all database mapping descriptors</p>
+				<p>Get all entity descriptors</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseMappingDescriptors</code></div>
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getEntityDescriptors</code></div>
 
 		    
 			
@@ -919,12 +975,17 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>Database Mapping Descriptors</p>
+				<p>Entity Descriptors</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all entity descriptors</p>
+			</div>
 			
 
 			
@@ -941,8 +1002,8 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/requiredDatabaseMappingDescriptorBasedOnClassName:" title="requiredDatabaseMappingDescriptorBasedOnClassName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/requiredDatabaseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;requiredDatabaseMappingDescriptorBasedOnClassName:</a></code>
+	<a name="//api/name/requiredEntityDescriptorBasedOnClassName:" title="requiredEntityDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requiredEntityDescriptorBasedOnClassName:">&ndash;&nbsp;requiredEntityDescriptorBasedOnClassName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -952,12 +1013,12 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get database mapping descriptor Object based on class name provided. If database mapping descriptor object not present in resource layer, it will parse DatabaseMappingDescriptor.si.xml file defined by application and will place it in resource layer.</p>
+				<p>Get entity descriptor Object based on class name provided. If entity descriptor object not present in resource layer, it will parse EntityDescriptor.xml file defined by application and will place it in resource layer.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)requiredDatabaseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (SICEntityDescriptor *)requiredEntityDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
 
 		    
 			
@@ -977,12 +1038,17 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>DatabaseMappingDescriptor object.</p>
+				<p>EntityDescriptor object.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get entity descriptor Object based on class name provided. If entity descriptor object not present in resource layer, it will parse EntityDescriptor.xml file defined by application and will place it in resource layer.</p>
+			</div>
 			
 
 			
@@ -992,7 +1058,7 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>SICSiminovException</code></th>
-						<td><p>If any exception occur while getting database mapping descriptor object.</p></td>
+						<td><p>If any exception occur while getting entity descriptor object.</p></td>
 					</tr>
 				
 				</table>
@@ -1054,6 +1120,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get IDatabase object based on Database Descriptor name.</p>
+			</div>
+			
 
 			
 
@@ -1099,6 +1170,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all IDatabase objects contain by application.</p>
+			</div>
 			
 
 			
@@ -1153,6 +1229,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove IDatabase object from Resources based on Database Descriptor name.</p>
+			</div>
+			
 
 			
 
@@ -1198,6 +1279,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get SIMINOV-EVENT Handler</p>
+			</div>
 			
 
 			
@@ -1245,6 +1331,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get DATABASE-EVENT Handler</p>
+			</div>
+			
 
 			
 
@@ -1263,8 +1354,8 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 						</div>
 						
 
-						<a title="Initializaion" name="task_Initializaion"></a>
-						<h2 class="task-title">Initializaion</h2>
+						
+						<h2 class="task-title">Other Methods</h2>
 
 						<div class="task-list">
 							<div class="section-method">
@@ -1294,6 +1385,11 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Resource Private Constructor</p>
+			</div>
+			
 
 			
 
@@ -1316,12 +1412,14 @@ Provides Application Descriptor, Database Descriptor, Library Descriptor, Databa
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

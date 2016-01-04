@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -60,31 +60,31 @@
 	
 	<optgroup label="Instance Methods">
 		
-		<option value="//api/name/addDatabaseMappingDescriptor:databaseMappingDescriptor:">- addDatabaseMappingDescriptor:databaseMappingDescriptor:</option>
+		<option value="//api/name/addEntityDescriptor:entityDescriptor:">- addEntityDescriptor:entityDescriptor:</option>
 		
-		<option value="//api/name/addDatabaseMappingDescriptorPath:">- addDatabaseMappingDescriptorPath:</option>
+		<option value="//api/name/addEntityDescriptorPath:">- addEntityDescriptorPath:</option>
 		
 		<option value="//api/name/addProperty:value:">- addProperty:value:</option>
 		
 		<option value="//api/name/containProperty:">- containProperty:</option>
 		
-		<option value="//api/name/containsDatabaseMappingDescriptorBasedOnClassName:">- containsDatabaseMappingDescriptorBasedOnClassName:</option>
+		<option value="//api/name/containsEntityDescriptorBasedOnClassName:">- containsEntityDescriptorBasedOnClassName:</option>
 		
-		<option value="//api/name/containsDatabaseMappingDescriptorBasedOnTableName:">- containsDatabaseMappingDescriptorBasedOnTableName:</option>
-		
-		<option value="//api/name/getDatabaseMappingDescriptorPaths">- getDatabaseMappingDescriptorPaths</option>
-		
-		<option value="//api/name/getDatabaseMappingDescriptors">- getDatabaseMappingDescriptors</option>
+		<option value="//api/name/containsEntityDescriptorBasedOnTableName:">- containsEntityDescriptorBasedOnTableName:</option>
 		
 		<option value="//api/name/getDatabaseName">- getDatabaseName</option>
 		
-		<option value="//api/name/getDatabseMappingDescriptorBasedOnClassName:">- getDatabseMappingDescriptorBasedOnClassName:</option>
-		
-		<option value="//api/name/getDatabseMappingDescriptorBasedOnPath:">- getDatabseMappingDescriptorBasedOnPath:</option>
-		
-		<option value="//api/name/getDatabseMappingDescriptorBasedOnTableName:">- getDatabseMappingDescriptorBasedOnTableName:</option>
-		
 		<option value="//api/name/getDescription">- getDescription</option>
+		
+		<option value="//api/name/getEntityDescriptorBasedOnClassName:">- getEntityDescriptorBasedOnClassName:</option>
+		
+		<option value="//api/name/getEntityDescriptorBasedOnPath:">- getEntityDescriptorBasedOnPath:</option>
+		
+		<option value="//api/name/getEntityDescriptorBasedOnTableName:">- getEntityDescriptorBasedOnTableName:</option>
+		
+		<option value="//api/name/getEntityDescriptorPaths">- getEntityDescriptorPaths</option>
+		
+		<option value="//api/name/getEntityDescriptors">- getEntityDescriptors</option>
 		
 		<option value="//api/name/getProperties">- getProperties</option>
 		
@@ -98,15 +98,15 @@
 		
 		<option value="//api/name/isTransactionSafe">- isTransactionSafe</option>
 		
-		<option value="//api/name/orderedDatabaseMappingDescriptors">- orderedDatabaseMappingDescriptors</option>
+		<option value="//api/name/orderedEntityDescriptors">- orderedEntityDescriptors</option>
 		
-		<option value="//api/name/removeDatabaseMappingDescriptor:">- removeDatabaseMappingDescriptor:</option>
+		<option value="//api/name/removeEntityDescriptor:">- removeEntityDescriptor:</option>
 		
-		<option value="//api/name/removeDatabaseMappingDescriptorBasedOnClassName:">- removeDatabaseMappingDescriptorBasedOnClassName:</option>
+		<option value="//api/name/removeEntityDescriptorBasedOnClassName:">- removeEntityDescriptorBasedOnClassName:</option>
 		
-		<option value="//api/name/removeDatabaseMappingDescriptorBasedOnPath:">- removeDatabaseMappingDescriptorBasedOnPath:</option>
+		<option value="//api/name/removeEntityDescriptorBasedOnPath:">- removeEntityDescriptorBasedOnPath:</option>
 		
-		<option value="//api/name/removeDatabaseMappingDescriptorBasedOnTableName:">- removeDatabaseMappingDescriptorBasedOnTableName:</option>
+		<option value="//api/name/removeEntityDescriptorBasedOnTableName:">- removeEntityDescriptorBasedOnTableName:</option>
 		
 		<option value="//api/name/removeProperty:">- removeProperty:</option>
 		
@@ -159,39 +159,39 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.si.xml file by application.</p>
+						<p>Exposes methods to GET and SET Database Descriptor information as per define in DatabaseDescriptor.xml file by application.</p>
 
 <p>Example:</p>
 
 <pre><code>&lt;database-descriptor&gt;
 
- &lt;!-- General Database Descriptor Properties --&gt;
+    &lt;!-- General Database Descriptor Properties --&gt;
 
- &lt;!-- Mandatory Field --&gt;
- &lt;property name="database_name"&gt;name_of_database_file&lt;/property&gt;
+        &lt;!-- Mandatory Field --&gt;
+    &lt;property name="database_name"&gt;name_of_database_file&lt;/property&gt;
 
- &lt;!-- Optional Field (Default is sqlite)--&gt;
- &lt;property name="type"&gt;type_of_database&lt;/property&gt;
+        &lt;!-- Optional Field (Default is sqlite)--&gt;
+    &lt;property name="type"&gt;type_of_database&lt;/property&gt;
 
- &lt;!-- Mandatory Field --&gt;
- &lt;property name="version"&gt;database_version&lt;/property&gt;
+        &lt;!-- Mandatory Field --&gt;
+    &lt;property name="version"&gt;database_version&lt;/property&gt;
 
- &lt;!-- Optional Field --&gt;
- &lt;property name="description"&gt;database_description&lt;/property&gt;
+        &lt;!-- Optional Field --&gt;
+    &lt;property name="description"&gt;database_description&lt;/property&gt;
 
- &lt;!-- Optional Field (Default is false) --&gt;
- &lt;property name="transaction_safe"&gt;true/false&lt;/property&gt;
+        &lt;!-- Optional Field (Default is false) --&gt;
+    &lt;property name="transaction_safe"&gt;true/false&lt;/property&gt;
 
- &lt;!-- Optional Field (Default is false) --&gt;
- &lt;property name="external_storage"&gt;true/false&lt;/property&gt;
+        &lt;!-- Optional Field (Default is false) --&gt;
+    &lt;property name="external_storage"&gt;true/false&lt;/property&gt;
 
 
- &lt;!-- Database Mapping Descriptor Paths Needed Under This Database Descriptor --&gt;
+    &lt;!-- Entity Descriptor Paths Needed Under This Database Descriptor --&gt;
 
- &lt;!-- Optional Field --&gt;
- &lt;database-mapping-descriptors&gt;
- &lt;database-mapping-descriptor&gt;full_path_of_database_mapping_descriptor_file&lt;/database-mapping-descriptor&gt;
- &lt;/database-mapping-descriptors&gt;
+        &lt;!-- Optional Field --&gt;
+    &lt;entity-descriptors&gt;
+        &lt;entity-descriptor&gt;full_path_of_entity_descriptor_file&lt;/entity-descriptor&gt;
+    &lt;/entity-descriptors&gt;
 
 &lt;/database-descriptor&gt;
 </code></pre>
@@ -240,6 +240,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get database descriptor name as defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
 			
 
 			
@@ -294,6 +299,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set database descriptor name as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
+			
 
 			
 
@@ -339,6 +349,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get type of database</p>
+			</div>
 			
 
 			
@@ -393,6 +408,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set type of database</p>
+			</div>
+			
 
 			
 
@@ -434,6 +454,12 @@ Version of application.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Version of Application as per defined in ApplicationDescriptor.core.xml file.
+Version of application.</p>
+			</div>
 			
 
 			
@@ -488,6 +514,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set Version of Application as per defined in ApplicationDescriptor.core.xml file.</p>
+			</div>
+			
 
 			
 
@@ -533,6 +564,11 @@ Version of application.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get description as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
 			
 
 			
@@ -587,6 +623,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set description as per defined in DatabaseDescritor.xml file.</p>
+			</div>
+			
 
 			
 
@@ -633,6 +674,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether database needs to be stored on SDCard or not.</p>
+			</div>
+			
 
 			
 
@@ -659,7 +705,7 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Set the external storage value as per defined in DatabaseDescriptor.si.xml file.</p>
+				<p>Set the external storage value as per defined in DatabaseDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -685,6 +731,11 @@ Version of application.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set the external storage value as per defined in DatabaseDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -725,12 +776,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>TRUE: If locking is required as per defined in DatabaseDescriptor.si.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.si.xml file.</p>
+				<p>TRUE: If locking is required as per defined in DatabaseDescriptor.xml file, FALSE: If locking is not required as per defined in DatabaseDescriptor.xml file.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether database transactions to make multi-threading safe or not.</p>
+			</div>
 			
 
 			
@@ -758,7 +814,7 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Set database locking as per defined in DatabaseDescriptor.si.xml file.</p>
+				<p>Set database locking as per defined in DatabaseDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -773,7 +829,7 @@ Version of application.</p>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>transactionSafe</code></th>
-						<td><p>(true/false) database locking as per defined in DatabaseDescriptor.si.xml file.</p></td>
+						<td><p>(true/false) database locking as per defined in DatabaseDescriptor.xml file.</p></td>
 					</tr>
 				
 				</table>
@@ -784,6 +840,11 @@ Version of application.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set database locking as per defined in DatabaseDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -800,8 +861,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/containsDatabaseMappingDescriptorBasedOnTableName:" title="containsDatabaseMappingDescriptorBasedOnTableName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/containsDatabaseMappingDescriptorBasedOnTableName:">&ndash;&nbsp;containsDatabaseMappingDescriptorBasedOnTableName:</a></code>
+	<a name="//api/name/containsEntityDescriptorBasedOnTableName:" title="containsEntityDescriptorBasedOnTableName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containsEntityDescriptorBasedOnTableName:">&ndash;&nbsp;containsEntityDescriptorBasedOnTableName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -811,12 +872,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Check whether database mapping object exists or not, based on table name.</p>
+				<p>Check whether entity descriptor object exists or not, based on table name.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (BOOL)containsDatabaseMappingDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (BOOL)containsEntityDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
 
 		    
 			
@@ -836,12 +897,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>TRUE: If database mapping exists, FALSE: If database mapping does not exists.</p>
+				<p>TRUE: If entity descriptor exists, FALSE: If entity descriptor does not exists.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether entity descriptor object exists or not, based on table name.</p>
+			</div>
 			
 
 			
@@ -858,8 +924,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/containsDatabaseMappingDescriptorBasedOnClassName:" title="containsDatabaseMappingDescriptorBasedOnClassName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/containsDatabaseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;containsDatabaseMappingDescriptorBasedOnClassName:</a></code>
+	<a name="//api/name/containsEntityDescriptorBasedOnClassName:" title="containsEntityDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/containsEntityDescriptorBasedOnClassName:">&ndash;&nbsp;containsEntityDescriptorBasedOnClassName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -869,12 +935,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Check whether database mapping object exists or not, based on POJO class name.</p>
+				<p>Check whether entity descriptor object exists or not, based on mapped class name.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (BOOL)containsDatabaseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (BOOL)containsEntityDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
 
 		    
 			
@@ -884,7 +950,7 @@ Version of application.</p>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>className</code></th>
-						<td><p>POJO class name.</p></td>
+						<td><p>Mapped class name.</p></td>
 					</tr>
 				
 				</table>
@@ -894,12 +960,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>TRUE: If database mapping exists, FALSE: If database mapping does not exists.</p>
+				<p>TRUE: If entity descriptor exists, FALSE: If entity descriptor does not exists.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether entity descriptor object exists or not, based on mapped class name.</p>
+			</div>
 			
 
 			
@@ -916,8 +987,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabaseMappingDescriptorPaths" title="getDatabaseMappingDescriptorPaths"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptorPaths">&ndash;&nbsp;getDatabaseMappingDescriptorPaths</a></code>
+	<a name="//api/name/getEntityDescriptorPaths" title="getEntityDescriptorPaths"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptorPaths">&ndash;&nbsp;getEntityDescriptorPaths</a></code>
 </h3>
 
 	<div class="method-info">
@@ -927,12 +998,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get all database mapping paths as per defined in DatabaseDescriptor.core.xml file.</p>
+				<p>Get all entity descriptor paths as per defined in DatabaseDescriptor.core.xml file.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseMappingDescriptorPaths</code></div>
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getEntityDescriptorPaths</code></div>
 
 		    
 			
@@ -940,12 +1011,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>Iterator which contain all database mapping paths.</p>
+				<p>Iterator which contain all entity descriptor paths.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all entity descriptor paths as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
 			
 
 			
@@ -962,8 +1038,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/addDatabaseMappingDescriptorPath:" title="addDatabaseMappingDescriptorPath:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/addDatabaseMappingDescriptorPath:">&ndash;&nbsp;addDatabaseMappingDescriptorPath:</a></code>
+	<a name="//api/name/addEntityDescriptorPath:" title="addEntityDescriptorPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addEntityDescriptorPath:">&ndash;&nbsp;addEntityDescriptorPath:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -973,12 +1049,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Add database mapping path as per defined in DatabaseDescriptor.si.xml file.</p>
+				<p>Add entity descriptor path as per defined in DatabaseDescriptor.xml file.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)addDatabaseMappingDescriptorPath:(NSString *const)<em>databaseMappingDescriptorPath</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)addEntityDescriptorPath:(NSString *const)<em>entityDescriptorPath</em></code></div>
 
 		    
 			
@@ -987,8 +1063,8 @@ Version of application.</p>
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
-						<td><p>Database Mapping Path.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptorPath</code></th>
+						<td><p>Entity Descriptor Path.</p></td>
 					</tr>
 				
 				</table>
@@ -1002,13 +1078,15 @@ Version of application.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>EXAMPLE:</p>
+				<p>Add entity descriptor path as per defined in DatabaseDescriptor.xml file.</p>
+
+<p>EXAMPLE:</p>
 
 <pre><code>&lt;database-descriptor&gt;
-&lt;database-mappings&gt;
-&lt;database-mapping path="Liquor-Mappings/Liquor.xml" /&gt;
-&lt;database-mapping path="Liquor-Mappings/LiquorBrand.xml" /&gt;
-&lt;/database-mappings&gt;
+    &lt;entity-descriptors&gt;
+        &lt;entity-descriptor&gt;Entity-Descriptors/Book.xml&lt;/entity-descriptor&gt;
+        &lt;entity-descriptor&gt;Entity-Descriptors/Lession.xml&lt;/entity-descriptor&gt;
+    &lt;/entity-descriptors&gt;
 &lt;/database-descriptor&gt;
 </code></pre>
 			</div>
@@ -1028,8 +1106,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabaseMappingDescriptors" title="getDatabaseMappingDescriptors"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptors">&ndash;&nbsp;getDatabaseMappingDescriptors</a></code>
+	<a name="//api/name/getEntityDescriptors" title="getEntityDescriptors"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptors">&ndash;&nbsp;getEntityDescriptors</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1039,12 +1117,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get all database mapping objects contained.</p>
+				<p>Get all entity descriptor objects contained.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getDatabaseMappingDescriptors</code></div>
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)getEntityDescriptors</code></div>
 
 		    
 			
@@ -1052,12 +1130,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>All database mapping objects.</p>
+				<p>All entity descriptor objects.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all entity descriptor objects contained.</p>
+			</div>
 			
 
 			
@@ -1074,8 +1157,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabseMappingDescriptorBasedOnTableName:" title="getDatabseMappingDescriptorBasedOnTableName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabseMappingDescriptorBasedOnTableName:">&ndash;&nbsp;getDatabseMappingDescriptorBasedOnTableName:</a></code>
+	<a name="//api/name/getEntityDescriptorBasedOnTableName:" title="getEntityDescriptorBasedOnTableName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptorBasedOnTableName:">&ndash;&nbsp;getEntityDescriptorBasedOnTableName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1085,12 +1168,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get database mapping object based on table name.</p>
+				<p>Get entity descriptor object based on table name.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabseMappingDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (SICEntityDescriptor *)getEntityDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
 
 		    
 			
@@ -1110,12 +1193,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>DatabaseMapping object based on table name.</p>
+				<p>EntityDescriptor object based on table name.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get entity descriptor object based on table name.</p>
+			</div>
 			
 
 			
@@ -1132,8 +1220,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabseMappingDescriptorBasedOnClassName:" title="getDatabseMappingDescriptorBasedOnClassName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;getDatabseMappingDescriptorBasedOnClassName:</a></code>
+	<a name="//api/name/getEntityDescriptorBasedOnClassName:" title="getEntityDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptorBasedOnClassName:">&ndash;&nbsp;getEntityDescriptorBasedOnClassName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1143,12 +1231,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get database mapping object based on POJO class name.</p>
+				<p>Get entity descriptor object based on mapped class name.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (SICEntityDescriptor *)getEntityDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
 
 		    
 			
@@ -1158,7 +1246,7 @@ Version of application.</p>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>className</code></th>
-						<td><p>POJO class name.</p></td>
+						<td><p>Mapped class name.</p></td>
 					</tr>
 				
 				</table>
@@ -1168,12 +1256,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>Database Mapping object.</p>
+				<p>Entity Descriptor object.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get entity descriptor object based on mapped class name.</p>
+			</div>
 			
 
 			
@@ -1190,8 +1283,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabseMappingDescriptorBasedOnPath:" title="getDatabseMappingDescriptorBasedOnPath:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabseMappingDescriptorBasedOnPath:">&ndash;&nbsp;getDatabseMappingDescriptorBasedOnPath:</a></code>
+	<a name="//api/name/getEntityDescriptorBasedOnPath:" title="getEntityDescriptorBasedOnPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptorBasedOnPath:">&ndash;&nbsp;getEntityDescriptorBasedOnPath:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1201,12 +1294,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get database mapping object based on path.</p>
+				<p>Get entity descriptor object based on path.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabseMappingDescriptorBasedOnPath:(NSString *const)<em>databaseMappingDescriptorPath</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (SICEntityDescriptor *)getEntityDescriptorBasedOnPath:(NSString *const)<em>entityDescriptorPath</em></code></div>
 
 		    
 			
@@ -1215,8 +1308,8 @@ Version of application.</p>
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
-						<td><p>Database Mapping path as per defined in Database Descriptor.xml file.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptorPath</code></th>
+						<td><p>Entity Descriptor path as per defined in Database Descriptor.xml file.</p></td>
 					</tr>
 				
 				</table>
@@ -1226,12 +1319,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>Database Mapping object.</p>
+				<p>Entity Descriptor object.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get entity descriptor object based on path.</p>
+			</div>
 			
 
 			
@@ -1248,8 +1346,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/addDatabaseMappingDescriptor:databaseMappingDescriptor:" title="addDatabaseMappingDescriptor:databaseMappingDescriptor:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/addDatabaseMappingDescriptor:databaseMappingDescriptor:">&ndash;&nbsp;addDatabaseMappingDescriptor:databaseMappingDescriptor:</a></code>
+	<a name="//api/name/addEntityDescriptor:entityDescriptor:" title="addEntityDescriptor:entityDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addEntityDescriptor:entityDescriptor:">&ndash;&nbsp;addEntityDescriptor:entityDescriptor:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1259,12 +1357,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Add database mapping object in respect to database mapping path.</p>
+				<p>Add entity descriptor object in respect to entity descriptor path.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)addDatabaseMappingDescriptor:(NSString *const)<em>databaseMappingDescriptorPath</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *)<em>databaseMappingDescriptor</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)addEntityDescriptor:(NSString *const)<em>entityDescriptorPath</em> entityDescriptor:(SICEntityDescriptor *)<em>entityDescriptor</em></code></div>
 
 		    
 			
@@ -1273,13 +1371,13 @@ Version of application.</p>
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
-						<td><p>Database Mapping Path.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptorPath</code></th>
+						<td><p>Entity Descriptor Path.</p></td>
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database Mapping object.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity Descriptor object.</p></td>
 					</tr>
 				
 				</table>
@@ -1291,6 +1389,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Add entity descriptor object in respect to entity descriptor path.</p>
+			</div>
+			
 
 			
 
@@ -1306,8 +1409,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/removeDatabaseMappingDescriptorBasedOnPath:" title="removeDatabaseMappingDescriptorBasedOnPath:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptorBasedOnPath:">&ndash;&nbsp;removeDatabaseMappingDescriptorBasedOnPath:</a></code>
+	<a name="//api/name/removeEntityDescriptorBasedOnPath:" title="removeEntityDescriptorBasedOnPath:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeEntityDescriptorBasedOnPath:">&ndash;&nbsp;removeEntityDescriptorBasedOnPath:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1317,12 +1420,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Remove database mapping object based on database mapping path.</p>
+				<p>Remove entity descriptor object based on entity descriptor path.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptorBasedOnPath:(NSString *const)<em>databaseMappingDescriptorPath</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)removeEntityDescriptorBasedOnPath:(NSString *const)<em>entityDescriptorPath</em></code></div>
 
 		    
 			
@@ -1331,8 +1434,8 @@ Version of application.</p>
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptorPath</code></th>
-						<td><p>Database Mapping Path.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptorPath</code></th>
+						<td><p>Entity Descriptor Path.</p></td>
 					</tr>
 				
 				</table>
@@ -1344,6 +1447,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove entity descriptor object based on entity descriptor path.</p>
+			</div>
+			
 
 			
 
@@ -1359,8 +1467,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/removeDatabaseMappingDescriptorBasedOnClassName:" title="removeDatabaseMappingDescriptorBasedOnClassName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptorBasedOnClassName:">&ndash;&nbsp;removeDatabaseMappingDescriptorBasedOnClassName:</a></code>
+	<a name="//api/name/removeEntityDescriptorBasedOnClassName:" title="removeEntityDescriptorBasedOnClassName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeEntityDescriptorBasedOnClassName:">&ndash;&nbsp;removeEntityDescriptorBasedOnClassName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1370,12 +1478,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Remove database mappping object based on POJO class name.</p>
+				<p>Remove entity descriptor object based on mapped class name.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)removeEntityDescriptorBasedOnClassName:(NSString *const)<em>className</em></code></div>
 
 		    
 			
@@ -1385,7 +1493,7 @@ Version of application.</p>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>className</code></th>
-						<td><p>POJO class name.</p></td>
+						<td><p>Mapped class name.</p></td>
 					</tr>
 				
 				</table>
@@ -1396,6 +1504,11 @@ Version of application.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove entity descriptor object based on mapped class name.</p>
+			</div>
 			
 
 			
@@ -1412,8 +1525,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/removeDatabaseMappingDescriptorBasedOnTableName:" title="removeDatabaseMappingDescriptorBasedOnTableName:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptorBasedOnTableName:">&ndash;&nbsp;removeDatabaseMappingDescriptorBasedOnTableName:</a></code>
+	<a name="//api/name/removeEntityDescriptorBasedOnTableName:" title="removeEntityDescriptorBasedOnTableName:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeEntityDescriptorBasedOnTableName:">&ndash;&nbsp;removeEntityDescriptorBasedOnTableName:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1423,12 +1536,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Remove database mapping object based on table name.</p>
+				<p>Remove entity descriptor object based on table name.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)removeEntityDescriptorBasedOnTableName:(NSString *const)<em>tableName</em></code></div>
 
 		    
 			
@@ -1450,6 +1563,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove entity descriptor object based on table name.</p>
+			</div>
+			
 
 			
 
@@ -1465,8 +1583,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/removeDatabaseMappingDescriptor:" title="removeDatabaseMappingDescriptor:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/removeDatabaseMappingDescriptor:">&ndash;&nbsp;removeDatabaseMappingDescriptor:</a></code>
+	<a name="//api/name/removeEntityDescriptor:" title="removeEntityDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeEntityDescriptor:">&ndash;&nbsp;removeEntityDescriptor:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1476,12 +1594,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Remove database mapping object based on database mapping object.</p>
+				<p>Remove entity descriptor object based on entity descriptor object.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)removeDatabaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)removeEntityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em></code></div>
 
 		    
 			
@@ -1490,8 +1608,8 @@ Version of application.</p>
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database Mapping object which needs to be removed.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity Descriptor object which needs to be removed.</p></td>
 					</tr>
 				
 				</table>
@@ -1503,6 +1621,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove entity descriptor object based on entity descriptor object.</p>
+			</div>
+			
 
 			
 
@@ -1518,8 +1641,8 @@ Version of application.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/orderedDatabaseMappingDescriptors" title="orderedDatabaseMappingDescriptors"></a>
-	<h3 class="method-title"><code><a href="#//api/name/orderedDatabaseMappingDescriptors">&ndash;&nbsp;orderedDatabaseMappingDescriptors</a></code>
+	<a name="//api/name/orderedEntityDescriptors" title="orderedEntityDescriptors"></a>
+	<h3 class="method-title"><code><a href="#//api/name/orderedEntityDescriptors">&ndash;&nbsp;orderedEntityDescriptors</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1529,12 +1652,12 @@ Version of application.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get all database mapping objects in sorted order. The order will be as per defined in DatabaseDescriptor.core.xml file.</p>
+				<p>Get all entity descriptor objects in sorted order. The order will be as per defined in DatabaseDescriptor.core.xml file.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)orderedDatabaseMappingDescriptors</code></div>
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)orderedEntityDescriptors</code></div>
 
 		    
 			
@@ -1542,12 +1665,17 @@ Version of application.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>Iterator which contains all database mapping objects.</p>
+				<p>Iterator which contains all entity descriptor objects.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all entity descriptor objects in sorted order. The order will be as per defined in DatabaseDescriptor.core.xml file.</p>
+			</div>
 			
 
 			
@@ -1567,8 +1695,8 @@ Version of application.</p>
 						</div>
 						
 
-						<a title="Protocol Methods" name="task_Protocol Methods"></a>
-						<h2 class="task-title">Protocol Methods</h2>
+						
+						<h2 class="task-title">Other Methods</h2>
 
 						<div class="task-list">
 							<div class="section-method">
@@ -1602,6 +1730,11 @@ Version of application.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all the properties of descriptor</p>
+			</div>
 			
 
 			
@@ -1661,6 +1794,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get the property value based on the property name</p>
+			</div>
+			
 
 			
 
@@ -1692,7 +1830,7 @@ Version of application.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (BOOL)containProperty:(NSString *)<em>name</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (bool)containProperty:(NSString *)<em>name</em></code></div>
 
 		    
 			
@@ -1718,6 +1856,11 @@ Version of application.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether property exists or not</p>
+			</div>
 			
 
 			
@@ -1777,6 +1920,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Add property to the descriptor</p>
+			</div>
+			
 
 			
 
@@ -1830,6 +1978,11 @@ Version of application.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove property from the descriptor</p>
+			</div>
+			
 
 			
 
@@ -1852,12 +2005,14 @@ Version of application.</p>
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

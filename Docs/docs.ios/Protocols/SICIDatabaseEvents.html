@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -64,13 +64,13 @@
 		
 		<option value="//api/name/onDatabaseDropped:">- onDatabaseDropped:</option>
 		
-		<option value="//api/name/onIndexCreated:databaseMappingDescriptor:index:">- onIndexCreated:databaseMappingDescriptor:index:</option>
+		<option value="//api/name/onIndexCreated:entityDescriptor:index:">- onIndexCreated:entityDescriptor:index:</option>
 		
-		<option value="//api/name/onIndexDropped:databaseMappingDescriptor:index:">- onIndexDropped:databaseMappingDescriptor:index:</option>
+		<option value="//api/name/onIndexDropped:entityDescriptor:index:">- onIndexDropped:entityDescriptor:index:</option>
 		
-		<option value="//api/name/onTableCreated:databaseMappingDescriptor:">- onTableCreated:databaseMappingDescriptor:</option>
+		<option value="//api/name/onTableCreated:entityDescriptor:">- onTableCreated:entityDescriptor:</option>
 		
-		<option value="//api/name/onTableDropped:databaseMappingDescriptor:">- onTableDropped:databaseMappingDescriptor:</option>
+		<option value="//api/name/onTableDropped:entityDescriptor:">- onTableDropped:entityDescriptor:</option>
 		
 	</optgroup>
 	
@@ -161,6 +161,11 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This event is fired when database gets created as per database descriptor.</p>
+			</div>
+			
 
 			
 
@@ -214,6 +219,11 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This event is fired when database is dropped.</p>
+			</div>
+			
 
 			
 
@@ -229,8 +239,8 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/onTableCreated:databaseMappingDescriptor:" title="onTableCreated:databaseMappingDescriptor:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/onTableCreated:databaseMappingDescriptor:">&ndash;&nbsp;onTableCreated:databaseMappingDescriptor:</a></code>
+	<a name="//api/name/onTableCreated:entityDescriptor:" title="onTableCreated:entityDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/onTableCreated:entityDescriptor:">&ndash;&nbsp;onTableCreated:entityDescriptor:</a></code>
 <span class="task-item-suffix">required method</span></h3>
 
 	<div class="method-info">
@@ -245,7 +255,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)onTableCreated:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)onTableCreated:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em></code></div>
 
 		    
 			
@@ -259,7 +269,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
 						<td><p>contains meta data associated with created table.</p></td>
 					</tr>
 				
@@ -271,6 +281,11 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This event is fired when a table is created.</p>
+			</div>
 			
 
 			
@@ -287,8 +302,8 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/onTableDropped:databaseMappingDescriptor:" title="onTableDropped:databaseMappingDescriptor:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/onTableDropped:databaseMappingDescriptor:">&ndash;&nbsp;onTableDropped:databaseMappingDescriptor:</a></code>
+	<a name="//api/name/onTableDropped:entityDescriptor:" title="onTableDropped:entityDescriptor:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/onTableDropped:entityDescriptor:">&ndash;&nbsp;onTableDropped:entityDescriptor:</a></code>
 <span class="task-item-suffix">required method</span></h3>
 
 	<div class="method-info">
@@ -303,7 +318,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)onTableDropped:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)onTableDropped:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em></code></div>
 
 		    
 			
@@ -317,7 +332,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
 						<td><p>contains meta data associated with dropped table.</p></td>
 					</tr>
 				
@@ -329,6 +344,11 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This event is fired when a table is dropped.</p>
+			</div>
 			
 
 			
@@ -345,8 +365,8 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/onIndexCreated:databaseMappingDescriptor:index:" title="onIndexCreated:databaseMappingDescriptor:index:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/onIndexCreated:databaseMappingDescriptor:index:">&ndash;&nbsp;onIndexCreated:databaseMappingDescriptor:index:</a></code>
+	<a name="//api/name/onIndexCreated:entityDescriptor:index:" title="onIndexCreated:entityDescriptor:index:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/onIndexCreated:entityDescriptor:index:">&ndash;&nbsp;onIndexCreated:entityDescriptor:index:</a></code>
 <span class="task-item-suffix">required method</span></h3>
 
 	<div class="method-info">
@@ -361,7 +381,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)onIndexCreated:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMapping</em> index:(SICIndex *)<em>index</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)onIndexCreated:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em> index:(SICIndex *)<em>index</em></code></div>
 
 		    
 			
@@ -375,7 +395,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMapping</code></th>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
 						<td><p>contains meta data associated with table on which index is created.</p></td>
 					</tr>
 				
@@ -393,6 +413,11 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This event is fired when a index is created on table.</p>
+			</div>
+			
 
 			
 
@@ -408,8 +433,8 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/onIndexDropped:databaseMappingDescriptor:index:" title="onIndexDropped:databaseMappingDescriptor:index:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/onIndexDropped:databaseMappingDescriptor:index:">&ndash;&nbsp;onIndexDropped:databaseMappingDescriptor:index:</a></code>
+	<a name="//api/name/onIndexDropped:entityDescriptor:index:" title="onIndexDropped:entityDescriptor:index:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/onIndexDropped:entityDescriptor:index:">&ndash;&nbsp;onIndexDropped:entityDescriptor:index:</a></code>
 <span class="task-item-suffix">required method</span></h3>
 
 	<div class="method-info">
@@ -424,7 +449,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)onIndexDropped:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMapping</em> index:(SICIndex *)<em>index</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)onIndexDropped:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em> index:(SICIndex *)<em>index</em></code></div>
 
 		    
 			
@@ -438,7 +463,7 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMapping</code></th>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
 						<td><p>contains meta data associated with table on which index is dropped.</p></td>
 					</tr>
 				
@@ -455,6 +480,11 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This event is fired when a index is dropped.</p>
+			</div>
 			
 
 			
@@ -478,12 +508,14 @@ It has methods such as (onDatabaseCreated, onDatabaseDroped, onTableCreated, onT
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

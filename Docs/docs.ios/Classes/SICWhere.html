@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -165,7 +165,7 @@
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (id)initWithoutReferObject:(SICDatabaseMappingDescriptor *const)<em>databaseMappingdescriptor</em> interfaceName:(NSString *const)<em>interfacename</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (id)initWithoutReferObject:(SICEntityDescriptor *const)<em>entitydescriptor</em> interfaceName:(NSString *const)<em>interfacename</em></code></div>
 
 		    
 			
@@ -174,8 +174,8 @@
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingdescriptor</code></th>
-						<td><p>Database Mapping Descriptor instance</p></td>
+						<th scope="row" class="argument-name"><code>entitydescriptor</code></th>
+						<td><p>Entity Descriptor instance</p></td>
 					</tr>
 				
 					<tr>
@@ -191,6 +191,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Where Constructor</p>
+			</div>
 			
 
 			
@@ -223,7 +228,7 @@
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (id)initWithReferObject:(SICDatabaseMappingDescriptor *const)<em>databaseMappingdescriptor</em> interfaceName:(NSString *const)<em>interfacename</em> referObject:(id const)<em>referobject</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (id)initWithReferObject:(SICEntityDescriptor *const)<em>entitydescriptor</em> interfaceName:(NSString *const)<em>interfacename</em> referObject:(id const)<em>referobject</em></code></div>
 
 		    
 			
@@ -232,8 +237,8 @@
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingdescriptor</code></th>
-						<td><p>Database Mapping Descriptor instance</p></td>
+						<th scope="row" class="argument-name"><code>entitydescriptor</code></th>
+						<td><p>Entity Descriptor instance</p></td>
 					</tr>
 				
 					<tr>
@@ -254,6 +259,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Where Constructor</p>
+			</div>
 			
 
 			
@@ -300,6 +310,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify DISTINCT condition.</p>
+			</div>
 			
 
 			
@@ -359,6 +374,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Column name of which condition will be specified.</p>
+			</div>
+			
 
 			
 
@@ -416,6 +436,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to provide manually created Where clause, instead of using API&rsquo;s.</p>
+			</div>
 			
 
 			
@@ -475,6 +500,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify AND condition between where clause.</p>
+			</div>
+			
 
 			
 
@@ -532,6 +562,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify OR condition between where clause.</p>
+			</div>
 			
 
 			
@@ -591,6 +626,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify ORDER BY keyword to sort the result-set.</p>
+			</div>
+			
 
 			
 
@@ -648,6 +688,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify ORDER BY ASC keyword to sort the result-set in ascending order.</p>
+			</div>
 			
 
 			
@@ -707,6 +752,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify ORDER BY DESC keyword to sort the result-set in descending order.</p>
+			</div>
+			
 
 			
 
@@ -764,6 +814,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify the range of data need to fetch from table.</p>
+			</div>
 			
 
 			
@@ -823,6 +878,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify GROUP BY statement in conjunction with the aggregate functions to group the result-set by one or more columns.</p>
+			</div>
+			
 
 			
 
@@ -880,6 +940,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to specify HAVING clause to SQL because the WHERE keyword could not be used with aggregate functions.</p>
+			</div>
 			
 
 			
@@ -939,6 +1004,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to provide manually created Where clause, instead of using API&rsquo;s.</p>
+			</div>
+			
 
 			
 
@@ -965,7 +1035,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Used to provide name of column for which average will be calculated.</p>
+				<p>Used to add column</p>
 			</div>
 			
 		    
@@ -979,8 +1049,8 @@
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>column</code></th>
-						<td><p>Name of column.</p></td>
+						<th scope="row" class="argument-name"><code>columnName</code></th>
+						<td><p>Name of the column</p></td>
 					</tr>
 				
 				</table>
@@ -990,12 +1060,17 @@
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>SICIGroupConcat Interface.</p>
+				<p>Where Where instance object</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to add column</p>
+			</div>
 			
 
 			
@@ -1005,7 +1080,7 @@
 			
 			<div class="method-subsection declared-in-section">
 				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">SICIGroupConcat.h</code></p>
+				<p><code class="declared-in-ref">SICWhere.h</code></p>
 			</div>
 			
 			
@@ -1054,6 +1129,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to provide name of columns only for which data will be fetched.</p>
+			</div>
 			
 
 			
@@ -1113,6 +1193,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Used to provide name of column for which average will be calculated.</p>
+			</div>
+			
 
 			
 
@@ -1139,7 +1224,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Used to get average, this method should be called in last to calculate average.</p>
+				<p>Executes the request</p>
 			</div>
 			
 		    
@@ -1152,26 +1237,19 @@
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>Return average.</p>
+				<p>Request Output</p>
 			</div>
 			
 
 			
 
 			
-
-			
-			<div class="method-subsection arguments-section exceptions">
-				<h4 class="method-subtitle exception-title">Exceptions</h4>
-				<table class="argument-def exception-def">
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>SICDatabaseException</code></th>
-						<td><p>Throws exception if any error occur while calculating average.</p></td>
-					</tr>
-				
-				</table>
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Executes the request</p>
 			</div>
+			
+
 			
 
 			
@@ -1179,7 +1257,7 @@
 			
 			<div class="method-subsection declared-in-section">
 				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">SICISelect.h</code></p>
+				<p><code class="declared-in-ref">SICWhere.h</code></p>
 			</div>
 			
 			
@@ -1193,12 +1271,14 @@
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

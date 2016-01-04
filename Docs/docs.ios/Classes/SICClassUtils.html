@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -64,13 +64,15 @@
 		
 		<option value="//api/name/createClassInstance:">+ createClassInstance:</option>
 		
-		<option value="//api/name/createMethodBasedOnClassInstance:methodName:message:">+ createMethodBasedOnClassInstance:methodName:message:</option>
+		<option value="//api/name/createMethodBasedOnClassInstance:methodName:parameterTypes:">+ createMethodBasedOnClassInstance:methodName:parameterTypes:</option>
 		
-		<option value="//api/name/createMethodBasedOnClassName:methodName:message:">+ createMethodBasedOnClassName:methodName:message:</option>
+		<option value="//api/name/createMethodBasedOnClassName:methodName:parameterTypes:">+ createMethodBasedOnClassName:methodName:parameterTypes:</option>
 		
 		<option value="//api/name/getValue:methodName:">+ getValue:methodName:</option>
 		
 		<option value="//api/name/getValues:methodNames:">+ getValues:methodNames:</option>
+		
+		<option value="//api/name/invokeMethodBasedOnMethod:method:parameters:">+ invokeMethodBasedOnMethod:method:parameters:</option>
 		
 		<option value="//api/name/invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:">+ invokeMethodBasedOnMethodName:methodName:parameterTypes:parameters:</option>
 		
@@ -121,9 +123,9 @@
 						<a title="Tasks" name="tasks"></a>
 						
 
-						<a title="Class methods" name="task_Class methods"></a>
 						
-<h2 class="task-title">Class methods</h2>
+						
+
 						<div class="task-list">
 							<div class="section-method">
 	<a name="//api/name/createClass:" title="createClass:"></a>
@@ -168,6 +170,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Create a Class Object based on class name provided.</p>
+			</div>
 			
 
 			
@@ -227,6 +234,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates class object based on full class name provided.</p>
+			</div>
+			
 
 			
 			<div class="method-subsection arguments-section exceptions">
@@ -254,8 +266,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/createMethodBasedOnClassName:methodName:message:" title="createMethodBasedOnClassName:methodName:message:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/createMethodBasedOnClassName:methodName:message:">+&nbsp;createMethodBasedOnClassName:methodName:message:</a></code>
+	<a name="//api/name/createMethodBasedOnClassName:methodName:parameterTypes:" title="createMethodBasedOnClassName:methodName:parameterTypes:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createMethodBasedOnClassName:methodName:parameterTypes:">+&nbsp;createMethodBasedOnClassName:methodName:parameterTypes:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -270,7 +282,7 @@
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (Method)createMethodBasedOnClassName:(NSString *)<em>className</em> methodName:(NSString *)<em>methodName</em> message:(id)<em>parameterTypes</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (Method)createMethodBasedOnClassName:(NSString *)<em>className</em> methodName:(NSString *)<em>methodName</em> parameterTypes:(id)<em>parameterTypes</em></code></div>
 
 		    
 			
@@ -307,6 +319,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Create a method object.</p>
+			</div>
+			
 
 			
 
@@ -322,8 +339,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/createMethodBasedOnClassInstance:methodName:message:" title="createMethodBasedOnClassInstance:methodName:message:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/createMethodBasedOnClassInstance:methodName:message:">+&nbsp;createMethodBasedOnClassInstance:methodName:message:</a></code>
+	<a name="//api/name/createMethodBasedOnClassInstance:methodName:parameterTypes:" title="createMethodBasedOnClassInstance:methodName:parameterTypes:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createMethodBasedOnClassInstance:methodName:parameterTypes:">+&nbsp;createMethodBasedOnClassInstance:methodName:parameterTypes:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -338,7 +355,7 @@
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (Method)createMethodBasedOnClassInstance:(id)<em>classObject</em> methodName:(NSString *)<em>methodName</em> message:(id)<em>parameterTypes</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (Method)createMethodBasedOnClassInstance:(id)<em>classObject</em> methodName:(NSString *)<em>methodName</em> parameterTypes:(id)<em>parameterTypes</em></code></div>
 
 		    
 			
@@ -374,6 +391,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Create a method object.</p>
+			</div>
 			
 
 			
@@ -437,6 +459,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get column values based on class object and method name provided.</p>
+			</div>
 			
 
 			
@@ -512,6 +539,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get column value based on class object and method name.</p>
+			</div>
 			
 
 			
@@ -598,6 +630,84 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Invoke method based on class object, method name and parameter provided.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">SICClassUtils.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/invokeMethodBasedOnMethod:method:parameters:" title="invokeMethodBasedOnMethod:method:parameters:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/invokeMethodBasedOnMethod:method:parameters:">+&nbsp;invokeMethodBasedOnMethod:method:parameters:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Invoke method based on class object, method object and parameter provided.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (id)invokeMethodBasedOnMethod:(id const)<em>classObject</em> method:(Method)<em>method</em> parameters:(id const)<em>parameters</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>classObject</code></th>
+						<td><p>Class Object.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>Method Object.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>Parameters to the method</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Object</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Invoke method based on class object, method object and parameter provided.</p>
+			</div>
+			
 
 			
 
@@ -661,6 +771,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get new object created and filled with values provided.</p>
+			</div>
+			
 
 			
 			<div class="method-subsection arguments-section exceptions">
@@ -695,12 +810,14 @@
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

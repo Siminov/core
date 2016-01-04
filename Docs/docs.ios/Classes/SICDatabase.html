@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -64,8 +64,6 @@
 		
 		<option value="//api/name/dropDatabase:">+ dropDatabase:</option>
 		
-		<option value="//api/name/endTransaction:">+ endTransaction:</option>
-		
 	</optgroup>
 	
 
@@ -92,7 +90,7 @@
 		
 		<option value="//api/name/getDatabaseDescriptor">- getDatabaseDescriptor</option>
 		
-		<option value="//api/name/getDatabaseMappingDescriptor">- getDatabaseMappingDescriptor</option>
+		<option value="//api/name/getEntityDescriptor">- getEntityDescriptor</option>
 		
 		<option value="//api/name/getForeignKeys">- getForeignKeys</option>
 		
@@ -204,7 +202,7 @@ It has methods to create, <a href="#//api/name/delete">delete</a>, and perform o
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>databaseName</code></th>
-						<td><p>Database-mapping object which defines the structure of table.</p></td>
+						<td><p>Entity-Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 				</table>
@@ -218,16 +216,17 @@ It has methods to create, <a href="#//api/name/delete">delete</a>, and perform o
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Drop the Liquor table.</p>
+				<p>It drops the whole database based on database name.</p>
 
-<pre><code>SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc]init] getDatabaseDescriptor];
+<p>Drop the book table.</p>
 
-@try {
-    [SICDatabase dropDatabase:[databaseDescriptor getDatabaseName]];
-} @catch(SICDatabaseException *databaseException) {
-    //Log It.
-}
-</code></pre>
+<p><a href="../Classes/SICDatabaseDescriptor.html">SICDatabaseDescriptor</a> *databaseDescriptor = [[[Book alloc]init] getDatabaseDescriptor];</p>
+
+<p>@try {
+[SICDatabase dropDatabase:[databaseDescriptor getDatabaseName]];
+} @catch(<a href="../Classes/SICDatabaseException.html">SICDatabaseException</a> *databaseException) {
+//Log It.
+}</p>
 			</div>
 			
 
@@ -285,30 +284,32 @@ It has methods to create, <a href="#//api/name/delete">delete</a>, and perform o
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Transactions can be nested. When the outer transaction is ended all of the work done in that transaction and all of the nested transactions will be committed or rolled back.
+				<p>Begins a transaction in EXCLUSIVE mode.</p>
+
+<p>Transactions can be nested. When the outer transaction is ended all of the work done in that transaction and all of the nested transactions will be committed or rolled back.
 The changes will be rolled back if any transaction is ended without being marked as clean(by calling commitTransaction). Otherwise they will be committed.</p>
 
 <p>Example: Make Beer Object</p>
 
-<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
+<pre><code>Book *cBook = [[Book alloc] init];
+[cBook setTitle:BOOK_TYPE_C];
+[cBook setDescription: @"c_description"];
+[cBook setAuthor: @"c_author"];
+[cBook setLink: @"c_link"];
 
-SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+SICDatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
 
 @try {
-    [SICDatabase beginTransaction:databaseDescriptor];
-    [beer save];
-    [SICDatabase commitTransaction:databaseDescriptor];
-} @catch(SICDatabaseException *databaseException) {
-    //Log it.
-} @finally {
-    [SICDatabase endTransaction:databaseDescriptor];
-}
 </code></pre>
+
+<p>[SICDatabase beginTransaction:databaseDescriptor];
+[cBook save];
+[SICDatabase commitTransaction:databaseDescriptor];
+    } @catch(SICDatabaseException *databaseException) {
+//Log it.
+    } @finally {
+[SICDatabase endTransaction:databaseDescriptor];
+    }</p>
 			</div>
 			
 
@@ -366,107 +367,31 @@ SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Finally it will end a transaction.</p>
+				<p>Marks the current transaction as successful.</p>
+
+<p>Finally it will end a transaction.</p>
 
 <p>Example: Make Beer Object</p>
 
-<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
+<pre><code>Book *cBook = [[Book alloc] init];
+[cBook setTitle:BOOK_TYPE_C];
+[cBook setDescription: @"c_description"];
+[cBook setAuthor: @"c_author"];
+[cBook setLink: @"beer_link"];
 
-DatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
-
-@try {
-    [SICDatabase beginTransaction:databaseDescriptor];
-    [beer save];
-    [SICDatabase commitTransaction:databaseDescriptor];
-} @catch(SICDatabaseException *databaseException) {
-    //Log it.
-} @finally {
-    [SICDatabase endTransaction:databaseDescriptor];
-}
-</code></pre>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">SICDatabase.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/endTransaction:" title="endTransaction:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/endTransaction:">+&nbsp;endTransaction:</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>End the current transaction.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>+ (void)endTransaction:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em></code></div>
-
-		    
-			
-			<div class="method-subsection arguments-section parameters">
-				<h4 class="method-subtitle parameter-title">Parameters</h4>
-				<table class="argument-def parameter-def">
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>databaseDescriptor</code></th>
-						<td><p>Database Descriptor Object.</p></td>
-					</tr>
-				
-				</table>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
-
-<pre><code>Liquor *beer = [[Liquor alloc] init];
-[beer setLiquorType: LIQUOR_TYPE_BEER];
-[beer setDescription: @"beer_description"];
-[beer setHistory: @"beer_history"];
-[beer setLink: @"beer_link"];
-[beer setAlcholContent: @"beer_alchol_content"];
-
-SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
+DatabaseDescriptor *databaseDescriptor = [cBook getDatabaseDescriptor];
 
 @try {
-    [SICDatabase beginTransaction: databaseDescriptor];
-    [SICbeer save];
-    [SICDatabase commitTransaction: databaseDescriptor];
-} @catch(SICDatabaseException *databaseException) {
-    //Log it.
-} @finally {
-    [SICDatabase endTransaction: databaseDescriptor];
-}
 </code></pre>
+
+<p>[SICDatabase beginTransaction:databaseDescriptor];
+[cBook save];
+[SICDatabase commitTransaction:databaseDescriptor];
+    } @catch(SICDatabaseException *databaseException) {
+//Log it.
+    } @finally {
+[SICDatabase endTransaction:databaseDescriptor];
+    }</p>
 			</div>
 			
 
@@ -520,60 +445,129 @@ SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Using SIMINOV there are three ways to create table in database.</p>
+				<p>Is used to create a new table in an database.</p>
+
+<p>Using SIMINOV there are three ways to create table in database.</p>
 
 <ul>
-<li>Describing table structure in form of DATABASE-MAPPING-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.</li>
+<li>Describing table structure in form of ENTITY-DESCRIPTOR XML file. And creation of table will be handled by SIMINOV.</li>
 </ul>
 
 
-<p>SIMINOV will parse each DATABASE-MAPPING-DESCRIPTOR XML defined by developer and create table&rsquo;s in database.</p>
+<p>SIMINOV will parse each ENTITY-DESCRIPTOR XML defined by developer and create table&rsquo;s in database.</p>
 
 <p>Example:</p>
 
-<pre><code> &lt;database-mapping-descriptor&gt;
+<pre><code>        &lt;!-- Design Of EntityDescriptor.xml --&gt;
 
- &lt;entity table_name="LIQUOR" class_name="Liquor"&gt;
+&lt;entity-descriptor&gt;
 
- &lt;attribute variable_name="liquorType" column_name="LIQUOR_TYPE"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;property name="primary_key"&gt;true&lt;/property&gt;
- &lt;property name="not_null"&gt;true&lt;/property&gt;
- &lt;property name="unique"&gt;true&lt;/property&gt;
- &lt;/attribute&gt;
+    &lt;!-- General Properties Of Table And Class --&gt;
 
- &lt;attribute variable_name="description" column_name="DESCRIPTION"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;/attribute&gt;
+            &lt;!-- Mandatory Field --&gt;
+            &lt;!-- NAME OF TABLE --&gt;
+    &lt;property name="table_name"&gt;name_of_table&lt;/property&gt;
 
- &lt;attribute variable_name="history" column_name="HISTORY"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;/attribute&gt;
+            &lt;!-- Mandatory Field --&gt;
+            &lt;!-- MAPPED CLASS NAME --&gt;
+    &lt;property name="class_name"&gt;mapped_class_name&lt;/property&gt;
 
- &lt;attribute variable_name="link" column_name="LINK"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;property name="default"&gt;www.wikipedia.org&lt;/property&gt;
- &lt;/attribute&gt;
 
- &lt;attribute variable_name="alcholContent" column_name="ALCHOL_CONTENT"&gt;
- &lt;property name="type"&gt;NSString&lt;/property&gt;
- &lt;/attribute&gt;
+    &lt;!-- Optional Field --&gt;
+    &lt;attributes&gt;
 
- &lt;index name="LIQUOR_INDEX_BASED_ON_LINK" unique="true"&gt;
- &lt;attribute&gt;HISTORY&lt;/attribute&gt;
- &lt;/index&gt;
+        &lt;!-- Column Properties Required Under This Table --&gt;
 
- &lt;relationships&gt;
+            &lt;!-- Optional Field --&gt;
+        &lt;attribute&gt;
 
- &lt;one-to-many refer="liquorBrands" refer_to="LiquorBrand" on_update="cascade" on_delete="cascade"&gt;
- &lt;property name="load"&gt;true&lt;/property&gt;
- &lt;/one-to-many&gt;
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- COLUMN_NAME: Mandatory Field --&gt;
+            &lt;property name="column_name"&gt;column_name_of_table&lt;/property&gt;
 
- &lt;/relationships&gt;
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- VARIABLE_NAME: Mandatory Field --&gt;
+            &lt;property name="variable_name"&gt;class_variable_name&lt;/property&gt;
 
- &lt;/entity&gt;
+                &lt;!-- Mandatory Field --&gt;
+            &lt;property name="type"&gt;java_variable_data_type&lt;/property&gt;
 
- &lt;/database-mapping-descriptor&gt;
+                &lt;!-- Optional Field (Default is false) --&gt;
+            &lt;property name="primary_key"&gt;true/false&lt;/property&gt;
+
+                &lt;!-- Optional Field (Default is false) --&gt;
+            &lt;property name="not_null"&gt;true/false&lt;/property&gt;
+
+                &lt;!-- Optional Field (Default is false) --&gt;
+            &lt;property name="unique"&gt;true/false&lt;/property&gt;
+
+                &lt;!-- Optional Field --&gt;
+            &lt;property name="check"&gt;condition_to_be_checked (Eg: variable_name 'condition' value; variable_name &gt; 0)&lt;/property&gt;
+
+                &lt;!-- Optional Field --&gt;
+            &lt;property name="default"&gt;default_value_of_column (Eg: 0.1)&lt;/property&gt;
+
+        &lt;/attribute&gt;
+
+    &lt;/attributes&gt;
+
+
+    &lt;!-- Optional Field --&gt;
+    &lt;indexes&gt;
+
+        &lt;!-- Index Properties --&gt;
+        &lt;index&gt;
+
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- NAME OF INDEX --&gt;
+            &lt;property name="name"&gt;name_of_index&lt;/property&gt;
+
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- UNIQUE: Optional Field (Default is false) --&gt;
+            &lt;property name="unique"&gt;true/false&lt;/property&gt;
+
+                &lt;!-- Optional Field --&gt;
+                &lt;!-- Name of the column --&gt;
+            &lt;property name="column"&gt;column_name_needs_to_add&lt;/property&gt;
+
+        &lt;/index&gt;
+
+    &lt;/indexes&gt;
+
+
+    &lt;!-- Map Relationship Properties --&gt;
+
+        &lt;!-- Optional Field's --&gt;
+    &lt;relationships&gt;
+
+        &lt;relationship&gt;
+
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- Type of Relationship --&gt;
+            &lt;property name="type"&gt;one-to-one|one-to-many|many-to-one|many-to-many&lt;/property&gt;
+
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- REFER --&gt;
+            &lt;property name="refer"&gt;class_variable_name&lt;/property&gt;
+
+                &lt;!-- Mandatory Field --&gt;
+                &lt;!-- REFER TO --&gt;
+            &lt;property name="refer_to"&gt;map_to_class_name&lt;/property&gt;
+
+                &lt;!-- Optional Field --&gt;
+            &lt;property name="on_update"&gt;cascade/restrict/no_action/set_null/set_default&lt;/property&gt;
+
+                &lt;!-- Optional Field --&gt;
+            &lt;property name="on_delete"&gt;cascade/restrict/no_action/set_null/set_default&lt;/property&gt;
+
+                &lt;!-- Optional Field (Default is false) --&gt;
+            &lt;property name="load"&gt;true/false&lt;/property&gt;
+
+        &lt;/relationship&gt;
+
+    &lt;/relationships&gt;
+
+&lt;/entity-descriptor&gt;
 </code></pre>
 			</div>
 			
@@ -603,7 +597,7 @@ SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
 			
 			
 			<div class="method-subsection brief-description">
-				<p>It drop&rsquo;s the table from database based on database-mapping.</p>
+				<p>It drop&rsquo;s the table from database based on entity-descriptor.</p>
 			</div>
 			
 		    
@@ -620,12 +614,14 @@ SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Drop the Liquor table.</p>
+				<p>It drop&rsquo;s the table from database based on entity-descriptor.</p>
 
-<pre><code>Liquor *liquor = [[Liquor alloc] init];
+<p>Drop the Book table.</p>
+
+<pre><code>Book *book = [[Book alloc] init];
 
 @try {
-    [liquor dropTable];
+    [book dropTable];
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -687,13 +683,15 @@ SICDatabaseDescriptor *databaseDescriptor = [beer getDatabaseDescriptor];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Create Index On Liquor table.</p>
+				<p>Is used to drop a index on a table in database.</p>
 
-<pre><code>NSString * indexName = @"LIQUOR_INDEX_BASED_ON_LINK";
-Liquor *liquor = [[Liquor alloc] init];
+<p>Create Index On Book table.</p>
+
+<pre><code>NSString * indexName = @"BOOK_INDEX_BASED_ON_AUDITOR";
+Book *book = [[Book alloc] init];
 
 @try {
-    [liquor dropIndex:indexName];
+    [book dropIndex:indexName];
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -748,11 +746,13 @@ Liquor *liquor = [[Liquor alloc] init];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all tuples based on query from mapped table for invoked class object.</p>
 
-<pre><code>NSArray *liquors;
+<p>Example:</p>
+
+<pre><code>NSArray *books;
 @try {
-    liquors = [[[[Liquor alloc] init] select] execute];
+    books = [[[[Book alloc] init] select] execute];
  } @catch(SICDatabaseException de) {
     //Log it.
  }
@@ -819,13 +819,15 @@ Liquor *liquor = [[Liquor alloc] init];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all tuples based on manual query from mapped table for invoked class object.</p>
 
-<pre><code> NSString *query = @"SELECT * FROM LIQUOR";
- NSArray *liquors;
+<p>Example:</p>
+
+<pre><code> NSString *query = @"SELECT * FROM BOOK";
+ NSArray *books;
 
  @try {
-    liquors = [[[Liquor alloc] init] select:query];
+    books = [[[Book alloc] init] select:query];
  } @catch(SICDatabaseException *de) {
     //Log it.
  }
@@ -875,17 +877,18 @@ Liquor *liquor = [[Liquor alloc] init];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Liquor Object</p>
+				<p>It adds a record to any single table in a relational database.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Book Object</p>
+
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
 
  @try {
-    [beer save];
+    [cBook save];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -935,17 +938,18 @@ Liquor *liquor = [[Liquor alloc] init];
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>It updates a record to any single table in a relational database.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
+
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"beer_link"];
 
  @try {
-    [beer update];
+    [cBook update];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -999,17 +1003,22 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>It finds out whether tuple exists in table or not.
+    IF NOT EXISTS:
+adds a record to any single table in a relational database.
+    ELSE:
+updates a record to any single table in a relational database.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
+
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setHistory: @"c_auditor"];
+ [cBook setLink: @"c_link"];
 
  @try {
-    [beer saveOrUpdate];
+    [cBook saveOrUpdate];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1059,17 +1068,18 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>It deletes a record from single table in a relational database.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
+
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
 
  @try {
-    [beer delete];
+    [cBook delete];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1119,19 +1129,20 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>Returns the count of rows based on where clause provided.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
 
- int noOfBeers = 0;
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
+
+ int noOfBooks = 0;
 
  @try {
-    noOfBeers = [[beer count] execute];
+    noOfBooks = [[cBook count] execute];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1181,19 +1192,20 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>Returns the average based on where clause provided.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
 
- int noOfBeers = 0;
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
+
+ int noOfBooks = 0;
 
  @try {
-    noOfBeers = [[beer avg] execute];
+    noOfBooks = [[beer avg] execute];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1243,19 +1255,20 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>Returns the sum based on where clause provided.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
 
- int noOfBeers = 0;
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
+
+ int noOfBooks = 0;
 
  @try {
-    noOfBeers = [[beer sum] execute];
+    noOfBooks = [[cBook sum] execute];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1305,19 +1318,20 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>Returns the total based on where clause provided.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
 
- int totalBeers = 0;
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle:BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
+
+ int totalBooks = 0;
 
  @try {
-    totalBeers = [[beer avg] execute];
+    totalBooks = [[cBook avg] execute];
  }
  @catch(SICDatabaseException *databaseException) {
     //Log it.
@@ -1368,19 +1382,20 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>Returns the min based on where clause provided.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Book Object</p>
 
- int minBeers = 0;
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
+
+ int minBooks = 0;
 
  @try {
-    minBeers = [[beer min] execute];
+    minBooks = [[cBook min] execute];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1430,19 +1445,20 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>Returns the max based on where clause provided.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: Liquor.LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
 
- int maxBeers = 0;
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: Book.BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
+
+ int maxBooks = 0;
 
  @try {
-    maxBeers = [[beer max] execute];
+    maxBooks = [[cBook max] execute];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1492,19 +1508,20 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example: Make Beer Object</p>
+				<p>Returns the group concat based on where clause provided.</p>
 
-<pre><code> Liquor *beer = [[Liquor alloc] init];
- [beer setLiquorType: LIQUOR_TYPE_BEER];
- [beer setDescription: @"beer_description"];
- [beer setHistory: @"beer_history"];
- [beer setLink: @"beer_link"];
- [beer setAlcholContent: @"beer_alchol_content"];
+<p>Example: Make Beer Object</p>
 
- int groupConcatBeers = 0;
+<pre><code> Book *cBook = [[Book alloc] init];
+ [cBook setTitle: BOOK_TYPE_C];
+ [cBook setDescription: @"c_description"];
+ [cBook setAuditor: @"c_auditor"];
+ [cBook setLink: @"c_link"];
+
+ int groupConcatBooks = 0;
 
  @try {
-    groupConcatBeers = [[beer groupConcat] execute];
+    groupConcatBooks = [[cBook groupConcat] execute];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1537,7 +1554,7 @@ updates a record to any single table in a relational database.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Returns database descriptor object based on the POJO class called.</p>
+				<p>Returns database descriptor object based on the mapped class called.</p>
 			</div>
 			
 		    
@@ -1559,10 +1576,12 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns database descriptor object based on the mapped class called.</p>
+
+<p>Example:</p>
 
 <pre><code>@try {
-    SICDatabaseDescriptor *databaseDescriptor = [[[Liquor alloc] init] getDatabaseDescriptor];
+    SICDatabaseDescriptor *databaseDescriptor = [[[Book alloc] init] getDatabaseDescriptor];
 } @catch(SICDatabaseException *databaseException) {
     //Log It.
 }
@@ -1584,8 +1603,8 @@ updates a record to any single table in a relational database.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/getDatabaseMappingDescriptor" title="getDatabaseMappingDescriptor"></a>
-	<h3 class="method-title"><code><a href="#//api/name/getDatabaseMappingDescriptor">&ndash;&nbsp;getDatabaseMappingDescriptor</a></code>
+	<a name="//api/name/getEntityDescriptor" title="getEntityDescriptor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getEntityDescriptor">&ndash;&nbsp;getEntityDescriptor</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1595,12 +1614,12 @@ updates a record to any single table in a relational database.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Returns the actual database mapping object mapped for invoked class object.</p>
+				<p>Returns the actual entity descriptor object mapped for invoked class object.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (SICDatabaseMappingDescriptor *)getDatabaseMappingDescriptor</code></div>
+			<div class="method-subsection method-declaration"><code>- (SICEntityDescriptor *)getEntityDescriptor</code></div>
 
 		    
 			
@@ -1608,7 +1627,7 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>DatabaseMapping Object</p>
+				<p>Entity Descriptor Object</p>
 			</div>
 			
 
@@ -1617,11 +1636,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns the actual entity descriptor object mapped for invoked class object.</p>
 
-<pre><code> SICDatabaseMapping *databaseMapping = nil;
+<p>Example:</p>
+
+<pre><code> SICEntityDescriptor *entityDescriptor = nil;
  @try {
-    databaseMapping = [[[Liquor alloc] init] getDatabaseMapping];
+    entityDescriptor = [[[Book alloc] init] getEntityDescriptor];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1676,11 +1697,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns the mapped table name for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code> NSString *tableName = nil;
  @try {
-    tableName = [[[Liquor alloc] init] getTableName];
+    tableName = [[[Book alloc] init] getTableName];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1735,11 +1758,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all column names of mapped table.</p>
+
+<p>Example:</p>
 
 <pre><code> NSEnumerator *columnNames = nil;
  @try {
-    columnNames = [[[Liquor alloc] init] getColumnNames];
+    columnNames = [[[Book alloc] init] getColumnNames];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1794,11 +1819,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all column values in the same order of column names for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code> NSDictionary *values = nil;
  @try {
-    values = [[[Liquor alloc] init] getColumnValues];
+    values = [[[Book alloc] init] getColumnValues];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1853,11 +1880,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all columns with there data types for invoked class object.</p>
+
+<p>Example:</p>
 
 <p>NSDictionary <em>columnTypes = nil;
 @try {
-    columnTypes = [[[Liquor alloc] init] getColumnTypes];
+    columnTypes = [[[Book alloc] init] getColumnTypes];
 } @catch(<a href="../Classes/SICDatabaseException.html">SICDatabaseException</a> </em>databaseException) {
     //Log it.
 }</p>
@@ -1911,11 +1940,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all primary keys of mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code> NSEnumerator *primaryKeys = nil;
  @try {
-    primaryKeys = [[[Liquor alloc] init] getPrimaryKeys];
+    primaryKeys = [[[Book alloc] init] getPrimaryKeys];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -1970,11 +2001,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all mandatory fields which are associated with mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code> NSEnumerator *mandatoryFields = nil;
  @try {
-    mandatoryFields = [[[Liquor alloc] init] getMandatoryFields];
+    mandatoryFields = [[[Book alloc] init] getMandatoryFields];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -2029,11 +2062,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all unique fields which are associated with mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code> NSEnumerator *uniqueFields = null;
  @try {
-    uniqueFields = [[[Liquor alloc] init] getUniqueFields];
+    uniqueFields = [[[Book alloc] init] getUniqueFields];
  }
  @catch(SICDatabaseException *databaseException) {
     //Log it.
@@ -2089,11 +2124,13 @@ updates a record to any single table in a relational database.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:</p>
+				<p>Returns all foreign keys of mapped table for invoked class object.</p>
+
+<p>Example:</p>
 
 <pre><code> NSEnumerator *foreignKeys = nil;
  @try {
-    foreignKeys = [[[Liquor alloc] init] getForeignKeys];
+    foreignKeys = [[[Book alloc] init] getForeignKeys];
  } @catch(SICDatabaseException *databaseException) {
     //Log it.
  }
@@ -2122,12 +2159,14 @@ updates a record to any single table in a relational database.</p>
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

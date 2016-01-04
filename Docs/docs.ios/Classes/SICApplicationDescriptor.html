@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -161,44 +161,44 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.si.xml file by application.</p>
+						<p>Exposes methods to GET and SET Application Descriptor information as per define in ApplicationDescriptor.xml file by application.</p>
 
 <p>Example:</p>
 
 <pre><code>&lt;siminov&gt;
 
- &lt;!-- General Application Description Properties --&gt;
+     &lt;!-- General Application Description Properties --&gt;
 
- &lt;!-- Mandatory Field --&gt;
- &lt;property name="name"&gt;application_name&lt;/property&gt;
+     &lt;!-- Mandatory Field --&gt;
+     &lt;property name="name"&gt;application_name&lt;/property&gt;
 
- &lt;!-- Optional Field --&gt;
- &lt;property name="description"&gt;application_description&lt;/property&gt;
+     &lt;!-- Optional Field --&gt;
+     &lt;property name="description"&gt;application_description&lt;/property&gt;
 
- &lt;!-- Mandatory Field (Default is 0.0) --&gt;
- &lt;property name="version"&gt;application_version&lt;/property&gt;
-
-
- &lt;!-- Database Descriptors Used By Application (zero-to-many) --&gt;
- &lt;!-- Optional Field's --&gt;
- &lt;database-descriptors&gt;
- &lt;database-descriptor&gt;full_path_of_database_descriptor_file&lt;/database-descriptor&gt;
- &lt;/database-descriptors&gt;
+     &lt;!-- Mandatory Field (Default is 0.0) --&gt;
+     &lt;property name="version"&gt;application_version&lt;/property&gt;
 
 
- &lt;!-- Library Descriptors Used By Application (zero-to-many) --&gt;
- &lt;!-- Optional Field's --&gt;
- &lt;library-descriptors&gt;
- &lt;library-descriptor&gt;full_path_of_library_descriptor_file&lt;/library-descriptor&gt;
- &lt;/library-descriptors&gt;
+     &lt;!-- Database Descriptors Used By Application (zero-to-many) --&gt;
+         &lt;!-- Optional Field's --&gt;
+     &lt;database-descriptors&gt;
+         &lt;database-descriptor&gt;full_path_of_database_descriptor_file&lt;/database-descriptor&gt;
+     &lt;/database-descriptors&gt;
 
 
- &lt;!-- Event Handlers Implemented By Application (zero-to-many) --&gt;
+     &lt;!-- Library Descriptors Used By Application (zero-to-many) --&gt;
+         &lt;!-- Optional Field's --&gt;
+     &lt;library-descriptors&gt;
+         &lt;library-descriptor&gt;full_path_of_library_descriptor_file&lt;/library-descriptor&gt;
+     &lt;/library-descriptors&gt;
 
- &lt;!-- Optional Field's --&gt;
- &lt;event-handlers&gt;
- &lt;event-handler&gt;full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)&lt;/event-handler&gt;
- &lt;/event-handlers&gt;
+
+     &lt;!-- Event Handlers Implemented By Application (zero-to-many) --&gt;
+
+         &lt;!-- Optional Field's --&gt;
+     &lt;event-handlers&gt;
+         &lt;event-handler&gt;full_class_path_of_event_handler_(ISiminovHandler/IDatabaseHandler)&lt;/event-handler&gt;
+     &lt;/event-handlers&gt;
 
 &lt;/siminov&gt;
 </code></pre>
@@ -228,7 +228,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get Application Descriptor Name as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Get Application Descriptor Name as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -247,6 +247,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Application Descriptor Name as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -274,7 +279,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Set Application Descriptor Name as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Set Application Descriptor Name as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -300,6 +305,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set Application Descriptor Name as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -327,7 +337,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Set Description of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Set Description of Application as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -346,6 +356,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set Description of Application as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -373,7 +388,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Set Description of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Set Description of Application as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -399,6 +414,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set Description of Application as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -426,7 +446,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get Version of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Get Version of Application as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -445,6 +465,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Version of Application as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -472,7 +497,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Set Version of Application as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Set Version of Application as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -498,6 +523,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set Version of Application as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -544,6 +574,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether database needed by application or not.</p>
+			</div>
 			
 
 			
@@ -603,6 +638,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether database descriptor exists in Resources or not.</p>
+			</div>
+			
 
 			
 
@@ -660,6 +700,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether database descriptor exists in Resources or not, based on database descriptor path.</p>
+			</div>
 			
 
 			
@@ -719,6 +764,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether database descriptor exists in Resources or not, based on Database Descriptor name.</p>
+			</div>
+			
 
 			
 
@@ -776,6 +826,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Database Descriptor based on Database Descriptor Name.</p>
+			</div>
 			
 
 			
@@ -835,6 +890,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get Database Descriptor based on Database Descriptor Path.</p>
+			</div>
+			
 
 			
 
@@ -861,7 +921,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get all database descriptor paths as per contained in ApplicationDescriptor.si.xml file.</p>
+				<p>Get all database descriptor paths as per contained in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -880,6 +940,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all database descriptor paths as per contained in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -927,6 +992,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all database descriptor names as per needed by application.</p>
+			</div>
+			
 
 			
 
@@ -953,7 +1023,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Add Database Descriptor path as per contained in ApplicationDescriptor.si.xml file.</p>
+				<p>Add Database Descriptor path as per contained in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -979,6 +1049,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Add Database Descriptor path as per contained in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -1025,6 +1100,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all database descriptor objects contains by Siminov.</p>
+			</div>
 			
 
 			
@@ -1084,6 +1164,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Add Database Descriptor object in respect to database descriptor path.</p>
+			</div>
+			
 
 			
 
@@ -1110,7 +1195,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Remove Database Descriptor from Resources based on database path provided, as per defined in ApplicationDescriptor.si.xml file</p>
+				<p>Remove Database Descriptor from Resources based on database path provided, as per defined in ApplicationDescriptor.xml file</p>
 			</div>
 			
 		    
@@ -1136,6 +1221,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove Database Descriptor from Resources based on database path provided, as per defined in ApplicationDescriptor.xml file</p>
+			</div>
 			
 
 			
@@ -1163,7 +1253,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Remove Database Descriptor from Resources based in database name provided, as per defined in DatabaseDescriptor.si.xml file</p>
+				<p>Remove Database Descriptor from Resources based in database name provided, as per defined in DatabaseDescriptor.xml file</p>
 			</div>
 			
 		    
@@ -1189,6 +1279,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove Database Descriptor from Resources based in database name provided, as per defined in DatabaseDescriptor.xml file</p>
+			</div>
 			
 
 			
@@ -1243,6 +1338,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove DatabaseDescriptor object from Resources.</p>
+			</div>
+			
 
 			
 
@@ -1296,6 +1396,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Add library descriptor path</p>
+			</div>
+			
 
 			
 
@@ -1341,6 +1446,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all library descriptor paths</p>
+			</div>
 			
 
 			
@@ -1400,6 +1510,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether it contains library descriptor path or not</p>
+			</div>
+			
 
 			
 
@@ -1453,6 +1568,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove library descriptor path</p>
+			</div>
+			
 
 			
 
@@ -1479,7 +1599,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Get all event handlers as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Get all event handlers as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -1492,12 +1612,17 @@
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>All event handlers defined in ApplicationDescriptor.si.xml file</p>
+				<p>All event handlers defined in ApplicationDescriptor.xml file</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all event handlers as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -1525,7 +1650,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Add event as per defined in ApplicationDescriptor.si.xml file.</p>
+				<p>Add event as per defined in ApplicationDescriptor.xml file.</p>
 			</div>
 			
 		    
@@ -1551,6 +1676,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Add event as per defined in ApplicationDescriptor.xml file.</p>
+			</div>
 			
 
 			
@@ -1605,6 +1735,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove event as per defined event name</p>
+			</div>
+			
 
 			
 
@@ -1623,8 +1758,8 @@
 						</div>
 						
 
-						<a title="Protocol Methods" name="task_Protocol Methods"></a>
-						<h2 class="task-title">Protocol Methods</h2>
+						
+						<h2 class="task-title">Other Methods</h2>
 
 						<div class="task-list">
 							<div class="section-method">
@@ -1658,6 +1793,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get all the properties of descriptor</p>
+			</div>
 			
 
 			
@@ -1717,6 +1857,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Get the property value based on the property name</p>
+			</div>
+			
 
 			
 
@@ -1748,7 +1893,7 @@
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (BOOL)containProperty:(NSString *)<em>name</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (bool)containProperty:(NSString *)<em>name</em></code></div>
 
 		    
 			
@@ -1774,6 +1919,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check whether property exists or not</p>
+			</div>
 			
 
 			
@@ -1833,6 +1983,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Add property to the descriptor</p>
+			</div>
+			
 
 			
 
@@ -1886,6 +2041,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Remove property from the descriptor</p>
+			</div>
+			
 
 			
 
@@ -1908,12 +2068,14 @@
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

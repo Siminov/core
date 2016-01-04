@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -62,13 +62,13 @@
 		
 		<option value="//api/name/close:">- close:</option>
 		
-		<option value="//api/name/executeBindQuery:databaseMappingDescriptor:query:columnValues:">- executeBindQuery:databaseMappingDescriptor:query:columnValues:</option>
+		<option value="//api/name/executeBindQuery:entityDescriptor:query:columnValues:">- executeBindQuery:entityDescriptor:query:columnValues:</option>
 		
 		<option value="//api/name/executeMethod:parameter:">- executeMethod:parameter:</option>
 		
-		<option value="//api/name/executeQuery:databaseMappingDescriptor:query:">- executeQuery:databaseMappingDescriptor:query:</option>
+		<option value="//api/name/executeQuery:entityDescriptor:query:">- executeQuery:entityDescriptor:query:</option>
 		
-		<option value="//api/name/executeSelectQuery:databaseMappingDescriptor:query:">- executeSelectQuery:databaseMappingDescriptor:query:</option>
+		<option value="//api/name/executeSelectQuery:entityDescriptor:query:">- executeSelectQuery:entityDescriptor:query:</option>
 		
 		<option value="//api/name/openOrCreate:">- openOrCreate:</option>
 		
@@ -163,7 +163,9 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>By default add CREATE_IF_NECESSARY flag so that if database does not exist it will create.</p>
+				<p>Open/Create the database through Database Descriptor.</p>
+
+<p>By default add CREATE_IF_NECESSARY flag so that if database does not exist it will create.</p>
 			</div>
 			
 
@@ -231,6 +233,11 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Close the existing opened database through Database Descriptor.</p>
+			</div>
+			
 
 			
 			<div class="method-subsection arguments-section exceptions">
@@ -258,8 +265,8 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/executeQuery:databaseMappingDescriptor:query:" title="executeQuery:databaseMappingDescriptor:query:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/executeQuery:databaseMappingDescriptor:query:">&ndash;&nbsp;executeQuery:databaseMappingDescriptor:query:</a></code>
+	<a name="//api/name/executeQuery:entityDescriptor:query:" title="executeQuery:entityDescriptor:query:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executeQuery:entityDescriptor:query:">&ndash;&nbsp;executeQuery:entityDescriptor:query:</a></code>
 <span class="task-item-suffix">required method</span></h3>
 
 	<div class="method-info">
@@ -274,7 +281,7 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)executeQuery:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em> query:(NSString *const)<em>query</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)executeQuery:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em> query:(NSString *const)<em>query</em></code></div>
 
 		    
 			
@@ -288,8 +295,8 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-Mapping-Descriptor object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity-Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 					<tr>
@@ -308,7 +315,9 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>It has no means to return any data (such as the number of affected rows). Instead, you&rsquo;re encouraged to use insert, update, delete, when possible.</p>
+				<p>Execute a single SQL statement that is NOT a SELECT or any other SQL statement that returns data.</p>
+
+<p>It has no means to return any data (such as the number of affected rows). Instead, you&rsquo;re encouraged to use insert, update, delete, when possible.</p>
 			</div>
 			
 
@@ -338,8 +347,8 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/executeBindQuery:databaseMappingDescriptor:query:columnValues:" title="executeBindQuery:databaseMappingDescriptor:query:columnValues:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/executeBindQuery:databaseMappingDescriptor:query:columnValues:">&ndash;&nbsp;executeBindQuery:databaseMappingDescriptor:query:columnValues:</a></code>
+	<a name="//api/name/executeBindQuery:entityDescriptor:query:columnValues:" title="executeBindQuery:entityDescriptor:query:columnValues:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executeBindQuery:entityDescriptor:query:columnValues:">&ndash;&nbsp;executeBindQuery:entityDescriptor:query:columnValues:</a></code>
 <span class="task-item-suffix">required method</span></h3>
 
 	<div class="method-info">
@@ -354,7 +363,7 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)executeBindQuery:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em> query:(NSString *const)<em>query</em> columnValues:(NSEnumerator *const)<em>columnValues</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)executeBindQuery:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em> query:(NSString *const)<em>query</em> columnValues:(NSEnumerator *const)<em>columnValues</em></code></div>
 
 		    
 			
@@ -368,8 +377,8 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-Mapping-Descriptor object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity-Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 					<tr>
@@ -390,6 +399,11 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A pre-compiled statement that can be reused. The statement cannot return multiple rows, but 1x1 result sets are allowed.</p>
+			</div>
 			
 
 			
@@ -418,8 +432,8 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/executeSelectQuery:databaseMappingDescriptor:query:" title="executeSelectQuery:databaseMappingDescriptor:query:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/executeSelectQuery:databaseMappingDescriptor:query:">&ndash;&nbsp;executeSelectQuery:databaseMappingDescriptor:query:</a></code>
+	<a name="//api/name/executeSelectQuery:entityDescriptor:query:" title="executeSelectQuery:entityDescriptor:query:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executeSelectQuery:entityDescriptor:query:">&ndash;&nbsp;executeSelectQuery:entityDescriptor:query:</a></code>
 <span class="task-item-suffix">required method</span></h3>
 
 	<div class="method-info">
@@ -434,7 +448,7 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)executeSelectQuery:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> databaseMappingDescriptor:(SICDatabaseMappingDescriptor *const)<em>databaseMappingDescriptor</em> query:(NSString *const)<em>query</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (NSEnumerator *)executeSelectQuery:(SICDatabaseDescriptor *const)<em>databaseDescriptor</em> entityDescriptor:(SICEntityDescriptor *const)<em>entityDescriptor</em> query:(NSString *const)<em>query</em></code></div>
 
 		    
 			
@@ -448,8 +462,8 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 					</tr>
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>databaseMappingDescriptor</code></th>
-						<td><p>Database-Mapping-Descriptor object which defines the structure of table.</p></td>
+						<th scope="row" class="argument-name"><code>entityDescriptor</code></th>
+						<td><p>Entity-Descriptor object which defines the structure of table.</p></td>
 					</tr>
 				
 					<tr>
@@ -470,6 +484,11 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Query the given table, returning a Cursor over the result set.</p>
+			</div>
 			
 
 			
@@ -541,6 +560,11 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Executes the method on database object.</p>
+			</div>
+			
 
 			
 			<div class="method-subsection arguments-section exceptions">
@@ -575,12 +599,14 @@ It has methods to open, create, close, and execute query&rsquo;s.</p>
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

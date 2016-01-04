@@ -14,7 +14,7 @@
 		<div class="container" class="hide-in-xcode">
 			
 			<h1 id="library-title">
-				<a href="../index.html">Siminov Framework - Core </a>
+				<a href="../index.html">Core </a>
 			</h1>
 
 			<p id="developer-home">
@@ -70,7 +70,7 @@
 		
 		<option value="//api/name/processDatabaseDescriptors">+ processDatabaseDescriptors</option>
 		
-		<option value="//api/name/processDatabaseMappingDescriptors">+ processDatabaseMappingDescriptors</option>
+		<option value="//api/name/processEntityDescriptors">+ processEntityDescriptors</option>
 		
 		<option value="//api/name/processLibraries">+ processLibraries</option>
 		
@@ -164,7 +164,9 @@
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>SIMINOV become active only when deployment of application is successful.</p>
+				<p>It is used to check whether SIMINOV FRAMEWORK is active or not.</p>
+
+<p>SIMINOV become active only when deployment of application is successful.</p>
 			</div>
 			
 
@@ -225,6 +227,11 @@
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns the <a href="../Protocols/SICIInitializer.html">SICIInitializer</a> instance.</p>
+			</div>
+			
 
 			
 
@@ -270,7 +277,11 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Example:
+				<p>It is the entry point to the SIMINOV FRAMEWORK.
+When application starts it should call this method to activate SIMINOV-FRAMEWORK.
+Siminov will read all descriptor defined by application, and do necessary processing.</p>
+
+<p>Example:
     There are two ways to make a call.</p>
 
 <ul>
@@ -323,7 +334,9 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>When application shutdown they should call this. It do following services:</p>
+				<p>It is used to stop all service started by SIMINOV.</p>
+
+<p>When application shutdown they should call this. It do following services:</p>
 
 <ul>
 <li>Close all database&rsquo;s opened by SIMINOV.</li>
@@ -358,15 +371,7 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 		</div>
 	</div>
-</div>
-						</div>
-						
-
-						
-						<h2 class="task-title">Other Methods</h2>
-
-						<div class="task-list">
-							<div class="section-method">
+</div><div class="section-method">
 	<a name="//api/name/processApplicationDescriptor" title="processApplicationDescriptor"></a>
 	<h3 class="method-title"><code><a href="#//api/name/processApplicationDescriptor">+&nbsp;processApplicationDescriptor</a></code>
 </h3>
@@ -378,7 +383,7 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 			
 			<div class="method-subsection brief-description">
-				<p>It process ApplicationDescriptor.si.xml file defined in Application, and stores in Resource Manager.</p>
+				<p>It process ApplicationDescriptor.xml file defined in Application, and stores in Resource Manager.</p>
 			</div>
 			
 		    
@@ -392,6 +397,11 @@ Siminov will read all descriptor defined by application, and do necessary proces
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It process ApplicationDescriptor.xml file defined in Application, and stores in Resource Manager.</p>
+			</div>
 			
 
 			
@@ -419,7 +429,7 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 			
 			<div class="method-subsection brief-description">
-				<p>It process all DatabaseDescriptor.si.xml files defined by Application and stores in Resource Manager.</p>
+				<p>It process all DatabaseDescriptor.xml files defined by Application and stores in Resource Manager.</p>
 			</div>
 			
 		    
@@ -433,6 +443,11 @@ Siminov will read all descriptor defined by application, and do necessary proces
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It process all DatabaseDescriptor.xml files defined by Application and stores in Resource Manager.</p>
+			</div>
 			
 
 			
@@ -460,7 +475,7 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 			
 			<div class="method-subsection brief-description">
-				<p>It process all LibraryDescriptor.si.xml files defined by application, and stores in Resource Manager.</p>
+				<p>It process all LibraryDescriptor.xml files defined by application, and stores in Resource Manager.</p>
 			</div>
 			
 		    
@@ -474,6 +489,11 @@ Siminov will read all descriptor defined by application, and do necessary proces
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It process all LibraryDescriptor.xml files defined by application, and stores in Resource Manager.</p>
+			</div>
 			
 
 			
@@ -490,8 +510,8 @@ Siminov will read all descriptor defined by application, and do necessary proces
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/processDatabaseMappingDescriptors" title="processDatabaseMappingDescriptors"></a>
-	<h3 class="method-title"><code><a href="#//api/name/processDatabaseMappingDescriptors">+&nbsp;processDatabaseMappingDescriptors</a></code>
+	<a name="//api/name/processEntityDescriptors" title="processEntityDescriptors"></a>
+	<h3 class="method-title"><code><a href="#//api/name/processEntityDescriptors">+&nbsp;processEntityDescriptors</a></code>
 </h3>
 
 	<div class="method-info">
@@ -501,12 +521,12 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 			
 			<div class="method-subsection brief-description">
-				<p>It process all DatabaseMappingDescriptor.si.xml file defined in Application, and stores in Resource Manager.</p>
+				<p>It process all EntityDescriptor.xml file defined in Application, and stores in Resource Manager.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (void)processDatabaseMappingDescriptors</code></div>
+			<div class="method-subsection method-declaration"><code>+ (void)processEntityDescriptors</code></div>
 
 		    
 			
@@ -515,6 +535,11 @@ Siminov will read all descriptor defined by application, and do necessary proces
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It process all EntityDescriptor.xml file defined in Application, and stores in Resource Manager.</p>
+			</div>
 			
 
 			
@@ -542,7 +567,7 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 			
 			<div class="method-subsection brief-description">
-				<p>It process all DatabaseDescriptor.si.xml and initialize Database and stores in Resource Manager.</p>
+				<p>It process all DatabaseDescriptor.xml and <a href="#//api/name/initialize">initialize</a> Database and stores in Resource Manager.</p>
 			</div>
 			
 		    
@@ -556,6 +581,11 @@ Siminov will read all descriptor defined by application, and do necessary proces
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It process all DatabaseDescriptor.xml and <a href="#//api/name/initialize">initialize</a> Database and stores in Resource Manager.</p>
+			</div>
 			
 
 			
@@ -571,7 +601,15 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 		</div>
 	</div>
-</div><div class="section-method">
+</div>
+						</div>
+						
+
+						
+						<h2 class="task-title">Other Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
 	<a name="//api/name/doesDatabaseExists" title="doesDatabaseExists"></a>
 	<h3 class="method-title"><code><a href="#//api/name/doesDatabaseExists">+&nbsp;doesDatabaseExists</a></code>
 </h3>
@@ -598,6 +636,11 @@ Siminov will read all descriptor defined by application, and do necessary proces
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>It is used to check whether database exists or not.</p>
+			</div>
+			
 
 			
 
@@ -620,12 +663,14 @@ Siminov will read all descriptor defined by application, and do necessary proces
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 Siminov Software Solution LLP. All rights reserved. Updated: 2015-03-19</p>
+						<p class="copyright">Copyright &copy; 2016 Siminov Software Solution LLP. All rights reserved. Updated: 2016-01-04</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
