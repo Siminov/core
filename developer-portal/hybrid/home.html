@@ -1,0 +1,246 @@
+<html>
+
+	<head>
+		<link rel="shortcut icon" href="../../images/product_logo.ico">
+		<link rel="stylesheet" href="../css/developer.php" />
+		<link rel="stylesheet" href="../css/developer-icons.php" />
+	
+		<script src="../js/include.js"></script>
+	
+		<title>Siminov Framework</title>
+	</head>
+	
+	<body onload="loadWiki('Preface', ['Get Involved'], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Preface.md'])">
+	
+		<header>
+		
+			<section id="developer-header">
+			    <div class="boxed">
+			        <div id="tagline">
+			            <h1>Documentation</h1>
+			        </div>
+			        <div id="version">
+			            <h1>Version:
+				            <select id="version" onchange="onVersionChanged(this)" style="margin-top:-2px;">
+							  <option value="core-2.0">2.0</option>
+							  <option value="core-1.0">1.0</option>
+							</select>
+			            </h1>
+			        </div>
+			    </div>
+			</section>
+			
+			<section class="main_header">
+				<div class="product_header">
+					<div class="product_header_logo"><a href="../../index.html">
+						<div class="product_logo">
+						</div>
+						<div class="product_name">
+							<span>Siminov Framework</span>
+						</div>
+					</a></div>
+					
+					<ul class="primary-nav-ul">
+			            <li id="core-menu" class="current-item"><a href="../core/home.html">Core</a></li>
+			            <li id="connect-menu" class="current-item"><a href="../connect/home.html">Connect</a></li>
+			            <li id="web-menu" class="current-item" ><a href="home.html">Hybrid</a></li>
+			        </ul>
+				</div>
+			</section>
+		</header>
+		
+			<div id="content">
+			    <section id="documentation" class="">
+			            <div onclick="showDocsMenu()" class="docs-show" style="cursor: pointer;">Navigate</div>
+			            <nav id="docs">
+			            	<ul class="primary-nav-ul navigation-panel">
+					            <li><a class = "tab-background" onclick="showDocumentation(this)" style="cursor: pointer;">Docs</a></li>
+					            <li><a onclick="showSample(this)" style="cursor: pointer;">Sample</a></li>
+					            <li><a onclick="showApi(this)" style="cursor: pointer;">Resources</a></li>
+					        </ul>
+		                	<ul id="docTab">
+								<li>Preface
+									<ul>
+										<li><a href="http://www.github.com/Siminov/hybrid" target="new">View project on Github</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Preface', ['Get Involved'], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Preface.md']);">Preface</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('About', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/About.md']);">About</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Obtaining', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Release-Bundle-Downloads.md']);">Obtaining</a></li>
+									</ul>
+								</li>
+								<li>Project Setup
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Core', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Using-Core-Build.md']);">Core</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Connect', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Using-Connect-Build.md']);">Connect</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Hybrid', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Using-Hybrid-Build.md']);">Hybrid</a></li>
+									</ul>
+								</li>
+								<li>Building Application
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Siminov Descriptors', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Siminov-Descriptors.md']);">Siminov Descriptors</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configuring Application Descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Configuring-Application-Descriptor.md']);">Configuring Application Descriptor</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configuring Database Descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Configuring-Database-Descriptor.md']);">Configuring Database Descriptor</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configuring Entity Descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Configuring-Entity-Descriptor.md']);">Configuring Entity Descriptor</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configuring Library Descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Configuring-Library-Descriptor.md']);">Configuring Library Descriptor</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configuring Service Descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Configuring-Service-Descriptor.md']);">Configuring Service Descriptor</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configuring Sync Descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Configuring-Sync-Descriptor.md']);">Configuring Sync Descriptor</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configuring Adapter Descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Configuring-Adapter-Descriptor.md']);">Configuring Adapter Descriptor</a></li>
+									</ul>
+								</li>
+								<li>Start With Hybrid
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Initializing Core', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Initializing-Core.md']);">Initializing Core</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Initializing Connect', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Initializing-Connect.md']);">Initializing Connect</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Initializing Hybrid', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Initializing-Hybrid.md']);">Initializing Hybrid</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Handling Multiple Schema', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Handling-Multiple-Schema.md']);">Handling Multiple Schema</a></li>
+									</ul>
+								</li>
+								<li>Event Notifiers
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Siminov Event', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Siminov-Event.md']);">Siminov Event</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Database Event', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Database-Event.md']);">Database Event</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Sync Event', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Sync-Event.md']);">Sync Event</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Notification Event', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Notification-Event.md']);">Notification Event</a></li>
+									</ul>
+								</li>
+								<li>Database API's
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Model to SQLite Data Types', ['Android - Java Data-Types', 'iOS - Objective-C Data-Types', 'Hybrid - JavaScript Data-Types', 'SQLite Data-Types'], ['https://github.com/Siminov/core/wiki/Model-to-SQLite-Data-Types.md']);">Model to SQLite Data Types</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Basic Database API', ['Create Database', 'Drop Database', 'Create Table', 'Drop Table', 'Create Index', 'Drop Index', 'Select', 'Save', 'Update', 'Save Or Update', 'Delete'], ['https://raw.githubusercontent.com/wiki/Siminov/core/Create-Database.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Drop-Database.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Create-Table.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Drop-Table.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Create-Index.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Drop-Index.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Select.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Save.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Update.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Save-Or-Update.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Delete.md']);">Basic Database API</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Database Utils API', ['Get Database Descriptor', 'Get Database Mapping Descriptor', 'Get Table Name', 'Get Column Names', 'Get Column Values', 'Get Column Types', 'Get Primary Keys', 'Get Mandatory Fields', 'Get Unique Fields', 'Get Foreign Keys'], ['https://raw.githubusercontent.com/wiki/Siminov/core/Get-Database-Descriptor.md', 'https://raw.githubusercontent.com/wiki/Siminov/hybrid/Get-Entity-Descriptor.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Table-Name.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Column-Names.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Column-Values.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Column-Types.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Primary-Keys.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Mandatory-Fields.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Unique-Fields.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Get-Foreign-Keys.md']);">Database Utils API's</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Database Aggregation API', ['Count', 'Average', 'Sum', 'Total', 'Minimum', 'Maximum', 'Group Concat'], ['https://raw.githubusercontent.com/wiki/Siminov/core/Count.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Average.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Sum.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Total.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Minimum.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Maximum.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Group-Concat.md']);">Database Aggregation API</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Database Transaction API', ['Begin Transaction', 'Commit Transaction', 'End Transaction'], ['https://raw.githubusercontent.com/wiki/Siminov/core/Begin-Transaction.md', 'https://raw.githubusercontent.com/wiki/Siminov/hybrid/Commit-Transaction.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/End-Transaction.md']);">Database Transaction API</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Handling Database Relationships', ['One to One', 'One to Many', 'Many to One', 'Many to Many'], ['https://raw.githubusercontent.com/wiki/Siminov/core/One-to-One.md', 'https://raw.githubusercontent.com/wiki/Siminov/hybrid/One-to-Many.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Many-to-One.md', 'https://raw.githubusercontent.com/wiki/Siminov/core/Many-to-Many.md']);">Handling Database Relationships</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Making Transaction Thread Safe', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Making-Transaction-Thread-Safe.md']);">Making Transaction Thread Safe</a></li>
+									</ul>
+								</li>
+								<li>Database Upgrade
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Database Version Handling', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Database-Upgrade.md']);">Database Version Handling</a></li>
+									</ul>
+								</li>
+								<li>Database Encryption
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('SQLCipher', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/SQLCipher.md']);">SQLCipher</a></li>
+									</ul>
+								</li>
+								<li>Database Layer
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Database Interface', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Database-Interface.md']);">Database Interface</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Data Type Handler Interface', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Data-Type-Handler-Interface.md']);">Data Type Handler Interface</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Query Builder Interface', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Query-Builder-Interface.md']);">Query Builder Interface</a></li>
+									</ul>
+								</li>
+								<li>Service
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Creating a service', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Creating-a-service.md']);">Creating a service</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Creating a service descriptor', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Creating-a-service-descriptor.md']);">Creating a service descriptor</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Starting a service', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Starting-a-service.md']);">Starting a service</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Shutting down a service', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Shutting-down-a-service.md']);">Shutting down a service</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Types of service execution', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Types-of-service-execution.md']);">Types of service execution</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Managing the service lifecycle', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Managing-the-service-lifecycle.md']);">Managing the service lifecycle</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Creating a service request', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Creating-a-service-request.md']);">Creating a service request</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Referring resources', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Referring-resources.md']);">Referring resources</a></li>
+									</ul>
+								</li>
+								<li>Sync
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Creating a sync request', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Creating-a-sync-request.md']);">Creating a sync request</a></li>
+									</ul>
+								</li>
+								<li>Notification
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Handing Notification', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Handing-notification.md']);">Handing Notification</a></li>
+									</ul>
+								</li>
+								<li>Adapter
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Using Adapter', [], ['https://raw.githubusercontent.com/wiki/Siminov/hybrid/Using-Adapter.md']);">Using Adapter</a></li>
+									</ul>
+								</li>
+								<li>Handling Libraries
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Setting Up A Library Project', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Setting-Up-A-Library-Project.md']);">Setting Up A Library Project</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Referencing A Library Project', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Referencing-A-Library-Project.md']);">Referencing A Library Project</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Configure Application With Library', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Configure-Application-With-Library.md']);">Configure Application With Library</a></li>
+									</ul>
+								</li>
+								<li>Exceptions
+									<ul>
+										<li><a style="cursor:hand;" onclick="loadWiki('Siminov Exception', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Siminov-Exception.md']);">Siminov Exception</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Deployment Exception', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Deployment-Exception.md']);">Deployment Exception</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Database Exception', [], ['https://raw.githubusercontent.com/wiki/Siminov/core/Database-Exception.md']);">Database Exception</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Service Exception', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Service-Exception.md']);">Service Exception</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Sync Exception', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Sync-Exception.md']);">Sync Exception</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Connection Exception', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Connection-Exception.md']);">Connection Exception</a></li>
+										<li><a style="cursor:hand;" onclick="loadWiki('Notification Exception', [], ['https://raw.githubusercontent.com/wiki/Siminov/connect/Notification-Exception.md']);">Notification Exception</a></li>
+									</ul>
+								</li>
+							</ul>
+							
+							<ul id="sampleTab">
+								<li>References
+									<ul>
+										<li><a href="https://github.com/Siminov/android-samples/tree/master/core-sample" target="new">View sample project on Github</a></li>
+										<li><a href="https://github.com/Siminov/android-samples/tree/master/core-sample/build/siminov-core-sample-v1.0.apk" download>Download .apk file</a></li>
+										<li><a href="https://github.com/Siminov/android-samples/tree/master/core-sample.zip" download>Download source .zip file</a></li>
+									</ul>
+								</li>	
+							</ul>
+							
+							<ul id="apiTab">
+								<li>Docs
+									<ul>
+										<li><a href="https://cdn.rawgit.com/Siminov/hybrid/docs/api/v2.0/javadocs/index.html" target="new">Android API Docs</a></li>
+										<li><a href="https://cdn.rawgit.com/Siminov/hybrid/docs/api/v2.0/index.html" target="new">iOS API Docs</a></li>
+										<li><a href="https://cdn.rawgit.com/Siminov/hybrid/docs/api/v2.0/index.html" target="new">Windows API Docs</a></li>
+										<li><a href="https://cdn.rawgit.com/Siminov/hybrid/docs/api/v2.0/hybriddocs/index.html" target="new">Hybrid API Docs</a></li>
+										<li><a href="http://www.github.com/Siminov/hybrid/wiki" target="new">Github Wiki</a></li>
+									</ul>
+								</li>	
+							</ul>
+			            </nav>
+			            
+			            <div id="docs-content">
+			            	<div id="docs-loader" class="introLoading"></div>
+			            </div>
+			    </section>
+		</div>
+		
+		
+		<!--Footer-->
+		
+			<div id="global-footer">
+				<section class="main_header">
+					
+					<div class="product_header_logo"><a href="../../../index.html">
+						<div class="product_logo">
+						</div>
+						<div class="product_name">
+							<span>Siminov Framework</span>
+						</div>
+					</a></div>
+					
+					<ul class="primary-nav-ul">
+			            <li><a>Core</a></li>
+			            <li><a>Connect</a></li>
+			            <li><a>Hybrid</a></li>
+			        </ul>
+					
+				</section>				    
+			    <footer>
+			        <div class="wrapper">
+			            <div class="contact">
+			                <span>&#169; 2015 Siminov. All Rights Reserved.</span>
+			            </div>
+			            <div class="legal">
+			                <a href="../../../privacy-policy.html">Privacy policy</a>
+			            </div>
+			        </div>
+			    </footer>
+			</div>
+		
+		<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;"></a>
+		<div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div>
+	</body>
+
+</html>

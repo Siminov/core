@@ -1,7 +1,0 @@
-
-
-Steps to generate the documentation:
-
-	- brew install appledoc
-
-	- appledoc --project-name Core --project-company "Siminov" --company-id Siminov.Core  --output /private/var/user/Documents/App/Core/Docs/docs.ios  .

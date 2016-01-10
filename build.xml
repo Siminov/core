@@ -1,0 +1,379 @@
+<project default="compress">
+	<target name="compress">
+	    
+	    
+	    <!-- Compress All HTML Pages -->
+	    
+		    		<!-- Compress HTML Home Pages -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="" includes="*.html">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--type html"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed HTML Home Pages" />
+
+		    		<!-- Compress HTML Developer Protal Connect Pages -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="" includes="developer-portal/connect/*.html">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--type html"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed HTML Developer Protal Connect Pages" />
+			    			   
+		    		<!-- Compress HTML Developer Protal Core Pages -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="" includes="developer-portal/core/*.html">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--type html"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed HTML Developer Protal Core Pages" />
+			    			    
+		    		<!-- Compress HTML Developer Protal Hybrid Pages -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="" includes="developer-portal/hybrid/*.html">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--type html"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed HTML Developer Protal Hybrid Pages" />
+			    			    	   	
+				    		   		   		   		   
+					<!-- Compress HTML Developer Protal Studio Pages -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="" includes="developer-portal/studio/*.html">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--type html"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed HTML Developer Protal Studio Pages" />
+			  
+			    
+	
+		<!-- Compress All CSS -->
+		
+		    	    <!-- Compress Home Pages CSS -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="css/" includes="*.php">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--compress-css"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/css/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed Home Pages CSS" />
+		    		    
+		
+		    	    <!-- Compress Developer Portal CSS -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="developer-portal/css/" includes="*.php">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--compress-css"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/developer-portal/css/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed Developer Portal Pages CSS" />
+			 
+			    
+				 <!-- Compress Sticky Slider CSS -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="sticky-slider/css/" includes="*.php">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--compress-css"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/sticky-slider/css/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed Sticky Slider Pages CSS" />
+					
+
+				 <!-- Compress Flexslider CSS -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="flexslider/css/" includes="*.php">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--compress-css"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/flexslider/css/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Compressed Flexslider CSS" />
+								    
+
+		<!-- Compress All JS Files -->			    
+			    
+
+		    		<!-- Compress Home Page JS -->
+		    <apply executable="java" parallel="false">
+	           <fileset dir="js" includes="*.js">
+	           </fileset>
+	           <arg value="-jar"/>
+	           <arg path="compressor/htmlcompressor.jar"/>
+	           <arg line="--compress-js"/>
+	           <srcfile/>
+	           <arg value="-o"/>
+	           <mapper type="glob" from="*" to="build/js/*"/>
+	           <targetfile/>
+	       	</apply>
+			    <echo message="Home Pages JS Compressed" />
+			    
+			    
+		<!-- Copy All Other Files -->
+		
+		    		<!-- Copy WS Folder -->
+	      	<copy todir="build/ws">
+	            <fileset dir="ws" includes="*"/>
+	        </copy>
+			    <echo message="WS Folder Copied" />		    
+		
+	
+		    		<!-- Copy Products Build Folder -->
+	      	<copy todir="build/products-build">
+	            <fileset dir="products-build" includes="*"/>
+	        </copy>
+			    <echo message="Products Build Copied" />		    
+			
+			    
+					<!-- Copy jQuery JS Folder -->
+	      	<copy todir="build/jquery">
+	            <fileset dir="jquery" includes="*"/>
+	        </copy>
+			    <echo message="jQuery Copied" />		    
+			
+			    
+					<!-- Copy Layer Slider JS Folder -->
+	      	<copy todir="build/layer-slider/js">
+	            <fileset dir="layer-slider/js" includes="*"/>
+	        </copy>
+			    <echo message="Layer Slider Copied" />		    
+			
+			    
+					<!-- Copy Sticky Slider JS Folder -->
+	      	<copy todir="build/sticky-slider/js">
+	            <fileset dir="sticky-slider/js" includes="*"/>
+	        </copy>
+			    <echo message="Sticky Slider Copied" />		
+			        
+			    
+					<!-- Copy Flexslider JS Folder -->
+	      	<copy todir="build/flexslider/js">
+	            <fileset dir="flexslider/js" includes="*"/>
+	        </copy>
+			    <echo message="Flexslider Copied" />		
+			        			    		
+			    	    	
+			    <!-- Copy Image Folder -->
+	      	<copy todir="build/images">
+	            <fileset dir="images/" includes="product_logo.ico,loading.gif"/>
+	        </copy>
+			    <echo message="Images Copied" />		
+			        		
+ 	    	
+			    <!-- Copy Developer Portal JS Files -->
+	      	<copy todir="build/developer-portal/js/">
+	            <fileset dir="developer-portal/js/" includes="*.js"/>
+	        </copy>
+			    <echo message="Copied Developer Portal JS Files" />		
+			        		
+			    			    
+			    
+		<!-- Merge All CSS -->				    
+				
+				<!-- Replace All Imports From CSS For Merging -->
+				
+				<replace dir="build/css">
+			        <include name="base.php"/>
+					<replacetoken><![CDATA[@import url('reset.php');]]></replacetoken>
+				  	<replacevalue><![CDATA[]]></replacevalue>
+				</replace> 
+						
+				<replace dir="build/css">
+			        <include name="base.php"/>
+					<replacetoken><![CDATA[@import url('rwd.php');]]></replacetoken>
+				  	<replacevalue><![CDATA[]]></replacevalue>
+				</replace> 
+				
+				<replace dir="build/css">
+			        <include name="menu.php"/>
+					<replacetoken><![CDATA[@import url('../sticky-slider/css/sticky-slider.php');]]></replacetoken>
+				  	<replacevalue><![CDATA[]]></replacevalue>
+				</replace> 
+				
+				<replace dir="build/css">
+			        <include name="menu.php"/>
+					<replacetoken><![CDATA[@import url('../flexslider/css/flexslider.php');]]></replacetoken>
+				  	<replacevalue><![CDATA[]]></replacevalue>
+				</replace> 
+				
+				<replace dir="build/css">
+			        <include name="home.php"/>
+					<replacetoken><![CDATA[@import url('base.php');]]></replacetoken>
+				  	<replacevalue><![CDATA[]]></replacevalue>
+				</replace> 
+								
+				<replace dir="build/css">
+			        <include name="home.php"/>
+					<replacetoken><![CDATA[@import url('menu.php');]]></replacetoken>
+				  	<replacevalue><![CDATA[]]></replacevalue>
+				</replace> 
+				
+				<replace dir="build/">
+			        <include name="*.html"/>
+					<replacetoken><![CDATA[<link rel="stylesheet" href="css/home-icons.php"/>]]></replacetoken>
+				  	<replacevalue><![CDATA[]]></replacevalue>
+				</replace> 
+								
+				<!-- Merge All Home CSS File -->
+			<concat destfile="build/css/build-home.php" append="true">
+				<filelist dir="build/css/" files="cache.php"/> 
+				<filelist dir="build/css/" files="reset.php"/>
+				<filelist dir="build/css/" files="rwd.php"/>
+				<filelist dir="build/css/" files="base.php"/>
+	   			<filelist dir="build/flexslider/css/" files="flexslider.php"/>
+	   			<filelist dir="build/sticky-slider/css/" files="sticky-slider.php"/>
+				<filelist dir="build/css/" files="menu.php"/>
+	   			<filelist dir="build/css/" files="home.php"/>
+	   			<filelist dir="build/css/" files="home-icons.php"/>
+	   		</concat>
+			    	
+			
+				<delete file="build/css/base.php"/>
+				<delete file="build/css/cache.php"/>
+				<delete file="build/css/reset.php"/>
+				<delete file="build/css/rwd.php"/>
+				<delete file="build/css/menu.php"/>
+				<delete file="build/css/home-icons.php"/>
+				<delete file="build/css/home.php"/>
+				<delete file="build/flexslider/css/flexslider.php"/>
+				<delete file="build/sticky-slider/css/sticky-slider.php"/>
+				
+				
+				<rename src="build/css/build-home.php" dest="build/css/home.php"/>
+				
+		
+			<!-- Replace All Developer Portal Imports From CSS For Merging -->
+				
+					<replace dir="build/developer-portal/connect">
+				        <include name="*.html"/>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+					  	<replacevalue><![CDATA[]]></replacevalue>
+					</replace> 
+					
+					<replace dir="build/developer-portal/core">
+				        <include name="*.html"/>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+					  	<replacevalue><![CDATA[]]></replacevalue>
+					</replace> 
+									
+					<replace dir="build/developer-portal/hybrid">
+				        <include name="*.html"/>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+					  	<replacevalue><![CDATA[]]></replacevalue>
+					</replace> 
+									
+					<replace dir="build/developer-portal/studio">
+				        <include name="*.html"/>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+					  	<replacevalue><![CDATA[]]></replacevalue>
+					</replace> 
+				
+					<replace dir="build/developer-portal/css">
+				        <include name="*.php"/>
+						<replacetoken><![CDATA[@import url('../../css/home.php');]]></replacetoken>
+					  	<replacevalue><![CDATA[]]></replacevalue>
+					</replace> 
+									
+					<!-- Merge All Developer Portal CSS File -->
+				<concat destfile="build/developer-portal/css/build-developer.php" append="true">
+					<filelist dir="build/css/" files="home.php"/>
+				    <filelist dir="build/developer-portal/css/" files="developer-icons.php"/> 
+					<filelist dir="build/developer-portal/css/" files="developer.php"/>
+		   		</concat>
+				    	
+					<delete file="build/developer-portal/css/developer-icons.php"/>
+					<delete file="build/developer-portal/css/developer.php"/>
+									
+					<rename src="build/developer-portal/css/build-developer.php" dest="build/developer-portal/css/developer.php"/>
+								
+					
+					
+		<!-- Merge All JS Files -->				
+									
+				<!-- Merge Home JS File -->
+			<concat destfile="build/js/build-home.js" append="true">
+				<filelist dir="build/js/" files="home.js"/> 
+				<filelist dir="build/jquery/" files="jquery-1.10.2.min.js,jquery.easing.min.js,jquery.scrollUp.js"/>
+				<filelist dir="build/sticky-slider/js/" files="jquery.stickyNavbar.min.js,sticky-slider.js,sticky-slider-edit.js"/>
+				<filelist dir="build/layer-slider/js/" files="layerslider.kreaturamedia.jquery.js"/>
+	   			<filelist dir="build/flexslider/js/" files="jquery.flexslider.js"/>
+			</concat>	
+			
+				<delete file="build/js/home.js"/>
+				<delete file="build/js/include.js"/>
+				<delete file="build/layer-slider/js/layerslider.kreaturamedia.jquery.js"/>
+				<delete file="build/sticky-slider/js/jquery.stickyNavbar.min.js"/>
+				<delete file="build/sticky-slider/js/sticky-slider-edit.js"/>
+				<delete file="build/sticky-slider/js/sticky-slider.js"/>
+				<delete file="build/flexslider/js/jquery.flexslider.js"/>
+			
+				
+				<rename src="build/js/build-home.js" dest="build/js/include.js"/>
+				
+				
+				<!-- Merge Developer Portal JS File -->
+			<concat destfile="build/developer-portal/js/build-developer.js" append="true"> 
+	   			<filelist dir="build/js/" files="include.js"/>
+			    <filelist dir="build/developer-portal/js/" files="developer.js"/>
+	   			<filelist dir="build/developer-portal/js/" files="markdown.js"/>
+	   			<filelist dir="build/developer-portal/js/" files="loadingoverlay.js"/>
+	   		</concat>		
+			
+				<delete file="build/developer-portal/js/developer.js"/>
+				<delete file="build/developer-portal/js/include.js"/>
+				<delete file="build/developer-portal/js/loadingoverlay.js"/>
+				<delete file="build/developer-portal/js/markdown.js"/>
+				
+				<rename src="build/developer-portal/js/build-developer.js" dest="build/developer-portal/js/include.js"/>
+				
+				
+	</target>
+</project>

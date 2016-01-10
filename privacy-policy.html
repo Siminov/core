@@ -1,0 +1,429 @@
+<html>
+
+	<head>
+		<meta charset="utf-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="images/product_logo.ico">	
+		<link rel="stylesheet" href="css/home.php" />
+		<link rel="stylesheet" href="css/home-icons.php" />
+	
+		<script src="js/include.js"></script>
+		<title>Siminov Framework</title>
+	</head>
+	
+	<body>
+	
+		<header>
+		
+			<div id="top-panel" class="open">
+			    <div class="row">
+			        <div class="top-panel-inner">
+			            <div class="three columns">
+			                <div class="top-login">
+								<form name="loginform" id="loginform" action="" method="post">
+									
+									<p class="login-username">
+										<label for="user_login">Username</label>
+										<input type="text" name="log" id="user_login" class="input" value="" size="20">
+									</p>
+									<p class="login-password">
+										<label for="user_pass">Password</label>
+										<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+									</p>
+									
+									<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
+									<p class="login-submit">
+										<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Log In">
+										<input type="hidden" name="redirect_to" value="">
+									</p>
+									
+								</form>               
+							 </div>
+			            </div>
+			            <div class="eight columns offset-by-one top-text">
+			                
+			                <i class="icon awesome-list">
+			                </i>
+			                <div class="title">A few words about anything</div>
+			                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+			                <div class="soc-icons">
+			                    <a href="#" class="icon-facebook-rect"></a>
+			                    <a href="#" class="icon-googleplus-rect"></a>
+			                    <a href="#" class="icon-twitter-bird"></a>
+			                    <a href="#" class="icon-instagram"></a>
+			                    <a href="#" class="icon-vimeo"></a><a href="#" class="icon-lastfm"></a>
+			                    <a href="#" class="icon-vkontakte-rect"></a>
+			                    <a href="#" class="icon-youtube"></a>
+			                    <a href="#" class="icon-deviantart"></a>
+			                    <a href="#" class="icon-linkedin-rect"></a>
+			                    <a href="#" class="icon-picasa"></a><a href="#" class="icon-pinterest"></a>
+			                    <a href="#" class="icon-wordpress"></a><a href="#" class="icon-dropbox"></a>
+			                </div>
+			            </div>
+			        </div>
+			        <!--<a id="open-top-panel" onclick="showTopLoginMenu()" href="#"></a>-->
+			    </div>
+			</div>
+			
+			<section class="main_header">
+				<div class="product_header">
+					<a href="index.html">
+						<div class="product_logo">
+						</div>
+						<div class="product_name">
+							<span>Siminov Framework</span>
+						</div>
+					</a>
+					<div class="product_by">
+						<span>
+							by<h2>Siminov</h2>
+						</span>
+					</div>
+				</div>
+				
+				<div class="social_header_options">
+					<a href="http://www.github.com/Siminov" target="new"><div class="github_header_option"></div></a>
+					<a href="developer-portal/core/home.html"><div class="developer_header_option"></div></a>
+				</div>
+				
+				<div>
+					<a id="show-menu-button" onclick="showMenu()" class="active">Click</a>
+				</div>
+			</section>
+		
+			<section class="menu" id="menu">
+				<div class="content-wrapper">
+					<div id="header" class="header">
+						<ul id="menu-primary-navigation" class="menu crum_start_animation">
+							<li class="has-submenu" id="menu-products" onmouseenter="showCoreProduct();">
+								
+								<span class="menu-item-wrap products">
+									<div class="products_image"></div>
+									<a href="#" style="">
+										<span class="link-text">Products</span>
+										<span class="link-desc">Our lab products</span>
+									</a>
+								</span>
+								
+								<ul style ="width:870px;" class="products_list">
+									<li class="has-submenu">
+            							<div class="menu-item-wrap" style="padding:9px 10px 8px 20px;">
+            								<h3 class="widget-title">
+    											<i class="our_products_image"></i>
+    											Our Products
+    										</h3>
+                							
+                							<span class ="product-1-1">			
+												
+												<a href="#">
+													<div id="product-1" class="product-1" onmouseenter="showCoreProduct();">
+														Core
+													</div> 
+												</a>
+												
+												<span class="panel-grid-cell" id="product-1-desc">
+        											<div class="panel widget widget_about_author_widget panel-first-child panel-last-child" id="panel-0-1-0">
+        												<div class="about_author_widget">
+    														<div class="text">
+                        										<p>Siminov Core is a open source Object/Relational mapping solution which targets different platforms. It maps an platform specific object mdoel representation to a relational data model (and visa versa).</p>
+                												<br>
+                												<p>It not only take care of the mapping, but also provides data query and retrieval facilities.</p>
+    														</div>
+    														<div class="additional-links">
+	        													<a href="https://github.com/Siminov/core" target="new"><div class="github_header_option"></div></a>
+	        													<a href="developer-portal/core/home.html"><div class="developer_header_option"></div></a>
+															</div>
+														</div>
+    												</div>
+	    										</span>
+    										</span>
+    										
+    										<span class ="product-2-1">	
+    										
+    											<a href="#">
+		    										<div id="product-2" class="product-2" onmouseenter="showConnectProduct();">
+		    											Connect
+		    										</div> 
+	    										</a>
+	    										
+	    										<span class="panel-grid-cell" id="product-2-desc">
+        											<div class="panel widget widget_about_author_widget panel-first-child panel-last-child" id="panel-0-1-0">
+        												<div class="about_author_widget">
+    														<div class="text">
+                        										<p>Siminov Connect is a lightweight, comprehensive, open source REST framework which is supported on different platforms. It reduces the work load involved in building abd consuming RESTful API's.</p>
+                												<br>
+                												<p>It supports major Internet transport, data format, and service descriptions standards like HTTP and HTTPS, SMTP, XML and JSON.</p>
+    														</div>
+        													<div class="additional-links">
+	        													<a href="https://github.com/Siminov/connect" target="new"><div class="github_header_option"></div></a>
+	        													<a href="developer-portal/connect/home.html"><div class="developer_header_option"></div></a>
+															</div>
+														</div>
+	    											</div>
+	    										</span>
+    										</span>
+    										
+    										<span class ="product-3-1">
+	    										
+	    										<a href="#">
+		    										<div id="product-3" class="product-3" onmouseenter="showWebProduct();">
+	    												Hybrid
+													</div> 
+												</a>
+												
+												<span class="panel-grid-cell" id="product-3-desc">
+        											<div class="panel widget widget_about_author_widget panel-first-child panel-last-child" id="panel-0-1-0">
+        												<div class="about_author_widget">
+    														<div class="text">
+                        										<p>Siminov Hybrid is derived from a combination of technologies, approaches or elements of different kinds. It is an open source framework which leverages best of both native and mobile hybrid technologies.</p>
+                												<br>
+                												<p>It is very difficult to handle database and web service calls. It makes your life easy by mapping JavaScript|Platform specific object model to relational database and also handles all your web services calls using platform container capabilities.</p>
+    														</div>
+        													<div class="additional-links">
+	        													<a href="https://github.com/Siminov/hybrid" target="new"><div class="github_header_option"></div></a>
+	        													<a href="developer-portal/hybrid/home.html"><div class="developer_header_option"></div></a>
+															</div>
+														</div>
+	    											</div>
+	    										</span>
+	    									</span>
+    										<span class="product-4-1">
+    										
+    											<a href="#">
+		    										<div id="product-4" class="product-4"  onmouseenter="showStudioProduct();">
+	    												Studio
+	    											</div> 
+    											</a>
+    											
+    											<span class="panel-grid-cell" id="product-4-desc">
+        											<div class="panel widget widget_about_author_widget panel-first-child panel-last-child" id="panel-0-1-0">
+        												<div class="about_author_widget">
+    														<div class="text">
+                        										<p>Siminov Studio allows you to speed up your development by targeting different IDE's like (Eclipse, XCode, Visual Studio).</p>
+                												<br>
+                												<p>Using this you can quickly create your app configurations without manually creating it.</p>
+    														</div>
+        													<div class="additional-links">
+	        													<a href="https://github.com/Siminov/studio" target="new"><div class="github_header_option"></div></a>
+	        													<a href="developer-portal/studio/home.html"><div class="developer_header_option"></div></a>
+															</div>
+														</div>
+	    											</div>
+	    										</span>
+        									</span>	 
+    								</div></li>
+								</ul>
+							</li>
+							<li class="has-submenu" id="menu-develop">
+								<span class="menu-item-wrap develop" onclick="showDevelopMenuItemsInMobile()">
+									<div class="develop_image"></div>
+									<a href="#" style="">
+										<span class="link-text">Develop</span>
+										<span class="link-desc">All you need to know</span>
+									</a>
+								</span>
+								<ul>
+									<li><span class="menu-item-wrap"><a href="developer-portal/core/home.html"><span class="link-text">Developer Portal</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="features.html"><span class="link-text">Features</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="build.html"><span class="link-text">Builds</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="http://github.com/Siminov" target="new"><span class="link-text">Bug Tracker</span><span class="link-desc"></span></a></span></li>
+								</ul>
+							</li>
+							<li class="has-submenu" id="menu-community">
+								<span class="menu-item-wrap community" onclick="showCommunityMenuItemsInMobile()">
+									<div class="community_image"></div>
+									<a href="#" style="">
+										<span class="link-text">Community</span>
+										<span class="link-desc">Our world</span>
+									</a>
+								</span>
+								<ul>
+									<li><span class="menu-item-wrap"><a href="https://www.facebook.com/profile.php?id=100008476454617&fref=ts" target="new"><span class="link-text">Facebook</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="https://twitter.com/SiminovFramewor" target="new"><span class="link-text">Twitter</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="https://github.com/Siminov/followers" target="new"><span class="link-text">Developer Directory</span><span class="link-desc"></span></a></span></li>
+								</ul>
+							</li>
+							<li class="has-submenu" id="menu-about">
+								<span class="menu-item-wrap about" onclick="showAboutMenuItemsInMobile()">
+									<div class="about_image"></div>
+									<a href="#" style="">
+										<span class="link-text">About</span>
+										<span class="link-desc">All about us</span>
+									</a>
+								</span>
+								<ul>
+									<li><span class="menu-item-wrap"><a href="aboutUs.html"><span class="link-text">About Us</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="faq.html"><span class="link-text">FAQ's</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="license.html"><span class="link-text">License</span><span class="link-desc"></span></a></span></li>
+									<li><span class="menu-item-wrap"><a href="contact.html"><span class="link-text">Contact</span><span class="link-desc"></span></a></span></li>
+								</ul>
+							</li>
+						</ul>
+						<!-- End #nav -->
+					</div>
+				</div>
+			</section>
+			
+			
+			<div id="stuning-header" class="privacy-policy-header">
+				<div class="row">
+				    <div class="twelve columns">
+				        <div id="page-title">
+				            <a href="javascript:history.back()" class="back"></a>
+				            <div class="page-title-inner">
+				                <h1 class="page-title">
+				                    Privacy Policy                
+			                    </h1>
+				                <div class="breadcrumbs">
+				                    <nav id="crumbs">
+				                    	<span typeof="v:Breadcrumb">
+				                    		<a rel="v:url" property="v:title" href="index.html">Home</a>
+				                    	</span> 
+				                    	<span class="del">&#183</span> <span class="current">Privacy Policy</span>
+				                    </nav>                
+				                </div>
+				            </div>
+				
+				        </div>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row faq-info">
+			
+				This privancy policy has been compiled to better serve those who are concerned with how their 'Personally identifiable information' (PII) is being used online. PII, as used in India privancy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in centext. Please ready our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.
+				
+				<h2 id="what" style="margin-top:20px;">What personal information do we collect from the people that visit our blog, website or app?</h2>
+				<p>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email address, company name or other details to help you with your experience.
+				</p>
+				<h2 id="what">When do we collect information?</h2>
+				<p>We collect infromation from you when you register on our site, subscribe to a newsletter or enter information on our site.
+				</p>
+				<h2 id="what">How do use your information?</h2>
+				<p>We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features in the following ways:
+					<ul style="padding-left: 20px; margin-top:10px;">
+						<li>To allow us to better service you in responding to your customer service requests.</li>
+						<li>To send periodic emails regarding your order or other products and services.</li>
+					</ul>
+				</p>
+				<h2 id="what">How do we protect visitor information?</h2>
+				<p>We so not use vulnerability scanning and/or scanning to PCI standards.
+				</p>
+				<p>
+					We do not use Malware Scanning.
+				</p>
+				<p>
+					We do not use an SSL certificate.
+				</p>
+				<h2 id="what">Do we use 'cookies'?</h2>
+				<p>We do not use cookies for tracking purposes
+				</p>
+				<p>
+					You can choose to have your computer warn you each time a cookie is being sent, or you choose to turn off all cookies. You do this through your browser (like Internet Explorer) settings. Each browser is a little different, so look at your browser's Help menu to learn the correct way to modify your cookies.
+				</p>
+				
+				<p>
+					If you disable cookies off, some features will be disabled that make your site experience more efficient and some of our service will not function properly.
+				</p>
+				<p>
+					However, you can still place orders.
+				</p>
+				<h2 id="what">Third Party Disclosure</h2>
+				<p>We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information.
+				</p>
+				<h2 id="what">Third part links</h2>
+				<p>Occasionally, at our discretion, we may include or offer third party products or services on our website. These third party sites have separate and independent privacy policies. We therefore have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome the feedback about these sites.
+				</p>
+				<h2 id="what">Google</h2>
+				<p>Google's advertising requirements can be summed up by Google's Advertising Principles. They are put in place to provide a positive experience for users. https://support.google.com/adwordspolicy/answer/1316548?hl=en
+				</p>
+				<p>
+					We have not enabled Google AdSense on our site but we may do so in the future.
+				</p>
+				<h2 id="what">How does our site handle do not track signals?</h2>
+				<p>We don't honor do not track signals and do not track, plant cookies, or use adventising when a Do Not Track (DNT) browser mechanism is in place. 
+				</p>
+				<h2 id="what">Does our site allow third party behavioral tracking?</h2>
+				<p>It's also important to note that we do not allow third party behavioral tracking
+				</p>
+			</div>
+
+
+		<!--Footer-->
+		
+			<div id="global-footer">
+			    <div class="wrapper">
+			        <a href="index.html" class="hexagon"></a>
+			        
+			        <div class="navigation hide-on-mobile">
+			        	<div class="sub-info columns">
+			            <ul>
+			                <li>Products
+			                    <ul>
+			                        <li><a href="developer-portal/core/home.html">Core</a></li>
+			                        <li><a href="developer-portal/connect/home.html">Connect</a></li>
+			                        <li><a href="developer-portal/web/home.html">Web</a></li>
+			                        <li><a href="developer-portal/studio/home.html">Studio</a></li>
+			                    </ul>
+			                </li>
+			                
+			                <li>Develop
+			                    <ul>
+			                        <li><a href="developer-portal/core/home.html">Develop Portal</a></li>
+			                        <li><a href="features.html">Features</a></li>
+			                        <li><a href="build.html">Builld</a></li>
+			                        <li><a href="https://github.com/Siminov">Bug Tracker</a></li>
+			                    </ul>
+			                </li>
+			                
+			                <li>About
+			                    <ul>
+			                        <li><a href="aboutUs.html">About us</a></li>
+			                        <li><a href="faq.html">FAQ's</a></li>
+			                        <li><a href="license.html">License</a></li>
+			                        <li><a href="contact.html">Contact</a></li>
+			                    </ul>
+			                </li>
+			            </ul>
+			            </div>
+			            <div class="four columns">
+				            <section id="rss_mail_subscribe-3" class="widget widget_rss_mail_subscribe"><h3 class="widget-title">Subscribe</h3>
+						        <form id="feedburner_subscribe" class="subscribe" method="post" target="popupwindow">
+						            <div class="row collapse">
+						                <div class="enter_text columns">
+						                    <input class="text" type="text" name="email" id="subsmail" placeholder="Enter your email address">
+						                </div>
+						                <div class="submit_button columns">
+						                    <input type="submit" class="expand postfix" value="Join Us">
+						                </div>
+						            </div>
+						        </form>
+								<span>By subscribing to our mailing list you will always be update with the latest news from us.</span>
+								<div class="feedb-follows">
+					                <a href="https://twitter.com/SiminovFramewor" target="new"><div class="item footer-twitter"></div></a>
+					                <a href="https://www.facebook.com/profile.php?id=100008476454617&fref=ts" target="new"><div class="item footer-facebook"></div></a>
+					                <a href="http://github.com/Siminov" target="new"><div class="item footer-github"></div></a>
+								</div>
+					        </section>        
+				        </div>
+			        </div>
+		    	</div>
+									    
+			    <footer>
+			        <div class="wrapper">
+			            <div class="contact">
+			                <span>&#169; 2015 Siminov. All Rights Reserved.</span>
+			            </div>
+			            <div class="legal">
+			                <a href="privacy-policy.html">Privacy policy</a>
+			            </div>
+			        </div>
+			    </footer>
+			</div>
+		</header>
+		
+		<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;"></a>
+		<div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div>
+	</body>
+
+</html>
