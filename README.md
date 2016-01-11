@@ -1,4 +1,4 @@
-[![webpack](https://github.com/Siminov/core/blob/master/Docs/assets.ios/Logo.png)](https://siminov.com)
+[![siminov](https://github.com/Siminov/core/blob/master/Docs/assets.ios/Logo.png)](https://siminov.com)
 
 Siminov Core (Object Relationship Mapping) - Android, iOS, Windows
 ===================================================
