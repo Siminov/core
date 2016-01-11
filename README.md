@@ -1,6 +1,14 @@
 [![siminov](https://github.com/Siminov/core/blob/master/Docs/assets.ios/logo.png)](https://siminov.com) Siminov Core (Object Relationship Mapping) - Android, iOS, Windows
 ===================================================
 
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
+
 [![Join the chat at https://gitter.im/Siminov/core](https://badges.gitter.im/Siminov/core.svg)](https://gitter.im/Siminov/core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Siminov Core is a open source Object/Relational Mapping solution for all different environments - (Android - Java, iOS - Objective-C|Swift, Windows - C#, OS X - Objective-C|Swift). It maps data from an object model representation to a relational data table representation (and visa versa).
