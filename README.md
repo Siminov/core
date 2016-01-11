@@ -1,9 +1,8 @@
 [![siminov](https://github.com/Siminov/core/blob/master/Docs/assets.ios/logo.png)](https://siminov.com) Siminov Core (Object Relationship Mapping) - Android, iOS, Windows
 ===================================================
 
-| col 1 is |  left-aligned 
-| col 2 is |    centered   
-| col 3 is | right-aligned 
+| [![siminov](https://github.com/Siminov/core/blob/master/Docs/assets.ios/logo.png)](https://siminov.com) |  Siminov Core (Object Relationship Mapping) - Android, iOS, Windows
+
 
 [![Join the chat at https://gitter.im/Siminov/core](https://badges.gitter.im/Siminov/core.svg)](https://gitter.im/Siminov/core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
