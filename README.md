@@ -1,6 +1,8 @@
 Siminov Core (Object Relationship Mapping) - Android, iOS, Windows
 ===================================================
 
+[![Join the chat at https://gitter.im/Siminov/core](https://badges.gitter.im/Siminov/core.svg)](https://gitter.im/Siminov/core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Siminov Core is a open source Object/Relational Mapping solution for all different environments - (Android - Java, iOS - Objective-C|Swift, Windows - C#, OS X - Objective-C|Swift). It maps data from an object model representation to a relational data table representation (and visa versa).
 
 Siminov Core not only takes care of the mapping from model classes to database tables (and from Model data types to SQL data types), but also provides data query and retrieval facilities.
