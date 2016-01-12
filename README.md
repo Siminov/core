@@ -23,7 +23,7 @@ Siminov provides a easy set of defined descriptors which can be broadly classifi
 	|- ApplicationDescriptor.xml 
 	|- DatabaseDescriptor.xml
 	|- LibraryDescriptor.xml
-	|- EntityDescriptor.xml.
+	|- EntityDescriptor.xml
 
 ###### 2. Handle Application Initialization
 All resources required by application are created and managed by siminov core. (Eg: Creating Database, Deploying Application).
