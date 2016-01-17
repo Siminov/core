@@ -1,4 +1,4 @@
-![siminov](https://raw.githubusercontent.com/Siminov/samples/master/Core-Sample/Android/CoreSample/src/main/resources/logo.png)
+![siminov](https://raw.githubusercontent.com/Siminov/core/master/Docs/assets.ios/logo.png)
 
 ===================================================
 
