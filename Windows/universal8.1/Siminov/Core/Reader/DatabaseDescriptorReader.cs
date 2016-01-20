@@ -123,6 +123,16 @@ namespace Siminov.Core.Reader
 
                 #if XAMARIN
                 databaseDescriptorStream = FileUtils.ReadFileFromEmbeddedResources("Assets." + this.databaseDescriptorPath);                
+                if(databaseDescriptorStream == null) 
+                {
+                    String databaseDescriptorFileName = null;
+					String databaseDescriptorFilePath = null;
+
+					databaseDescriptorFilePath = this.databaseDescriptorPath.Substring(0, databaseDescriptorPath.LastIndexOf("/"));
+					databaseDescriptorFileName = this.databaseDescriptorPath.Substring(this.databaseDescriptorPath.LastIndexOf("/") + 1, (this.databaseDescriptorPath.Length - this.databaseDescriptorPath.LastIndexOf("/")) - 1);
+
+					databaseDescriptorStream = FileUtils.ReadFileFromEmbeddedResources(databaseDescriptorFilePath + "." + databaseDescriptorFileName);					
+                }
                 #elif WINDOWS
                 databaseDescriptorStream = FileUtils.ReadFile("Assets", this.databaseDescriptorPath, FileUtils.INSTALLED_FOLDER);
                 #endif
