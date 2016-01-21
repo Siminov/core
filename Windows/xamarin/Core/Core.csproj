@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{3FE5F71E-F86D-4546-BFDE-E3563CBF1373}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Core</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Siminov\Core\Constants.cs" />
+    <Compile Include="Siminov\Core\IInitializer.cs" />
+    <Compile Include="Siminov\Core\Initializer.cs" />
+    <Compile Include="Siminov\Core\Siminov.cs" />
+    <Compile Include="Siminov\Core\Database\AverageClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\AverageImpl.cs" />
+    <Compile Include="Siminov\Core\Database\CountClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\CountImpl.cs" />
+    <Compile Include="Siminov\Core\Database\Database.cs" />
+    <Compile Include="Siminov\Core\Database\DatabaseBundle.cs" />
+    <Compile Include="Siminov\Core\Database\DatabaseFactory.cs" />
+    <Compile Include="Siminov\Core\Database\DatabaseHelper.cs" />
+    <Compile Include="Siminov\Core\Database\DatabaseUtils.cs" />
+    <Compile Include="Siminov\Core\Database\DeleteClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\DeleteImpl.cs" />
+    <Compile Include="Siminov\Core\Database\GroupConcatClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\GroupConcatImpl.cs" />
+    <Compile Include="Siminov\Core\Database\MaxClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\MaxImpl.cs" />
+    <Compile Include="Siminov\Core\Database\MinClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\MinImpl.cs" />
+    <Compile Include="Siminov\Core\Database\SelectClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\SelectImpl.cs" />
+    <Compile Include="Siminov\Core\Database\SumClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\SumImpl.cs" />
+    <Compile Include="Siminov\Core\Database\TotalClauseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\TotalImpl.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IAverage.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IAverageClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ICount.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ICountClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IDataTypeHandler.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IDatabase.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IDatabaseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IDelete.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IDeleteClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IGroupConcat.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IGroupConcatClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IMax.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IMaxClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IMin.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IMinClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\IQueryBuilder.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ISelect.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ISelectClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ISum.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ISumClause.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ITotal.cs" />
+    <Compile Include="Siminov\Core\Database\Design\ITotalClause.cs" />
+    <Compile Include="Siminov\Core\Database\SQLite\DataTypeHandler.cs" />
+    <Compile Include="Siminov\Core\Database\SQLite\DatabaseImpl.cs" />
+    <Compile Include="Siminov\Core\Database\SQLite\QueryBuilder.cs" />
+    <Compile Include="Siminov\Core\Events\EventHandler.cs" />
+    <Compile Include="Siminov\Core\Events\IDatabaseEvents.cs" />
+    <Compile Include="Siminov\Core\Events\ISiminovEvents.cs" />
+    <Compile Include="Siminov\Core\Exception\DatabaseException.cs" />
+    <Compile Include="Siminov\Core\Exception\DeploymentException.cs" />
+    <Compile Include="Siminov\Core\Exception\IException.cs" />
+    <Compile Include="Siminov\Core\Exception\PrematureEndOfParseException.cs" />
+    <Compile Include="Siminov\Core\Exception\SiminovCriticalException.cs" />
+    <Compile Include="Siminov\Core\Exception\SiminovException.cs" />
+    <Compile Include="Siminov\Core\Log\Log.cs" />
+    <Compile Include="Siminov\Core\Model\ApplicationDescriptor.cs" />
+    <Compile Include="Siminov\Core\Model\DatabaseDescriptor.cs" />
+    <Compile Include="Siminov\Core\Model\EntityDescriptor.cs" />
+    <Compile Include="Siminov\Core\Model\IDescriptor.cs" />
+    <Compile Include="Siminov\Core\Model\LibraryDescriptor.cs" />
+    <Compile Include="Siminov\Core\Reader\ApplicationDescriptorReader.cs" />
+    <Compile Include="Siminov\Core\Reader\DatabaseDescriptorReader.cs" />
+    <Compile Include="Siminov\Core\Reader\EntityDescriptorReader.cs" />
+    <Compile Include="Siminov\Core\Reader\IDescriptorReader.cs" />
+    <Compile Include="Siminov\Core\Reader\LibraryDescriptorReader.cs" />
+    <Compile Include="Siminov\Core\Reader\QuickEntityDescriptorReader.cs" />
+    <Compile Include="Siminov\Core\Reader\SiminovSAXDefaultHandler.cs" />
+    <Compile Include="Siminov\Core\Resource\ResourceManager.cs" />
+    <Compile Include="Siminov\Core\Utils\ClassUtils.cs" />
+    <Compile Include="Siminov\Core\Utils\FileUtils.cs">
+      <LogicalName>Assets.ApplicationDescriptor.xml</LogicalName>
+    </Compile>
+    <Compile Include="Siminov\Core\Utils\Utils.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\packages\Xamarin.Forms.1.3.3.6323\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.3.3.6323\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <ItemGroup>
+    <Folder Include="Siminov\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PCLStorage">
+      <HintPath>..\..\..\..\Samples\Connect-Sample\Windows\xamarin\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions">
+      <HintPath>..\..\..\..\Samples\Connect-Sample\Windows\xamarin\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCL.raw">
+      <HintPath>..\..\..\..\Samples\Connect-Sample\Windows\xamarin\packages\SQLitePCL.raw_basic.0.7.1\lib\portable-net45+netcore45+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCL.raw.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLite-net">
+      <HintPath>..\..\..\..\Samples\Connect-Sample\Windows\xamarin\packages\sqlite-net-pcl.1.0.11\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLite-net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
