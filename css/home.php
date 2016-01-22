@@ -267,7 +267,6 @@ a {
 
 .product_name span {
 	margin-top: 16px;
-	border-right: 1px solid #eeeeee;
 	display: block;
 	font-weight: bold;
 	font-size: 16px;
@@ -280,7 +279,7 @@ a {
 }
 
 .product_by {
-	width: 72px;
+	width: 70px;
 	display: -webkit-inline-box;
 	float: left;
 	padding-left: 12px;
