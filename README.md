@@ -1,7 +1,7 @@
 ![siminov](https://raw.githubusercontent.com/Siminov/core/master/Docs/assets.ios/logo.png)
 
 ===================================================
-[![Build Status](https://travis-ci.org/Siminov/core.svg?branch=master)](https://travis-ci.org/Siminov/core) [![Gitter chat](https://badges.gitter.im/gitterHQ/services.png)](https://gitter.im/Siminov) [![NPM version](https://badge.fury.io/js/siminov.svg)](https://npmjs.org/package/siminov)
+[![Build Status](https://travis-ci.org/Siminov/core.svg?branch=master)](https://travis-ci.org/Siminov/core) [![Gitter chat](https://img.shields.io/badge/gitter-siminov-brightgreen.svg)](https://gitter.im/Siminov) [![NPM version](https://badge.fury.io/js/siminov.svg)](https://npmjs.org/package/siminov)
 
 Siminov Core is a open source Object/Relational Mapping solution for all different environments - (Android - Java, iOS - Objective-C|Swift, Windows - C#, OS X - Objective-C|Swift). It maps data from an object model representation to a relational data table representation (and visa versa).
 
