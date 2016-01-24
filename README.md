@@ -3,11 +3,11 @@
 ===================================================
 [![Build Status](https://travis-ci.org/Siminov/core.svg?branch=master)](https://travis-ci.org/Siminov/core) [![Gitter chat](https://badges.gitter.im/gitterHQ/services.png)](https://gitter.im/Siminov) [![NPM version](https://badge.fury.io/js/siminov.svg)](https://npmjs.org/package/siminov) [![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](https://github.com/Siminov/core/wiki)
 
+Siminov is a open source framework which allows you to easily build your mobile apps without worrying about data storage and backend communication.
 
+Core is an Object/Relational Mapping solution for all different environments - (Android - Java, iOS - Objective-C|Swift, Windows - C#, OS X - Objective-C|Swift). It maps data from an object model representation to a relational data table representation (and visa versa).
 
-Siminov Core is a open source Object/Relational Mapping solution for all different environments - (Android - Java, iOS - Objective-C|Swift, Windows - C#, OS X - Objective-C|Swift). It maps data from an object model representation to a relational data table representation (and visa versa).
-
-Siminov Core not only takes care of the mapping from model classes to database tables (and from Model data types to SQL data types), but also provides data query and retrieval facilities.
+Core not only takes care of the mapping from model classes to database tables (and from Model data types to SQL data types), but also provides data query and retrieval facilities.
 
 Get Started
 -----------
