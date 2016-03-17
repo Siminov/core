@@ -81,7 +81,7 @@
 		
 		    	    <!-- Compress Home Pages CSS -->
 		    <apply executable="java" parallel="false">
-	           <fileset dir="css/" includes="*.php">
+	           <fileset dir="css/" includes="*.css">
 	           </fileset>
 	           <arg value="-jar"/>
 	           <arg path="compressor/htmlcompressor.jar"/>
@@ -96,7 +96,7 @@
 		
 		    	    <!-- Compress Developer Portal CSS -->
 		    <apply executable="java" parallel="false">
-	           <fileset dir="developer-portal/css/" includes="*.php">
+	           <fileset dir="developer-portal/css/" includes="*.css">
 	           </fileset>
 	           <arg value="-jar"/>
 	           <arg path="compressor/htmlcompressor.jar"/>
@@ -111,7 +111,7 @@
 			    
 				 <!-- Compress Sticky Slider CSS -->
 		    <apply executable="java" parallel="false">
-	           <fileset dir="sticky-slider/css/" includes="*.php">
+	           <fileset dir="sticky-slider/css/" includes="*.css">
 	           </fileset>
 	           <arg value="-jar"/>
 	           <arg path="compressor/htmlcompressor.jar"/>
@@ -126,7 +126,7 @@
 
 				 <!-- Compress Flexslider CSS -->
 		    <apply executable="java" parallel="false">
-	           <fileset dir="flexslider/css/" includes="*.php">
+	           <fileset dir="flexslider/css/" includes="*.css">
 	           </fileset>
 	           <arg value="-jar"/>
 	           <arg path="compressor/htmlcompressor.jar"/>
@@ -221,118 +221,118 @@
 				<!-- Replace All Imports From CSS For Merging -->
 				
 				<replace dir="build/css">
-			        <include name="base.php"/>
-					<replacetoken><![CDATA[@import url('reset.php');]]></replacetoken>
+			        <include name="base.css"/>
+					<replacetoken><![CDATA[@import url('reset.css');]]></replacetoken>
 				  	<replacevalue><![CDATA[]]></replacevalue>
 				</replace> 
 						
 				<replace dir="build/css">
-			        <include name="base.php"/>
-					<replacetoken><![CDATA[@import url('rwd.php');]]></replacetoken>
+			        <include name="base.css"/>
+					<replacetoken><![CDATA[@import url('rwd.css');]]></replacetoken>
 				  	<replacevalue><![CDATA[]]></replacevalue>
 				</replace> 
 				
 				<replace dir="build/css">
-			        <include name="menu.php"/>
-					<replacetoken><![CDATA[@import url('../sticky-slider/css/sticky-slider.php');]]></replacetoken>
+			        <include name="menu.css"/>
+					<replacetoken><![CDATA[@import url('../sticky-slider/css/sticky-slider.css');]]></replacetoken>
 				  	<replacevalue><![CDATA[]]></replacevalue>
 				</replace> 
 				
 				<replace dir="build/css">
-			        <include name="menu.php"/>
-					<replacetoken><![CDATA[@import url('../flexslider/css/flexslider.php');]]></replacetoken>
+			        <include name="menu.css"/>
+					<replacetoken><![CDATA[@import url('../flexslider/css/flexslider.css');]]></replacetoken>
 				  	<replacevalue><![CDATA[]]></replacevalue>
 				</replace> 
 				
 				<replace dir="build/css">
-			        <include name="home.php"/>
-					<replacetoken><![CDATA[@import url('base.php');]]></replacetoken>
+			        <include name="home.css"/>
+					<replacetoken><![CDATA[@import url('base.css');]]></replacetoken>
 				  	<replacevalue><![CDATA[]]></replacevalue>
 				</replace> 
 								
 				<replace dir="build/css">
-			        <include name="home.php"/>
-					<replacetoken><![CDATA[@import url('menu.php');]]></replacetoken>
+			        <include name="home.css"/>
+					<replacetoken><![CDATA[@import url('menu.css');]]></replacetoken>
 				  	<replacevalue><![CDATA[]]></replacevalue>
 				</replace> 
 				
 				<replace dir="build/">
 			        <include name="*.html"/>
-					<replacetoken><![CDATA[<link rel="stylesheet" href="css/home-icons.php"/>]]></replacetoken>
+					<replacetoken><![CDATA[<link rel="stylesheet" href="css/home-icons.css"/>]]></replacetoken>
 				  	<replacevalue><![CDATA[]]></replacevalue>
 				</replace> 
 								
 				<!-- Merge All Home CSS File -->
-			<concat destfile="build/css/build-home.php" append="true">
-				<filelist dir="build/css/" files="cache.php"/> 
-				<filelist dir="build/css/" files="reset.php"/>
-				<filelist dir="build/css/" files="rwd.php"/>
-				<filelist dir="build/css/" files="base.php"/>
-	   			<filelist dir="build/flexslider/css/" files="flexslider.php"/>
-	   			<filelist dir="build/sticky-slider/css/" files="sticky-slider.php"/>
-				<filelist dir="build/css/" files="menu.php"/>
-	   			<filelist dir="build/css/" files="home.php"/>
-	   			<filelist dir="build/css/" files="home-icons.php"/>
+			<concat destfile="build/css/build-home.css" append="true">
+				<filelist dir="build/css/" files="cache.css"/> 
+				<filelist dir="build/css/" files="reset.css"/>
+				<filelist dir="build/css/" files="rwd.css"/>
+				<filelist dir="build/css/" files="base.css"/>
+	   			<filelist dir="build/flexslider/css/" files="flexslider.css"/>
+	   			<filelist dir="build/sticky-slider/css/" files="sticky-slider.css"/>
+				<filelist dir="build/css/" files="menu.css"/>
+	   			<filelist dir="build/css/" files="home.css"/>
+	   			<filelist dir="build/css/" files="home-icons.css"/>
 	   		</concat>
 			    	
 			
-				<delete file="build/css/base.php"/>
-				<delete file="build/css/cache.php"/>
-				<delete file="build/css/reset.php"/>
-				<delete file="build/css/rwd.php"/>
-				<delete file="build/css/menu.php"/>
-				<delete file="build/css/home-icons.php"/>
-				<delete file="build/css/home.php"/>
-				<delete file="build/flexslider/css/flexslider.php"/>
-				<delete file="build/sticky-slider/css/sticky-slider.php"/>
+				<delete file="build/css/base.css"/>
+				<delete file="build/css/cache.css"/>
+				<delete file="build/css/reset.css"/>
+				<delete file="build/css/rwd.css"/>
+				<delete file="build/css/menu.css"/>
+				<delete file="build/css/home-icons.css"/>
+				<delete file="build/css/home.css"/>
+				<delete file="build/flexslider/css/flexslider.css"/>
+				<delete file="build/sticky-slider/css/sticky-slider.css"/>
 				
 				
-				<rename src="build/css/build-home.php" dest="build/css/home.php"/>
+				<rename src="build/css/build-home.css" dest="build/css/home.css"/>
 				
 		
 			<!-- Replace All Developer Portal Imports From CSS For Merging -->
 				
 					<replace dir="build/developer-portal/connect">
 				        <include name="*.html"/>
-						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.css"/>]]></replacetoken>
 					  	<replacevalue><![CDATA[]]></replacevalue>
 					</replace> 
 					
 					<replace dir="build/developer-portal/core">
 				        <include name="*.html"/>
-						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.css"/>]]></replacetoken>
 					  	<replacevalue><![CDATA[]]></replacevalue>
 					</replace> 
 									
 					<replace dir="build/developer-portal/hybrid">
 				        <include name="*.html"/>
-						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.css"/>]]></replacetoken>
 					  	<replacevalue><![CDATA[]]></replacevalue>
 					</replace> 
 									
 					<replace dir="build/developer-portal/studio">
 				        <include name="*.html"/>
-						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.php"/>]]></replacetoken>
+						<replacetoken><![CDATA[<link rel="stylesheet" href="../css/developer-icons.css"/>]]></replacetoken>
 					  	<replacevalue><![CDATA[]]></replacevalue>
 					</replace> 
 				
 					<replace dir="build/developer-portal/css">
-				        <include name="*.php"/>
-						<replacetoken><![CDATA[@import url('../../css/home.php');]]></replacetoken>
+				        <include name="*.css"/>
+						<replacetoken><![CDATA[@import url('../../css/home.css');]]></replacetoken>
 					  	<replacevalue><![CDATA[]]></replacevalue>
 					</replace> 
 									
 					<!-- Merge All Developer Portal CSS File -->
-				<concat destfile="build/developer-portal/css/build-developer.php" append="true">
-					<filelist dir="build/css/" files="home.php"/>
-				    <filelist dir="build/developer-portal/css/" files="developer-icons.php"/> 
-					<filelist dir="build/developer-portal/css/" files="developer.php"/>
+				<concat destfile="build/developer-portal/css/build-developer.css" append="true">
+					<filelist dir="build/css/" files="home.css"/>
+				    <filelist dir="build/developer-portal/css/" files="developer-icons.css"/> 
+					<filelist dir="build/developer-portal/css/" files="developer.css"/>
 		   		</concat>
 				    	
-					<delete file="build/developer-portal/css/developer-icons.php"/>
-					<delete file="build/developer-portal/css/developer.php"/>
+					<delete file="build/developer-portal/css/developer-icons.css"/>
+					<delete file="build/developer-portal/css/developer.css"/>
 									
-					<rename src="build/developer-portal/css/build-developer.php" dest="build/developer-portal/css/developer.php"/>
+					<rename src="build/developer-portal/css/build-developer.css" dest="build/developer-portal/css/developer.css"/>
 								
 					
 					
